@@ -6,6 +6,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 
 from chat_completion_blueprint import Parameter, FunctionBuilder, Property, ChatCompletion, Message
+from function_calling_on_json import JsonInfoExtractor
 
 
 def main():
@@ -52,72 +53,49 @@ def main():
 
     # hello world function calling
     # Define the function extract_entities
-    extract_entities_function = FunctionBuilder(
-        name="extract_entities",
-        description="Extract named entities from text",
-        parameters=Parameter(
-            parameter_type="object",
-            properties={
-                "person": Property(property_type="string", description="name of a person"),
-                "location": Property(property_type="string", description="name of a location")
-            },
-            required=["person", "location"]
-        )
-    )
-    extract_entities_as_dict = json.loads(jsons.dumps(extract_entities_function))
-
-    message = Message(role="user",
-                      content="Can you extract named entities from 'John Doe is a software engineer at Google. He lives in New York City.'?")
-
-    message_as_dict = json.loads(jsons.dumps(message))
-
-    # Create an instance of ChatCompletion
-    chat_completion = ChatCompletion(model='gpt-3.5-turbo')
-
-    # Generate response with a user message and the extract_entities function
-    response = chat_completion.generate_response(
-        messages=[message_as_dict],
-        functions=[extract_entities_as_dict]
-    )
-
-    print(response)
-
-    # function_descriptions = [
-    #     {
-    #         "name": "get_flight_info",
-    #         "description": "Get flight information between two locations",
-    #         "parameters": {
-    #             "type": "object",
-    #             "properties": {
-    #                 "loc_origin": {
-    #                     "type": "string",
-    #                     "description": "The departure airport, e.g. DUS",
-    #                 },
-    #                 "loc_destination": {
-    #                     "type": "string",
-    #                     "description": "The destination airport, e.g. HAM",
-    #                 },
-    #             },
-    #             "required": ["loc_origin", "loc_destination"],
+    # extract_entities_function = FunctionBuilder(
+    #     name="extract_entities_as_dict",
+    #     description="Extract named entities from text",
+    #     parameters=Parameter(
+    #         parameter_type="object",
+    #         properties={
+    #             "person": Property(property_type="string", description="name of a person"),
+    #             "location": Property(property_type="string", description="name of a location")
     #         },
-    #     }
-    # ]
+    #         required=["person", "location"]
+    #     )
+    # )
+    # extract_entities_as_dict = json.loads(jsons.dumps(extract_entities_function))
     #
-    # user_prompt = "When's the next flight from Amsterdam to New York?"
+    # message = Message(role="user",
+    #                   content="Can you extract named entities from 'John Doe is a software engineer at Google. He lives in New York City.'?")
     #
-    # completion = client.chat.completions.create(
-    #     model="gpt-3.5-turbo-0613",
-    #     messages=[{"role": "user", "content": user_prompt}],
-    #     # Add function calling
-    #     functions=function_descriptions,
-    #     function_call="auto",  # specify the function call
+    # message_as_dict = json.loads(jsons.dumps(message))
+    #
+    # # Create an instance of ChatCompletion
+    # chat_completion = ChatCompletion(model='gpt-3.5-turbo')
+    #
+    # # Generate response with a user message and the extract_entities function
+    # response = chat_completion.generate_response(
+    #     messages=[message_as_dict],
+    #     functions=[extract_entities_as_dict]
     # )
     #
-    # # It automatically fills the arguments with correct info based on the prompt
-    # # Note: the function does not exist yet
+    # print(response)
     #
-    # output = completion.choices[0].message
-    # print(output)
+    # person = json.loads(response.function_call.arguments).get("person")
+    # location = json.loads(response.function_call.arguments).get("location")
+    # chosen_function = eval(response.function_call.name)
+    # params = json.loads(response.function_call.arguments)
+    #
+    # print(person)
+    # print(location)
+    # print(chosen_function)
+    # print(params)
+
+    json_info_extractor = JsonInfoExtractor()
+    json_info_extractor.get_info_for_person()
+    # print(json_info_extractor.extract_person_info("Willelmus"))
 
 
 if __name__ == '__main__':
