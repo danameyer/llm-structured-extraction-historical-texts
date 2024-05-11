@@ -2,7 +2,7 @@ import json
 
 import jsons
 
-from chat_completion_blueprint import FunctionBuilder, Parameter, Property, Message, ChatCompletion
+from function_calling_components.chat_completion_blueprint import FunctionBuilder, Parameter, Property, Message, DialogueCompletion
 
 
 class JsonInfoExtractor:
@@ -45,10 +45,10 @@ class JsonInfoExtractor:
         message_1_as_dict = json.loads(jsons.dumps(message_1))
 
         # Create an instance of ChatCompletion
-        chat_completion = ChatCompletion(model='gpt-3.5-turbo')
+        chat_completion = DialogueCompletion(model='gpt-3.5-turbo')
 
         # Generate response with a user message and the extract_entities function
-        response = chat_completion.generate_response(
+        response = chat_completion.request_response(
             messages=[message_1_as_dict],
             functions=[extract_person_info_as_dict]
         )
@@ -67,5 +67,4 @@ class JsonInfoExtractor:
         print(function_name)
         print(chosen_function)
         print(person_info)
-
 

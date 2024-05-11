@@ -1,12 +1,10 @@
-import json
 import os
 
-import jsons
 from openai import OpenAI
 from dotenv import load_dotenv
 
-from chat_completion_blueprint import Parameter, FunctionBuilder, Property, ChatCompletion, Message
-from function_calling_on_json import JsonInfoExtractor
+from function_calling_components.chat_completion_blueprint import  DialogueCompletion, Message
+from functions.ExtractPersonInfo import ExtractPersonInfo
 
 
 def main():
@@ -93,9 +91,22 @@ def main():
     # print(chosen_function)
     # print(params)
 
-    json_info_extractor = JsonInfoExtractor()
-    json_info_extractor.get_info_for_person()
-    # print(json_info_extractor.extract_person_info("Willelmus"))
+    # json_info_extractor = JsonInfoExtractor()
+    # json_info_extractor.get_info_for_person()
+    # print(json_info_extractor.extract_person_info("Willelmus")
+
+    dialogue = DialogueCompletion(model='gpt-3.5-turbo')
+    dialogue.append_message(Message("user", "Please extract all the information about every person from the JSON file. Ask for clarification if you don't know the name. The name of the person is Willelmus:"))
+
+    function_list = [ExtractPersonInfo.get_definition_dict()]
+
+    chat_response = dialogue.execute_chat_completion_query(
+        messages=dialogue.message_history,
+        functions=function_list
+    )
+    assistant_message = chat_response.choices[0].message.content
+    dialogue.append_message(Message("assistant", assistant_message))
+    dialogue.print_conversation()
 
 
 if __name__ == '__main__':
