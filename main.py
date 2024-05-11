@@ -95,10 +95,12 @@ def main():
     # json_info_extractor.get_info_for_person()
     # print(json_info_extractor.extract_person_info("Willelmus")
 
+    extract_person_info = ExtractPersonInfo()
+
     dialogue = DialogueCompletion(model='gpt-3.5-turbo')
     dialogue.append_message(Message("user", "Please extract all the information about every person from the JSON file. Ask for clarification if you don't know the name. The name of the person is Willelmus:"))
 
-    function_list = [ExtractPersonInfo.get_definition_dict()]
+    function_list = [extract_person_info]
 
     chat_response = dialogue.execute_chat_completion_query(
         messages=dialogue.message_history,

@@ -10,6 +10,7 @@ from openai.types import Completion
 from openai.types.chat import ChatCompletion
 
 from function_calling_components.function_calling import Message
+from functions.BaseFunction import BaseFunction
 from functions.ExtractPersonInfo import ExtractPersonInfo
 
 # from functions.ExtractPersonInfo import ExtractPersonInfo
@@ -31,7 +32,7 @@ class DialogueCompletion:
 
     def request_response(self,
                          messages: List[Message],
-                         functions: Optional[List[Dict[str, Union[str, List[str]]]]] = None,
+                         functions: List[BaseFunction] = None,
                          function_call="auto") -> Union[ChatCompletion, None]:
         """
         Generate response using OpenAI Chat Completion API.
@@ -47,11 +48,12 @@ class DialogueCompletion:
         """
         try:
             messages_as_dict = json.loads(jsons.dumps(messages))
+            functions_as_dict_list = [x.get_definition_dict() for x in functions] if functions else None
 
             completion: Union[ChatCompletion, None] = self.client.chat.completions.create(
                 model=self.model,
                 messages=messages_as_dict,
-                functions=functions,
+                functions=functions_as_dict_list,
                 function_call=function_call if functions else None
             )
             return completion
@@ -89,33 +91,36 @@ class DialogueCompletion:
 
     def execute_chat_completion_query(self,
                                       messages: List[Message],
-                                      functions: Optional[List[Dict[str, Union[str, List[str]]]]] = None) -> Union[ChatCompletion, None]:
+                                      functions: List[BaseFunction] = None) -> Union[ChatCompletion, None]:
         completion = self.request_response(messages, functions)
         message_output = completion.choices[0]
 
         if message_output.finish_reason == "function_call":
             print("Function will be called.")
-            function_call_result = self.perform_function_call(completion, messages)
+            function_call_result = self.perform_function_call(completion, messages, functions)
             return function_call_result
         else:
             print("No function called.")
             return completion
 
-    def perform_function_call(self, completion: Union[ChatCompletion, None], messages: List[Message]) -> Union[
-        ChatCompletion, None]:
-        # json_info_extractor = JsonInfoExtractor()
-        # globals()["extract_person_info"] = json_info_extractor.extract_person_info
-        if completion.choices[0].message.function_call.name == "extract_person_info":
+    def perform_function_call(self,
+                              completion: Union[ChatCompletion, None],
+                              messages: List[Message],
+                              functions: List[BaseFunction]) -> Union[ChatCompletion, None]:
+        function_name = completion.choices[0].message.function_call.name
+        function_parameters = json.loads(
+            completion.choices[0].message.function_call.arguments)
+
+        function_object = next((x for x in functions if x.get_definition().name == function_name), None)
+
+        if function_object:
             try:
-                parameters: Dict[str, Union[str, None]] = json.loads(
-                    completion.choices[0].message.function_call.arguments
-                )
-                name: Union[str, None] = parameters.get("name")
-                output = ExtractPersonInfo.run(name)
+                output = function_object.run(**function_parameters)
             except Exception as e:
-                print(parameters)
+                print(function_parameters)
                 print(f"Function could not be called.")
                 print(f"Error message: {e}")
+                output = f"Function could not be called. error: {str(e)}"
             messages.append(
                 Message(role="function",
                         content=str(output),
