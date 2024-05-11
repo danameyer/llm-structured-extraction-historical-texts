@@ -56,6 +56,11 @@ class DialogueCompletion:
                 functions=functions_as_dict_list,
                 function_call=function_call if functions else None
             )
+
+            # function definitions have been sent to chatGPT - now only use the short description in order to
+            # save tokens ...
+            self.flag_function_calls_for_short_description(functions)
+
             return completion
         except openai.APIConnectionError as e:
             print("The server could not be reached")
@@ -132,3 +137,8 @@ class DialogueCompletion:
             except Exception as e:
                 print(type(e))
                 raise Exception("Chat response could not be generated.")
+
+    def flag_function_calls_for_short_description(self, functions: Union[List[BaseFunction], None]):
+        if functions:
+            for f in functions:
+                f.flag_use_short_definition_true()

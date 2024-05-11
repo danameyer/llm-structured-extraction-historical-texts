@@ -21,9 +21,6 @@ class ExtractPersonInfo(BaseFunction):
             )
         )
 
-    def get_definition_dict(self):
-        return json.loads(jsons.dumps(self.get_definition()))
-
     def run(self, name):
         json_data = self._read_json("./test_data/sample_json.json")
         person_info = []
