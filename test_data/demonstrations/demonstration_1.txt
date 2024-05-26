@@ -1,2 +1,110 @@
+Example:
+Input text:
+'''
 673.	(Su.ff ' + misericordia) Assisa venit recognitura quis advocatus tempore pacis presentavit ulti mam personam que mortua est ad ecclesiam de Wrideli ngton' que vacat cujus advocacionem Willelmus de Wyston' clamat ad se pertinere et quam advoca­ cionem Robertus de Schales ei deforciat, et unde <licit quad ipsemet presentavit quen­ dam Simonem clericum suum ad predictam ecclesiam tempore domini Regis nu nc, qui ad presentacionem suam fuit admissus et institutus et qui ultimo obiit  persona  in eadem. Et Robertus non venit et fuit resummonitus,  ideo capiatur assisa versus eum per defaltam .
 Juratores dicunt quod Willelmus de Wythi ndon ' pater predicti Willelmi tempore domini Regis n u nc presentavit (predictum•) clericum suum Martinum de PateshuW nomi ne qui ad presentacionem suam fuit admissus et institutus et  obiit  persona  in eadem, et post mortem ipsius Martini presentavit predictus Willelmus filius Willelmi quendam Simonem fratrem suum ad predictam ecclesiam et predictus Robertus  de Scbales presentavit quendam filium suum ad eandem, eo quad terra ad quam pertinebat predicta advocacio partita fuit inter  ipsum  Robertum  et  predictum  Willelmum , ita quad episcopus loci eo quad filius predicti Roberti fuit minoris etatis et ob contencionem inter partes coram eo motam noluit predictum filium Roberti ad predictam ecclesiam admittere, et tu ne venit predictus Robertus et de assensu et volu ntate predicti Willelm.i presentavit  predictum  Simonem fratrem predi cti Willelmi  ad eandem ecclesiam, qui ad presentacionem ipsi us Roberti de assensu et voluntate predicti Willelmi sicut pre­ dictum est fuit admissus et institutus in eadem, et post mortem predicti Simonis presentavit predictus  Willelmus Hugonem  de Pateshil  clericum suum ad eandem qui ad presentacionem suam fuit admissus et institutus et qui obiit inde persona , et post mortem i psius Hugonis presentavit predictu s Willelmus quendam Simonem de Asseby clericum suum qui ad presentacionem suam fuit admissus et institutus et ulti mo fuit persona in eadem donee habitum religionis suscepit. Et juratores req uisiti si uncquam convenisset inter  predictum Willelmum et predictum Robertum de predicta ecclesia alternatim conferenda dicu nt precise quad non. Et quia convictum est per predictam assisam quod predictus Willelmus ultimo et penultimo presentavit ad ecclesiam predictam clericos suos (sine impedimenta ipsius Roberti 1 , qui ad eandem fuerunt admissi et instituti , consideratum est quad  predictus  Willelmus  recuperat  seisinam suam de predictaadvocacione et habeat breve ad Episcopum Norwyc'quad non obstante etc. et Robertu s i n rnisericordia .
+'''
+
+JSON output:
+
+'''
+[
+  {
+    "id": 1,
+    "name": "Willelmus",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "filius",
+        "related_person": 2
+      },
+      {
+        "relation_type": "frater",
+        "related_person": 4
+      }
+    ],
+    "power_relations": [],
+    "place_of_origin": "Wyston",
+    "title": "",
+    "org_role": ""
+  },
+  {
+    "id": 2,
+    "name": "Willelmus",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "pater",
+        "related_person": 1
+      },
+      {
+        "relation_type": "pater",
+        "related_person": 4
+      }
+    ],
+    "power_relations": [],
+    "place_of_origin": "Wythindon",
+    "title": "",
+    "org_role": ""
+  },
+  {
+    "id": 3,
+    "name": "Martinus",
+    "profession": "clericus",
+    "family_relations": [],
+    "power_relations": [],
+    "place_of_origin": "Pateshil",
+    "title": "",
+    "org_role": "persona"
+  },
+  {
+    "id": 4,
+    "name": "Simon",
+    "profession": "clericus",
+    "family_relations": [
+      {
+        "relation_type": "frater",
+        "related_person": 1
+      },
+      {
+        "relation_type": "filius",
+        "related_person": 2
+      }
+    ],
+    "power_relations": [],
+    "place_of_origin": "",
+    "title": "",
+    "org_role": "persona"
+  },
+  {
+    "id": 5,
+    "name": "Robertus",
+    "profession": "",
+    "family_relations": [],
+    "power_relations": [],
+    "place_of_origin": "Schales",
+    "title": "",
+    "org_role": ""
+  },
+  {
+    "id": 6,
+    "name": "Hugo",
+    "profession": "clericus",
+    "family_relations": [],
+    "power_relations": [],
+    "place_of_origin": "Pateshil",
+    "title": "",
+    "org_role": "persona"
+  },
+  {
+    "id": 7,
+    "name": "Simon",
+    "profession": "clericus",
+    "family_relations": [],
+    "power_relations": [],
+    "place_of_origin": "Asseby",
+    "title": "",
+    "org_role": "persona"
+  }
+]
+'''
