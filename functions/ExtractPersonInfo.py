@@ -1,4 +1,6 @@
 import json
+import os
+from pathlib import Path
 
 import jsons
 
@@ -22,7 +24,9 @@ class ExtractPersonInfo(BaseFunction):
         )
 
     def run(self, name):
-        json_data = self._read_json("./test_data/sample_json.json")
+        base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+        test_file_path = os.path.join(base_dir, "test_data", "sample_json.json")
+        json_data = self._read_json(test_file_path)
         person_info = []
         for person in json_data:
             if person['name'] == name:

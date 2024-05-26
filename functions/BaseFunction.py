@@ -2,6 +2,7 @@ import json
 from typing import Any, Dict
 
 import jsons
+from dotenv import load_dotenv
 
 from function_calling_components.function_calling import FunctionBuilder
 
@@ -9,6 +10,7 @@ from function_calling_components.function_calling import FunctionBuilder
 class BaseFunction:
 
     def __init__(self):
+        load_dotenv()
         self.use_short_definition = False
 
     def flag_use_short_definition_true(self):
