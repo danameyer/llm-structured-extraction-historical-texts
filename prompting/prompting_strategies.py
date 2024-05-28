@@ -49,9 +49,13 @@ class PromptBuilder:
 
     def add_iterative_approach(self):
         self.prompting_strategies.append(
-            '''Take your time to read through the following instructions carefully and ask 
-            questions if anything is unclear for a given step. Take a deep breath and take 
-            your time to work on the tasks step-by-step.''')
+            '''Take your time to read through the following instructions carefully. Take a deep 
+            breath and take your time to work on the tasks step-by-step.''')
+
+    def add_q_and_a_prompting(self):
+        self.prompting_strategies.append(
+            '''Ask questions if anything is unclear for a given step.'''
+        )
 
     def add_schema_information(self):
         self.prompting_strategies.append('''
