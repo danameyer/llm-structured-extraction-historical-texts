@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from function_calling_components.chat_completion_blueprint import DialogueCompletion
 from function_calling_components.function_calling import Message
 from prompting.prompting_strategies import PromptBuilder
+from datetime import datetime
 
 
 class Experiment2:
@@ -17,10 +18,23 @@ class Experiment2:
         base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
         self.test_files = os.path.join(base_dir, "test_data", "test_txt", "sample_text.txt")
         self.demonstrations = os.path.join(base_dir, "test_data", "demonstrations", "demonstration_1.txt")
+        self.prompt_save_dir = os.path.join(base_dir, "prompting", "generated_prompts")
+        os.makedirs(self.prompt_save_dir, exist_ok=True)
+
+    def save_prompt_to_file(self, prompt, base_filename):
+        file_path = os.path.join(self.prompt_save_dir, base_filename)
+        if os.path.exists(file_path):
+            timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            base, ext = os.path.splitext(base_filename)
+            filename = f"{base}_{timestamp}{ext}"
+            file_path = os.path.join(self.prompt_save_dir, filename)
+        with open(file_path, 'w') as file:
+            file.write(prompt)
 
     def experiment_base_prompt(self):
         prompt = self.prompt_builder.add_base_prompt([self.test_files]).build_prompt()
         self.dialogue.append_message(Message("user", prompt))
+        self.save_prompt_to_file(prompt, "base_prompt.txt")
 
     def experiment_all_principles_zero_shot(self):
         prompt = (self.prompt_builder.add_persona_modelling()
@@ -33,6 +47,7 @@ class Experiment2:
                   .add_emotional_prompting()
                   .build_prompt())
         self.dialogue.append_message(Message("user", prompt))
+        self.save_prompt_to_file(prompt, "all_principles_zero_shot.txt")
 
     def experiment_all_principles_few_shot(self):
         prompt = (self.prompt_builder.add_persona_modelling()
@@ -46,6 +61,7 @@ class Experiment2:
                   .add_emotional_prompting()
                   .build_prompt())
         self.dialogue.append_message(Message("user", prompt))
+        self.save_prompt_to_file(prompt, "all_principles_few_shot.txt")
 
     def run(self):
         self.experiment_base_prompt()
