@@ -1,3 +1,6 @@
+import re
+
+
 class PromptBuilder:
     def __init__(self, file_paths):
         base_prompt = self.add_base_prompt(file_paths)
@@ -28,37 +31,42 @@ class PromptBuilder:
         Individual documents are contained within triple 
         quotes. These are the documents:""" + self.concatenate_files(file_paths)
 
-        return base_prompt
+        prompt_formatted = re.sub(r'\s+', ' ', base_prompt).strip()
+
+        return prompt_formatted
 
     def add_persona_modelling(self):
-        self.prompting_strategies.append(
-            '''You are an expert in the generation of structured JSON output from 
+        prompt = '''You are an expert in the generation of structured JSON output from 
             unstructured data and in the analysis of English historical legal documents 
             in Middle Latin. Your target audience is historians well-versed in Medieval 
-            English history.''')
+            English history.'''
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+        self.prompting_strategies.append(prompt_formatted)
 
     def add_context(self):
-        self.prompting_strategies.append(
-            '''You will be presented with documents from court rolls from the 13th and 14th 
+        prompt = '''You will be presented with documents from court rolls from the 13th and 14th 
             centuries which summarise court cases heard at courts in Medieval England. These 
             documents list all the persons involved in the court cases and contain information 
             about the locations they come from, their family relations, their professions and 
             their power relations with regard to other persons mentioned in the document. 
             The main language of the documents is medieval Latin but entities such as names, 
-            locations and professions may be in Middle English.''')
+            locations and professions may be in Middle English.'''
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+        self.prompting_strategies.append(prompt_formatted)
 
     def add_iterative_approach(self):
-        self.prompting_strategies.append(
-            '''Take your time to read through the following instructions carefully. Take a deep 
-            breath and take your time to work on the tasks step-by-step.''')
+        prompt = '''Take your time to read through the following instructions carefully. Take a deep 
+            breath and take your time to work on the tasks step-by-step.'''
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+        self.prompting_strategies.append(prompt_formatted)
 
     def add_q_and_a_prompting(self):
-        self.prompting_strategies.append(
-            '''Ask questions if anything is unclear for a given step.'''
-        )
+        prompt = '''Ask questions if anything is unclear for a given step.'''
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+        self.prompting_strategies.append(prompt_formatted)
 
     def add_schema_information(self):
-        self.prompting_strategies.append('''
+        prompt = '''
         This is the JSON schema:
         [
           {
@@ -93,10 +101,12 @@ class PromptBuilder:
          mentioned in the text) and 'related person' (the id of the person the named person is superior
          or subject to)
         * 'title': the title of the person
-        * 'org_role': the role a person takes in an organisation''')
+        * 'org_role': the role a person takes in an organisation'''
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+        self.prompting_strategies.append(prompt_formatted)
 
     def add_constraints(self):
-        self.prompting_strategies.append('''While working on the tasks, pay attention to the 
+        prompt = '''While working on the tasks, pay attention to the 
         following rules:
 
         Rules:
@@ -112,13 +122,19 @@ class PromptBuilder:
         * Pay attention to the use of pronouns or attributes such as 'predictus' in the text to 
         make out persons already mentioned before.
         * List persons with the same names who are different persons.
-        * Eliminate professions and places of origin from the 'name' category.''')
+        * Eliminate professions and places of origin from the 'name' category.'''
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+        self.prompting_strategies.append(prompt_formatted)
 
     def add_emotional_prompting(self):
-        self.prompting_strategies.append('''It is very important for my research that you deliver 
-        accurate results! I'll tip you $200 dollars for the best answer!''')
+        prompt = '''It is very important for my research that you deliver 
+        accurate results! I'll tip you $200 dollars for the best answer!'''
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+        self.prompting_strategies.append(prompt_formatted)
 
     def add_demonstrations(self, demonstrations):
-        self.prompting_strategies.append('''Examples are contained in triple quotes. Consider these 
-        examples for orientation:''' + self.concatenate_files(demonstrations))
+        prompt = '''Examples are contained in triple quotes. Consider these 
+        examples for orientation:'''
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+        self.prompting_strategies.append(prompt_formatted + self.concatenate_files(demonstrations))
 
