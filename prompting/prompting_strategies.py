@@ -2,10 +2,8 @@ import re
 
 
 class PromptBuilder:
-    def __init__(self, file_paths):
-        base_prompt = self.add_base_prompt(file_paths)
+    def __init__(self):
         self.prompting_strategies = []
-        self.prompting_strategies.append(base_prompt)
 
     def concatenate_files(self, file_paths):
         concatenated_content = ""
@@ -21,7 +19,7 @@ class PromptBuilder:
         return concatenated_content
 
     def add_base_prompt(self, file_paths):
-        base_prompt = """Work on the following three tasks consecutively for each document individually:
+        prompt = """Work on the following three tasks consecutively for each document individually:
         (1) Extract information about the persons mentioned in the documents and their relations 
         to each other. 
         (2) Transfer your results to structured JSON output separately for each document. 
@@ -31,9 +29,10 @@ class PromptBuilder:
         Individual documents are contained within triple 
         quotes. These are the documents:""" + self.concatenate_files(file_paths)
 
-        prompt_formatted = re.sub(r'\s+', ' ', base_prompt).strip()
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
 
-        return prompt_formatted
+        self.prompting_strategies.append(prompt_formatted)
+        return self
 
     def add_persona_modelling(self):
         prompt = '''You are an expert in the generation of structured JSON output from 
@@ -42,6 +41,7 @@ class PromptBuilder:
             English history.'''
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
         self.prompting_strategies.append(prompt_formatted)
+        return self
 
     def add_context(self):
         prompt = '''You will be presented with documents from court rolls from the 13th and 14th 
@@ -53,17 +53,20 @@ class PromptBuilder:
             locations and professions may be in Middle English.'''
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
         self.prompting_strategies.append(prompt_formatted)
+        return self
 
     def add_iterative_approach(self):
         prompt = '''Take your time to read through the following instructions carefully. Take a deep 
             breath and take your time to work on the tasks step-by-step.'''
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
         self.prompting_strategies.append(prompt_formatted)
+        return self
 
     def add_q_and_a_prompting(self):
         prompt = '''Ask questions if anything is unclear for a given step.'''
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
         self.prompting_strategies.append(prompt_formatted)
+        return self
 
     def add_schema_information(self):
         prompt = '''
@@ -104,6 +107,7 @@ class PromptBuilder:
         * 'org_role': the role a person takes in an organisation'''
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
         self.prompting_strategies.append(prompt_formatted)
+        return self
 
     def add_constraints(self):
         prompt = '''While working on the tasks, pay attention to the 
@@ -125,16 +129,22 @@ class PromptBuilder:
         * Eliminate professions and places of origin from the 'name' category.'''
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
         self.prompting_strategies.append(prompt_formatted)
+        return self
 
     def add_emotional_prompting(self):
         prompt = '''It is very important for my research that you deliver 
         accurate results! I'll tip you $200 dollars for the best answer!'''
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
         self.prompting_strategies.append(prompt_formatted)
+        return self
 
     def add_demonstrations(self, demonstrations):
         prompt = '''Examples are contained in triple quotes. Consider these 
         examples for orientation:'''
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
         self.prompting_strategies.append(prompt_formatted + self.concatenate_files(demonstrations))
+        return self
+
+    def build_prompt(self):
+        return ' '.join(self.prompting_strategies).strip()
 
