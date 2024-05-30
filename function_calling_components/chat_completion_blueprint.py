@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 from typing import List, Dict, Optional, Union
 
 import jsons
@@ -11,9 +12,7 @@ from openai.types.chat import ChatCompletion
 
 from function_calling_components.function_calling import Message
 from functions.BaseFunction import BaseFunction
-from functions.ExtractPersonInfo import ExtractPersonInfo
-
-# from functions.ExtractPersonInfo import ExtractPersonInfo
+from datetime import datetime
 
 load_dotenv()
 openai_api_key: Optional[str] = os.getenv("OPENAI_API_KEY")
@@ -29,6 +28,11 @@ class DialogueCompletion:
         )
         self.model: str = model
         self.message_history: List[Message] = []
+        base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+        self.prompt_save_dir = os.path.join(base_dir, "prompting", "generated_prompts")
+        self.response_save_dir = os.path.join(base_dir, "prompting", "prompting_responses")
+        os.makedirs(self.prompt_save_dir, exist_ok=True)
+        os.makedirs(self.response_save_dir, exist_ok=True)
 
     def request_response(self,
                          messages: List[Message],
@@ -137,6 +141,29 @@ class DialogueCompletion:
             except Exception as e:
                 print(type(e))
                 raise Exception("Chat response could not be generated.")
+
+    def save_to_file(self, out_path, content, base_filename):
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        base, ext = os.path.splitext(base_filename)
+        filename = f"{base}_{timestamp}{ext}"
+        file_path = os.path.join(out_path, filename)
+        with open(file_path, 'w') as file:
+            file.write(content)
+
+    def perform_initial_prompting(self, prompt_choice, function_list=None):
+        prompt, prompt_name = prompt_choice()
+        self.append_message(Message("user", prompt))
+        self.save_to_file(self.prompt_save_dir, prompt, f"{prompt_name}.txt")
+
+        chat_response = self.execute_chat_completion_query(
+            messages=self.message_history,
+            functions=function_list
+        )
+        assistant_message = chat_response.choices[0].message.content
+
+        self.append_message(Message("assistant", assistant_message))
+        self.save_to_file(self.response_save_dir, assistant_message, f"{prompt_name}_response.txt")
+        self.print_conversation()
 
     def flag_function_calls_for_short_description(self, functions: Union[List[BaseFunction], None]):
         if functions:

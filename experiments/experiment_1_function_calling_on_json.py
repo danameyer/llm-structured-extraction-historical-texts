@@ -5,24 +5,20 @@ from functions.ExtractPersonInfo import ExtractPersonInfo
 
 class Experiment1:
     def __init__(self):
-        pass
+        self.dialogue = DialogueCompletion(model='gpt-3.5-turbo')
+
+    def generate_prompt(self):
+        prompt = "Please extract all the information about every person from the JSON file. Ask for clarification if you don't know the name. The name of the person is Willelmus:"
+        prompt_name = "extract_person_info_from_json"
+        return prompt, prompt_name
+
+    def run_experiment(self, prompt_choice):
+        extract_person_info = ExtractPersonInfo()
+        function_list = [extract_person_info]
+        self.dialogue.perform_initial_prompting(prompt_choice, function_list)
 
     def run(self):
-        extract_person_info = ExtractPersonInfo()
-
-        dialogue = DialogueCompletion(model='gpt-3.5-turbo')
-        dialogue.append_message(Message("user",
-                                        "Please extract all the information about every person from the JSON file. Ask for clarification if you don't know the name. The name of the person is Willelmus:"))
-
-        function_list = [extract_person_info]
-
-        chat_response = dialogue.execute_chat_completion_query(
-            messages=dialogue.message_history,
-            functions=function_list
-        )
-        assistant_message = chat_response.choices[0].message.content
-        dialogue.append_message(Message("assistant", assistant_message))
-        dialogue.print_conversation()
+        self.run_experiment(self.generate_prompt)
 
 
 if __name__ == '__main__':
