@@ -4,9 +4,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from function_calling_components.chat_completion_blueprint import DialogueCompletion
-from function_calling_components.function_calling import Message
 from prompting.prompting_strategies import PromptBuilder
-from datetime import datetime
 
 
 class Experiment2:
@@ -52,9 +50,12 @@ class Experiment2:
         self.dialogue.perform_initial_prompting(prompt_choice)
 
     def run(self):
-        self.run_experiment(self.experiment_base_prompt)
+        # self.run_experiment(self.experiment_base_prompt)
         # self.run_experiment(self.experiment_all_principles_zero_shot)
-        # self.run_experiment(self.experiment_all_principles_few_shot)
+        self.run_experiment(self.experiment_all_principles_few_shot)
+
+        while True:
+            self.dialogue.prompt_user_input()
 
 
 if __name__ == '__main__':

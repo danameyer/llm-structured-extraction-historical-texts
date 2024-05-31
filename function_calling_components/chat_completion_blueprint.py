@@ -33,6 +33,7 @@ class DialogueCompletion:
         self.response_save_dir = os.path.join(base_dir, "prompting", "prompting_responses")
         os.makedirs(self.prompt_save_dir, exist_ok=True)
         os.makedirs(self.response_save_dir, exist_ok=True)
+        self.current_prompt_filename = None
 
     def request_response(self,
                          messages: List[Message],
@@ -142,18 +143,32 @@ class DialogueCompletion:
                 print(type(e))
                 raise Exception("Chat response could not be generated.")
 
-    def save_to_file(self, out_path, content, base_filename):
-        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        base, ext = os.path.splitext(base_filename)
-        filename = f"{base}_{timestamp}{ext}"
+    def save_to_file(self, out_path, content, filename):
         file_path = os.path.join(out_path, filename)
-        with open(file_path, 'w') as file:
-            file.write(content)
+        with open(file_path, 'a') as file:
+            file.write(content + '\n')
+
+    def prompt_user_input(self):
+        user_input = input("You: ")
+        self.append_message(Message(role="user", content=user_input))
+        response = self.execute_chat_completion_query(self.message_history)
+        if response:
+            assistant_message = response.choices[0].message.content
+            self.append_message(Message(role="assistant", content=assistant_message))
+            self.print_conversation()
+
+            if self.current_prompt_filename:
+                self.save_to_file(self.response_save_dir, f"User: {user_input}", self.current_prompt_filename)
+                self.save_to_file(self.response_save_dir, f"Assistant: {assistant_message}", self.current_prompt_filename)
 
     def perform_initial_prompting(self, prompt_choice, function_list=None):
         prompt, prompt_name = prompt_choice()
         self.append_message(Message("user", prompt))
-        self.save_to_file(self.prompt_save_dir, prompt, f"{prompt_name}.txt")
+
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        self.current_prompt_filename = f"{prompt_name}_{timestamp}.txt"
+
+        self.save_to_file(self.prompt_save_dir, prompt, self.current_prompt_filename)
 
         chat_response = self.execute_chat_completion_query(
             messages=self.message_history,
@@ -162,7 +177,7 @@ class DialogueCompletion:
         assistant_message = chat_response.choices[0].message.content
 
         self.append_message(Message("assistant", assistant_message))
-        self.save_to_file(self.response_save_dir, assistant_message, f"{prompt_name}_response.txt")
+        self.save_to_file(self.response_save_dir, assistant_message, self.current_prompt_filename)
         self.print_conversation()
 
     def flag_function_calls_for_short_description(self, functions: Union[List[BaseFunction], None]):
