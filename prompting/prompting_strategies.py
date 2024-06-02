@@ -34,6 +34,39 @@ class PromptBuilder:
         self.prompting_strategies.append(prompt_formatted)
         return self
 
+    def add_task_1(self):
+        prompt = """(1) Extract information about the persons mentioned in the documents and their relations 
+        to each other."""
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+
+        self.prompting_strategies.append(prompt_formatted)
+        return self
+
+    def add_task_2(self):
+        prompt = """(2) Transfer your results to structured JSON output separately for each document."""
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+
+        self.prompting_strategies.append(prompt_formatted)
+        return self
+
+    def add_task_3(self):
+        prompt = """(3) Answer questions on the basis of the structured JSON output. Wait for the user to prompt 
+        you for questions."""
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+
+        self.prompting_strategies.append(prompt_formatted)
+        return self
+
+    def add_input_text(self, file_paths):
+        prompt = """I will provide you with three tasks. Please work on each task consecutively 
+        for each \"court document\" individually.
+        Individual \"court documents\" are contained within triple 
+        quotes. \"Court documents\":""" + self.concatenate_files(file_paths)
+        prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
+
+        self.prompting_strategies.append(prompt_formatted)
+        return self
+
     def add_persona_modelling(self):
         prompt = '''You are an expert in the generation of structured JSON output from 
             unstructured data and in the analysis of English historical legal documents 
