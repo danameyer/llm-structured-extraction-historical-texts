@@ -19,15 +19,15 @@ class PromptBuilder:
         return concatenated_content
 
     def add_base_prompt(self, file_paths):
-        prompt = """Work on the following three tasks consecutively for each document individually:
+        prompt = """Work on the following three tasks consecutively for each \"court document\" individually:
         (1) Extract information about the persons mentioned in the documents and their relations 
         to each other. 
         (2) Transfer your results to structured JSON output separately for each document. 
         (3) Answer questions on the basis of the structured JSON output. Wait for the user to prompt 
         you for questions.
         
-        Individual documents are contained within triple 
-        quotes. These are the documents:""" + self.concatenate_files(file_paths)
+        Individual \"court documents\" are contained within triple 
+        quotes. \"Court documents\":""" + self.concatenate_files(file_paths)
 
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
 
@@ -113,7 +113,7 @@ class PromptBuilder:
         prompt = '''While working on the tasks, pay attention to the 
         following rules:
 
-        Rules:
+        **Rules:**
         * Leave values empty if there is no information provided in the text.
         * Use the nominative singular form.
         * Stick to the spelling variations used in the document.
@@ -140,7 +140,7 @@ class PromptBuilder:
 
     def add_demonstrations(self, demonstrations):
         prompt = '''Examples are contained in triple quotes. Consider these 
-        examples for orientation:'''
+        examples only for orientation in your work on the \"court documents\": **Examples** '''
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
         self.prompting_strategies.append(prompt_formatted + self.concatenate_files(demonstrations))
         return self
