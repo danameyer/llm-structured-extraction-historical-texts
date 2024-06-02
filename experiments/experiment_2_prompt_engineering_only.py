@@ -46,16 +46,33 @@ class Experiment2:
                   .build_prompt())
         return prompt, "all_principles_few_shot"
 
-    def run_experiment(self, prompt_choice):
-        self.dialogue.perform_initial_prompting(prompt_choice)
+    def generate_system_message(self):
+        prompt = (self.prompt_builder.add_persona_modelling()
+                  .add_context()
+                  .add_iterative_approach()
+                  .add_q_and_a_prompting()
+                  .build_prompt())
+        return prompt
+
+    # def run_experiment(self, prompt_choice_list):
+    #     self.dialogue.prompt_assistant_response(prompt_choice_list)
 
     def run(self):
         # self.run_experiment(self.experiment_base_prompt)
         # self.run_experiment(self.experiment_all_principles_zero_shot)
-        self.run_experiment(self.experiment_all_principles_few_shot)
+        # self.run_experiment(self.experiment_all_principles_few_shot)
+
+        prompt, filename = self.experiment_all_principles_few_shot()
+        self.dialogue.prompt_assistant_response(prompt, filename)
+        #
+        # prompt, filename = self.experiment_all_principles_zero_shot()
+        # self.dialogue.prompt_assistant_response(prompt, filename)
+
+        # prompt, filename = self.experiment_base_prompt()
+        # self.dialogue.prompt_assistant_response(prompt, filename)
 
         while True:
-            self.dialogue.prompt_user_input()
+            self.dialogue.add_dynamic_prompting(filename)
 
 
 if __name__ == '__main__':

@@ -15,7 +15,7 @@ class Experiment1:
     def run_experiment(self, prompt_choice):
         extract_person_info = ExtractPersonInfo()
         function_list = [extract_person_info]
-        self.dialogue.perform_initial_prompting(prompt_choice, function_list)
+        self.dialogue.prompt_assistant_response(prompt_choice, filename, function_list)
 
     def run(self):
         self.run_experiment(self.generate_prompt)
