@@ -149,19 +149,20 @@ class DialogueCompletion:
     #     with open(file_path, 'a') as file:
     #         file.write(content + '\n')
 
-    def add_dynamic_prompting(self, filename):
+    def add_dynamic_prompting(self, filename, print_conversation=True):
         user_input = input("You: ")
         self.append_message(Message(role="user", content=user_input))
         response = self.execute_chat_completion_query(self.message_history)
         if response:
             assistant_message = response.choices[0].message.content
             self.append_message(Message(role="assistant", content=assistant_message))
-            self.print_conversation()
+            if print_conversation:
+                self.print_conversation()
 
             self.chat_file_writer.save_response(f"User: {user_input}", filename)
             self.chat_file_writer.save_response(f"Assistant: {assistant_message}", filename)
 
-    def prompt_assistant_response(self, prompt, filename, function_list=None):
+    def prompt_assistant_response(self, prompt, filename, function_list=None, print_conversation=True):
         self.append_message(Message("user", prompt))
 
         self.chat_file_writer.save_prompt(prompt, filename)
@@ -174,13 +175,17 @@ class DialogueCompletion:
 
         self.append_message(Message("assistant", assistant_message))
         self.chat_file_writer.save_response(assistant_message, filename)
-        self.print_conversation()
 
-    def add_system_prompt(self, prompt, filename):
+        if print_conversation:
+            self.print_conversation()
+
+    def add_system_prompt(self, prompt, filename, print_conversation=True):
         self.append_message(Message("system", prompt))
 
         self.chat_file_writer.save_prompt(prompt, filename)
-        self.print_conversation()
+
+        if print_conversation:
+            self.print_conversation()
 
     def flag_function_calls_for_short_description(self, functions: Union[List[BaseFunction], None]):
         if functions:
