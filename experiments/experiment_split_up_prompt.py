@@ -1,9 +1,11 @@
 from experiments.super_prompting_experiment import BaseExperimentPrompting
+from prompting.prompting_strategies import PromptBuilder
 
 
 class ExperimentSplitUpPrompt(BaseExperimentPrompting):
     def generate_system_message(self):
-        prompt = (self.prompt_builder.add_persona_modelling()
+        prompt_builder = PromptBuilder()
+        prompt = (prompt_builder.add_persona_modelling()
                   .add_context()
                   .add_iterative_approach()
                   .add_q_and_a_prompting()
@@ -11,7 +13,8 @@ class ExperimentSplitUpPrompt(BaseExperimentPrompting):
         return prompt
 
     def add_input(self):
-        prompt = (self.prompt_builder.add_input_text([self.test_files])
+        prompt_builder = PromptBuilder()
+        prompt = (prompt_builder.add_input_text([self.test_files])
                   .add_demonstrations([self.demonstrations])
                   .add_schema_information()
                   .add_constraints()
@@ -20,18 +23,21 @@ class ExperimentSplitUpPrompt(BaseExperimentPrompting):
         return prompt
 
     def add_task_1(self):
-        prompt = (self.prompt_builder.add_task_1()
+        prompt_builder = PromptBuilder()
+        prompt = (prompt_builder.add_task_1()
                   .build_prompt())
         return prompt
 
     def add_task_2(self):
-        prompt = (self.prompt_builder.add_task_2()
+        prompt_builder = PromptBuilder()
+        prompt = (prompt_builder.add_task_2()
                   .build_prompt())
         return prompt
 
     def add_task_3(self):
-        prompt = (self.prompt_builder.add_task_3()
-                .build_prompt())
+        prompt_builder = PromptBuilder()
+        prompt = (prompt_builder.add_task_3()
+                  .build_prompt())
         return prompt
 
     def run(self):
