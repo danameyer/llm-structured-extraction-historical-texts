@@ -1,8 +1,8 @@
-from experiments.experiment_1_function_calling_on_json import Experiment1
+from experiments.experiment_function_calling_on_json import Experiment_Function_Calling_on_JSON
 
 
 def main():
-    experiment_1 = Experiment1()
+    experiment_1 = Experiment_Function_Calling_on_JSON()
     experiment_1.run()
 
 

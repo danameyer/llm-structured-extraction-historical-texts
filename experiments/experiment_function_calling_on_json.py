@@ -1,9 +1,8 @@
 from function_calling_components.chat_completion_blueprint import DialogueCompletion
-from function_calling_components.function_calling import Message
 from functions.ExtractPersonInfo import ExtractPersonInfo
 
 
-class Experiment1:
+class Experiment_Function_Calling_on_JSON:
     def __init__(self):
         self.dialogue = DialogueCompletion(model='gpt-3.5-turbo')
 
@@ -12,16 +11,14 @@ class Experiment1:
         prompt_name = "extract_person_info_from_json"
         return prompt, prompt_name
 
-    def run_experiment(self, prompt_choice):
+    def run(self):
+        prompt, filename = self.generate_prompt()
         extract_person_info = ExtractPersonInfo()
         function_list = [extract_person_info]
-        self.dialogue.prompt_assistant_response(prompt_choice, filename, function_list)
-
-    def run(self):
-        self.run_experiment(self.generate_prompt)
+        self.dialogue.prompt_assistant_response(prompt, filename, function_list)
 
 
 if __name__ == '__main__':
-    experiment_1 = Experiment1()
+    experiment_1 = Experiment_Function_Calling_on_JSON()
     experiment_1.run()
     
