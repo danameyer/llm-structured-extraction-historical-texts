@@ -19,9 +19,21 @@ class FunctionBuilder:
 
 
 class Property:
-    def __init__(self, property_type: str, description: str):
+    def __init__(self,
+                 property_type: str,
+                 description: str,
+                 items: 'Property' = None,
+                 properties: dict[str, 'Property'] = None):
         self.type: str = property_type
         self.description: str = description
+        if items:
+            self.items: 'Property' = items
+        else:
+            self.items: Optional["Property"] = None
+        if properties:
+            self.properties: dict[str, 'Property'] = properties
+        else:
+            self.properties: Dict[str, Property] = dict()
 
 
 class Parameter:

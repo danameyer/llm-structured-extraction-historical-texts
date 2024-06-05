@@ -1,4 +1,4 @@
-from experiments.super_prompting_experiment import BaseExperimentPrompting
+from experiments.prompting.super_prompting_experiment import BaseExperimentPrompting
 from prompting.prompting_strategies import PromptBuilder
 
 
