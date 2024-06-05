@@ -10,40 +10,55 @@ class ExtractJsonFromPlainText(BaseFunction):
             parameters=Parameter(
                 parameter_type="object",
                 properties={
-                    "id": Property(property_type="integer", description="Unique identifier for the person"),
-                    "name": Property(property_type="string", description="Name of the person"),
-                    "profession": Property(property_type="string", description="Profession of the person"),
-                    "family_relations": Property(
+                    "person_list": Property(
                         property_type="array",
-                        description="List of family relations",
+                        description="List of people mentioned in the input plain text",
                         items=Property(
                             property_type="object",
-                            description="Family relation object",
+                            description="Description of individual person mentioned in the input plain text",
                             properties={
-                                "relation_type": Property(property_type="string",
-                                                          description="Type of family relation (e.g., pater, frater, filius, filia)"),
-                                "related_person": Property(property_type="integer",
-                                                           description="ID of the related person")
+
+                                "id": Property(property_type="integer", description="Unique identifier for the person"),
+                                "name": Property(property_type="string", description="Name of the person"),
+                                "profession": Property(property_type="string", description="Profession of the person"),
+                                "family_relations": Property(
+                                    property_type="array",
+                                    description="List of family relations",
+                                    items=Property(
+                                        property_type="object",
+                                        description="Family relation object",
+                                        properties={
+                                            "relation_type": Property(property_type="string",
+                                                                      description="Type of family relation (e.g., pater, frater, filius, filia)"),
+                                            "related_person": Property(property_type="integer",
+                                                                       description="ID of the related person")
+                                        }
+                                    )
+                                ),
+                                "power_relations": Property(
+                                    property_type="array",
+                                    description="List of power relations",
+                                    items=Property(
+                                        property_type="object",
+                                        description="Power relation object",
+                                        properties={
+                                            "relation_type": Property(property_type="string",
+                                                                      description="Type of power relation"),
+                                            "related_person": Property(property_type="integer",
+                                                                       description="ID of the related person")
+                                        }
+                                    )
+                                ),
+                                "place_of_origin": Property(property_type="string",
+                                                            description="Place of origin of the person"),
+                                "title": Property(property_type="string", description="Title of the person"),
+                                "org_role": Property(property_type="string",
+                                                     description="Organizational role of the person")
+
                             }
                         )
-                    ),
-                    "power_relations": Property(
-                        property_type="array",
-                        description="List of power relations",
-                        items=Property(
-                            property_type="object",
-                            description="Power relation object",
-                            properties={
-                                "relation_type": Property(property_type="string",
-                                                          description="Type of power relation"),
-                                "related_person": Property(property_type="integer",
-                                                           description="ID of the related person")
-                            }
-                        )
-                    ),
-                    "place_of_origin": Property(property_type="string", description="Place of origin of the person"),
-                    "title": Property(property_type="string", description="Title of the person"),
-                    "org_role": Property(property_type="string", description="Organizational role of the person")
+                    )
+
                 },
                 required=["name", "id"]
             )
