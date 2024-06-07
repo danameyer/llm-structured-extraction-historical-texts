@@ -1,0 +1,41 @@
+import json
+import os
+from pathlib import Path
+
+from function_calling_components.chat_completion_blueprint import DialogueCompletion
+from functions.PersonComparisonViaLlm import ComparePersonsViaLlm
+
+
+class ExperimentPersonComparisonViaLlm:
+    def __init__(self):
+        self.dialogue = DialogueCompletion(model='gpt-3.5-turbo')
+
+    def generate_prompt(self):
+        base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+        test_file_path = os.path.join(base_dir, "test_data", "test_json", "test_output.json")
+        try:
+            with open(test_file_path, 'r') as file:
+                json_data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"Error reading JSON file: {e}")
+            return False
+        prompt = "Decide if two people of the same name are the same. The name of the person is Willelmus." + json.dumps(json_data)
+        prompt_name = "person_comparison_via_llm"
+        return prompt, prompt_name
+
+    def _read_json(self, json_file):
+        with open(json_file, 'r') as file:
+            json_content = file.read()
+        json_data = json.loads(json_content)
+        return json_data
+
+    def run(self):
+        prompt, filename = self.generate_prompt()
+        compare_persons_via_llm = ComparePersonsViaLlm()
+        function_list = [compare_persons_via_llm]
+        self.dialogue.prompt_assistant_response(prompt, filename, function_list)
+
+
+if __name__ == '__main__':
+    experiment_1 = ExperimentPersonComparisonViaLlm()
+    experiment_1.run()

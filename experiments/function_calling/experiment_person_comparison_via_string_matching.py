@@ -2,13 +2,13 @@ from function_calling_components.chat_completion_blueprint import DialogueComple
 from functions.PersonComparisonViaStringMatching import DecideIfSamePerson
 
 
-class ExperimentPersonComparisonViaStringMatching():
+class ExperimentPersonComparisonViaStringMatching:
     def __init__(self):
         self.dialogue = DialogueCompletion(model='gpt-3.5-turbo')
 
     def generate_prompt(self):
         prompt = "Decide if two people of the same name are the same. The name of the person is Willelmus."
-        prompt_name = "extract_person_info_from_json"
+        prompt_name = "person_comparison_via_string_matching"
         return prompt, prompt_name
 
     def run(self):
