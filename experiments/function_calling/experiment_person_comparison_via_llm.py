@@ -7,19 +7,12 @@ from functions.PersonComparisonViaLlm import ComparePersonsViaLlm
 
 
 class ExperimentPersonComparisonViaLlm:
-    def __init__(self):
+    def __init__(self, json_data):
         self.dialogue = DialogueCompletion(model='gpt-3.5-turbo')
+        self.json_data = json_data
 
     def generate_prompt(self):
-        base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-        test_file_path = os.path.join(base_dir, "test_data", "test_json", "test_output.json")
-        try:
-            with open(test_file_path, 'r') as file:
-                json_data = json.load(file)
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            print(f"Error reading JSON file: {e}")
-            return False
-        prompt = "Decide if two people of the same name are the same. The name of the person is Willelmus." + json.dumps(json_data)
+        prompt = "Decide if two people of the same name are the same. The name of the person is Willelmus." + json.dumps(self.json_data)
         prompt_name = "person_comparison_via_llm"
         return prompt, prompt_name
 
@@ -37,5 +30,12 @@ class ExperimentPersonComparisonViaLlm:
 
 
 if __name__ == '__main__':
-    experiment_1 = ExperimentPersonComparisonViaLlm()
-    experiment_1.run()
+    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+    test_file_path = os.path.join(base_dir, "test_data", "test_json", "test_output.json")
+    try:
+        with open(test_file_path, 'r') as file:
+            json_data = json.load(file)
+            experiment_1 = ExperimentPersonComparisonViaLlm(json_data)
+            experiment_1.run()
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Error reading JSON file: {e}")

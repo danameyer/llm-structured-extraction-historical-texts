@@ -179,6 +179,8 @@ class DialogueCompletion:
         if print_conversation:
             self.print_conversation()
 
+        return assistant_message
+
     def add_system_prompt(self, prompt, filename, print_conversation=True):
         self.append_message(Message("system", prompt))
 
