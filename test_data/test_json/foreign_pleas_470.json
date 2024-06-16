@@ -1,14 +1,13 @@
 {
-  "person_list":
-  [
+  "person_list": [
     {
       "id": 1,
-      "name": "Thomas",
+      "name": "Anestasia",
       "cognomen": "",
       "profession": "",
       "family_relations": [
         {
-          "relation_type": "Filius",
+          "relation_type": "Uxor",
           "related_person": 2
         }
       ],
@@ -23,27 +22,32 @@
     },
     {
       "id": 2,
-      "name": "Andreas",
+      "name": "Thomas",
       "cognomen": "",
       "profession": "",
       "family_relations": [
         {
-          "relation_type": "Pater",
+          "relation_type": "Maritus",
           "related_person": 1
         }
       ],
-      "legal_relationship": [],
-      "place_of_origin": "",
+      "legal_relationship": [
+                {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Grauncurt",
       "title": ""
     },
     {
       "id": 3,
-      "name": "Warinus",
+      "name": "Juliana",
       "cognomen": "",
       "profession": "",
       "family_relations": [
         {
-          "relation_type": "Filius",
+          "relation_type": "Uxor",
           "related_person": 4
         }
       ],
@@ -58,37 +62,36 @@
     },
     {
       "id": 4,
-      "name": "Geroldus",
+      "name": "Ricardus",
       "cognomen": "",
       "profession": "",
       "family_relations": [
         {
-          "relation_type": "Pater",
+          "relation_type": "Maritus",
           "related_person": 3
+        },
+        {
+          "relation_type": "Filius",
+          "related_person": 5
         }
       ],
       "legal_relationship": [],
       "place_of_origin": "",
       "title": ""
     },
-    {
+        {
       "id": 5,
-      "name": "Willelmus",
+      "name": "Radulfus",
       "cognomen": "",
-      "profession": "Curter",
-      "family_relations": [],
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 4
+        }
+      ],
       "legal_relationship": [],
-      "place_of_origin": "Abbendon",
-      "title": ""
-    },
-    {
-      "id": 6,
-      "name": "Nicholaus",
-      "cognomen": "",
-      "profession": "Clericus",
-      "family_relations": [],
-      "legal_relationship": [],
-      "place_of_origin": "Abbendon",
+      "place_of_origin": "",
       "title": ""
     }
   ]

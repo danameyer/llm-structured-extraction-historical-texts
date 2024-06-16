@@ -1,28 +1,35 @@
 {
-  "person_list":
-  [
+  "person_list": [
     {
       "id": 1,
-      "name": "Ema",
-      "cognomen": "de Pavilly",
+      "name": "Willelmus",
+      "cognomen": "Mauduyt",
       "profession": "",
       "family_relations": [],
       "legal_relationship": [
         {
           "relation_type": "Petitor",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Petitor",
           "related_person": 3
         },
         {
-          "relation_type": "Petitor",
+          "relation_type": "Custos",
           "related_person": 4
         },
         {
-          "relation_type": "Petitor",
+          "relation_type": "Custos",
           "related_person": 5
         },
         {
-          "relation_type": "Attornatus",
-          "related_person": 2
+          "relation_type": "Custos",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Dominus Feodi",
+          "related_person": 7
         }
       ],
       "place_of_origin": "",
@@ -30,13 +37,13 @@
     },
     {
       "id": 2,
-      "name": "Willelmus",
-      "cognomen": "de Pavilly",
+      "name": "Rogerus",
+      "cognomen": "de Lyuns",
       "profession": "",
       "family_relations": [],
       "legal_relationship": [
         {
-          "relation_type": "Attornatus",
+          "relation_type": "Reus",
           "related_person": 1
         }
       ],
@@ -45,15 +52,10 @@
     },
     {
       "id": 3,
-      "name": "Alanus",
-      "cognomen": "",
-      "profession": "Bosher",
-      "family_relations": [
-        {
-          "relation_type": "Maritus",
-          "related_person": 4
-        }
-      ],
+      "name": "Robertus",
+      "cognomen": "de Wancy",
+      "profession": "",
+      "family_relations": [],
       "legal_relationship": [
         {
           "relation_type": "Reus",
@@ -65,18 +67,18 @@
     },
     {
       "id": 4,
-      "name": "Avicia",
+      "name": "Hawisia",
       "cognomen": "",
       "profession": "",
       "family_relations": [
         {
-          "relation_type": "Uxor",
-          "related_person": 3
+          "relation_type": "Filia",
+          "related_person": 7
         }
       ],
       "legal_relationship": [
         {
-          "relation_type": "Reus",
+          "relation_type": "Pupillus",
           "related_person": 1
         }
       ],
@@ -85,18 +87,18 @@
     },
     {
       "id": 5,
-      "name": "Willelmus",
+      "name": "Sibilla",
       "cognomen": "",
       "profession": "",
       "family_relations": [
         {
-          "relation_type": "Filius",
-          "related_person": 6
+          "relation_type": "Filia",
+          "related_person": 7
         }
       ],
       "legal_relationship": [
         {
-          "relation_type": "Reus",
+          "relation_type": "Pupillus",
           "related_person": 1
         }
       ],
@@ -105,16 +107,49 @@
     },
     {
       "id": 6,
-      "name": "Eduardus",
+      "name": "Johanna",
       "cognomen": "",
       "profession": "",
       "family_relations": [
         {
-          "relation_type": "Pater",
-          "related_person": 5
+          "relation_type": "Filia",
+          "related_person": 7
         }
       ],
-      "legal_relationship": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Galfridus",
+      "cognomen": "Ridel",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Pater",
+          "related_person": 5
+        },
+        {
+          "relation_type": "Pater",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Tenens",
+          "related_person": 1
+        }
+      ],
       "place_of_origin": "",
       "title": ""
     }
