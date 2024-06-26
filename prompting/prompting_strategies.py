@@ -104,62 +104,75 @@ class PromptBuilder:
     def add_schema_information(self):
         prompt = '''
         This is the JSON schema:
-        [
-          {
-            "id": ... ,
-            "name": "...",
-            "profession": "...",
-            "family_relations": [
-              {
-                "relation_type": "...",
-                "related_person": ...
-              }
-            ],
-            "power_relations": [      {
-                "relation_type": "...",
-                "related_person": ...
-              }],
-            "place_of_origin": "...",
-            "title": "",
-            "org_role": ""
-          }
-        ]
+        
+            {
+              "person_list":
+              [
+                {
+                  "id": ... ,
+                  "name": "...",
+                  "cognomen": "...",
+                  "profession": "...",
+                  "family_relations": [
+                    {
+                      "relation_type": "...",
+                      "related_person": ...
+                    }
+                  ],
+                  "legal_relationship": [      {
+                      "relation_type": "...",
+                      "related_person": ...
+                    }],
+                  "place_of_origin": "...",
+                  "title": ""
+                }
+              ]
+            }
         
         These are explanations of the categories in the JSON schema:
-        * 'id': the unique id of the person
-        * 'name': the name of the person
-        * 'place of origin': the place the person comes from
-        * 'profession': the work the person does
-        * 'family relations' with 'relation type' (the type of family relation with another person 
-         mentioned in the text) and 'related person' (the id of the person the named person is related
-         to)
-        * 'power relations' with 'relation type' (the type of power relation with another person 
-         mentioned in the text) and 'related person' (the id of the person the named person is superior
-         or subject to)
-        * 'title': the title of the person
-        * 'org_role': the role a person takes in an organisation'''
+            * 'id': the unique id of the person
+            * 'name': the name of the person
+            * 'cognomen': additional nickname of a person
+            * 'place of origin': the place the person comes from
+            * 'profession': the work the person does
+            * 'family relations' with 'relation type' (the role the named person takes in the relationship) and 'related person' (the id of the person the named person is related to)
+            * 'legal relationship' with 'relation type' (type of permanent legal social power relationship such as custos and heres) and 'related person' (the id of the person the named person is related to in a legal sense)
+            * 'title': the official title of the person (i.e. within the Church or nobility)'''
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
         self.prompting_strategies.append(prompt_formatted)
         return self
 
     def add_constraints(self):
-        prompt = '''While working on the tasks, pay attention to the 
-        following rules:
-
-        **Rules:**
-        * Leave values empty if there is no information provided in the text.
-        * Use the nominative singular form.
-        * Stick to the spelling variations used in the document.
-        * If word endings are cut due to OCR errors, reconstruct the complete word.
-        * Use Latin terms for all of the values in the JSON file.
-        * Put values preceded by the preposition 'de' into the place of origin category if they refer 
-         to place names.
-        * Check if the words after a name refer to a profession and if so, assign them to the 
-        'profession' category.
-        * Pay attention to the use of pronouns or attributes such as 'predictus' in the text to 
-        make out persons already mentioned before.
-        * List persons with the same names who are different persons.
-        * Eliminate professions and places of origin from the 'name' category.'''
+        prompt = '''While working on the tasks, pay attention to the following rules:
+            
+            Rules:
+            * Leave values empty if there is no information provided in the text.
+            * Use the nominative singular form.
+            * Stick to the spelling variations used in the document.
+            * If word endings are cut due to OCR errors, reconstruct the complete word.
+            * Use Latin terms for all of the values in the JSON file.
+            * Put values preceded by the preposition 'de' into the 'place_of_origin' category if they refer to English place names.
+            * Professions often follow the name and are often preceded by 'le'. Assign professions to the 'profession' category.
+            * Pay attention to the use of pronouns or attributes such as 'predictus' in the text to make out persons already mentioned before.
+            * List persons with the same names who are different persons.
+            * Only include the first name in the name category.
+            * Values in the 'cognomen' category keep the prepositions 'le' and 'de' if they are preceded by them in the text.
+            * Jobs in the Church are assigned to the 'title' category.
+            * List 'profession' without the preposition 'le'.
+            * List 'place_of_origin' without the preposition 'de'.
+            * French location names usually refer to names of the nobility and belong to the 'cognomen' category and are listed with 'de'.
+            * The information after the name of a person is assigned to the 'cognomen' category.
+            * Relationship_types must describe the person listed (i.e. a woman is 'Uxor' and a man 'Maritus')
+            * Titles like Rex or Prior are listed only as 'title'.
+            * Spell all the values you write into the JSON file with a capital letter at the beginning of a word.
+            * For power relations, the following relations exist:
+            ** 'Tenens' (tenant)  vs. 'Dominus feodi' (feudal lord)
+            ** 'Testator' (person inherited from) vs. 'Heres' (heir)
+            ** 'Plegiarius' (person who grants surety), one-sided relationship assigned to the person who is the subject of the relationship.
+            ** 'Attornatus' (attorney), one-sided relationship assigned to the attorney in a legal context.
+            ** 'Reus' (defendant) vs. 'Petitor' (plaintiff) ('Reus' can also be assigned without an id link to another person if the plaintiff is not listed)
+            ** 'Custos' (warden) vs. 'Pupillus' (the ward)
+            ** 'Progenitor' (ancestor) vs 'Progenies' (descendant)'''
         prompt_formatted = re.sub(r'\s+', ' ', prompt).strip()
         self.prompting_strategies.append(prompt_formatted)
         return self

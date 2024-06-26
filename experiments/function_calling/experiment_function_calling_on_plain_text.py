@@ -18,7 +18,7 @@ class ExperimentFunctionCallingOnPlainText:
 
     def generate_prompt(self):
         input_text = self.read_input_text(self.file_path)
-        prompt = "Please extract the following information about all of the persons mentioned in the text from the given text and return it as a JSON object: name, profession, family_relations, power_relations, place_of_origin, title, org_role. Assign an id to each person. This is the text to extract the information from:" + input_text
+        prompt = "Please extract the following information about all of the persons mentioned in the text from the given text and return it as a JSON object: name, cognomen, profession, family_relations, power_relations, place_of_origin, title. Assign an id to each person. This is the text to extract the information from:" + input_text
         prompt_name = "extract_json_from_plaintext"
         return prompt, prompt_name
 
