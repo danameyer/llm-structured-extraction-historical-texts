@@ -1,0 +1,18 @@
+
+Results generated on: 2024-06-27 10:51:21.963905
+
+File: crown_pleas_718.json & pred_crown_pleas_718.json
+DeepDiff: {"values_changed": {"root['person_list'][1]['place_of_origin']": {"new_value": "Farham", "old_value": "Farnham"}, "root['person_list'][2]['name']": {"new_value": "Wido", "old_value": "Wydo"}}}
+Exact Metric: 0.9459459459459459
+Fuzzy Metric: 0.972972972972973
+
+File: foreign_pleas_461.json & pred_foreign_pleas_461.json
+DeepDiff: {}
+Exact Metric: 1.0
+Fuzzy Metric: 1.0
+
+File: civil_pleas_1.json & pred_civil_pleas_1.json
+DeepDiff: {"dictionary_item_removed": ["root['person_list'][7]['title']"], "values_changed": {"root['person_list'][3]['place_of_origin']": {"new_value": "Drayton", "old_value": "Dreyton"}, "root['person_list'][7]['legal_relationship'][0]['related_person']": {"new_value": "5", "old_value": "4"}}, "iterable_item_removed": {"root['person_list'][5]['family_relations'][0]": {"relation_type": "Pater", "related_person": 2}}}
+Exact Metric: 0.9626168224299065
+Fuzzy Metric: 0.9719626168224299
+

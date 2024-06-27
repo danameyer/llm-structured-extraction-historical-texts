@@ -23,7 +23,9 @@ class Property:
                  property_type: str,
                  description: str,
                  items: 'Property' = None,
-                 properties: dict[str, 'Property'] = None):
+                 properties: dict[str, 'Property'] = None,
+                 default_value=None):
+        self.default_value = default_value
         self.type: str = property_type
         self.description: str = description
         if items:

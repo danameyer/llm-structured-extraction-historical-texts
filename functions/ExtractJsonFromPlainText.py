@@ -1,8 +1,22 @@
-from function_calling_components.function_calling import Property, FunctionBuilder, Parameter
+from function_calling_components.function_calling import Property, Parameter, FunctionBuilder
 from functions.BaseFunction import BaseFunction
 
 
 class ExtractJsonFromPlainText(BaseFunction):
+    @staticmethod
+    def apply_default_values(properties, data):
+        for key, prop in properties.items():
+            if key == 'id' and 'id' in data and data['id'] is not None:
+                continue
+            if key not in data or data[key] is None:
+                data[key] = prop.default_value
+            elif prop.type == "object" and prop.properties:
+                ExtractJsonFromPlainText.apply_default_values(prop.properties, data[key])
+            elif prop.type == "array" and prop.items and isinstance(data[key], list):
+                for item in data[key]:
+                    if isinstance(item, dict):
+                        ExtractJsonFromPlainText.apply_default_values(prop.items.properties, item)
+
     def get_definition(self) -> FunctionBuilder:
         return FunctionBuilder(
             name="extract_json_from_plaintext",
@@ -17,10 +31,10 @@ class ExtractJsonFromPlainText(BaseFunction):
                             property_type="object",
                             description="Description of individual person mentioned in the input plain text",
                             properties={
-
                                 "id": Property(property_type="integer", description="Unique identifier for the person"),
                                 "name": Property(property_type="string", description="Name of the person"),
-                                "profession": Property(property_type="string", description="Profession of the person"),
+                                "cognomen": Property(property_type="string", description="Addition to first name", default_value=""),
+                                "profession": Property(property_type="string", description="Profession of the person", default_value=""),
                                 "family_relations": Property(
                                     property_type="array",
                                     description="List of family relations",
@@ -28,42 +42,39 @@ class ExtractJsonFromPlainText(BaseFunction):
                                         property_type="object",
                                         description="Family relation object",
                                         properties={
-                                            "relation_type": Property(property_type="string",
-                                                                      description="Type of family relation (e.g., pater, frater, filius, filia)"),
-                                            "related_person": Property(property_type="integer",
-                                                                       description="ID of the related person")
+                                            "relation_type": Property(property_type="string", description="Type of family relation (e.g., pater, frater, filius, filia)", default_value=""),
+                                            "related_person": Property(property_type="integer", description="ID of the related person", default_value=None)
                                         }
-                                    )
+                                    ),
+                                    default_value=[]
                                 ),
-                                "power_relations": Property(
+                                "legal_relationship": Property(
                                     property_type="array",
-                                    description="List of power relations",
+                                    description="List of legal relations such as custos and heres",
                                     items=Property(
                                         property_type="object",
-                                        description="Power relation object",
+                                        description="Legal relationship object",
                                         properties={
-                                            "relation_type": Property(property_type="string",
-                                                                      description="Type of power relation"),
-                                            "related_person": Property(property_type="integer",
-                                                                       description="ID of the related person")
+                                            "relation_type": Property(property_type="string", description="Type of legal relation", default_value=""),
+                                            "related_person": Property(property_type="integer", description="ID of the related person", default_value=None)
                                         }
-                                    )
+                                    ),
+                                    default_value=[]
                                 ),
-                                "place_of_origin": Property(property_type="string",
-                                                            description="Place of origin of the person"),
-                                "title": Property(property_type="string", description="Title of the person"),
-                                "org_role": Property(property_type="string",
-                                                     description="Organizational role of the person")
-
+                                "place_of_origin": Property(property_type="string", description="Place of origin of the person", default_value=""),
+                                "title": Property(property_type="string", description="Title of the person", default_value="")
                             }
                         )
                     )
-
                 },
                 required=["name", "id"]
             )
         )
 
     def run(self, **kwargs):
+        properties = self.get_definition().parameters.properties["person_list"].items.properties
+        person_list = kwargs.get('person_list', [])
+        for person in person_list:
+            ExtractJsonFromPlainText.apply_default_values(properties, person)
         print(kwargs)
         return kwargs
