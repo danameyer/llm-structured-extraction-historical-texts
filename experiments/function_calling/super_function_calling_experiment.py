@@ -8,13 +8,12 @@ from prompting.prompting_strategies import PromptBuilder
 
 
 class BaseExperimentFunctionCalling:
-    def __init__(self):
+    def __init__(self, test_files, demonstrations):
         load_dotenv()
         self.prompt_builder = PromptBuilder()
         self.dialogue = DialogueCompletion(model='gpt-3.5-turbo')
-        base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-        self.test_files = os.path.join(base_dir, "test_data", "test_txt", "sample_text.txt")
-        self.demonstrations = os.path.join(base_dir, "test_data", "demonstrations", "demonstration_1.txt")
+        self.test_files = test_files
+        self.demonstrations = demonstrations
 
     def run(self):
         pass

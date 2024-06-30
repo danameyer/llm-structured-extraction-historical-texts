@@ -10,10 +10,10 @@ from prompting.prompting_strategies import PromptBuilder
 
 
 class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling):
-    def __init__(self, file_path):
-        super().__init__()
+    def __init__(self, test_files, demonstrations):
+        super().__init__(test_files, demonstrations)
         self.dialogue = DialogueCompletion(model='gpt-3.5-turbo')
-        self.file_path = file_path
+
 
     def generate_system_message(self):
         prompt_builder = PromptBuilder()
@@ -26,8 +26,8 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
 
     def add_input(self):
         prompt_builder = PromptBuilder()
-        prompt = (prompt_builder.add_input_text([self.test_files])
-                  .add_demonstrations([self.demonstrations])
+        prompt = (prompt_builder.add_input_text(self.test_files)
+                  .add_demonstrations(self.demonstrations)
                   .add_schema_information()
                   .add_constraints()
                   .add_emotional_prompting()
@@ -67,12 +67,13 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
 if __name__ == '__main__':
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     file_path_test_data = os.path.join(base_dir, "test_data", "test_txt", "sample_text.txt")
-    experiment = ExperimentFunctionCallingWithOptimisedPrompt(file_path_test_data)
+    file_path_demonstrations = os.path.join(base_dir, "test_data", "demonstrations", "demonstration_1.txt")
+    experiment = ExperimentFunctionCallingWithOptimisedPrompt(file_path_test_data, file_path_demonstrations)
     response_json = experiment.run()
     response_json_str = json.dumps(response_json, indent=4)
-    base_name = os.path.splitext("sample_text")[0]
-    pred_filename = f'pred_{base_name}'
+    base_name = os.path.splitext("sample_text.json")[0]
+    pred_filename = f'pred_{base_name}.json'
     output_path_response = os.path.join(base_dir, "test_data", "test_json_diff", "predictions", pred_filename)
     chat_file_writer = ChatFileWriter()
-    chat_file_writer.save_response(response_json_str, output_path_response)
+    chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False)
     print(response_json)

@@ -10,14 +10,16 @@ class ChatFileWriter:
         self._prompt_save_dir = os.path.join(base_dir, "prompting", "generated_prompts")
         self._response_save_dir = os.path.join(base_dir, "prompting", "prompting_responses")
 
-    def _save_to_file(self, out_path, content, filename):
-        filename_with_timestamp = f"{filename}_{self._timestamp}.txt"
-        file_path = os.path.join(out_path, filename_with_timestamp)
+    def _save_to_file(self, out_path, content, filename, timestamp=True):
+        output_filename = filename
+        if timestamp:
+            output_filename = f"{filename}_{self._timestamp}.txt"
+        file_path = os.path.join(out_path, output_filename)
         with open(file_path, 'a') as file:
             file.write(content + '\n')
 
-    def save_response(self, content, filename):
-        self._save_to_file(self._response_save_dir, content, filename)
+    def save_response(self, content, filename, timestamp=True):
+        self._save_to_file(self._response_save_dir, content, filename, timestamp)
 
     def save_prompt(self, content, filename):
         self._save_to_file(self._prompt_save_dir, content, filename)

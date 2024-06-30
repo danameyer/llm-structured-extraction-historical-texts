@@ -17,7 +17,7 @@
         },
         {
             "id": 2,
-            "name": "Roberti",
+            "name": "Robertus",
             "cognomen": "Au rifabri",
             "profession": "",
             "family_relations": [
@@ -54,11 +54,16 @@
             "name": "Willelmus",
             "cognomen": "",
             "profession": "",
-            "family_relations": [],
+            "family_relations": [
+                {
+                    "relation_type": "Pater",
+                    "related_person": 5
+                }
+            ],
             "legal_relationship": [
                 {
-                    "relation_type": "Tenens",
-                    "related_person": 5
+                    "relation_type": "Petitor",
+                    "related_person": 1
                 }
             ],
             "place_of_origin": "Pesemere",
@@ -71,38 +76,58 @@
             "profession": "",
             "family_relations": [
                 {
-                    "relation_type": "Dominus feodi",
+                    "relation_type": "Pater",
+                    "related_person": 6
+                }
+            ],
+            "legal_relationship": [
+                {
+                    "relation_type": "Plegiarius",
                     "related_person": 4
                 }
             ],
-            "legal_relationship": [],
             "place_of_origin": "",
             "title": ""
         },
         {
             "id": 6,
-            "name": "Simon",
-            "cognomen": "",
+            "name": "Hugo",
+            "cognomen": "de Pesemere",
             "profession": "",
-            "family_relations": [],
+            "family_relations": [
+                {
+                    "relation_type": "Filius",
+                    "related_person": 5
+                }
+            ],
             "legal_relationship": [
                 {
-                    "relation_type": "Pugillaris",
+                    "relation_type": "Dominus feodi",
                     "related_person": 7
                 }
             ],
-            "place_of_origin": "Asseby",
+            "place_of_origin": "",
             "title": ""
         },
         {
             "id": 7,
-            "name": "Hugo",
+            "name": "Johannes",
             "cognomen": "",
-            "profession": "Clericus",
-            "family_relations": [],
-            "legal_relationship": [],
-            "place_of_origin": "Pateshil",
-            "title": "Persona"
+            "profession": "",
+            "family_relations": [
+                {
+                    "relation_type": "Pupillus",
+                    "related_person": 6
+                }
+            ],
+            "legal_relationship": [
+                {
+                    "relation_type": "Custos",
+                    "related_person": 6
+                }
+            ],
+            "place_of_origin": "",
+            "title": ""
         }
     ]
 }
