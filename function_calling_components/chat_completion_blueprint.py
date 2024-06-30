@@ -9,11 +9,9 @@ import openai
 from openai import OpenAI
 from openai.types import Completion
 from openai.types.chat import ChatCompletion
-
 from function_calling_components.chat_file_writer import ChatFileWriter
 from function_calling_components.function_calling import Message
 from functions.BaseFunction import BaseFunction
-from datetime import datetime
 
 load_dotenv()
 openai_api_key: Optional[str] = os.getenv("OPENAI_API_KEY")
@@ -35,6 +33,7 @@ class DialogueCompletion:
         os.makedirs(self.prompt_save_dir, exist_ok=True)
         os.makedirs(self.response_save_dir, exist_ok=True)
         self.chat_file_writer = ChatFileWriter()
+        self.function_call_result = None
 
     def request_response(self,
                          messages: List[Message],
@@ -66,7 +65,6 @@ class DialogueCompletion:
             # function definitions have been sent to chatGPT - now only use the short description in order to
             # save tokens ...
             self.flag_function_calls_for_short_description(functions)
-
             return completion
         except openai.APIConnectionError as e:
             print("The server could not be reached")
@@ -126,15 +124,16 @@ class DialogueCompletion:
 
         if function_object:
             try:
-                output = function_object.run(**function_parameters)
+                self.function_call_result = function_object.run(**function_parameters)
+                print("This is the function call result", self.function_call_result)
             except Exception as e:
                 print(function_parameters)
                 print(f"Function could not be called.")
                 print(f"Error message: {e}")
-                output = f"Function could not be called. error: {str(e)}"
+                self.function_call_result = f"Function could not be called. error: {str(e)}"
             messages.append(
                 Message(role="function",
-                        content=str(output),
+                        content=str(self.function_call_result),
                         name=completion.choices[0].message.function_call.name)
             )
             try:
@@ -143,11 +142,6 @@ class DialogueCompletion:
             except Exception as e:
                 print(type(e))
                 raise Exception("Chat response could not be generated.")
-
-    # def save_to_file(self, out_path, content, filename):
-    #     file_path = os.path.join(out_path, filename)
-    #     with open(file_path, 'a') as file:
-    #         file.write(content + '\n')
 
     def add_dynamic_prompting(self, filename, print_conversation=True):
         user_input = input("You: ")

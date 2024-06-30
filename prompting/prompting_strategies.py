@@ -36,7 +36,7 @@ class PromptBuilder:
 
     def add_task_2(self):
         prompt = (
-            "(2) Transfer your results to structured JSON output separately for each document.\n"
+            "(2) Transfer your results to structured JSON output separately for each document by using a tool.\n"
         )
         self.prompting_strategies.append(prompt)
         return self
