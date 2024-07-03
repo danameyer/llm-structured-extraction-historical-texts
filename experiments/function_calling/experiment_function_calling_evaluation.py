@@ -12,7 +12,7 @@ from function_calling_components.chat_file_writer import ChatFileWriter
 class ExperimentFunctionCallingEvaluation:
 
     def __init__(self):
-        self.dialogue = DialogueCompletion(model='gpt-3.5-turbo')
+        self.dialogue = DialogueCompletion(model='gpt-4-turbo')
 
     def get_base_directory(self):
         return Path(os.getenv('PROJECT_BASE_DIR'))
@@ -53,7 +53,7 @@ class ExperimentFunctionCallingEvaluation:
         pred_filename = f'pred_{base_name}.json'
         output_path_response = os.path.join(predictions_folder, pred_filename)
         chat_file_writer = ChatFileWriter()
-        chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False)
+        chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False, append=False)
         print(f"Processed {os.path.basename(file_path)}: Saved predictions to {pred_filename}")
 
     def run(self):
@@ -63,7 +63,7 @@ class ExperimentFunctionCallingEvaluation:
         demonstrations_folder = self.get_demonstrations_folder(base_dir)
         predictions_folder = self.create_predictions_folder(base_dir)
         output_folder = self.create_output_folder(base_dir)
-        self.process_files(sample_folder, demonstrations_folder, predictions_folder)
+        # self.process_files(sample_folder, demonstrations_folder, predictions_folder)
         json_comparison = JsonComparison(threshold=80)
         json_comparison.perform_json_comparison(ground_truth_folder, predictions_folder, output_folder)
 

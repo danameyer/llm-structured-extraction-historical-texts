@@ -55,6 +55,9 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
         prompt = self.add_input()
         self.dialogue.prompt_assistant_response(prompt, filename, print_conversation=False)
 
+        prompt = self.add_task_1()
+        self.dialogue.prompt_assistant_response(prompt, filename, print_conversation=False)
+
         prompt = self.add_task_2()
         extract_json_from_plaintext = ExtractJsonFromPlainText()
         function_list = [extract_json_from_plaintext]
