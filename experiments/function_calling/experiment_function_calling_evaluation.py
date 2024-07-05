@@ -64,7 +64,7 @@ class ExperimentFunctionCallingEvaluation:
         predictions_folder = self.create_predictions_folder(base_dir)
         output_folder = self.create_output_folder(base_dir)
         # self.process_files(sample_folder, demonstrations_folder, predictions_folder)
-        json_comparison = JsonComparison(threshold=80)
+        json_comparison = JsonComparison()
         json_comparison.perform_json_comparison(ground_truth_folder, predictions_folder, output_folder)
 
 
