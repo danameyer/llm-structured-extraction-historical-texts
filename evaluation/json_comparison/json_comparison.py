@@ -19,7 +19,7 @@ class JsonComparison:
 
     def __init__(self, threshold=80):
         load_dotenv()
-        self.threshold = threshold
+        self.fuzzy_threshold = threshold
 
     def sort_list_of_dicts_by_keys(self, lst: List[Dict]) -> List[Dict]:
         """
@@ -43,7 +43,9 @@ class JsonComparison:
 
         return sorted_list
 
-    def find_matching_person(self, person_list_1: List[Dict], person_list_2: List[Dict], threshold=0.15) -> PersonMatching:
+    def find_matching_person(self,
+                             person_list_1: List[Dict],
+                             person_list_2: List[Dict]) -> PersonMatching:
         evaluator = JsonEditDistanceEvaluator()
         person_list_1_sorted = self.sort_list_of_dicts_by_keys(person_list_1)
         person_list_2_sorted = self.sort_list_of_dicts_by_keys(person_list_2)
@@ -54,14 +56,21 @@ class JsonComparison:
         not_found = list()
 
         for person_a_as_string in person_list_1_as_strings:
+            person_a = json.loads(person_a_as_string)
+            name_a = person_a.get('name', '')
+
             matching_person = None
             last_matching_score = 1.0
             for person_b_as_string in person_list_2_as_strings:
-                result = evaluator.evaluate_strings(prediction=person_a_as_string, reference=person_b_as_string)
-                score = result['score']
-                if score < threshold and score < last_matching_score:
-                    matching_person = person_b_as_string
-                    last_matching_score = score
+                person_b = json.loads(person_b_as_string)
+                name_b = person_b.get('name', '')
+
+                if self.fuzzy_compare(name_a, name_b):
+                    result = evaluator.evaluate_strings(prediction=person_a_as_string, reference=person_b_as_string)
+                    score = result['score']
+                    if score < last_matching_score:
+                        matching_person = person_b_as_string
+                        last_matching_score = score
 
             if matching_person is None:
                 person_a_as_dict = json.loads(person_a_as_string)
@@ -71,6 +80,8 @@ class JsonComparison:
                 person_a_as_dict = json.loads(person_a_as_string)
                 matching_person_as_dict = json.loads(matching_person)
                 matches.append((person_a_as_dict, matching_person_as_dict))
+
+        print("This is the list of persons not found", not_found)
 
         return PersonMatching(matches=matches, not_found=not_found)
 
@@ -159,7 +170,7 @@ class JsonComparison:
     def fuzzy_compare(self, old_value, new_value):
         if isinstance(old_value, str) and isinstance(new_value, str):
             score = fuzz.ratio(old_value, new_value)
-            if score > self.threshold:
+            if score > self.fuzzy_threshold:
                 return True
         return False
 
