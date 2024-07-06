@@ -1,6 +1,9 @@
 import json
 import os
+import sys
 from pathlib import Path
+
+from jsons import ValidationError
 
 from evaluation.json_comparison.json_comparison import JsonComparison
 from experiments.function_calling.function_calling_with_optimised_prompt import \
@@ -38,9 +41,19 @@ class ExperimentFunctionCallingEvaluation:
 
     def process_files(self, ground_truth_folder, demonstrations_folder, predictions_folder):
         for file_name in os.listdir(ground_truth_folder):
+
             file_path = os.path.join(ground_truth_folder, file_name)
             if os.path.isfile(file_path):
-                self.process_single_file(file_path, demonstrations_folder, predictions_folder)
+                try:
+                    self.process_single_file(file_path, demonstrations_folder, predictions_folder)
+                except ValidationError as e:
+                    print(f"""
+                    Could not complete file {file_path} because of error: 
+                    {e.message}
+                    
+                    Will continue with next file.
+                    """, file=sys.stderr)
+
 
     def process_single_file(self, file_path, demonstrations_folder, predictions_folder):
         test_files = [file_path]
@@ -63,7 +76,7 @@ class ExperimentFunctionCallingEvaluation:
         demonstrations_folder = self.get_demonstrations_folder(base_dir)
         predictions_folder = self.create_predictions_folder(base_dir)
         output_folder = self.create_output_folder(base_dir)
-        # self.process_files(sample_folder, demonstrations_folder, predictions_folder)
+        self.process_files(sample_folder, demonstrations_folder, predictions_folder)
         json_comparison = JsonComparison()
         json_comparison.perform_json_comparison(ground_truth_folder, predictions_folder, output_folder)
 

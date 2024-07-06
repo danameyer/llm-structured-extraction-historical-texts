@@ -72,9 +72,12 @@ class JsonValidator:
 
             if errors:
                 for error in errors:
-                    print(f"Validation error at {list(error.path)}: {error.message}")
+                    message = f"Validation error at json-path {list(error.path)} with message: {error.message}"
+                    print(message)
+                    return False, message
             else:
                 print("JSON is valid and matches the schema.")
+                return True, "Json is valid."
         except json.JSONDecodeError as e:
             print(f"Invalid JSON data: {e}")
         except jsonschema.exceptions.ValidationError as e:

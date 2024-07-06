@@ -6,12 +6,20 @@ import jsons
 from dotenv import load_dotenv
 import os
 import openai
+from jsons import ValidationError
 from openai import OpenAI
 from openai.types import Completion
 from openai.types.chat import ChatCompletion
+
+from evaluation.json_comparison.json_validation import JsonValidator
 from function_calling_components.chat_file_writer import ChatFileWriter
 from function_calling_components.function_calling import Message
 from functions.BaseFunction import BaseFunction
+from tenacity import (
+    retry,
+    stop_after_attempt,
+    wait_random_exponential,
+)
 
 load_dotenv()
 openai_api_key: Optional[str] = os.getenv("OPENAI_API_KEY")
@@ -64,7 +72,7 @@ class DialogueCompletion:
 
             # function definitions have been sent to chatGPT - now only use the short description in order to
             # save tokens ...
-            self.flag_function_calls_for_short_description(functions)
+            # self.flag_function_calls_for_short_description(functions)
             return completion
         except openai.APIConnectionError as e:
             print("The server could not be reached")
@@ -98,6 +106,7 @@ class DialogueCompletion:
             colored_content: str = f"{role_to_color[role]}{content}{reset_color}"
             print(f"{role}: {colored_content}\n\n")
 
+    @retry(stop=stop_after_attempt(6), wait=wait_random_exponential(multiplier=1, max=10), reraise=True,)
     def execute_chat_completion_query(self,
                                       messages: List[Message],
                                       functions: List[BaseFunction] = None) -> Union[ChatCompletion, None]:
@@ -123,14 +132,21 @@ class DialogueCompletion:
         function_object = next((x for x in functions if x.get_definition().name == function_name), None)
 
         if function_object:
-            try:
-                self.function_call_result = function_object.run(**function_parameters)
-                print("This is the function call result", self.function_call_result)
-            except Exception as e:
-                print(function_parameters)
-                print(f"Function could not be called.")
-                print(f"Error message: {e}")
-                self.function_call_result = f"Function could not be called. error: {str(e)}"
+            # try:
+            self.function_call_result = function_object.run(**function_parameters)
+            print("This is the function call result", self.function_call_result)
+            json_validator = JsonValidator()
+
+            validation = json_validator.validate_json(self.function_call_result)
+            if not validation[0]:
+                message = "JSON validation failed: " + validation[1]
+                raise ValidationError(message)
+
+            # except Exception as e:
+            #     print(function_parameters)
+            #     print(f"Function could not be called.")
+            #     print(f"Error message: {e}")
+            #     self.function_call_result = f"Function could not be called. error: {str(e)}"
             messages.append(
                 Message(role="function",
                         content=str(self.function_call_result),
