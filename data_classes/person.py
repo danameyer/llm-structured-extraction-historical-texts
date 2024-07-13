@@ -13,6 +13,12 @@ class Relation:
     relation_type: str
     related_person: Union[int, 'Person']
 
+    def to_dict(self) -> Dict:
+        return {
+            'relation_type': self.relation_type,
+            'related_person': self.related_person
+        }
+
 
 class RelationSchema(Schema):
     relation_type = fields.Str(required=True)
@@ -33,6 +39,18 @@ class Person:
     legal_relationship: List[Relation] = field(default_factory=list)
     place_of_origin: Optional[str] = ""
     title: Optional[str] = ""
+
+    def to_dict(self) -> Dict:
+        return {
+            'id': self.id,
+            'name': self.name,
+            'cognomen': self.cognomen,
+            'profession': self.profession,
+            'family_relations': [rel.to_dict() for rel in self.family_relations],
+            'legal_relationship': [rel.to_dict() for rel in self.legal_relationship],
+            'place_of_origin': self.place_of_origin,
+            'title': self.title
+        }
 
 
 class PersonSchema(Schema):
@@ -61,7 +79,11 @@ def create_person_object(file_path: str) -> List[Person]:
     for person in persons:
         for relation in person.family_relations + person.legal_relationship:
             if isinstance(relation.related_person, int):
-                relation.related_person = person_dict[relation.related_person]
+                related_person = person_dict.get(relation.related_person)
+                if related_person:
+                    relation.related_person = related_person.name
+                else:
+                    relation.related_person = None
 
     return persons
 
