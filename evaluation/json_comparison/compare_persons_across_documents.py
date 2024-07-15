@@ -2,7 +2,7 @@ import heapq
 import json
 import os
 from pathlib import Path
-from typing import List
+from typing import List, Tuple
 
 from dotenv import load_dotenv
 from langchain.evaluation import JsonEditDistanceEvaluator
@@ -18,7 +18,7 @@ class PersonComparison:
 
     @staticmethod
     def find_best_persons_in_documents(documents: List[Document],
-                                       person_to_find: Person, n: int = 5) -> List[Person]:
+                                       person_to_find: Person, n: int = 5) -> List[Tuple[float, Person, str]]:
         """Find and return the n best matching Person objects."""
         evaluator = JsonEditDistanceEvaluator()
         json_comparison = JsonComparison()
@@ -36,12 +36,11 @@ class PersonComparison:
                     result = evaluator.evaluate_strings(prediction=person_to_find_as_string,
                                                         reference=person_in_doc_as_string)
                     score = result['score']
-                    heapq.heappush(best_matches, (score, person_in_doc))
+                    heapq.heappush(best_matches, (score, person_in_doc, document.document_name))
                     if len(best_matches) > n:
                         heapq.heappop(best_matches)
 
-        best_matches = [heapq.heappop(best_matches)[1] for _ in range(len(best_matches))]
-        best_matches.reverse()
+        best_matches = [(score, person, doc_name) for score, person, doc_name in sorted(best_matches, reverse=True)]
         return best_matches
 
 

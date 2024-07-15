@@ -91,7 +91,10 @@ class PersonFinder(BaseFunction):
 
         top_matches = person_comparator.find_best_persons_in_documents(gt_documents, person, n=5)
 
-        top_matches_dicts = [match.to_dict() for match in top_matches]
+        top_matches_dicts = [{
+            **match[1].to_dict(),
+            'document_name': match[2]
+        } for match in top_matches]
 
         return top_matches_dicts
 
