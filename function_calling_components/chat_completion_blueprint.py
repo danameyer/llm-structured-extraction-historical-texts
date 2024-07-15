@@ -109,13 +109,14 @@ class DialogueCompletion:
     @retry(stop=stop_after_attempt(6), wait=wait_random_exponential(multiplier=1, max=10), reraise=True,)
     def execute_chat_completion_query(self,
                                       messages: List[Message],
-                                      functions: List[BaseFunction] = None) -> Union[ChatCompletion, None]:
+                                      functions: List[BaseFunction] = None,
+                                      validate=True) -> Union[ChatCompletion, None]:
         completion = self.request_response(messages, functions)
         message_output = completion.choices[0]
 
         if message_output.finish_reason == "function_call":
             print("Function will be called.")
-            function_call_result = self.perform_function_call(completion, messages, functions)
+            function_call_result = self.perform_function_call(completion, messages, functions, validate)
             return function_call_result
         else:
             print("No function called.")
@@ -124,7 +125,8 @@ class DialogueCompletion:
     def perform_function_call(self,
                               completion: Union[ChatCompletion, None],
                               messages: List[Message],
-                              functions: List[BaseFunction]) -> Union[ChatCompletion, None]:
+                              functions: List[BaseFunction],
+                              validate=True) -> Union[ChatCompletion, None]:
         function_name = completion.choices[0].message.function_call.name
         function_parameters = json.loads(
             completion.choices[0].message.function_call.arguments)
@@ -137,10 +139,11 @@ class DialogueCompletion:
             print("This is the function call result", self.function_call_result)
             json_validator = JsonValidator()
 
-            validation = json_validator.validate_json(self.function_call_result)
-            if not validation[0]:
-                message = "JSON validation failed: " + validation[1]
-                raise ValidationError(message)
+            if validate:
+                validation = json_validator.validate_json(self.function_call_result)
+                if not validation[0]:
+                    message = "JSON validation failed: " + validation[1]
+                    raise ValidationError(message)
 
             # except Exception as e:
             #     print(function_parameters)
@@ -172,14 +175,20 @@ class DialogueCompletion:
             self.chat_file_writer.save_response(f"User: {user_input}", filename)
             self.chat_file_writer.save_response(f"Assistant: {assistant_message}", filename)
 
-    def prompt_assistant_response(self, prompt, filename, function_list=None, print_conversation=True):
+    def prompt_assistant_response(self,
+                                  prompt,
+                                  filename,
+                                  function_list=None,
+                                  print_conversation=True,
+                                  validate=True):
         self.append_message(Message("user", prompt))
 
         self.chat_file_writer.save_prompt(prompt, filename)
 
         chat_response = self.execute_chat_completion_query(
             messages=self.message_history,
-            functions=function_list
+            functions=function_list,
+            validate=validate
         )
         assistant_message = chat_response.choices[0].message.content
 
