@@ -31,14 +31,16 @@ class RelationSchema(Schema):
 
 @dataclass
 class Person:
-    id: int
-    name: str
-    cognomen: Optional[str] = ""
-    profession: Optional[str] = ""
-    family_relations: List[Relation] = field(default_factory=list)
-    legal_relationship: List[Relation] = field(default_factory=list)
-    place_of_origin: Optional[str] = ""
-    title: Optional[str] = ""
+    def __init__(self, id=None, name="", cognomen="", profession="", family_relations=None,
+                 legal_relationship=None, place_of_origin="", title=""):
+        self.id = id
+        self.name = name
+        self.cognomen = cognomen
+        self.profession = profession
+        self.family_relations = family_relations or []
+        self.legal_relationship = legal_relationship or []
+        self.place_of_origin = place_of_origin
+        self.title = title
 
     def to_dict(self) -> Dict:
         return {
