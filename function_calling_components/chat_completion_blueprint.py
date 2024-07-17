@@ -14,6 +14,7 @@ from openai.types.chat import ChatCompletion
 from evaluation.json_comparison.json_validation import JsonValidator
 from function_calling_components.chat_file_writer import ChatFileWriter
 from function_calling_components.function_calling import Message
+from function_calling_components.token_counting import TokenCounter
 from functions.BaseFunction import BaseFunction
 from tenacity import (
     retry,
@@ -42,6 +43,21 @@ class DialogueCompletion:
         os.makedirs(self.response_save_dir, exist_ok=True)
         self.chat_file_writer = ChatFileWriter()
         self.function_call_result = None
+        self.token_counter = TokenCounter()
+        self.total_cost = 0.0
+
+    def count_tokens_in_request(self, messages_as_dict: List[dict]) -> int:
+        return self.token_counter.count_input_tokens(messages_as_dict, self.model)
+
+    def count_output_tokens_in_response(self, response: str) -> int:
+        return self.token_counter.count_output_tokens(response, self.model)
+
+    def calculate_request_cost(self, input_token_count: int, output_token_count: int) -> float:
+        return self.token_counter.calculate_costs(input_token_count, output_token_count, self.model)
+
+    def accumulate_cost(self, input_token_count: int, output_token_count: int):
+        cost = self.calculate_request_cost(input_token_count, output_token_count)
+        self.total_cost += cost
 
     def request_response(self,
                          messages: List[Message],
@@ -61,6 +77,8 @@ class DialogueCompletion:
         """
         try:
             messages_as_dict = json.loads(jsons.dumps(messages))
+            print(f"Input response content: {messages_as_dict}")
+            input_token_count = self.count_tokens_in_request(messages_as_dict)
             functions_as_dict_list = [x.get_definition_dict() for x in functions] if functions else None
 
             completion: Union[ChatCompletion, None] = self.client.chat.completions.create(
@@ -69,6 +87,17 @@ class DialogueCompletion:
                 functions=functions_as_dict_list,
                 function_call=function_call if functions else None
             )
+
+            output_response = completion.choices[0].message.content
+            output_token_count = self.count_output_tokens_in_response(output_response)
+            print(f"Output response content: {output_response}")
+            cost = self.calculate_request_cost(input_token_count, output_token_count)
+            print(
+                f"Input token count: {input_token_count}, "
+                f"Output token count: {output_token_count}, "
+                f"Estimated cost: ${cost:.16f}")
+
+            self.accumulate_cost(input_token_count, output_token_count)
 
             # function definitions have been sent to chatGPT - now only use the short description in order to
             # save tokens ...
@@ -145,11 +174,6 @@ class DialogueCompletion:
                     message = "JSON validation failed: " + validation[1]
                     raise ValidationError(message)
 
-            # except Exception as e:
-            #     print(function_parameters)
-            #     print(f"Function could not be called.")
-            #     print(f"Error message: {e}")
-            #     self.function_call_result = f"Function could not be called. error: {str(e)}"
             messages.append(
                 Message(role="function",
                         content=str(self.function_call_result),

@@ -27,6 +27,7 @@ class ExperimentFunctionCallingOnPlainText:
         extract_json_from_plaintext = ExtractJsonFromPlainText()
         function_list = [extract_json_from_plaintext]
         response = self.dialogue.prompt_assistant_response(prompt, filename, function_list)
+        print(f"Total cost for this run: ${self.dialogue.total_cost:.16f}")
         return response
 
 
