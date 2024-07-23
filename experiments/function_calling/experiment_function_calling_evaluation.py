@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+from datetime import datetime
 from pathlib import Path
 
 from jsons import ValidationError
@@ -39,6 +40,11 @@ class ExperimentFunctionCallingEvaluation:
         os.makedirs(output_folder, exist_ok=True)
         return output_folder
 
+    def create_costs_folder(self, base_dir):
+        costs_folder = os.path.join(base_dir, "prompting", "costs")
+        os.makedirs(costs_folder, exist_ok=True)
+        return costs_folder
+
     def process_files(self, ground_truth_folder, demonstrations_folder, predictions_folder):
         for file_name in os.listdir(ground_truth_folder):
 
@@ -68,6 +74,18 @@ class ExperimentFunctionCallingEvaluation:
         chat_file_writer = ChatFileWriter()
         chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False, append=False)
         print(f"Processed {os.path.basename(file_path)}: Saved predictions to {pred_filename}")
+
+        cost_summary = experiment_function_calling.dialogue.token_counter.get_cost_summary(pred_filename)
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        filename = "cost_summary_" + pred_filename + "_" + timestamp + ".json"
+        costs_directory = self.create_costs_folder(self.get_base_directory())
+        self.save_costs_to_file(cost_summary, costs_directory, filename)
+
+    def save_costs_to_file(self, costs, directory: str, filename):
+        costs_as_string = json.dumps(costs)
+        file_path = os.path.join(directory, filename)
+        with open(file_path, 'w') as f:
+            f.write(costs_as_string)
 
     def run(self):
         base_dir = self.get_base_directory()

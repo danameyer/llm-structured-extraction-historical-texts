@@ -3,12 +3,37 @@ from typing import List
 
 
 class TokenCounter:
-    def __init__(self):
-        pass
+    def __init__(self, model):
+        self.model = model
+        self.input_tokens = 0
+        self.output_tokens = 0
 
-    @staticmethod
-    def count_input_tokens(messages: List[dict], model: str) -> int:
-        encoding = tiktoken.encoding_for_model(model)
+    def add_number_of_input_tokens(self, number_of_input_tokens):
+        self.input_tokens += number_of_input_tokens
+
+    def add_number_of_output_tokens(self, number_of_output_tokens):
+        self.output_tokens += number_of_output_tokens
+
+    def add_input(self, input_message):
+        self.input_tokens += self._count_input_tokens(input_message)
+
+    def add_output(self, output_message):
+        self.output_tokens += self._count_output_tokens(output_message)
+
+    def get_costs(self):
+        return self._calculate_costs(self.input_tokens, self.output_tokens)
+
+    def get_cost_summary(self, pred_filename):
+        info = {
+            "filename": pred_filename,
+            "input_tokens": self.input_tokens,
+            "output_tokens": self.output_tokens,
+            "costs": self.get_costs()
+        }
+        return info
+
+    def _count_input_tokens(self, messages: List[dict]) -> int:
+        encoding = tiktoken.encoding_for_model(self.model)
         total_tokens = 0
         for message in messages:
             content = message.get('content', '')
@@ -16,33 +41,39 @@ class TokenCounter:
             total_tokens += len(tokens)
         return total_tokens
 
-    @staticmethod
-    def count_output_tokens(response: str, model: str) -> int:
+    def _count_output_tokens(self, response: str) -> int:
         if not isinstance(response, str):
             response = str(response)
 
-        encoding = tiktoken.encoding_for_model(model)
+        encoding = tiktoken.encoding_for_model(self.model)
         tokens = encoding.encode(response)
         return len(tokens)
 
-    @staticmethod
-    def calculate_costs(input_token_count: int, output_token_count: int, model: str) -> float:
+    def _calculate_costs(self, input_token_count: int, output_token_count: int) -> float:
         model_pricing = {
             "gpt-3.5-turbo": {
-                "input": 0.005,
-                "output": 0.015
+                "input": 0.0005,
+                "output": 0.0015
             },
             "gpt-3.5-turbo-0125": {
-                "input": 0.005,
-                "output": 0.015
+                "input": 0.0005,
+                "output": 0.0015
             },
             "gpt-4o": {
                 "input": 0.005,
                 "output": 0.015
+            },
+            "gpt-4o-mini": {
+                "input": 0.00015,
+                "output": 0.0006
+            },
+            "gpt-4-turbo": {
+                "input": 0.01,
+                "output": 0.03
             }
         }
-        input_cost_per_1000_tokens = model_pricing.get(model, {}).get("input", 0)
-        output_cost_per_1000_tokens = model_pricing.get(model, {}).get("output", 0)
+        input_cost_per_1000_tokens = model_pricing.get(self.model, {}).get("input", 0)
+        output_cost_per_1000_tokens = model_pricing.get(self.model, {}).get("output", 0)
 
         input_cost = (input_token_count / 1000) * input_cost_per_1000_tokens
         output_cost = (output_token_count / 1000) * output_cost_per_1000_tokens
