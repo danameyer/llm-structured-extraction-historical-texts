@@ -2,6 +2,19 @@ from typing import Optional, Dict, List
 
 
 class Message:
+    def __init__(self, role: str,
+                 content: str,
+                 name: str = None,
+                 function_call_id: str = None,
+                 function_call_arguments: str = None):
+        self.role: str = role
+        self.content: str = content
+        self.name: str = name
+        self.function_call_id: str = function_call_id
+        self.function_call_arguments: str = function_call_arguments
+
+
+class SimpleChatGptMessage:
     def __init__(self, role: str, content: str, name: str = None):
         self.role: str = role
         self.content: str = content

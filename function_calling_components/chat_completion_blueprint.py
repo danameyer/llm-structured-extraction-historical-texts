@@ -13,7 +13,7 @@ from openai.types.chat import ChatCompletion
 
 from evaluation.json_comparison.json_validation import JsonValidator
 from function_calling_components.chat_file_writer import ChatFileWriter
-from function_calling_components.function_calling import Message
+from function_calling_components.function_calling import Message, SimpleChatGptMessage
 from function_calling_components.token_counting import TokenCounter
 from functions.BaseFunction import BaseFunction
 from tenacity import (
@@ -43,26 +43,12 @@ class DialogueCompletion:
         os.makedirs(self.response_save_dir, exist_ok=True)
         self.chat_file_writer = ChatFileWriter()
         self.function_call_result = None
-        self.token_counter = TokenCounter()
-        self.total_cost = 0.0
+        self.token_counter = TokenCounter(self.model)
 
-    def count_tokens_in_request(self, messages_as_dict: List[dict]) -> int:
-        return self.token_counter.count_input_tokens(messages_as_dict, self.model)
-
-    def count_output_tokens_in_response(self, response: str) -> int:
-        return self.token_counter.count_output_tokens(response, self.model)
-
-    def calculate_request_cost(self, input_token_count: int, output_token_count: int) -> float:
-        return self.token_counter.calculate_costs(input_token_count, output_token_count, self.model)
-
-    def accumulate_cost(self, input_token_count: int, output_token_count: int):
-        cost = self.calculate_request_cost(input_token_count, output_token_count)
-        self.total_cost += cost
-
-    def request_response(self,
-                         messages: List[Message],
-                         functions: List[BaseFunction] = None,
-                         function_call="auto") -> Union[ChatCompletion, None]:
+    def _request_response(self,
+                          messages: List[Message],
+                          functions: List[BaseFunction] = None,
+                          function_call="auto") -> Union[ChatCompletion, None]:
         """
         Generate response using OpenAI Chat Completion API.
 
@@ -76,9 +62,9 @@ class DialogueCompletion:
             Completion: Generated response.
         """
         try:
-            messages_as_dict = json.loads(jsons.dumps(messages))
+            simple_chat_gpt_messages = [SimpleChatGptMessage(role=x.role, content=x.content, name=x.name) for x in messages]
+            messages_as_dict = json.loads(jsons.dumps(simple_chat_gpt_messages))
             print(f"Input response content: {messages_as_dict}")
-            input_token_count = self.count_tokens_in_request(messages_as_dict)
             functions_as_dict_list = [x.get_definition_dict() for x in functions] if functions else None
 
             completion: Union[ChatCompletion, None] = self.client.chat.completions.create(
@@ -89,15 +75,12 @@ class DialogueCompletion:
             )
 
             output_response = completion.choices[0].message.content
-            output_token_count = self.count_output_tokens_in_response(output_response)
             print(f"Output response content: {output_response}")
-            cost = self.calculate_request_cost(input_token_count, output_token_count)
-            print(
-                f"Input token count: {input_token_count}, "
-                f"Output token count: {output_token_count}, "
-                f"Estimated cost: ${cost:.16f}")
 
-            self.accumulate_cost(input_token_count, output_token_count)
+            # self.token_counter.add_input(messages_as_dict)
+            # self.token_counter.add_output(output_response)
+            self.token_counter.add_number_of_input_tokens(completion.usage.prompt_tokens)
+            self.token_counter.add_number_of_output_tokens(completion.usage.completion_tokens)
 
             # function definitions have been sent to chatGPT - now only use the short description in order to
             # save tokens ...
@@ -117,10 +100,10 @@ class DialogueCompletion:
             print("An unexpected API error occurred.")
             print(f"Exception: {e}")
 
-    def append_message(self, message: Message):
+    def _append_message(self, message: Message):
         self.message_history.append(message)
 
-    def print_conversation(self):
+    def _print_conversation(self):
         role_to_color: Dict[str, str] = {
             "system": "\033[96m",  # Cyan
             "user": "\033[93m",  # Yellow
@@ -136,29 +119,30 @@ class DialogueCompletion:
             print(f"{role}: {colored_content}\n\n")
 
     @retry(stop=stop_after_attempt(6), wait=wait_random_exponential(multiplier=1, max=10), reraise=True,)
-    def execute_chat_completion_query(self,
-                                      messages: List[Message],
-                                      functions: List[BaseFunction] = None,
-                                      validate=True) -> Union[ChatCompletion, None]:
-        completion = self.request_response(messages, functions)
+    def _execute_chat_completion_query(self,
+                                       messages: List[Message],
+                                       functions: List[BaseFunction] = None,
+                                       validate=True) -> Union[ChatCompletion, None]:
+        completion = self._request_response(messages, functions)
         message_output = completion.choices[0]
 
         if message_output.finish_reason == "function_call":
             print("Function will be called.")
-            function_call_result = self.perform_function_call(completion, messages, functions, validate)
+            function_call_result = self._perform_function_call(completion, messages, functions, validate)
             return function_call_result
         else:
             print("No function called.")
             return completion
 
-    def perform_function_call(self,
-                              completion: Union[ChatCompletion, None],
-                              messages: List[Message],
-                              functions: List[BaseFunction],
-                              validate=True) -> Union[ChatCompletion, None]:
+    def _perform_function_call(self,
+                               completion: Union[ChatCompletion, None],
+                               messages: List[Message],
+                               functions: List[BaseFunction],
+                               validate=True) -> Union[ChatCompletion, None]:
         function_name = completion.choices[0].message.function_call.name
         function_parameters = json.loads(
             completion.choices[0].message.function_call.arguments)
+        print("These are the function call arguments:", function_parameters)
 
         function_object = next((x for x in functions if x.get_definition().name == function_name), None)
 
@@ -177,10 +161,13 @@ class DialogueCompletion:
             messages.append(
                 Message(role="function",
                         content=str(self.function_call_result),
-                        name=completion.choices[0].message.function_call.name)
+                        name=completion.choices[0].message.function_call.name,
+                        function_call_id=completion.choices[0].message.tool_calls[0].id,
+                        function_call_arguments=completion.choices[0].message.function_call.arguments
+                        )
             )
             try:
-                response = self.request_response(messages)
+                response = self._request_response(messages)
                 return response
             except Exception as e:
                 print(type(e))
@@ -188,13 +175,13 @@ class DialogueCompletion:
 
     def add_dynamic_prompting(self, filename, print_conversation=True):
         user_input = input("You: ")
-        self.append_message(Message(role="user", content=user_input))
-        response = self.execute_chat_completion_query(self.message_history)
+        self._append_message(Message(role="user", content=user_input))
+        response = self._execute_chat_completion_query(self.message_history)
         if response:
             assistant_message = response.choices[0].message.content
-            self.append_message(Message(role="assistant", content=assistant_message))
+            self._append_message(Message(role="assistant", content=assistant_message))
             if print_conversation:
-                self.print_conversation()
+                self._print_conversation()
 
             self.chat_file_writer.save_response(f"User: {user_input}", filename)
             self.chat_file_writer.save_response(f"Assistant: {assistant_message}", filename)
@@ -205,32 +192,32 @@ class DialogueCompletion:
                                   function_list=None,
                                   print_conversation=True,
                                   validate=True):
-        self.append_message(Message("user", prompt))
+        self._append_message(Message("user", prompt))
 
         self.chat_file_writer.save_prompt(prompt, filename)
 
-        chat_response = self.execute_chat_completion_query(
+        chat_response = self._execute_chat_completion_query(
             messages=self.message_history,
             functions=function_list,
             validate=validate
         )
         assistant_message = chat_response.choices[0].message.content
 
-        self.append_message(Message("assistant", assistant_message))
+        self._append_message(Message("assistant", assistant_message))
         self.chat_file_writer.save_response(assistant_message, filename)
 
         if print_conversation:
-            self.print_conversation()
+            self._print_conversation()
 
         return assistant_message
 
     def add_system_prompt(self, prompt, filename, print_conversation=True):
-        self.append_message(Message("system", prompt))
+        self._append_message(Message("system", prompt))
 
         self.chat_file_writer.save_prompt(prompt, filename)
 
         if print_conversation:
-            self.print_conversation()
+            self._print_conversation()
 
     def flag_function_calls_for_short_description(self, functions: Union[List[BaseFunction], None]):
         if functions:
