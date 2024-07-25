@@ -3,7 +3,7 @@ import os
 from dataclasses import is_dataclass, asdict
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Any
 from deepdiff import DeepDiff
 from dotenv import load_dotenv
 from thefuzz import fuzz
@@ -91,15 +91,14 @@ class JsonComparison:
         else:
             return 0
 
-    def calculate_metric(self, person_matching: PersonMatching, result_file, apply_fuzzy=False):
+    def calculate_metric(self, person_matching: PersonMatching, apply_fuzzy=False):
         if not apply_fuzzy:
-            metric_values_changed, metric_items_change_count, number_fields_total, metric_type_changes = self.calculate_diff_metrics(
-                person_matching, result_file)
+            metric_values_changed, metric_items_change_count, number_fields_total, metric_type_changes, deep_diff_results = self.calculate_diff_metrics(
+                person_matching)
         else:
-            metric_values_changed, metric_items_change_count, number_fields_total, metric_type_changes = (
+            metric_values_changed, metric_items_change_count, number_fields_total, metric_type_changes, deep_diff_results = (
                 self.calculate_diff_metrics(
                     person_matching,
-                    result_file,
                     apply_fuzzy=True))
         metric_persons_added_or_removed = self.calculate_not_found_metric(person_matching)
 
@@ -120,21 +119,20 @@ class JsonComparison:
         print("Number of matches:", matches)
         print("Number of differences:", all_diffs)
 
-        return accuracy_score
+        return accuracy_score, matches, all_diffs, deep_diff_results, number_fields_total
 
     def calculate_diff_metrics(self,
                                person_matching: PersonMatching,
-                               result_file,
-                               apply_fuzzy=False) -> Tuple[int, int, int, int]:
+                               apply_fuzzy=False) -> Tuple[int, int, int, int, List[Dict[str, Any]]]:
         metric_values_changed = 0
         metric_items_change_count = 0
         metric_type_changes = 0
         number_fields_total = 0
+        deepdiff_results = []
 
         for match in person_matching.matches:
             person_1, person_2 = match
             ddiff_as_json = self.get_deep_diff(person_1, person_2)
-            result_file.write(f"DeepDiff: {ddiff_as_json}\n")
             ddiff_as_dict = json.loads(ddiff_as_json)
             number_fields_total += self.count_fields(person_1.__dict__)
 
@@ -143,6 +141,7 @@ class JsonComparison:
 
             if apply_fuzzy:
                 fuzzy_diff_values, value_change_count = self.apply_fuzzy_compare(values_changed)
+                print("This is the number of values changed:", value_change_count)
             else:
                 value_change_count = len(values_changed)
                 print("This is the number of values changed:", value_change_count)
@@ -157,7 +156,17 @@ class JsonComparison:
             type_changes: Dict = ddiff_as_dict.get("type_changes", {})
             metric_type_changes += len(type_changes)
 
-        return metric_values_changed, metric_items_change_count, number_fields_total, metric_type_changes
+            deepdiff_results.append({
+                'name1': person_1.name,
+                'name2': person_2.name,
+                'deepdiff': ddiff_as_json,
+                'values_changed': len(values_changed),
+                'iterable_item_added': len(iterable_item_added),
+                'iterable_item_removed': len(iterable_item_removed),
+                'type_changes': len(type_changes)
+            })
+
+        return metric_values_changed, metric_items_change_count, number_fields_total, metric_type_changes, deepdiff_results
 
     def calculate_not_found_metric(self, person_matching: PersonMatching) -> int:
         not_found_counts = [self.count_fields(person.__dict__) for person in person_matching.not_found]
@@ -210,18 +219,73 @@ class JsonComparison:
 
                 if pred_filename in pred_dict:
                     pred_document = pred_dict[pred_filename]
+                    comparison_results = []
 
-                    result_file.write(f"File: {gt_filename} & {pred_document.document_name}\n")
-                    # for gt_person, pred_person in zip(gt_document.persons, pred_document.persons):
-                    #     deepdiff = self.get_deep_diff(gt_person, pred_person)
-                    #     result_file.write(f"DeepDiff: {deepdiff}\n")
                     matching_person_object = self.find_matching_person(gt_document.persons, pred_document.persons)
-                    exact_score = self.calculate_metric(matching_person_object, result_file)
-                    result_file.write(f"Exact Metric: {exact_score}\n")
-                    fuzzy_score = self.calculate_metric(matching_person_object, result_file, apply_fuzzy=True)
-                    result_file.write(f"Fuzzy Metric: {fuzzy_score}\n\n")
+                    exact_score, exact_matches, exact_diffs, deep_diff_results, total_field_count = self.calculate_metric(matching_person_object)
+
+                    fuzzy_score, fuzzy_matches, fuzzy_diffs, deep_diff_results_fuzzy, total_field_count = self.calculate_metric(matching_person_object, apply_fuzzy=True)
+
+                    comparison_results.append({
+                        'file_name1': gt_filename,
+                        'file_name2': pred_document.document_name,
+                        'deepdiff_comparison_results': deep_diff_results,
+                        'exact_score': exact_score,
+                        'exact_matches': exact_matches,
+                        'exact_differences': exact_diffs,
+                        'deep_diff_comparison_results_fuzzy': deep_diff_results_fuzzy,
+                        'fuzzy_score': fuzzy_score,
+                        'fuzzy_matches': fuzzy_matches,
+                        'fuzzy_differences': fuzzy_diffs,
+                        'total_field_count': total_field_count
+                    })
+
+                    # Write formatted results to the file
+                    formatted_result = self.format_comparison(comparison_results)
+                    result_file.write(formatted_result + '\n')
+
                 else:
                     result_file.write(f"File: {gt_filename} - JSON file with predicted results not found.\n\n")
+                    result_file.write("-" * 60 + "\n")
+
+    def format_comparison(self, comparison_results):
+        """
+        Formats the comparison results into a structured string.
+        """
+        output = []
+
+        for result in comparison_results:
+            # Header for the files being compared
+            output.append(f"------------------------------------------------------------")
+            output.append(f"FILE: {result['file_name1']} & {result['file_name2']}")
+            output.append(f"------------------------------------------------------------\n")
+
+            # Details of each deepdiff comparison
+            for comparison in result['deepdiff_comparison_results']:
+                name1, name2, deepdiff = comparison['name1'], comparison['name2'], comparison['deepdiff']
+                output.append(f"Comparing: {name1} with {name2}")
+                output.append(f"- DeepDiff: {deepdiff}")
+                output.append(f"- Values Changed: {comparison['values_changed']}")
+                output.append(f"- Items Added: {comparison['iterable_item_added']}")
+                output.append(f"- Items Removed: {comparison['iterable_item_removed']}")
+                output.append(f"- Type Changes: {comparison['type_changes']}\n")
+
+            # Total Field Count
+            output.append(f"**Total Field Count: {result['total_field_count']}**\n")
+
+            # Exact Metric
+            output.append(f"**Exact Metric: {result['exact_score']}**")
+            output.append(f"- Matches: {result['exact_matches']}")
+            output.append(f"- Differences: {result['exact_differences']}\n")
+
+            # Fuzzy Metric
+            output.append(f"**Fuzzy Metric: {result['fuzzy_score']}**")
+            output.append(f"- Matches: {result['fuzzy_matches']}")
+            output.append(f"- Differences: {result['fuzzy_differences']}\n")
+
+            output.append(f"============================================================")
+
+        return "\n".join(output)
 
 
 if __name__ == '__main__':
