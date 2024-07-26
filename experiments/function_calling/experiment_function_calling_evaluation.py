@@ -15,8 +15,9 @@ from function_calling_components.chat_file_writer import ChatFileWriter
 
 class ExperimentFunctionCallingEvaluation:
 
-    def __init__(self, gpt_model_name='gpt-3.5-turbo'):
+    def __init__(self, gpt_model_name='gpt-3.5-turbo', regenerate_predictions=False):
         self.model_name = model_name
+        self.regenerate_predictions = regenerate_predictions
         self.dialogue = DialogueCompletion(model=gpt_model_name)
 
     def get_base_directory(self):
@@ -63,15 +64,20 @@ class ExperimentFunctionCallingEvaluation:
 
 
     def process_single_file(self, file_path, demonstrations_folder, predictions_folder):
+        base_name = os.path.splitext(os.path.basename(file_path))[0]
+        pred_filename = f'pred_{base_name}.json'
+        output_path_response = os.path.join(predictions_folder, pred_filename)
+
+        if not self.regenerate_predictions and os.path.exists(output_path_response):
+            print(f"Prediction for {base_name} already exists. Skipping regeneration.")
+            return
+
         test_files = [file_path]
         demonstrations = [os.path.join(demonstrations_folder, "demonstration_1.txt")]
         experiment_function_calling = ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations)
         response_json = experiment_function_calling.run()
         response_json_str = json.dumps(response_json, indent=4)
 
-        base_name = os.path.splitext(os.path.basename(file_path))[0]
-        pred_filename = f'pred_{base_name}.json'
-        output_path_response = os.path.join(predictions_folder, pred_filename)
         chat_file_writer = ChatFileWriter()
         chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False, append=False)
         print(f"Processed {os.path.basename(file_path)}: Saved predictions to {pred_filename}")
@@ -102,5 +108,7 @@ class ExperimentFunctionCallingEvaluation:
 
 if __name__ == '__main__':
     model_name = 'gpt-3.5-turbo'
-    experiment = ExperimentFunctionCallingEvaluation(gpt_model_name=model_name)
+    regenerate_predictions = False
+    experiment = ExperimentFunctionCallingEvaluation(gpt_model_name=model_name,
+                                                     regenerate_predictions=regenerate_predictions)
     experiment.run()
