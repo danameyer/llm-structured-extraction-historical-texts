@@ -162,7 +162,7 @@ class DialogueCompletion:
                 Message(role="function",
                         content=str(self.function_call_result),
                         name=completion.choices[0].message.function_call.name,
-                        function_call_id=completion.choices[0].message.tool_calls[0].id,
+                        # function_call_id=completion.choices[0].message.tool_calls[0].id,
                         function_call_arguments=completion.choices[0].message.function_call.arguments
                         )
             )

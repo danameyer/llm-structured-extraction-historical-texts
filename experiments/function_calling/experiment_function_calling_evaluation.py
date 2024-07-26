@@ -15,8 +15,9 @@ from function_calling_components.chat_file_writer import ChatFileWriter
 
 class ExperimentFunctionCallingEvaluation:
 
-    def __init__(self):
-        self.dialogue = DialogueCompletion(model='gpt-4-turbo')
+    def __init__(self, gpt_model_name='gpt-3.5-turbo'):
+        self.model_name = model_name
+        self.dialogue = DialogueCompletion(model=gpt_model_name)
 
     def get_base_directory(self):
         return Path(os.getenv('PROJECT_BASE_DIR'))
@@ -31,9 +32,9 @@ class ExperimentFunctionCallingEvaluation:
         return os.path.join(base_dir, "test_data", "test_txt")
 
     def create_predictions_folder(self, base_dir):
-        predictions_folder = os.path.join(base_dir, "test_data", "test_json_diff", "predictions")
-        os.makedirs(predictions_folder, exist_ok=True)
-        return predictions_folder
+        model_predictions_folder = os.path.join(base_dir, "test_data", "test_json_diff", "predictions", self.model_name)
+        os.makedirs(model_predictions_folder, exist_ok=True)
+        return model_predictions_folder
 
     def create_output_folder(self, base_dir):
         output_folder = os.path.join(base_dir, "test_data", "test_json_diff", "scores")
@@ -100,5 +101,6 @@ class ExperimentFunctionCallingEvaluation:
 
 
 if __name__ == '__main__':
-    experiment = ExperimentFunctionCallingEvaluation()
+    model_name = 'gpt-3.5-turbo'
+    experiment = ExperimentFunctionCallingEvaluation(gpt_model_name=model_name)
     experiment.run()
