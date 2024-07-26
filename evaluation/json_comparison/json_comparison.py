@@ -240,49 +240,79 @@ class JsonComparison:
     def perform_json_comparison(self, gt_folder, prediction_folder, output_folder):
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         output_file = os.path.join(output_folder, f'results_{timestamp}.txt')
+
+        gt_documents = create_documents(gt_folder)
+        pred_documents = create_documents(prediction_folder)
+
+        gt_dict = {doc.document_name: doc for doc in gt_documents}
+        pred_dict = {doc.document_name: doc for doc in pred_documents}
+
+        fuzzy_count_matches = 0
+        exact_count_matches = 0
+        all_fields_count = 0
+
+        comparison_results = {
+            'individual_results': [],
+            'overall_results': {}
+        }
+
+        for gt_filename, gt_document in gt_dict.items():
+            base_name = os.path.splitext(gt_filename)[0]
+            pred_filename = f'pred_{base_name}.json'
+
+            if pred_filename in pred_dict:
+                pred_document = pred_dict[pred_filename]
+
+                matching_person_object = self.find_matching_person(gt_document.persons, pred_document.persons)
+                exact_score, exact_matches, exact_diffs, deep_diff_results, total_field_count = self.calculate_metric(
+                    matching_person_object)
+                fuzzy_score, fuzzy_matches, fuzzy_diffs, deep_diff_results_fuzzy, total_field_count = self.calculate_metric(
+                    matching_person_object, apply_fuzzy=True)
+
+                individual_result = {
+                    'file_name1': gt_filename,
+                    'file_name2': pred_document.document_name,
+                    'deepdiff_comparison_results': deep_diff_results,
+                    'exact_score': exact_score,
+                    'exact_matches': exact_matches,
+                    'exact_differences': exact_diffs,
+                    'deep_diff_comparison_results_fuzzy': deep_diff_results_fuzzy,
+                    'fuzzy_score': fuzzy_score,
+                    'fuzzy_matches': fuzzy_matches,
+                    'fuzzy_differences': fuzzy_diffs,
+                    'total_field_count': total_field_count
+                }
+
+                comparison_results['individual_results'].append(individual_result)
+
+                fuzzy_count_matches += fuzzy_matches
+                exact_count_matches += exact_matches
+                all_fields_count += total_field_count
+
+            else:
+                comparison_results['individual_results'].append({
+                    'file_name1': gt_filename,
+                    'error': 'JSON file with predicted results not found.'
+                })
+
+        overall_score_exact = exact_count_matches / all_fields_count if all_fields_count > 0 else 0
+        overall_score_fuzzy = fuzzy_count_matches / all_fields_count if all_fields_count > 0 else 0
+
+        comparison_results['overall_results'] = {
+            'overall_exact_score': overall_score_exact,
+            'overall_fuzzy_score': overall_score_fuzzy,
+            'total_exact_matches': exact_count_matches,
+            'total_fuzzy_matches': fuzzy_count_matches,
+            'total_exact_misses': all_fields_count - exact_count_matches,
+            'total_fuzzy_misses': all_fields_count - fuzzy_count_matches,
+            'total_fields_count': all_fields_count
+        }
+
+        # Write all results to the file in one go
         with open(output_file, 'a') as result_file:
             result_file.write(f"\nResults generated on: {datetime.now()}\n\n")
-
-            gt_documents = create_documents(gt_folder)
-            pred_documents = create_documents(prediction_folder)
-
-            gt_dict = {doc.document_name: doc for doc in gt_documents}
-            pred_dict = {doc.document_name: doc for doc in pred_documents}
-
-            for gt_filename, gt_document in gt_dict.items():
-                base_name = os.path.splitext(gt_filename)[0]
-                pred_filename = f'pred_{base_name}.json'
-
-                if pred_filename in pred_dict:
-                    pred_document = pred_dict[pred_filename]
-                    comparison_results = []
-
-                    matching_person_object = self.find_matching_person(gt_document.persons, pred_document.persons)
-                    exact_score, exact_matches, exact_diffs, deep_diff_results, total_field_count = self.calculate_metric(matching_person_object)
-
-                    fuzzy_score, fuzzy_matches, fuzzy_diffs, deep_diff_results_fuzzy, total_field_count = self.calculate_metric(matching_person_object, apply_fuzzy=True)
-
-                    comparison_results.append({
-                        'file_name1': gt_filename,
-                        'file_name2': pred_document.document_name,
-                        'deepdiff_comparison_results': deep_diff_results,
-                        'exact_score': exact_score,
-                        'exact_matches': exact_matches,
-                        'exact_differences': exact_diffs,
-                        'deep_diff_comparison_results_fuzzy': deep_diff_results_fuzzy,
-                        'fuzzy_score': fuzzy_score,
-                        'fuzzy_matches': fuzzy_matches,
-                        'fuzzy_differences': fuzzy_diffs,
-                        'total_field_count': total_field_count
-                    })
-
-                    # Write formatted results to the file
-                    formatted_result = self.format_comparison(comparison_results)
-                    result_file.write(formatted_result + '\n')
-
-                else:
-                    result_file.write(f"File: {gt_filename} - JSON file with predicted results not found.\n\n")
-                    result_file.write("-" * 60 + "\n")
+            formatted_result = self.format_comparison(comparison_results)
+            result_file.write(formatted_result)
 
     def format_comparison(self, comparison_results):
         """
@@ -290,12 +320,15 @@ class JsonComparison:
         """
         output = []
 
-        for result in comparison_results:
+        # Format individual results
+        for result in comparison_results['individual_results']:
+            if 'error' in result:
+                output.append(f"File: {result['file_name1']} - {result['error']}\n")
+                continue
+
             # Header for the files being compared
             output.append(f"------------------------------------------------------------")
-            output.append(f"------------------------------------------------------------")
             output.append(f"FILE: {result['file_name1']} & {result['file_name2']}")
-            output.append(f"------------------------------------------------------------")
             output.append(f"------------------------------------------------------------\n")
 
             # Total Field Count
@@ -340,6 +373,21 @@ class JsonComparison:
             output.append(f"- Differences: {result['fuzzy_differences']}\n")
 
             output.append(f"============================================================\n")
+
+        output.append(f"------------------------------------------------------------")
+        output.append(f"OVERALL RESULTS")
+        output.append(f"------------------------------------------------------------\n")
+
+        # Format overall results
+        overall_results = comparison_results['overall_results']
+        output.append(f"Overall Exact Score: {overall_results['overall_exact_score']:.4f}\n")
+        output.append(f"Overall Fuzzy Score: {overall_results['overall_fuzzy_score']:.4f}\n")
+        output.append(f"Total Exact Matches: {overall_results['total_exact_matches']}\n")
+        output.append(f"Total Fuzzy Matches: {overall_results['total_fuzzy_matches']}\n")
+        output.append(f"Total Exact Misses: {overall_results['total_exact_misses']}\n")
+        output.append(f"Total Fuzzy Misses: {overall_results['total_fuzzy_misses']}\n")
+        output.append(f"Total Fields Count: {overall_results['total_fields_count']}\n")
+        output.append(f"{'-' * 60}\n")
 
         return "\n".join(output)
 
