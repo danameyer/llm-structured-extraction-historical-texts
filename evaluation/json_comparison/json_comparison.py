@@ -39,7 +39,8 @@ class JsonComparison:
 
     def find_matching_person(self,
                              person_list_1: List[Person],
-                             person_list_2: List[Person]) -> PersonMatching:
+                             person_list_2: List[Person],
+                             distance_threshold: float = 0.2) -> PersonMatching:
         evaluator = JsonEditDistanceEvaluator()
         matches = []
         not_found = []
@@ -50,7 +51,9 @@ class JsonComparison:
             last_matching_score = 1.0
             for person_b in person_list_2:
                 name_b = person_b.name
-                if self.fuzzy_compare(name_a, name_b):
+                name_a_simplified = self.simplify_name(name_a)
+                name_b_simplified = self.simplify_name(name_b)
+                if self.fuzzy_compare(name_a_simplified, name_b_simplified):
                     person_a_as_dict = person_a.to_dict()
                     person_b_as_dict = person_b.to_dict()
                     person_a_as_string = json.dumps(person_a_as_dict)
@@ -66,8 +69,34 @@ class JsonComparison:
             else:
                 matches.append((person_a, matching_person))
 
-        print("This is the list of persons not found", not_found)
+        # # Handle persons not matched by name
+        unmatched_persons = not_found.copy()
+        not_found = []
+        for person_a in unmatched_persons:
+            person_a_as_dict = person_a.to_dict()
+            person_a_as_string = json.dumps(person_a_as_dict)
+            matching_person = None
+            last_matching_score = distance_threshold
+            for person_b in person_list_2:
+                if person_b not in [match[1] for match in matches]:
+                    person_b_as_dict = person_b.to_dict()
+                    person_b_as_string = json.dumps(person_b_as_dict)
+                    result = evaluator.evaluate_strings(prediction=person_a_as_string, reference=person_b_as_string)
+                    score = result['score']
+                    if score < last_matching_score:
+                        matching_person = person_b
+                        last_matching_score = score
+
+            if matching_person is None:
+                not_found.append(person_a)
+            else:
+                matches.append((person_a, matching_person))
+
         return PersonMatching(matches=matches, not_found=not_found)
+
+    def simplify_name(self, name_a):
+        return (name_a.replace('.', '')
+                .replace('\'', ''))
 
     def get_deep_diff(self, person_1: Person, person_2: Person):
         person_1_dict = person_1.__dict__
@@ -104,8 +133,6 @@ class JsonComparison:
 
         number_fields_total += metric_persons_added_or_removed
 
-        print("Number of persons not found:", metric_persons_added_or_removed)
-
         # Calculate total differences
         all_diffs = (metric_values_changed
                      + metric_persons_added_or_removed
@@ -132,20 +159,24 @@ class JsonComparison:
 
         for match in person_matching.matches:
             person_1, person_2 = match
-            ddiff_as_json = self.get_deep_diff(person_1, person_2)
-            ddiff_as_dict = json.loads(ddiff_as_json)
+            exact_ddiff_as_json = self.get_deep_diff(person_1, person_2)
+            exact_ddiff_as_dict = json.loads(exact_ddiff_as_json)
             number_fields_total += self.count_fields(person_1.__dict__)
 
             # Values changed:
-            values_changed: Dict = ddiff_as_dict.get("values_changed", {})
+            exact_values_changed: Dict = exact_ddiff_as_dict.get("values_changed", {})
 
             if apply_fuzzy:
-                fuzzy_diff_values, value_change_count = self.apply_fuzzy_compare(values_changed)
+                fuzzy_diff_values, value_change_count = self.apply_fuzzy_compare(exact_values_changed)
+                ddiff_as_dict = {"values_changed": fuzzy_diff_values}
                 print("This is the number of values changed:", value_change_count)
             else:
-                value_change_count = len(values_changed)
+                value_change_count = len(exact_values_changed)
+                ddiff_as_dict = {"values_changed": exact_values_changed}
                 print("This is the number of values changed:", value_change_count)
             metric_values_changed += value_change_count
+
+            ddiff_as_json = json.dumps(ddiff_as_dict)
 
             # Items added or removed
             iterable_item_added = ddiff_as_dict.get("iterable_item_added", {})
@@ -160,7 +191,7 @@ class JsonComparison:
                 'name1': person_1.name,
                 'name2': person_2.name,
                 'deepdiff': ddiff_as_json,
-                'values_changed': len(values_changed),
+                'values_changed': value_change_count,
                 'iterable_item_added': len(iterable_item_added),
                 'iterable_item_removed': len(iterable_item_removed),
                 'type_changes': len(type_changes)
@@ -184,22 +215,27 @@ class JsonComparison:
                 return True
         return False
 
-    def apply_fuzzy_compare(self, values_changed: Dict, threshold=80) -> Tuple[List[Dict], int]:
+    def apply_fuzzy_compare(self, values_changed: Dict, threshold=80) -> Tuple[Dict[str, Dict], int]:
         fuzzy_diffs = []
         fuzzy_diffs_counter = 0
+        deep_diff_formated_fuzzy_changes = dict()
         for key, change in values_changed.items():
             old_value = change['old_value']
             new_value = change['new_value']
             if isinstance(old_value, str) and isinstance(new_value, str):
                 if not self.fuzzy_compare(old_value, new_value, threshold):
-                    fuzzy_diffs.append({
-                        'key': key,
+                    deep_diff_formated_fuzzy_changes['root[\'' + key + '\']'] = {
                         'old_value': old_value,
-                        'new_value': new_value,
-                        'similarity': fuzz.ratio(old_value, new_value)
-                    })
+                        'new_value': new_value
+                    }
+                    # fuzzy_diffs.append({
+                    #     'key': key,
+                    #     'old_value': old_value,
+                    #     'new_value': new_value,
+                    #     'similarity': fuzz.ratio(old_value, new_value)
+                    # })
                     fuzzy_diffs_counter += 1
-        return fuzzy_diffs, fuzzy_diffs_counter
+        return deep_diff_formated_fuzzy_changes, fuzzy_diffs_counter
 
     def perform_json_comparison(self, gt_folder, prediction_folder, output_folder):
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -257,7 +293,16 @@ class JsonComparison:
         for result in comparison_results:
             # Header for the files being compared
             output.append(f"------------------------------------------------------------")
+            output.append(f"------------------------------------------------------------")
             output.append(f"FILE: {result['file_name1']} & {result['file_name2']}")
+            output.append(f"------------------------------------------------------------")
+            output.append(f"------------------------------------------------------------\n")
+
+            # Total Field Count
+            output.append(f"**Total Field Count: {result['total_field_count']}**\n")
+
+            output.append(f"------------------------------------------------------------")
+            output.append(f"EXACT METRIC")
             output.append(f"------------------------------------------------------------\n")
 
             # Details of each deepdiff comparison
@@ -270,20 +315,31 @@ class JsonComparison:
                 output.append(f"- Items Removed: {comparison['iterable_item_removed']}")
                 output.append(f"- Type Changes: {comparison['type_changes']}\n")
 
-            # Total Field Count
-            output.append(f"**Total Field Count: {result['total_field_count']}**\n")
-
             # Exact Metric
             output.append(f"**Exact Metric: {result['exact_score']}**")
             output.append(f"- Matches: {result['exact_matches']}")
             output.append(f"- Differences: {result['exact_differences']}\n")
+
+            output.append(f"------------------------------------------------------------")
+            output.append(f"FUZZY METRIC")
+            output.append(f"------------------------------------------------------------\n")
+
+            # Details of each deepdiff comparison fuzzy
+            for comparison in result['deep_diff_comparison_results_fuzzy']:
+                name1, name2, deepdiff = comparison['name1'], comparison['name2'], comparison['deepdiff']
+                output.append(f"Comparing: {name1} with {name2}")
+                output.append(f"- DeepDiff: {deepdiff}")
+                output.append(f"- Values Changed: {comparison['values_changed']}")
+                output.append(f"- Items Added: {comparison['iterable_item_added']}")
+                output.append(f"- Items Removed: {comparison['iterable_item_removed']}")
+                output.append(f"- Type Changes: {comparison['type_changes']}\n")
 
             # Fuzzy Metric
             output.append(f"**Fuzzy Metric: {result['fuzzy_score']}**")
             output.append(f"- Matches: {result['fuzzy_matches']}")
             output.append(f"- Differences: {result['fuzzy_differences']}\n")
 
-            output.append(f"============================================================")
+            output.append(f"============================================================\n")
 
         return "\n".join(output)
 

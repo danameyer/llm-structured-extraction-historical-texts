@@ -54,6 +54,32 @@ class Person:
             'title': self.title
         }
 
+    def __eq__(self, other):
+        if isinstance(other, Person):
+            return (
+                    self.id == other.id and
+                    self.name == other.name and
+                    self.cognomen == other.cognomen and
+                    self.profession == other.profession and
+                    self.family_relations == other.family_relations and
+                    self.legal_relationship == other.legal_relationship and
+                    self.place_of_origin == other.place_of_origin and
+                    self.title == other.title
+            )
+        return False
+
+    def __hash__(self):
+        return hash((
+            self.id,
+            self.name,
+            self.cognomen,
+            self.profession,
+            tuple(rel.to_dict() for rel in self.family_relations),
+            tuple(rel.to_dict() for rel in self.legal_relationship),
+            self.place_of_origin,
+            self.title
+        ))
+
 
 class PersonSchema(Schema):
     id = fields.Int(required=True)
