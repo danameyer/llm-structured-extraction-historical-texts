@@ -237,9 +237,10 @@ class JsonComparison:
                     fuzzy_diffs_counter += 1
         return deep_diff_formated_fuzzy_changes, fuzzy_diffs_counter
 
-    def perform_json_comparison(self, gt_folder, prediction_folder, output_folder):
+    def perform_json_comparison(self, gt_folder, prediction_folder, output_folder, json_output_folder):
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         output_file = os.path.join(output_folder, f'results_{timestamp}.txt')
+        json_output_file = os.path.join(json_output_folder, f'results_{timestamp}.json')
 
         gt_documents = create_documents(gt_folder)
         pred_documents = create_documents(prediction_folder)
@@ -313,6 +314,10 @@ class JsonComparison:
             result_file.write(f"\nResults generated on: {datetime.now()}\n\n")
             formatted_result = self.format_comparison(comparison_results)
             result_file.write(formatted_result)
+
+        # Save the comparison results as a JSON file
+        with open(json_output_file, 'w') as json_file:
+            json.dump(comparison_results, json_file, indent=4)
 
     def format_comparison(self, comparison_results):
         """
@@ -398,6 +403,9 @@ if __name__ == '__main__':
     gt_path = os.path.join(base_dir, "test_data", "test_json_diff", "ground_truth")
     pred_path = os.path.join(base_dir, "test_data", "test_json_diff", "predictions")
     output_path = os.path.join(base_dir, "test_data", "test_json_diff", "scores")
+    json_output_path = os.path.join(base_dir, "test_data", "test_json_diff", "scores_as_json")
     if not os.path.exists(output_path):
         os.makedirs(output_path)
-    json_comparison.perform_json_comparison(gt_path, pred_path, output_path)
+    if not os.path.exists(json_output_path):
+        os.makedirs(json_output_path)
+    json_comparison.perform_json_comparison(gt_path, pred_path, output_path, json_output_path)
