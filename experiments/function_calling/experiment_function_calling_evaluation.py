@@ -7,6 +7,7 @@ from pathlib import Path
 from jsons import ValidationError
 
 from evaluation.json_comparison.json_comparison import JsonComparison
+from experiments.function_calling.experiment_all_principles_zero_shot import ExperimentAllPrinciplesZeroShotPrompt
 from experiments.function_calling.function_calling_with_optimised_prompt import \
     ExperimentFunctionCallingWithOptimisedPrompt
 from function_calling_components.chat_completion_blueprint import DialogueCompletion
@@ -24,9 +25,9 @@ class ExperimentFunctionCallingEvaluation:
         self.regenerate_predictions = regenerate_predictions
         self.dialogue = DialogueCompletion(model=gpt_model_name)
 
-    def init_prompt_experiment(self, demonstrations_files, test_files):
+    def init_prompt_experiment(self, demonstrations_files, test_files, gpt_model):
         if self.prompt_experiment_name == "chain_of_thought":
-            return ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations_files)
+            return ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations_files, gpt_model)
         # elif self.prompt_experiment_name == "all_principles_zero_shot":
         #     return ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations_files)
         # elif self.prompt_experiment_name == "all_principles_few_shot":
@@ -35,7 +36,6 @@ class ExperimentFunctionCallingEvaluation:
         #     return ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations_files)
         else:
             raise ValueError("Wrong prompt name: " + self.prompt_experiment_name)
-
 
     def get_base_directory(self):
         return Path(os.getenv('PROJECT_BASE_DIR'))
@@ -75,23 +75,23 @@ class ExperimentFunctionCallingEvaluation:
         os.makedirs(costs_folder, exist_ok=True)
         return costs_folder
 
-    def process_files(self, ground_truth_folder, demonstrations_folder, predictions_folder):
-        for file_name in os.listdir(ground_truth_folder):
+    def process_files(self, text_files_folder, demonstrations_folder, predictions_folder, gpt_model):
+        for file_name in os.listdir(text_files_folder):
 
-            path_to_gt_file = os.path.join(ground_truth_folder, file_name)
-            if os.path.isfile(path_to_gt_file):
+            path_to_text_file = os.path.join(text_files_folder, file_name)
+            if os.path.isfile(path_to_text_file):
                 try:
-                    self.process_single_file(path_to_gt_file, demonstrations_folder, predictions_folder)
+                    self.process_single_file(path_to_text_file, demonstrations_folder, predictions_folder, gpt_model)
                 except ValidationError as e:
                     print(f"""
-                    Could not complete file {path_to_gt_file} because of error: 
+                    Could not complete file {path_to_text_file} because of error: 
                     {e.message}
                     
                     Will continue with next file.
                     """, file=sys.stderr)
 
-    def process_single_file(self, path_to_gt_file, demonstrations_folder, predictions_folder):
-        base_name = os.path.splitext(os.path.basename(path_to_gt_file))[0]
+    def process_single_file(self, path_to_text_file, demonstrations_folder, predictions_folder, gpt_model):
+        base_name = os.path.splitext(os.path.basename(path_to_text_file))[0]
         pred_filename = f'pred_{base_name}.json'
         output_path_response = os.path.join(predictions_folder, pred_filename)
 
@@ -99,16 +99,16 @@ class ExperimentFunctionCallingEvaluation:
             print(f"Prediction for {base_name} already exists. Skipping regeneration.")
             return
 
-        test_files = [path_to_gt_file]
+        test_files = [path_to_text_file]
         demonstrations = [os.path.join(demonstrations_folder, "demonstration_1.txt")]
         # experiment_function_calling = ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations)
-        experiment_function_calling = self.init_prompt_experiment(test_files, demonstrations)
+        experiment_function_calling = self.init_prompt_experiment(demonstrations, test_files, gpt_model=gpt_model)
         response_json = experiment_function_calling.run()
         response_json_str = json.dumps(response_json, indent=4)
 
         chat_file_writer = ChatFileWriter()
         chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False, append=False)
-        print(f"Processed {os.path.basename(path_to_gt_file)}: Saved predictions to {pred_filename}")
+        print(f"Processed {os.path.basename(path_to_text_file)}: Saved predictions to {pred_filename}")
 
         cost_summary = experiment_function_calling.dialogue.token_counter.get_cost_summary(pred_filename)
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -122,7 +122,7 @@ class ExperimentFunctionCallingEvaluation:
         with open(file_path, 'w') as f:
             f.write(costs_as_string)
 
-    def run(self):
+    def run(self, gpt_model):
         base_dir = self.get_base_directory()
         experiment_dir = self.create_experiment_folder(base_dir)
         sample_folder = self.get_sample_folder(base_dir)
@@ -131,7 +131,7 @@ class ExperimentFunctionCallingEvaluation:
         predictions_folder = self.create_predictions_folder(experiment_dir)
         scores_txt_folder = self.create_scores_txt_folder(experiment_dir)
         scores_json_folder = self.create_scores_json_folder(experiment_dir)
-        self.process_files(sample_folder, demonstrations_folder, predictions_folder)
+        self.process_files(sample_folder, demonstrations_folder, predictions_folder, gpt_model=gpt_model)
         json_comparison = JsonComparison()
         json_comparison.perform_json_comparison(ground_truth_folder,
                                                 predictions_folder,
@@ -147,7 +147,7 @@ def _main():
     experiment = ExperimentFunctionCallingEvaluation(prompt_experiment_name=prompt_name,
                                                      gpt_model_name=model_name,
                                                      regenerate_predictions=regenerate_predictions)
-    experiment.run()
+    experiment.run(model_name)
 
 
 if __name__ == '__main__':
