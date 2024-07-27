@@ -7,7 +7,10 @@ from pathlib import Path
 from jsons import ValidationError
 
 from evaluation.json_comparison.json_comparison import JsonComparison
-from experiments.function_calling.experiment_all_principles_zero_shot import ExperimentAllPrinciplesZeroShotPrompt
+from experiments.function_calling.function_calling_all_principles_few_shot import ExperimentAllPrinciplesFewShotPrompt
+from experiments.function_calling.function_calling_all_principles_zero_shot import ExperimentAllPrinciplesZeroShotPrompt
+from experiments.function_calling.function_calling_no_principles_base_prompt import \
+    ExperimentFunctionCallingNoPrinciplesBasePrompt
 from experiments.function_calling.function_calling_with_optimised_prompt import \
     ExperimentFunctionCallingWithOptimisedPrompt
 from function_calling_components.chat_completion_blueprint import DialogueCompletion
@@ -28,12 +31,12 @@ class ExperimentFunctionCallingEvaluation:
     def init_prompt_experiment(self, demonstrations_files, test_files, gpt_model):
         if self.prompt_experiment_name == "chain_of_thought":
             return ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations_files, gpt_model)
-        # elif self.prompt_experiment_name == "all_principles_zero_shot":
-        #     return ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations_files)
-        # elif self.prompt_experiment_name == "all_principles_few_shot":
-        #     return ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations_files)
-        # elif self.prompt_experiment_name == "no_principles_base_prompt":
-        #     return ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations_files)
+        elif self.prompt_experiment_name == "all_principles_zero_shot":
+            return ExperimentAllPrinciplesZeroShotPrompt(test_files, demonstrations_files, gpt_model)
+        elif self.prompt_experiment_name == "all_principles_few_shot":
+            return ExperimentAllPrinciplesFewShotPrompt(test_files, demonstrations_files, gpt_model)
+        elif self.prompt_experiment_name == "no_principles_base_prompt":
+            return ExperimentFunctionCallingNoPrinciplesBasePrompt(test_files, demonstrations_files, gpt_model)
         else:
             raise ValueError("Wrong prompt name: " + self.prompt_experiment_name)
 
@@ -141,7 +144,7 @@ class ExperimentFunctionCallingEvaluation:
 
 def _main():
     model_name = 'gpt-3.5-turbo'
-    prompt_name = 'chain_of_thought'
+    prompt_name = 'no_principles_base_prompt'
     regenerate_predictions = False
 
     experiment = ExperimentFunctionCallingEvaluation(prompt_experiment_name=prompt_name,

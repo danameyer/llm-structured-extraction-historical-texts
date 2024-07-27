@@ -19,8 +19,8 @@ class PromptBuilder:
         prompt = (
             "Work on the following three tasks consecutively for each \"court document\" individually:\n"
             "(1) Extract information about the persons mentioned in the documents and their relations to each other.\n"
-            "(2) Transfer your results to structured JSON output separately for each document.\n"
-            "(3) Answer questions on the basis of the structured JSON output. Wait for the user to prompt you for questions.\n\n"
+            "(2) Transfer your results to structured JSON output separately for each document by using a tool.\n"
+            # "(3) Answer questions on the basis of the structured JSON output. Wait for the user to prompt you for questions.\n\n"
             "Individual \"court documents\" are contained within triple quotes. \"Court documents\":\n" +
             self.concatenate_files(file_paths)
         )

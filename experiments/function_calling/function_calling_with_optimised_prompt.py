@@ -10,9 +10,9 @@ from prompting.prompting_strategies import PromptBuilder
 
 
 class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling):
-    def __init__(self, test_files, demonstrations):
+    def __init__(self, test_files, demonstrations, gpt_model):
         super().__init__(test_files, demonstrations)
-        self.dialogue = DialogueCompletion(model='gpt-3.5-turbo')
+        self.dialogue = DialogueCompletion(model=gpt_model)
 
 
     def generate_system_message(self):
@@ -71,7 +71,9 @@ if __name__ == '__main__':
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     file_path_test_data = os.path.join(base_dir, "test_data", "test_txt", "sample_text.txt")
     file_path_demonstrations = os.path.join(base_dir, "test_data", "demonstrations", "demonstration_1.txt")
-    experiment = ExperimentFunctionCallingWithOptimisedPrompt(file_path_test_data, file_path_demonstrations)
+    experiment = ExperimentFunctionCallingWithOptimisedPrompt(file_path_test_data,
+                                                              file_path_demonstrations,
+                                                              'gpt-3.5-turbo')
     response_json = experiment.run()
     response_json_str = json.dumps(response_json, indent=4)
     base_name = os.path.splitext("sample_text.json")[0]
