@@ -27,6 +27,7 @@ class ExperimentFunctionCallingEvaluation:
         self.model_name = gpt_model_name
         self.regenerate_predictions = regenerate_predictions
         self.dialogue = DialogueCompletion(model=gpt_model_name)
+        self.failed_files = []
 
     def init_prompt_experiment(self, demonstrations_files, test_files, gpt_model):
         if self.prompt_experiment_name == "chain_of_thought":
@@ -78,6 +79,22 @@ class ExperimentFunctionCallingEvaluation:
         os.makedirs(costs_folder, exist_ok=True)
         return costs_folder
 
+    def create_logs_folder(self, experiment_dir):
+        logs_folder = os.path.join(experiment_dir, "logs_failed_files")
+        os.makedirs(logs_folder, exist_ok=True)
+        return logs_folder
+
+    def log_failed_files(self, experiment_dir):
+        timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        log_filename = f'failed_files_{timestamp}.txt'
+        logs_directory = self.create_logs_folder(experiment_dir)
+        log_file_path = os.path.join(logs_directory, log_filename)
+
+        with open(log_file_path, 'w') as log_file:
+            log_file.write(f"Failed files count: {len(self.failed_files)}\n\n")
+            for failed_file in self.failed_files:
+                log_file.write(f"{failed_file}\n")
+
     def process_files(self, text_files_folder, demonstrations_folder, predictions_folder, gpt_model):
         for file_name in os.listdir(text_files_folder):
 
@@ -92,6 +109,10 @@ class ExperimentFunctionCallingEvaluation:
                     
                     Will continue with next file.
                     """, file=sys.stderr)
+                    self.failed_files.append(path_to_text_file)
+
+        if self.failed_files:
+            self.log_failed_files(self.create_experiment_folder(self.get_base_directory()))
 
     def process_single_file(self, path_to_text_file, demonstrations_folder, predictions_folder, gpt_model):
         base_name = os.path.splitext(os.path.basename(path_to_text_file))[0]
@@ -144,7 +165,7 @@ class ExperimentFunctionCallingEvaluation:
 
 def _main():
     model_name = 'gpt-3.5-turbo'
-    prompt_name = 'no_principles_base_prompt'
+    prompt_name = 'chain_of_thought'
     regenerate_predictions = False
 
     experiment = ExperimentFunctionCallingEvaluation(prompt_experiment_name=prompt_name,
