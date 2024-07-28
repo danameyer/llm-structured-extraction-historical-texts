@@ -98,13 +98,19 @@ class JsonComparison:
         return (name_a.replace('.', '')
                 .replace('\'', ''))
 
-    def get_deep_diff(self, person_1: Person, person_2: Person):
+    def get_deep_diff(self, person_1: Person, person_2: Person, exclude_paths: List[str] = None):
+        if exclude_paths is None:
+            exclude_paths = []
+
+        # Always exclude the 'id' field
+        # exclude_paths.append("root['id']")
+
         person_1_dict = person_1.__dict__
         person_2_dict = person_2.__dict__
         ddiff = DeepDiff(person_1_dict, person_2_dict,
                          ignore_order=True,
                          verbose_level=2,
-                         exclude_paths=["root['id']"])
+                         exclude_paths=exclude_paths)
         ddiff_as_json = ddiff.to_json()
         print(ddiff_as_json)
         return ddiff_as_json
@@ -120,15 +126,16 @@ class JsonComparison:
         else:
             return 0
 
-    def calculate_metric(self, person_matching: PersonMatching, apply_fuzzy=False):
+    def calculate_metric(self, person_matching: PersonMatching, apply_fuzzy=False, exclude_paths: List[str] = None):
         if not apply_fuzzy:
             metric_values_changed, metric_items_change_count, number_fields_total, metric_type_changes, deep_diff_results = self.calculate_diff_metrics(
-                person_matching)
+                person_matching, exclude_paths=exclude_paths)
         else:
             metric_values_changed, metric_items_change_count, number_fields_total, metric_type_changes, deep_diff_results = (
                 self.calculate_diff_metrics(
                     person_matching,
-                    apply_fuzzy=True))
+                    apply_fuzzy=True,
+                    exclude_paths=exclude_paths))
         metric_persons_added_or_removed = self.calculate_not_found_metric(person_matching)
 
         number_fields_total += metric_persons_added_or_removed
@@ -150,7 +157,8 @@ class JsonComparison:
 
     def calculate_diff_metrics(self,
                                person_matching: PersonMatching,
-                               apply_fuzzy=False) -> Tuple[int, int, int, int, List[Dict[str, Any]]]:
+                               apply_fuzzy=False,
+                               exclude_paths: List[str] = None) -> Tuple[int, int, int, int, List[Dict[str, Any]]]:
         metric_values_changed = 0
         metric_items_change_count = 0
         metric_type_changes = 0
@@ -159,7 +167,7 @@ class JsonComparison:
 
         for match in person_matching.matches:
             person_1, person_2 = match
-            exact_ddiff_as_json = self.get_deep_diff(person_1, person_2)
+            exact_ddiff_as_json = self.get_deep_diff(person_1, person_2, exclude_paths)
             exact_ddiff_as_dict = json.loads(exact_ddiff_as_json)
             number_fields_total += self.count_fields(person_1.__dict__)
 
@@ -237,7 +245,7 @@ class JsonComparison:
                     fuzzy_diffs_counter += 1
         return deep_diff_formated_fuzzy_changes, fuzzy_diffs_counter
 
-    def perform_json_comparison(self, gt_folder, prediction_folder, output_folder, json_output_folder):
+    def perform_json_comparison(self, gt_folder, prediction_folder, output_folder, json_output_folder, exclusions: List[List[str]]):
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         output_file = os.path.join(output_folder, f'results_{timestamp}.txt')
         json_output_file = os.path.join(json_output_folder, f'results_{timestamp}.json')
@@ -264,31 +272,33 @@ class JsonComparison:
             if pred_filename in pred_dict:
                 pred_document = pred_dict[pred_filename]
 
-                matching_person_object = self.find_matching_person(gt_document.persons, pred_document.persons)
-                exact_score, exact_matches, exact_diffs, deep_diff_results, total_field_count = self.calculate_metric(
-                    matching_person_object)
-                fuzzy_score, fuzzy_matches, fuzzy_diffs, deep_diff_results_fuzzy, total_field_count = self.calculate_metric(
-                    matching_person_object, apply_fuzzy=True)
+                for exclude_paths in exclusions:
+                    matching_person_object = self.find_matching_person(gt_document.persons, pred_document.persons)
+                    exact_score, exact_matches, exact_diffs, deep_diff_results, total_field_count = self.calculate_metric(
+                        matching_person_object, exclude_paths=exclude_paths)
+                    fuzzy_score, fuzzy_matches, fuzzy_diffs, deep_diff_results_fuzzy, total_field_count = self.calculate_metric(
+                        matching_person_object, apply_fuzzy=True, exclude_paths=exclude_paths)
 
-                individual_result = {
-                    'file_name1': gt_filename,
-                    'file_name2': pred_document.document_name,
-                    'deepdiff_comparison_results': deep_diff_results,
-                    'exact_score': exact_score,
-                    'exact_matches': exact_matches,
-                    'exact_differences': exact_diffs,
-                    'deep_diff_comparison_results_fuzzy': deep_diff_results_fuzzy,
-                    'fuzzy_score': fuzzy_score,
-                    'fuzzy_matches': fuzzy_matches,
-                    'fuzzy_differences': fuzzy_diffs,
-                    'total_field_count': total_field_count
-                }
+                    individual_result = {
+                        'file_name1': gt_filename,
+                        'file_name2': pred_document.document_name,
+                        'deepdiff_comparison_results': deep_diff_results,
+                        'exact_score': exact_score,
+                        'exact_matches': exact_matches,
+                        'exact_differences': exact_diffs,
+                        'deep_diff_comparison_results_fuzzy': deep_diff_results_fuzzy,
+                        'fuzzy_score': fuzzy_score,
+                        'fuzzy_matches': fuzzy_matches,
+                        'fuzzy_differences': fuzzy_diffs,
+                        'total_field_count': total_field_count,
+                        'exclude_paths': exclude_paths
+                    }
 
-                comparison_results['individual_results'].append(individual_result)
+                    comparison_results['individual_results'].append(individual_result)
 
-                fuzzy_count_matches += fuzzy_matches
-                exact_count_matches += exact_matches
-                all_fields_count += total_field_count
+                    fuzzy_count_matches += fuzzy_matches
+                    exact_count_matches += exact_matches
+                    all_fields_count += total_field_count
 
             else:
                 comparison_results['individual_results'].append({
@@ -334,6 +344,7 @@ class JsonComparison:
             # Header for the files being compared
             output.append(f"------------------------------------------------------------")
             output.append(f"FILE: {result['file_name1']} & {result['file_name2']}")
+            output.append(f"EXCLUDE_PATHS: {result['exclude_paths']}")
             output.append(f"------------------------------------------------------------\n")
 
             # Total Field Count

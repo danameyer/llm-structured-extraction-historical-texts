@@ -3,6 +3,7 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
+from typing import List
 
 from jsons import ValidationError
 
@@ -146,7 +147,7 @@ class ExperimentFunctionCallingEvaluation:
         with open(file_path, 'w') as f:
             f.write(costs_as_string)
 
-    def run(self, gpt_model):
+    def run(self, gpt_model, exclusions: List[List[str]]):
         base_dir = self.get_base_directory()
         experiment_dir = self.create_experiment_folder(base_dir)
         sample_folder = self.get_sample_folder(base_dir)
@@ -160,18 +161,27 @@ class ExperimentFunctionCallingEvaluation:
         json_comparison.perform_json_comparison(ground_truth_folder,
                                                 predictions_folder,
                                                 scores_txt_folder,
-                                                scores_json_folder)
+                                                scores_json_folder,
+                                                exclusions)
 
 
 def _main():
     model_name = 'gpt-3.5-turbo'
     prompt_name = 'chain_of_thought'
     regenerate_predictions = False
+    exclusions = [["root['id']"],
+                  ["root['id']", "root['cognomen']"],
+                  ["root['id']", "root['legal_relationship']"],
+                  ["root['id']", "root['place_of_origin']"],
+                  ["root['id']", "root['family_relations']"],
+                  ["root['id']", "root['title']"],
+                  ["root['id']", "root['profession']"]
+                  ]
 
     experiment = ExperimentFunctionCallingEvaluation(prompt_experiment_name=prompt_name,
                                                      gpt_model_name=model_name,
                                                      regenerate_predictions=regenerate_predictions)
-    experiment.run(model_name)
+    experiment.run(model_name, exclusions=exclusions)
 
 
 if __name__ == '__main__':
