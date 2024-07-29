@@ -5,7 +5,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-
+# This code was adapted from the OpenAI cookbook https://cookbook.openai.com/examples/chat_finetuning_data_prep
 class OpenAIFineTuningSchemaCheck:
     def __init__(self):
         pass
@@ -156,10 +156,10 @@ class OpenAIFineTuningSchemaCheck:
         else:
             print("No errors found")
 
+
 def check_files_in_directory(directory):
     schema_checker = OpenAIFineTuningSchemaCheck()
 
-    # Iterate over each file in the directory
     for filename in os.listdir(directory):
         file_path = os.path.join(directory, filename)
 
@@ -170,21 +170,16 @@ def check_files_in_directory(directory):
             with open(file_path, 'r', encoding='utf-8') as file:
                 for line in file:
                     try:
-                        # Parse each line as JSON and append to the dataset
                         json_object = json.loads(line)
                         dataset.append(json_object)
                     except json.JSONDecodeError as e:
                         print(f"Error decoding JSON in file {filename}: {e}")
 
-            # Apply schema check to the dataset
             schema_checker.evaluate_open_ai_fine_tuning_schema(dataset)
 
 
 if __name__ == "__main__":
-    # Set up directory path
     load_dotenv()
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     text_files_dir = os.path.join(base_dir, "test_data", "fine_tuning")
-
-    # Check files in the directory
     check_files_in_directory(text_files_dir)

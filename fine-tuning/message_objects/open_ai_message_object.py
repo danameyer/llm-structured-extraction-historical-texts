@@ -73,7 +73,6 @@ class OpenAiFineTuningHistory:
         }
 
     def _serialize_parameters(self, parameters):
-        # Convert parameters to a serializable format
         if isinstance(parameters, dict):
             return {k: self._serialize_parameters(v) for k, v in parameters.items()}
         elif isinstance(parameters, list):
