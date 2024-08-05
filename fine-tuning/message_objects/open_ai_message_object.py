@@ -13,7 +13,6 @@ class OpenAiFineTuningHistory:
         self.messages = []
         self.tools = []
         base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-        self.test_files = os.path.join(base_dir, "test_data", "test_txt", "sample_text.txt")
         self.demonstrations = os.path.join(base_dir, "test_data", "demonstrations", "demonstration_1.txt")
 
     def add_user_message(self, content):
@@ -28,14 +27,15 @@ class OpenAiFineTuningHistory:
             "content": content
         })
 
-    def add_assistant_tool_call(self, function_name, arguments):
+    def add_assistant_tool_call(self, function_name, arguments: str):
         call_id = str(uuid.uuid4())
         tool_call = {
             "id": call_id,
             "type": "function",
             "function": {
                 "name": function_name,
-                "arguments": json.dumps(arguments)
+                # "arguments": json.dumps(arguments)
+                "arguments": arguments
             }
         }
         self.messages.append({
@@ -52,6 +52,13 @@ class OpenAiFineTuningHistory:
                 "description": description,
                 "parameters": parameters_dict
             }
+        }
+        self.tools.append(tool)
+
+    def add_tool_new(self, function):
+        tool = {
+            "type": "function",
+            "function": function
         }
         self.tools.append(tool)
 
@@ -94,17 +101,18 @@ def create_fine_tuning_for_single_prompt(file_path, gt_function_arguments):
 
     open_ai_fine_tuning_history.add_assistant_tool_call(function_object.get_definition().name,
                                                         gt_content)
-    open_ai_fine_tuning_history.add_tool(function_object.get_definition().name,
-                                         function_object.get_definition().description,
-                                         function_object.get_definition().parameters)
+    # open_ai_fine_tuning_history.add_tool(function_object.get_definition().name,
+    #                                      function_object.get_definition().description,
+    #                                      function_object.get_definition().parameters)
+    open_ai_fine_tuning_history.add_tool_new(function=function_object.get_definition_dict())
 
     return open_ai_fine_tuning_history
 
 
 def run():
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    text_files_dir = os.path.join(base_dir, "test_data", "test_txt")
-    pred_files_dir = os.path.join(base_dir, "test_data", "test_json_diff", "ground_truth")
+    text_files_dir = os.path.join(base_dir, "evaluation_results", "text_files")
+    gt_files_dir = os.path.join(base_dir, "evaluation_results", "ground_truth")
 
     fine_tuning_objects = []
 
@@ -112,7 +120,7 @@ def run():
         if text_file.endswith(".txt"):
             base_name = os.path.splitext(text_file)[0]
             gt_file_name = f"{base_name}.json"
-            gt_file_path = os.path.join(pred_files_dir, gt_file_name)
+            gt_file_path = os.path.join(gt_files_dir, gt_file_name)
 
             if os.path.exists(gt_file_path):
                 fine_tuning_object = create_fine_tuning_for_single_prompt(
@@ -125,10 +133,26 @@ def run():
 
     fine_tuning_file_path = os.path.join(base_dir, "test_data", "fine_tuning")
     os.makedirs(fine_tuning_file_path, exist_ok=True)
-    output_file_path = os.path.join(fine_tuning_file_path, "open_ai_fine_tuning.jsonl")
+    output_file_path = os.path.join(fine_tuning_file_path, "file-finetune.jsonl")
     with open(output_file_path, 'w') as output_file:
         for obj in fine_tuning_objects:
-            output_file.write(json.dumps(obj) + '\n')
+            json_string = json.dumps(obj)
+            cleaned_json_string = (
+                json_string
+                .replace("\\\\n", "")  # newline in json
+                .replace("\\n", " ")  # newline in text
+                .replace("\n", "HUNDEKUCHEN 1n")
+                .replace("\\t", " ")  # tab in text
+                .replace("\\u00ad", "")
+                .replace("\\u2022", "")
+                ##.replace("\\\\\\\"", "\\\"")
+                ##.replace("\\\"{", "{")
+                ##.replace("]}\\\"", "]}")
+                # .replace("\\\"", "\"")
+                # .replace("\\\\\"", "\\\"")
+                # .replace('\\"', '\"')
+            )
+            output_file.write(cleaned_json_string + '\n')
 
 
 if __name__ == "__main__":
