@@ -2,13 +2,11 @@ import json
 import os
 import uuid
 from pathlib import Path
-
-from experiments.prompting.experiment_split_up_prompt import ExperimentSplitUpPrompt
 from functions.ExtractJsonFromPlainText import ExtractJsonFromPlainText
 from prompting.prompting_strategies import PromptBuilder
 
 
-class OpenAiFineTuningHistory:
+class OpenAiMessageObject:
     def __init__(self):
         self.messages = []
         self.tools = []
@@ -34,7 +32,6 @@ class OpenAiFineTuningHistory:
             "type": "function",
             "function": {
                 "name": function_name,
-                # "arguments": json.dumps(arguments)
                 "arguments": arguments
             }
         }
@@ -43,19 +40,7 @@ class OpenAiFineTuningHistory:
             "tool_calls": [tool_call]
         })
 
-    def add_tool(self, function_name, description, parameters):
-        parameters_dict = self._serialize_parameters(parameters)
-        tool = {
-            "type": "function",
-            "function": {
-                "name": function_name,
-                "description": description,
-                "parameters": parameters_dict
-            }
-        }
-        self.tools.append(tool)
-
-    def add_tool_new(self, function):
+    def add_tool(self, function):
         tool = {
             "type": "function",
             "function": function
@@ -90,23 +75,20 @@ class OpenAiFineTuningHistory:
             return parameters
 
 
-def create_fine_tuning_for_single_prompt(file_path, gt_function_arguments):
+def create_fine_tuning_for_single_file(file_path, gt_function_arguments):
     function_object = ExtractJsonFromPlainText()
-    open_ai_fine_tuning_history = OpenAiFineTuningHistory()
-    prompt = open_ai_fine_tuning_history.build_prompt(file_path)
-    open_ai_fine_tuning_history.add_user_message(prompt)
+    open_ai_message_object = OpenAiMessageObject()
+    prompt = open_ai_message_object.build_prompt(file_path)
+    open_ai_message_object.add_user_message(prompt)
 
     with open(gt_function_arguments, 'r') as f:
         gt_content = f.read()
 
-    open_ai_fine_tuning_history.add_assistant_tool_call(function_object.get_definition().name,
-                                                        gt_content)
-    # open_ai_fine_tuning_history.add_tool(function_object.get_definition().name,
-    #                                      function_object.get_definition().description,
-    #                                      function_object.get_definition().parameters)
-    open_ai_fine_tuning_history.add_tool_new(function=function_object.get_definition_dict())
+    open_ai_message_object.add_assistant_tool_call(function_object.get_definition().name,
+                                                   gt_content)
+    open_ai_message_object.add_tool(function=function_object.get_definition_dict())
 
-    return open_ai_fine_tuning_history
+    return open_ai_message_object
 
 
 def run():
@@ -123,7 +105,7 @@ def run():
             gt_file_path = os.path.join(gt_files_dir, gt_file_name)
 
             if os.path.exists(gt_file_path):
-                fine_tuning_object = create_fine_tuning_for_single_prompt(
+                fine_tuning_object = create_fine_tuning_for_single_file(
                     os.path.join(text_files_dir, text_file),
                     gt_file_path
                 )
@@ -133,7 +115,7 @@ def run():
 
     fine_tuning_file_path = os.path.join(base_dir, "test_data", "fine_tuning")
     os.makedirs(fine_tuning_file_path, exist_ok=True)
-    output_file_path = os.path.join(fine_tuning_file_path, "file-finetune.jsonl")
+    output_file_path = os.path.join(fine_tuning_file_path, "file-finetune-openai.jsonl")
     with open(output_file_path, 'w') as output_file:
         for obj in fine_tuning_objects:
             json_string = json.dumps(obj)
@@ -141,16 +123,10 @@ def run():
                 json_string
                 .replace("\\\\n", "")  # newline in json
                 .replace("\\n", " ")  # newline in text
-                .replace("\n", "HUNDEKUCHEN 1n")
+                .replace("\n", " ")
                 .replace("\\t", " ")  # tab in text
                 .replace("\\u00ad", "")
                 .replace("\\u2022", "")
-                ##.replace("\\\\\\\"", "\\\"")
-                ##.replace("\\\"{", "{")
-                ##.replace("]}\\\"", "]}")
-                # .replace("\\\"", "\"")
-                # .replace("\\\\\"", "\\\"")
-                # .replace('\\"', '\"')
             )
             output_file.write(cleaned_json_string + '\n')
 
