@@ -70,15 +70,13 @@ class DialogueCompletion:
             completion: Union[ChatCompletion, None] = self.client.chat.completions.create(
                 model=self.model,
                 messages=messages_as_dict,
-                functions=functions_as_dict_list,
-                function_call=function_call if functions else None
+                tools=functions_as_dict_list,
+                tool_choice=function_call if functions else None
             )
 
             output_response = completion.choices[0].message.content
             print(f"Output response content: {output_response}")
 
-            # self.token_counter.add_input(messages_as_dict)
-            # self.token_counter.add_output(output_response)
             self.token_counter.add_number_of_input_tokens(completion.usage.prompt_tokens)
             self.token_counter.add_number_of_output_tokens(completion.usage.completion_tokens)
 
@@ -121,14 +119,14 @@ class DialogueCompletion:
     @retry(stop=stop_after_attempt(6), wait=wait_random_exponential(multiplier=1, max=10), reraise=True,)
     def _execute_chat_completion_query(self,
                                        messages: List[Message],
-                                       functions: List[BaseFunction] = None,
+                                       tools: List[BaseFunction] = None,
                                        validate=True) -> Union[ChatCompletion, None]:
-        completion = self._request_response(messages, functions)
+        completion = self._request_response(messages, tools)
         message_output = completion.choices[0]
 
-        if message_output.finish_reason == "function_call":
+        if message_output.finish_reason == "tool_calls":
             print("Function will be called.")
-            function_call_result = self._perform_function_call(completion, messages, functions, validate)
+            function_call_result = self._perform_function_call(completion, messages, tools, validate)
             return function_call_result
         else:
             print("No function called.")
@@ -137,14 +135,14 @@ class DialogueCompletion:
     def _perform_function_call(self,
                                completion: Union[ChatCompletion, None],
                                messages: List[Message],
-                               functions: List[BaseFunction],
+                               tools: List[BaseFunction],
                                validate=True) -> Union[ChatCompletion, None]:
-        function_name = completion.choices[0].message.function_call.name
+        function_name = completion.choices[0].message.tool_calls[0].function.name
         function_parameters = json.loads(
-            completion.choices[0].message.function_call.arguments)
+            completion.choices[0].message.tool_calls[0].function.arguments)
         print("These are the function call arguments:", function_parameters)
 
-        function_object = next((x for x in functions if x.get_definition().name == function_name), None)
+        function_object = next((x for x in tools if x.get_definition().function.name == function_name), None)
 
         if function_object:
             # try:
@@ -161,9 +159,9 @@ class DialogueCompletion:
             messages.append(
                 Message(role="function",
                         content=str(self.function_call_result),
-                        name=completion.choices[0].message.function_call.name,
+                        name=completion.choices[0].message.tool_calls[0].function.name,
                         # function_call_id=completion.choices[0].message.tool_calls[0].id,
-                        function_call_arguments=completion.choices[0].message.function_call.arguments
+                        function_call_arguments=completion.choices[0].message.tool_calls[0].function.arguments
                         )
             )
             try:
@@ -198,7 +196,7 @@ class DialogueCompletion:
 
         chat_response = self._execute_chat_completion_query(
             messages=self.message_history,
-            functions=function_list,
+            tools=function_list,
             validate=validate
         )
         assistant_message = chat_response.choices[0].message.content

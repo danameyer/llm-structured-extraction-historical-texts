@@ -52,7 +52,7 @@ class ExperimentFunctionCallingEvaluation:
         return os.path.join(base_dir, "test_data", "demonstrations")
 
     def get_sample_folder(self, base_dir):
-        return os.path.join(base_dir, "test_data", "test_txt")
+        return os.path.join(base_dir, "evaluation_results", "text_files")
 
     def create_experiment_folder(self, base_dir):
         experiment_folder = os.path.join(base_dir, "evaluation_results", "results", self.prompt_experiment_name, "model_" + self.model_name)

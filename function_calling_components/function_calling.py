@@ -22,6 +22,15 @@ class SimpleChatGptMessage:
 
 
 class FunctionBuilder:
+    def __init__(self, tool_type: str, function: Optional["Function"] = None):
+        self.type: str = tool_type
+        if function:
+            self.function: "Function" = function
+        else:
+            self.function: Optional["Function"] = None
+
+
+class Function:
     def __init__(self, name: str, description: str, parameters: Optional["Parameter"] = None):
         self.name: str = name
         self.description: str = description
@@ -29,6 +38,7 @@ class FunctionBuilder:
             self.parameters: "Parameter" = parameters
         else:
             self.parameters: Optional["Parameter"] = None
+
 
 
 class Property:
