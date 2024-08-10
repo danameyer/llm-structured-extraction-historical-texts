@@ -32,15 +32,31 @@ class ExperimentFunctionCallingEvaluation:
         self.dialogue = DialogueCompletion(model=gpt_model_name, experiment_dir=experiment_dir)
         self.failed_files = []
 
-    def init_prompt_experiment(self, demonstrations_files, test_files, gpt_model):
+    def init_prompt_experiment(self, demonstrations_files, test_files, gpt_model, pred_file_name):
         if self.prompt_experiment_name == "chain_of_thought":
-            return ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations_files, gpt_model, self.experiment_dir)
+            return ExperimentFunctionCallingWithOptimisedPrompt(test_files,
+                                                                demonstrations_files,
+                                                                gpt_model,
+                                                                self.experiment_dir,
+                                                                pred_file_name)
         elif self.prompt_experiment_name == "all_principles_zero_shot":
-            return ExperimentAllPrinciplesZeroShotPrompt(test_files, demonstrations_files, gpt_model, self.experiment_dir)
+            return ExperimentAllPrinciplesZeroShotPrompt(test_files,
+                                                         demonstrations_files,
+                                                         gpt_model,
+                                                         self.experiment_dir,
+                                                         pred_file_name)
         elif self.prompt_experiment_name == "all_principles_few_shot":
-            return ExperimentAllPrinciplesFewShotPrompt(test_files, demonstrations_files, gpt_model, self.experiment_dir)
+            return ExperimentAllPrinciplesFewShotPrompt(test_files,
+                                                        demonstrations_files,
+                                                        gpt_model,
+                                                        self.experiment_dir,
+                                                        pred_file_name)
         elif self.prompt_experiment_name == "no_principles_base_prompt":
-            return ExperimentFunctionCallingNoPrinciplesBasePrompt(test_files, demonstrations_files, gpt_model, self.experiment_dir)
+            return ExperimentFunctionCallingNoPrinciplesBasePrompt(test_files,
+                                                                   demonstrations_files,
+                                                                   gpt_model,
+                                                                   self.experiment_dir,
+                                                                   pred_file_name)
         else:
             raise ValueError("Wrong prompt name: " + self.prompt_experiment_name)
 
@@ -55,12 +71,6 @@ class ExperimentFunctionCallingEvaluation:
 
     def get_sample_folder(self, base_dir):
         return os.path.join(base_dir, "evaluation_results", "text_files")
-
-    # def create_experiment_folder(self, base_dir):
-    #     experiment_folder = os.path.join(base_dir, "evaluation_results", "results", self.prompt_experiment_name, "model_" + self.model_name)
-    #     os.makedirs(experiment_folder, exist_ok=True)
-    #     return experiment_folder
-
 
     def create_predictions_folder(self, base_dir):
         predictions_folder = os.path.join(base_dir, "predictions")
@@ -128,8 +138,7 @@ class ExperimentFunctionCallingEvaluation:
 
         test_files = [path_to_text_file]
         demonstrations = [os.path.join(demonstrations_folder, "demonstration_1.txt")]
-        # experiment_function_calling = ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations)
-        experiment_function_calling = self.init_prompt_experiment(demonstrations, test_files, gpt_model=gpt_model)
+        experiment_function_calling = self.init_prompt_experiment(demonstrations, test_files, gpt_model=gpt_model, pred_file_name=base_name)
         response_json = experiment_function_calling.run()
         response_json_str = json.dumps(response_json, indent=4)
 
@@ -151,7 +160,6 @@ class ExperimentFunctionCallingEvaluation:
 
     def run(self, gpt_model, exclusions: List[List[str]]):
         base_dir = self.get_base_directory()
-        # experiment_dir = self.create_experiment_folder(base_dir)
         sample_folder = self.get_sample_folder(base_dir)
         ground_truth_folder = self.get_ground_truth_folder(base_dir)
         demonstrations_folder = self.get_demonstrations_folder(base_dir)

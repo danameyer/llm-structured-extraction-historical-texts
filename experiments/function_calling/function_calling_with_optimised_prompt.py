@@ -10,9 +10,10 @@ from prompting.prompting_strategies import PromptBuilder
 
 
 class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling):
-    def __init__(self, test_files, demonstrations, gpt_model, experiment_dir):
-        super().__init__(test_files, demonstrations, experiment_dir)
+    def __init__(self, test_files, demonstrations, gpt_model, experiment_dir, pred_file_name):
+        super().__init__(test_files, demonstrations, experiment_dir, pred_file_name)
         self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir)
+        self.pred_file_name = pred_file_name
 
     def generate_system_message(self):
         prompt_builder = PromptBuilder()
@@ -46,21 +47,21 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
         return prompt
 
     def run(self):
-        filename = "function_calling_with_optimised_prompt"
+        # filename = "function_calling_with_optimised_prompt"
 
         prompt = self.generate_system_message()
-        self.dialogue.add_system_prompt(prompt, filename, print_conversation=False)
+        self.dialogue.add_system_prompt(prompt, self.pred_file_name, print_conversation=False)
 
         prompt = self.add_input()
-        self.dialogue.prompt_assistant_response(prompt, filename, print_conversation=False)
+        self.dialogue.prompt_assistant_response(prompt, self.pred_file_name, print_conversation=False)
 
         prompt = self.add_task_1()
-        self.dialogue.prompt_assistant_response(prompt, filename, print_conversation=False)
+        self.dialogue.prompt_assistant_response(prompt, self.pred_file_name, print_conversation=False)
 
         prompt = self.add_task_2()
         extract_json_from_plaintext = ExtractJsonFromPlainText()
         function_list = [extract_json_from_plaintext]
-        self.dialogue.prompt_assistant_response(prompt, filename, function_list, print_conversation=False)
+        self.dialogue.prompt_assistant_response(prompt, self.pred_file_name, function_list, print_conversation=False)
         function_call_result = self.dialogue.function_call_result
 
         return function_call_result
