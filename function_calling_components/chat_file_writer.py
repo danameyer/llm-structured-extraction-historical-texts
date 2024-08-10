@@ -4,11 +4,13 @@ from pathlib import Path
 
 
 class ChatFileWriter:
-    def __init__(self):
+    def __init__(self, experiment_dir):
         self._timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-        self._prompt_save_dir = os.path.join(base_dir, "prompting", "generated_prompts")
-        self._response_save_dir = os.path.join(base_dir, "prompting", "prompting_responses")
+        # base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+        self._prompt_save_dir = os.path.join(experiment_dir, "prompting", "generated_prompts")
+        os.makedirs(self._prompt_save_dir, exist_ok=True)
+        self._response_save_dir = os.path.join(experiment_dir, "prompting", "prompting_responses")
+        os.makedirs(self._response_save_dir, exist_ok=True)
 
     def _save_to_file(self, out_path, content, filename, timestamp=True, append=True):
         output_filename = filename

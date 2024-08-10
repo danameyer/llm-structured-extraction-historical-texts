@@ -21,7 +21,7 @@ class BaseFunction:
 
     def get_definition_dict(self) -> Dict:
         if self.use_short_definition:
-            return {"name": self.get_definition().name}
+            return {"name": self.get_definition().function.name}
         else:
             return json.loads(jsons.dumps(self.get_definition()))
 

@@ -16,5 +16,5 @@ class ExperimentBasePrompt(BaseExperimentPrompting):
 
 
 if __name__ == '__main__':
-    experiment_base_prompt = ExperimentBasePrompt()
+    experiment_base_prompt = ExperimentBasePrompt("/tmp/experiments/experiment_base_prompt")
     experiment_base_prompt.run()

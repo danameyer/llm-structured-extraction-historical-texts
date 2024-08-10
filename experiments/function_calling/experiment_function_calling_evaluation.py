@@ -22,28 +22,30 @@ class ExperimentFunctionCallingEvaluation:
 
     def __init__(self,
                  prompt_experiment_name: str,
+                 experiment_dir,
                  gpt_model_name='gpt-3.5-turbo',
                  regenerate_predictions=False):
+        self.experiment_dir = experiment_dir
         self.prompt_experiment_name = prompt_experiment_name
         self.model_name = gpt_model_name
         self.regenerate_predictions = regenerate_predictions
-        self.dialogue = DialogueCompletion(model=gpt_model_name)
+        self.dialogue = DialogueCompletion(model=gpt_model_name, experiment_dir=experiment_dir)
         self.failed_files = []
 
     def init_prompt_experiment(self, demonstrations_files, test_files, gpt_model):
         if self.prompt_experiment_name == "chain_of_thought":
-            return ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations_files, gpt_model)
+            return ExperimentFunctionCallingWithOptimisedPrompt(test_files, demonstrations_files, gpt_model, self.experiment_dir)
         elif self.prompt_experiment_name == "all_principles_zero_shot":
-            return ExperimentAllPrinciplesZeroShotPrompt(test_files, demonstrations_files, gpt_model)
+            return ExperimentAllPrinciplesZeroShotPrompt(test_files, demonstrations_files, gpt_model, self.experiment_dir)
         elif self.prompt_experiment_name == "all_principles_few_shot":
-            return ExperimentAllPrinciplesFewShotPrompt(test_files, demonstrations_files, gpt_model)
+            return ExperimentAllPrinciplesFewShotPrompt(test_files, demonstrations_files, gpt_model, self.experiment_dir)
         elif self.prompt_experiment_name == "no_principles_base_prompt":
-            return ExperimentFunctionCallingNoPrinciplesBasePrompt(test_files, demonstrations_files, gpt_model)
+            return ExperimentFunctionCallingNoPrinciplesBasePrompt(test_files, demonstrations_files, gpt_model, self.experiment_dir)
         else:
             raise ValueError("Wrong prompt name: " + self.prompt_experiment_name)
 
     def get_base_directory(self):
-        return Path(os.getenv('PROJECT_BASE_DIR'))
+       return Path(os.getenv('PROJECT_BASE_DIR'))
 
     def get_ground_truth_folder(self, base_dir):
         return os.path.join(base_dir, "evaluation_results", "ground_truth")
@@ -54,10 +56,10 @@ class ExperimentFunctionCallingEvaluation:
     def get_sample_folder(self, base_dir):
         return os.path.join(base_dir, "evaluation_results", "text_files")
 
-    def create_experiment_folder(self, base_dir):
-        experiment_folder = os.path.join(base_dir, "evaluation_results", "results", self.prompt_experiment_name, "model_" + self.model_name)
-        os.makedirs(experiment_folder, exist_ok=True)
-        return experiment_folder
+    # def create_experiment_folder(self, base_dir):
+    #     experiment_folder = os.path.join(base_dir, "evaluation_results", "results", self.prompt_experiment_name, "model_" + self.model_name)
+    #     os.makedirs(experiment_folder, exist_ok=True)
+    #     return experiment_folder
 
 
     def create_predictions_folder(self, base_dir):
@@ -113,7 +115,7 @@ class ExperimentFunctionCallingEvaluation:
                     self.failed_files.append(path_to_text_file)
 
         if self.failed_files:
-            self.log_failed_files(self.create_experiment_folder(self.get_base_directory()))
+            self.log_failed_files(self.experiment_dir)
 
     def process_single_file(self, path_to_text_file, demonstrations_folder, predictions_folder, gpt_model):
         base_name = os.path.splitext(os.path.basename(path_to_text_file))[0]
@@ -131,14 +133,14 @@ class ExperimentFunctionCallingEvaluation:
         response_json = experiment_function_calling.run()
         response_json_str = json.dumps(response_json, indent=4)
 
-        chat_file_writer = ChatFileWriter()
+        chat_file_writer = ChatFileWriter(self.experiment_dir)
         chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False, append=False)
         print(f"Processed {os.path.basename(path_to_text_file)}: Saved predictions to {pred_filename}")
 
         cost_summary = experiment_function_calling.dialogue.token_counter.get_cost_summary(pred_filename)
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = "cost_summary_" + pred_filename + "_" + timestamp + ".json"
-        costs_directory = self.create_costs_folder(self.create_experiment_folder(self.get_base_directory()))
+        costs_directory = self.create_costs_folder(self.experiment_dir)
         self.save_costs_to_file(cost_summary, costs_directory, filename)
 
     def save_costs_to_file(self, costs, directory: str, filename):
@@ -149,13 +151,13 @@ class ExperimentFunctionCallingEvaluation:
 
     def run(self, gpt_model, exclusions: List[List[str]]):
         base_dir = self.get_base_directory()
-        experiment_dir = self.create_experiment_folder(base_dir)
+        # experiment_dir = self.create_experiment_folder(base_dir)
         sample_folder = self.get_sample_folder(base_dir)
         ground_truth_folder = self.get_ground_truth_folder(base_dir)
         demonstrations_folder = self.get_demonstrations_folder(base_dir)
-        predictions_folder = self.create_predictions_folder(experiment_dir)
-        scores_txt_folder = self.create_scores_txt_folder(experiment_dir)
-        scores_json_folder = self.create_scores_json_folder(experiment_dir)
+        predictions_folder = self.create_predictions_folder(self.experiment_dir)
+        scores_txt_folder = self.create_scores_txt_folder(self.experiment_dir)
+        scores_json_folder = self.create_scores_json_folder(self.experiment_dir)
         self.process_files(sample_folder, demonstrations_folder, predictions_folder, gpt_model=gpt_model)
         json_comparison = JsonComparison()
         json_comparison.perform_json_comparison(ground_truth_folder,
@@ -178,9 +180,15 @@ def _main():
                   ["root['id']", "root['profession']"]
                   ]
 
+    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+    experiment_folder = os.path.join(base_dir, "evaluation_results", "results", prompt_name,
+                                     "model_" + model_name)
+    os.makedirs(experiment_folder, exist_ok=True)
+
     experiment = ExperimentFunctionCallingEvaluation(prompt_experiment_name=prompt_name,
                                                      gpt_model_name=model_name,
-                                                     regenerate_predictions=regenerate_predictions)
+                                                     regenerate_predictions=regenerate_predictions,
+                                                     experiment_dir=experiment_folder)
     experiment.run(model_name, exclusions=exclusions)
 
 

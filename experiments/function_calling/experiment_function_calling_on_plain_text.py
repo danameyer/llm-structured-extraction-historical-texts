@@ -7,8 +7,9 @@ from functions.ExtractJsonFromPlainText import ExtractJsonFromPlainText
 
 class ExperimentFunctionCallingOnPlainText:
 
-    def __init__(self, file_path):
-        self.dialogue = DialogueCompletion(model='gpt-3.5-turbo')
+    def __init__(self, file_path, experiment_dir):
+        self.experiment_dir = experiment_dir
+        self.dialogue = DialogueCompletion(model='gpt-3.5-turbo', experiment_dir=experiment_dir)
         self.file_path = file_path
 
     def read_input_text(self, filename):
@@ -27,12 +28,11 @@ class ExperimentFunctionCallingOnPlainText:
         extract_json_from_plaintext = ExtractJsonFromPlainText()
         function_list = [extract_json_from_plaintext]
         response = self.dialogue.prompt_assistant_response(prompt, filename, function_list)
-        print(f"Total cost for this run: ${self.dialogue.total_cost:.16f}")
         return response
 
 
 if __name__ == '__main__':
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     file_path = os.path.join(base_dir, "test_data", "test_txt", "sample_text.txt")
-    experiment = ExperimentFunctionCallingOnPlainText(file_path)
+    experiment = ExperimentFunctionCallingOnPlainText(file_path, "/tmp/experiments/extract_json_from_plaintext")
     experiment.run()

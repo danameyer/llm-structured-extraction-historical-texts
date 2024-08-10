@@ -25,5 +25,5 @@ class ExperimentAllPrinciplesFewShot(BaseExperimentPrompting):
 
 
 if __name__ == '__main__':
-    experiment_all_principlesFewShot = ExperimentAllPrinciplesFewShot()
-    ExperimentAllPrinciplesFewShot().run()
+    experiment_all_principlesFewShot = ExperimentAllPrinciplesFewShot("/tmp/experiments/experiment_all_principles_few_shot")
+    experiment_all_principlesFewShot.run()

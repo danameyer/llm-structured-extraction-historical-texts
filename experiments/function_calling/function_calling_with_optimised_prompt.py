@@ -10,10 +10,9 @@ from prompting.prompting_strategies import PromptBuilder
 
 
 class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling):
-    def __init__(self, test_files, demonstrations, gpt_model):
-        super().__init__(test_files, demonstrations)
-        self.dialogue = DialogueCompletion(model=gpt_model)
-
+    def __init__(self, test_files, demonstrations, gpt_model, experiment_dir):
+        super().__init__(test_files, demonstrations, experiment_dir)
+        self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir)
 
     def generate_system_message(self):
         prompt_builder = PromptBuilder()
@@ -73,12 +72,13 @@ if __name__ == '__main__':
     file_path_demonstrations = os.path.join(base_dir, "test_data", "demonstrations", "demonstration_1.txt")
     experiment = ExperimentFunctionCallingWithOptimisedPrompt(file_path_test_data,
                                                               file_path_demonstrations,
-                                                              'gpt-3.5-turbo')
+                                                              'gpt-3.5-turbo',
+                                                              "/tmp/experiments/function_calling_with_optimised_prompt")
     response_json = experiment.run()
     response_json_str = json.dumps(response_json, indent=4)
     base_name = os.path.splitext("sample_text.json")[0]
     pred_filename = f'pred_{base_name}.json'
     output_path_response = os.path.join(base_dir, "test_data", "test_json_diff", "predictions", pred_filename)
-    chat_file_writer = ChatFileWriter()
+    chat_file_writer = ChatFileWriter("/tmp/experiments/function_calling_with_optimised_prompt")
     chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False)
     print(response_json)

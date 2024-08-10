@@ -24,6 +24,6 @@ class ExperimentAllPrinciplesZeroShot(BaseExperimentPrompting):
 
 
 if __name__ == '__main__':
-    experiment_all_principles_zero_shot = ExperimentAllPrinciplesZeroShot()
+    experiment_all_principles_zero_shot = ExperimentAllPrinciplesZeroShot(experiment_dir="/tmp/experiments/experiment_all_principles_zero_shot")
     experiment_all_principles_zero_shot.run()
 

@@ -63,5 +63,5 @@ class ExperimentSplitUpPrompt(BaseExperimentPrompting):
 
 
 if __name__ == '__main__':
-    experiment_split_up_prompt = ExperimentSplitUpPrompt()
+    experiment_split_up_prompt = ExperimentSplitUpPrompt("/tmp/experiments/experiment_split_up_prompt")
     experiment_split_up_prompt.run()

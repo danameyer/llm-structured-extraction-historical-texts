@@ -10,9 +10,9 @@ from prompting.prompting_strategies import PromptBuilder
 
 
 class ExperimentAllPrinciplesFewShotPrompt(BaseExperimentFunctionCalling):
-    def __init__(self, test_files, demonstrations, gpt_model):
-        super().__init__(test_files, demonstrations)
-        self.dialogue = DialogueCompletion(model=gpt_model)
+    def __init__(self, test_files, demonstrations, gpt_model, experiment_dir):
+        super().__init__(test_files, demonstrations, experiment_dir=experiment_dir)
+        self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir)
 
 
     def generate_system_message(self):

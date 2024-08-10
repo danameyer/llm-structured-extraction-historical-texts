@@ -3,8 +3,9 @@ from functions.FindPersonInJsonFiles import PersonFinder
 
 
 class ExperimentFunctionCallingFindingPersonInJsons:
-    def __init__(self):
-        self.dialogue = DialogueCompletion(model='gpt-3.5-turbo')
+    def __init__(self, experiment_dir):
+        self.experiment_dir = experiment_dir
+        self.dialogue = DialogueCompletion(model='gpt-3.5-turbo', experiment_dir=experiment_dir)
 
     def generate_prompt(self):
         prompt = "I want to find the 5 most similar persons to the person with the name Simon and the cognomen Leukenor. Please return the results in JSON format, including all available attributes for each person."
@@ -21,6 +22,6 @@ class ExperimentFunctionCallingFindingPersonInJsons:
 
 
 if __name__ == '__main__':
-    experiment = ExperimentFunctionCallingFindingPersonInJsons()
+    experiment = ExperimentFunctionCallingFindingPersonInJsons("/tmp/experiments/experiment_function_calling_finding_person_in_jsons")
     response_json = experiment.run()
     print("This is the response from the experiment:", response_json)

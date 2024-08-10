@@ -2,28 +2,31 @@ import json
 import os
 from pathlib import Path
 
-from function_calling_components.function_calling import FunctionBuilder, Parameter, Property
+from function_calling_components.function_calling import FunctionBuilder, Parameter, Property, Function
 from functions.BaseFunction import BaseFunction
 
 
 class DecideIfSamePerson(BaseFunction):
     def get_definition(self) -> FunctionBuilder:
         return FunctionBuilder(
-            name="decide_if_same_person",
-            description="Decide if two people with the same name are the really identical based on the other attributes",
-            parameters=Parameter(
-                parameter_type="object",
-                properties={
-                    "name": Property(property_type="string", description="name of the person for whom attributes should be compared"),
-                    # "json": Property(property_type="string", description="json object previously generated containing information on all persons")
-                },
-                required=["name"]
+            tool_type="function",
+            function=Function(
+                name="decide_if_same_person",
+                description="Decide if two people with the same name are the really identical based on the other attributes",
+                parameters=Parameter(
+                    parameter_type="object",
+                    properties={
+                        "name": Property(property_type="string",
+                                         description="name of the person for whom attributes should be compared")
+                    },
+                    required=["name"]
+                )
             )
         )
 
     def run(self, name):
         base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-        test_file_path = os.path.join(base_dir, "test_data", "test_json", "test_output.json")
+        test_file_path = os.path.join(base_dir, "test_data", "test_gt", "test_output.json")
         try:
             with open(test_file_path, 'r') as file:
                 json_data = json.load(file)
@@ -74,7 +77,3 @@ class DecideIfSamePerson(BaseFunction):
             json_content = file.read()
         json_data = json.loads(json_content)
         return json_data
-
-
-
-

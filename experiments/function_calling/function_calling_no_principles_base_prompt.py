@@ -10,9 +10,9 @@ from prompting.prompting_strategies import PromptBuilder
 
 
 class ExperimentFunctionCallingNoPrinciplesBasePrompt(BaseExperimentFunctionCalling):
-    def __init__(self, test_files, demonstrations, gpt_model):
-        super().__init__(test_files, demonstrations)
-        self.dialogue = DialogueCompletion(model=gpt_model)
+    def __init__(self, test_files, demonstrations, gpt_model, experiment_dir):
+        super().__init__(test_files, demonstrations, experiment_dir)
+        self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir)
 
     def experiment_base_prompt(self):
         prompt_builder = PromptBuilder()

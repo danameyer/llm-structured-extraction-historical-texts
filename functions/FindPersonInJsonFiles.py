@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from data_classes.document import create_documents
 from data_classes.person import Person
 from evaluation.json_comparison.compare_persons_across_documents import PersonComparison
-from function_calling_components.function_calling import FunctionBuilder, Parameter, Property
+from function_calling_components.function_calling import FunctionBuilder, Parameter, Property, Function
 from functions.BaseFunction import BaseFunction
 
 
@@ -14,55 +14,72 @@ class PersonFinder(BaseFunction):
 
     def get_definition(self) -> FunctionBuilder:
         return FunctionBuilder(
-            name="find_person_in_json_files",
-            description="Extract the information about the person from the user input",
-            parameters=Parameter(
-                parameter_type="object",
-                properties={
-                    "person_list": Property(
-                        property_type="array",
-                        description="List of people mentioned in the input plain text",
-                        items=Property(
-                            property_type="object",
-                            description="Description of individual person mentioned in the input plain text",
-                            properties={
-                                "id": Property(property_type="integer", description="Unique identifier for the person"),
-                                "name": Property(property_type="string", description="Name of the person"),
-                                "cognomen": Property(property_type="string", description="Addition to first name", default_value=""),
-                                "profession": Property(property_type="string", description="Profession of the person", default_value=""),
-                                "family_relations": Property(
-                                    property_type="array",
-                                    description="List of family relations",
-                                    items=Property(
-                                        property_type="object",
-                                        description="Family relation object",
-                                        properties={
-                                            "relation_type": Property(property_type="string", description="Type of family relation (e.g., pater, frater, filius, filia)", default_value=""),
-                                            "related_person": Property(property_type="integer", description="ID of the related person", default_value=None)
-                                        }
+            tool_type="function",
+            function=Function(
+                name="find_person_in_json_files",
+                description="Extract the information about the person from the user input",
+                parameters=Parameter(
+                    parameter_type="object",
+                    properties={
+                        "person_list": Property(
+                            property_type="array",
+                            description="List of people mentioned in the input plain text",
+                            items=Property(
+                                property_type="object",
+                                description="Description of individual person mentioned in the input plain text",
+                                properties={
+                                    "id": Property(property_type="integer",
+                                                   description="Unique identifier for the person"),
+                                    "name": Property(property_type="string", description="Name of the person"),
+                                    "cognomen": Property(property_type="string", description="Addition to first name",
+                                                         default_value=""),
+                                    "profession": Property(property_type="string",
+                                                           description="Profession of the person", default_value=""),
+                                    "family_relations": Property(
+                                        property_type="array",
+                                        description="List of family relations",
+                                        items=Property(
+                                            property_type="object",
+                                            description="Family relation object",
+                                            properties={
+                                                "relation_type": Property(property_type="string",
+                                                                          description="Type of family relation (e.g., pater, frater, filius, filia)",
+                                                                          default_value=""),
+                                                "related_person": Property(property_type="integer",
+                                                                           description="ID of the related person",
+                                                                           default_value=None)
+                                            }
+                                        ),
+                                        default_value=[]
                                     ),
-                                    default_value=[]
-                                ),
-                                "legal_relationship": Property(
-                                    property_type="array",
-                                    description="List of legal relations such as custos and heres",
-                                    items=Property(
-                                        property_type="object",
-                                        description="Legal relationship object",
-                                        properties={
-                                            "relation_type": Property(property_type="string", description="Type of legal relation", default_value=""),
-                                            "related_person": Property(property_type="integer", description="ID of the related person", default_value=None)
-                                        }
+                                    "legal_relationship": Property(
+                                        property_type="array",
+                                        description="List of legal relations such as custos and heres",
+                                        items=Property(
+                                            property_type="object",
+                                            description="Legal relationship object",
+                                            properties={
+                                                "relation_type": Property(property_type="string",
+                                                                          description="Type of legal relation",
+                                                                          default_value=""),
+                                                "related_person": Property(property_type="integer",
+                                                                           description="ID of the related person",
+                                                                           default_value=None)
+                                            }
+                                        ),
+                                        default_value=[]
                                     ),
-                                    default_value=[]
-                                ),
-                                "place_of_origin": Property(property_type="string", description="Place of origin of the person", default_value=""),
-                                "title": Property(property_type="string", description="Title of the person", default_value="")
-                            }
+                                    "place_of_origin": Property(property_type="string",
+                                                                description="Place of origin of the person",
+                                                                default_value=""),
+                                    "title": Property(property_type="string", description="Title of the person",
+                                                      default_value="")
+                                }
+                            )
                         )
-                    )
-                },
-                required=["name"]
+                    },
+                    required=["name"]
+                )
             )
         )
 
@@ -75,7 +92,7 @@ class PersonFinder(BaseFunction):
 
         load_dotenv()
         base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-        pred_folder = os.path.join(base_dir, "test_data", "test_json_diff", "predictions")
+        pred_folder = os.path.join(base_dir, "test_data", "test_pred")
         gt_documents = create_documents(pred_folder)
 
         person_comparator = PersonComparison()
@@ -97,4 +114,3 @@ class PersonFinder(BaseFunction):
         } for match in top_matches]
 
         return top_matches_dicts
-

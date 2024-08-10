@@ -29,19 +29,19 @@ selected_model: str = "gpt-3.5-turbo-0125"
 
 class DialogueCompletion:
 
-    def __init__(self, model: str):
+    def __init__(self, model: str, experiment_dir):
         load_dotenv()
         self.client = OpenAI(
             api_key=os.environ.get("OPENAI_API_KEY"),
         )
         self.model: str = model
         self.message_history: List[Message] = []
-        base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-        self.prompt_save_dir = os.path.join(base_dir, "prompting", "generated_prompts")
-        self.response_save_dir = os.path.join(base_dir, "prompting", "prompting_responses")
-        os.makedirs(self.prompt_save_dir, exist_ok=True)
-        os.makedirs(self.response_save_dir, exist_ok=True)
-        self.chat_file_writer = ChatFileWriter()
+        # base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+        # self.prompt_save_dir = os.path.join(base_dir, "prompting", "generated_prompts")
+        # self.response_save_dir = os.path.join(base_dir, "prompting", "prompting_responses")
+        # os.makedirs(self.prompt_save_dir, exist_ok=True)
+        # os.makedirs(self.response_save_dir, exist_ok=True)
+        self.chat_file_writer = ChatFileWriter(experiment_dir)
         self.function_call_result = None
         self.token_counter = TokenCounter(self.model)
 
