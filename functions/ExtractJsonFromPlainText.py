@@ -33,10 +33,16 @@ class ExtractJsonFromPlainText(BaseFunction):
                                 property_type="object",
                                 description="Description of individual person mentioned in the input plain text",
                                 properties={
-                                    "id": Property(property_type="integer", description="Unique identifier for the person"),
-                                    "name": Property(property_type="string", description="Name of the person"),
-                                    "cognomen": Property(property_type="string", description="Addition to first name", default_value=""),
-                                    "profession": Property(property_type="string", description="Profession of the person", default_value=""),
+                                    "id": Property(property_type="integer",
+                                                   description="Unique identifier for the person"),
+                                    "name": Property(property_type="string",
+                                                     description="Name of the person"),
+                                    "cognomen": Property(property_type="string",
+                                                         description="Addition to first name",
+                                                         default_value=""),
+                                    "profession": Property(property_type="string",
+                                                           description="Profession of the person",
+                                                           default_value=""),
                                     "family_relations": Property(
                                         property_type="array",
                                         description="List of family relations",
@@ -44,8 +50,31 @@ class ExtractJsonFromPlainText(BaseFunction):
                                             property_type="object",
                                             description="Family relation object",
                                             properties={
-                                                "relation_type": Property(property_type="string", description="Type of family relation (e.g., pater, frater, filius, filia)", default_value=""),
-                                                "related_person": Property(property_type="integer", description="ID of the related person", default_value=None)
+                                                "relation_type": Property(property_type="string",
+                                                                          enum=["pater",
+                                                                                "mater",
+                                                                                "frater",
+                                                                                "soror",
+                                                                                "filius",
+                                                                                "filia",
+                                                                                "avus",
+                                                                                "avia",
+                                                                                "noverca",
+                                                                                "vitricus",
+                                                                                "privignus",
+                                                                                "privigna",
+                                                                                "matertera",
+                                                                                "patruus",
+                                                                                "amita",
+                                                                                "nepos",
+                                                                                "neptis"],
+                                                                          description="Type of family relation (e.g., "
+                                                                                      "pater, frater, filius, "
+                                                                                      "filia)",
+                                                                          default_value=""),
+                                                "related_person": Property(property_type="integer",
+                                                                           description="ID of the related person",
+                                                                           default_value=None)
                                             }
                                         ),
                                         default_value=[]
@@ -57,19 +86,49 @@ class ExtractJsonFromPlainText(BaseFunction):
                                             property_type="object",
                                             description="Legal relationship object",
                                             properties={
-                                                "relation_type": Property(property_type="string", description="Type of legal relation", default_value=""),
-                                                "related_person": Property(property_type="integer", description="ID of the related person", default_value=None)
+                                                "relation_type": Property(property_type="string",
+                                                                          enum=[
+                                                                              "tenens",
+                                                                              "dominus feodi",
+                                                                              "testator",
+                                                                              "heres",
+                                                                              "plegiarius",
+                                                                              "attornatus",
+                                                                              "reus",
+                                                                              "petitor",
+                                                                              "custos",
+                                                                              "pupillus",
+                                                                              "progenitor",
+                                                                              "progenies"
+                                                                          ],
+                                                                          description="Type of legal relation",
+                                                                          default_value=""),
+                                                "related_person": Property(property_type="integer",
+                                                                           description="ID of the related person",
+                                                                           default_value=None)
                                             }
                                         ),
                                         default_value=[]
                                     ),
-                                    "place_of_origin": Property(property_type="string", description="Place of origin of the person", default_value=""),
-                                    "title": Property(property_type="string", description="Title of the person", default_value="")
+                                    "place_of_origin": Property(property_type="string",
+                                                                description="Place of origin of the person",
+                                                                default_value=""),
+                                    "title": Property(property_type="string",
+                                                      description="Title of the person",
+                                                      default_value="")
                                 }
                             )
                         )
                     },
-                    required=["name", "id"]
+                    required=["name",
+                              "id",
+                              "cognomen",
+                              "profession",
+                              "place_of_origin",
+                              "title",
+                              "family_relations",
+                              "legal_relationship"
+                              ]
                 )
             )
         )

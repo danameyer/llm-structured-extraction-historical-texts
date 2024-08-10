@@ -40,16 +40,18 @@ class Function:
             self.parameters: Optional["Parameter"] = None
 
 
-
 class Property:
     def __init__(self,
                  property_type: str,
                  description: str,
                  items: 'Property' = None,
                  properties: dict[str, 'Property'] = None,
-                 default_value=None):
+                 default_value=None,
+                 enum: List[str] = None
+                 ):
         self.default_value = default_value
         self.type: str = property_type
+        self.enum: List[str] = enum if enum is not None else []
         self.description: str = description
         if items:
             self.items: 'Property' = items

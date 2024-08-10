@@ -1,53 +1,91 @@
 {
     "person_list": [
         {
-            "name": "Petronilla",
             "id": 1,
+            "name": "Petronilla",
             "cognomen": "",
             "profession": "",
-            "family_relations": [],
+            "family_relations": [
+                {
+                    "relation_type": "Mater",
+                    "related_person": 2
+                },
+                {
+                    "relation_type": "Uxor",
+                    "related_person": 3
+                }
+            ],
             "legal_relationship": [],
             "place_of_origin": "",
             "title": ""
         },
         {
+            "id": 2,
             "name": "Robertus",
             "cognomen": "Aurifabri",
-            "id": 2,
             "profession": "",
-            "family_relations": [],
+            "family_relations": [
+                {
+                    "relation_type": "Pater",
+                    "related_person": 4
+                }
+            ],
             "legal_relationship": [],
             "place_of_origin": "",
             "title": ""
         },
         {
-            "name": "Johannis",
-            "cognomen": "Aurifabri",
             "id": 3,
+            "name": "Johannes",
+            "cognomen": "Aurifabri",
             "profession": "",
-            "family_relations": [],
+            "family_relations": [
+                {
+                    "relation_type": "Filius",
+                    "related_person": 2
+                },
+                {
+                    "relation_type": "Mater",
+                    "related_person": 1
+                }
+            ],
             "legal_relationship": [],
             "place_of_origin": "",
             "title": ""
         },
         {
+            "id": 4,
+            "name": "Ricardus",
+            "cognomen": "de Pesemere",
+            "profession": "",
+            "family_relations": [
+                {
+                    "relation_type": "Filius",
+                    "related_person": 2
+                }
+            ],
+            "legal_relationship": [
+                {
+                    "relation_type": "Tenens",
+                    "related_person": 5
+                }
+            ],
+            "place_of_origin": "Pesemere",
+            "title": ""
+        },
+        {
+            "id": 5,
             "name": "Willelmus",
             "cognomen": "de Pesemere",
-            "id": 4,
             "profession": "",
             "family_relations": [],
-            "legal_relationship": [],
-            "place_of_origin": "",
-            "title": ""
-        },
-        {
-            "name": "Ricardum",
-            "cognomen": "de Pesemere",
-            "id": 5,
-            "profession": "",
-            "family_relations": [],
-            "legal_relationship": [],
-            "place_of_origin": "",
+            "legal_relationship": [
+                {
+                    "relation_type": "Dominus Feodi",
+                    "related_person": 4
+                }
+            ],
+            "place_of_origin": "Pesemere",
             "title": ""
         }
     ]
