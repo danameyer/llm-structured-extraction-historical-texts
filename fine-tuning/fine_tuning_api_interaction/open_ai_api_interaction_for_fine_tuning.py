@@ -1,3 +1,4 @@
+import base64
 import json
 import os
 import time
@@ -12,10 +13,12 @@ openai_api_key: Optional[str] = os.getenv("OPENAI_API_KEY")
 
 
 class OpenAIAPIInteractionForFineTuning:
-    def __init__(self):
+    def __init__(self, result_file_path):
         self.client = OpenAI(
             api_key=os.environ.get("OPENAI_API_KEY"),
         )
+        self.result_file_path = result_file_path
+        os.makedirs(result_file_path, exist_ok=True)
 
     def upload_data_to_api(self, data):
         with open(data, "rb") as file:
@@ -36,6 +39,19 @@ class OpenAIAPIInteractionForFineTuning:
         ft_results = self.client.fine_tuning.jobs.retrieve(finetune_job_id)
         return ft_results
 
+    def get_result_file(self, fine_tuning_job_id):
+        ft_results = self.retrieve_fine_tuning_results(fine_tuning_job_id)
+        result_files = ft_results.result_files
+
+        for result_file in result_files:
+            file = self.client.files.retrieve(result_file)
+            content = self.client.files.content(file.id)
+            file_path = os.path.join(self.result_file_path, result_file)
+            with open(file_path, 'wb') as file:
+                file.write(base64.b64decode(content.text.encode("utf-8")))
+
+            print(f"Saved {result_file} to {file_path}")
+
     def wait_for_job_to_finish(self, finetune_job_id, check_interval=30):
         while True:
             ft_results = self.retrieve_fine_tuning_results(finetune_job_id)
@@ -54,16 +70,18 @@ class OpenAIAPIInteractionForFineTuning:
 
 class ModelRegistry:
     def __init__(self, registry_file_name='model_registry.json'):
-        base_dir = os.getenv('PROJECT_BASE_DIR', '/default/path')
-        if not base_dir:
+        base_directory = os.getenv('PROJECT_BASE_DIR', '/default/path')
+        if not base_directory:
             raise ValueError("PROJECT_BASE_DIR environment variable not set.")
 
         # Define the relative path and combine with the base directory
-        relative_path = 'test_data/fine_tuning'
-        full_path = os.path.join(base_dir, relative_path, registry_file_name)
+        relative_path = 'fine_tuning/fine_tuning_evaluation/created_models'
+        self.registry_file = os.path.join(base_directory, relative_path, registry_file_name)
 
-        # Initialize attributes
-        self.registry_file = full_path
+        dir_name = os.path.dirname(self.registry_file)
+        if not os.path.exists(dir_name):
+            os.makedirs(dir_name, exist_ok=True)
+
         self.registry = None
         self.load_registry()
 
@@ -88,13 +106,25 @@ class ModelRegistry:
 
 if __name__ == "__main__":
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    test_file = os.path.join(base_dir, "test_data", "fine_tuning", "file-finetune.jsonl")
+    test_file = os.path.join(base_dir,
+                             "fine_tuning",
+                             "fine_tuning_evaluation",
+                             "fine_tuning_data",
+                             "train_data"
+                             "file-finetune.jsonl")
+    directory = os.path.dirname(test_file)
+    if not os.path.exists(directory):
+        os.makedirs(directory, exist_ok=True)
+
+    result_file_dir = os.path.join(base_dir, "fine_tuning", "fine_tuning_evaluation", "metrics")
+    if not os.path.exists(directory):
+        os.makedirs(result_file_dir, exist_ok=True)
+
     gpt_model = 'gpt-3.5-turbo'
 
-    open_ai_interaction_for_fine_tuning = OpenAIAPIInteractionForFineTuning()
+    open_ai_interaction_for_fine_tuning = OpenAIAPIInteractionForFineTuning(result_file_dir)
     model_registry = ModelRegistry()
 
-    # Upload the data to the API
     upload_response = open_ai_interaction_for_fine_tuning.upload_data_to_api(test_file)
     print(upload_response)
 
@@ -119,3 +149,5 @@ if __name__ == "__main__":
 
         # Record the new model ID
         model_registry.add_model_id(training_file_id, ft_job_id)
+
+        open_ai_interaction_for_fine_tuning.get_result_file(ft_job_id)
