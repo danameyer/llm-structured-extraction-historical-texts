@@ -133,6 +133,7 @@ class PromptBuilder:
             "While working on the tasks, pay attention to the following rules:\n"
             "Rules:\n"
             "* Leave values empty if there is no information provided in the text.\n"
+            "* Remember to include the id.\n"
             "* Use the nominative singular form.\n"
             "* Stick to the spelling variations used in the document.\n"
             "* If word endings are cut due to OCR errors, reconstruct the complete word.\n"

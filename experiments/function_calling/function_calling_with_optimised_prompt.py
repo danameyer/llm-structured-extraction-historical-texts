@@ -11,7 +11,8 @@ from prompting.prompting_strategies import PromptBuilder
 
 class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling):
     def __init__(self, test_files, demonstrations, gpt_model, experiment_dir, pred_file_name):
-        super().__init__(test_files, demonstrations, experiment_dir, pred_file_name)
+        super().__init__(test_files, demonstrations, experiment_dir, pred_file_name, gpt_model)
+        self.gpt_model = gpt_model
         self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir)
         self.pred_file_name = pred_file_name
 
@@ -59,7 +60,7 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
         self.dialogue.prompt_assistant_response(prompt, self.pred_file_name, print_conversation=False)
 
         prompt = self.add_task_2()
-        extract_json_from_plaintext = ExtractJsonFromPlainText()
+        extract_json_from_plaintext = ExtractJsonFromPlainText(self.gpt_model)
         function_list = [extract_json_from_plaintext]
         self.dialogue.prompt_assistant_response(prompt, self.pred_file_name, function_list, print_conversation=False)
         function_call_result = self.dialogue.function_call_result

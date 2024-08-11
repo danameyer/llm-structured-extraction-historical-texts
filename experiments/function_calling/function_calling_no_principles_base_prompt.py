@@ -11,9 +11,10 @@ from prompting.prompting_strategies import PromptBuilder
 
 class ExperimentFunctionCallingNoPrinciplesBasePrompt(BaseExperimentFunctionCalling):
     def __init__(self, test_files, demonstrations, gpt_model, experiment_dir, pred_file_name):
-        super().__init__(test_files, demonstrations, experiment_dir, pred_file_name)
+        super().__init__(test_files, demonstrations, experiment_dir, pred_file_name, gpt_model)
         self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir)
         self.pred_file_name = pred_file_name
+        self.gpt_model = gpt_model
 
     def experiment_base_prompt(self):
         prompt_builder = PromptBuilder()
@@ -24,7 +25,7 @@ class ExperimentFunctionCallingNoPrinciplesBasePrompt(BaseExperimentFunctionCall
         # filename = "function_calling_no_principles_base_prompt"
 
         prompt = self.experiment_base_prompt()
-        extract_json_from_plaintext = ExtractJsonFromPlainText()
+        extract_json_from_plaintext = ExtractJsonFromPlainText(self.gpt_model)
         function_list = [extract_json_from_plaintext]
         self.dialogue.prompt_assistant_response(prompt,
                                                 self.pred_file_name,

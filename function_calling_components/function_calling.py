@@ -22,16 +22,23 @@ class SimpleChatGptMessage:
 
 
 class FunctionBuilder:
-    def __init__(self, tool_type: str, function: Optional["Function"] = None):
+    def __init__(self,
+                 tool_type: str,
+                 strict: bool = None,
+                 function: Optional["Function"] = None):
         self.type: str = tool_type
         if function:
             self.function: "Function" = function
         else:
             self.function: Optional["Function"] = None
+        self.strict: bool = strict
 
 
 class Function:
-    def __init__(self, name: str, description: str, parameters: Optional["Parameter"] = None):
+    def __init__(self,
+                 name: str,
+                 description: str,
+                 parameters: Optional["Parameter"] = None):
         self.name: str = name
         self.description: str = description
         if parameters:
@@ -65,6 +72,7 @@ class Property:
 
 class Parameter:
     def __init__(self, parameter_type: str,
+                 additionalProperties: bool,
                  properties: Optional[Dict[str, Property]] = None,
                  required: Optional[List[str]] = None):
 
@@ -79,6 +87,8 @@ class Parameter:
             self.required: List[str] = required
         else:
             self.required: List[str] = list()
+
+        self.additionalProperties: bool = additionalProperties
 
     def add_property(self, name: str, property_type: str, description: str, required: List[str]):
         if required:
