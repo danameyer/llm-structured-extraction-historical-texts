@@ -232,7 +232,8 @@ class JsonComparison:
             new_value = change['new_value']
             if isinstance(old_value, str) and isinstance(new_value, str):
                 if not self.fuzzy_compare(old_value, new_value, threshold):
-                    deep_diff_formated_fuzzy_changes['root[\'' + key + '\']'] = {
+                    # deep_diff_formated_fuzzy_changes['root[\'' + key + '\']'] = {
+                    deep_diff_formated_fuzzy_changes[key] = {
                         'old_value': old_value,
                         'new_value': new_value
                     }
