@@ -2,7 +2,639 @@
     "individual_results": [
         {
             "file_name1": "crown_pleas_718.json",
-            "error": "JSON file with predicted results not found."
+            "file_name2": "pred_crown_pleas_718.json",
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Leukenor\", \"old_value\": \"De Leukenor\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Farnham\", \"old_value\": \"De Farnham\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Roberti\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"pater\", \"old_value\": \"Filius\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "exact_score": 0.8055555555555556,
+            "exact_matches": 29,
+            "exact_differences": 7,
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Roberti\"}, \"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Filius\", \"new_value\": \"pater\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "fuzzy_score": 0.8611111111111112,
+            "fuzzy_matches": 31,
+            "fuzzy_differences": 5,
+            "total_field_count": 36,
+            "exclude_paths": [
+                "root['id']"
+            ]
+        },
+        {
+            "file_name1": "crown_pleas_718.json",
+            "file_name2": "pred_crown_pleas_718.json",
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"pater\", \"old_value\": \"Filius\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "exact_score": 0.8888888888888888,
+            "exact_matches": 32,
+            "exact_differences": 4,
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Filius\", \"new_value\": \"pater\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "fuzzy_score": 0.8888888888888888,
+            "fuzzy_matches": 32,
+            "fuzzy_differences": 4,
+            "total_field_count": 36,
+            "exclude_paths": [
+                "root['id']",
+                "root['cognomen']"
+            ]
+        },
+        {
+            "file_name1": "crown_pleas_718.json",
+            "file_name2": "pred_crown_pleas_718.json",
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Leukenor\", \"old_value\": \"De Leukenor\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Farnham\", \"old_value\": \"De Farnham\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Roberti\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"pater\", \"old_value\": \"Filius\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "exact_score": 0.8055555555555556,
+            "exact_matches": 29,
+            "exact_differences": 7,
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Roberti\"}, \"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Filius\", \"new_value\": \"pater\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "fuzzy_score": 0.8611111111111112,
+            "fuzzy_matches": 31,
+            "fuzzy_differences": 5,
+            "total_field_count": 36,
+            "exclude_paths": [
+                "root['id']",
+                "root['legal_relationship']"
+            ]
+        },
+        {
+            "file_name1": "crown_pleas_718.json",
+            "file_name2": "pred_crown_pleas_718.json",
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Leukenor\", \"old_value\": \"De Leukenor\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Farnham\", \"old_value\": \"De Farnham\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Roberti\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"pater\", \"old_value\": \"Filius\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "exact_score": 0.8055555555555556,
+            "exact_matches": 29,
+            "exact_differences": 7,
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Roberti\"}, \"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Filius\", \"new_value\": \"pater\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "fuzzy_score": 0.8611111111111112,
+            "fuzzy_matches": 31,
+            "fuzzy_differences": 5,
+            "total_field_count": 36,
+            "exclude_paths": [
+                "root['id']",
+                "root['place_of_origin']"
+            ]
+        },
+        {
+            "file_name1": "crown_pleas_718.json",
+            "file_name2": "pred_crown_pleas_718.json",
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Leukenor\", \"old_value\": \"De Leukenor\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Farnham\", \"old_value\": \"De Farnham\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Roberti\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "exact_score": 0.8333333333333334,
+            "exact_matches": 30,
+            "exact_differences": 6,
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Roberti\"}, \"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "fuzzy_score": 0.8888888888888888,
+            "fuzzy_matches": 32,
+            "fuzzy_differences": 4,
+            "total_field_count": 36,
+            "exclude_paths": [
+                "root['id']",
+                "root['family_relations']"
+            ]
+        },
+        {
+            "file_name1": "crown_pleas_718.json",
+            "file_name2": "pred_crown_pleas_718.json",
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Leukenor\", \"old_value\": \"De Leukenor\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Farnham\", \"old_value\": \"De Farnham\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Roberti\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"\", \"old_value\": \"Vicecomes\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"pater\", \"old_value\": \"Filius\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "exact_score": 0.8055555555555556,
+            "exact_matches": 29,
+            "exact_differences": 7,
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Roberti\"}, \"root['profession']\": {\"old_value\": \"Vicecomes\", \"new_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Filius\", \"new_value\": \"pater\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "fuzzy_score": 0.8611111111111112,
+            "fuzzy_matches": 31,
+            "fuzzy_differences": 5,
+            "total_field_count": 36,
+            "exclude_paths": [
+                "root['id']",
+                "root['title']"
+            ]
+        },
+        {
+            "file_name1": "crown_pleas_718.json",
+            "file_name2": "pred_crown_pleas_718.json",
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Leukenor\", \"old_value\": \"De Leukenor\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Farnham\", \"old_value\": \"De Farnham\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Roberti\", \"old_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"pater\", \"old_value\": \"Filius\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "exact_score": 0.8888888888888888,
+            "exact_matches": 32,
+            "exact_differences": 4,
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Simon",
+                    "name2": "Simon",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Alanus",
+                    "name2": "Alanus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Wydo",
+                    "name2": "Wydo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Roberti\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Filius\", \"new_value\": \"pater\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Robertus",
+                    "name2": "Robertus",
+                    "deepdiff": "{\"values_changed\": {}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "fuzzy_score": 0.9444444444444444,
+            "fuzzy_matches": 34,
+            "fuzzy_differences": 2,
+            "total_field_count": 36,
+            "exclude_paths": [
+                "root['id']",
+                "root['profession']"
+            ]
         },
         {
             "file_name1": "foreign_pleas_461.json",
@@ -88,7 +720,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['root['family_relations'][1].relation_type']\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['family_relations'][1].relation_type\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 3,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -106,7 +738,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -115,7 +747,7 @@
                 {
                     "name1": "Petronilla",
                     "name2": "Petronilla",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -124,7 +756,7 @@
                 {
                     "name1": "Simon",
                     "name2": "Simon",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}, \"root['root['title']']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['place_of_origin']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
                     "values_changed": 4,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -133,7 +765,7 @@
                 {
                     "name1": "Galfrid",
                     "name2": "Galfridus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['root['legal_relationship'][0].related_person']\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -144,9 +776,9 @@
             "fuzzy_matches": 71,
             "fuzzy_differences": 13,
             "total_field_count": 84,
-                "exclude_paths": [
-                    "root['id']"
-                ]
+            "exclude_paths": [
+                "root['id']"
+            ]
         },
         {
             "file_name1": "foreign_pleas_461.json",
@@ -232,7 +864,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['family_relations'][1].relation_type']\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['family_relations'][1].relation_type\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -250,7 +882,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -259,7 +891,7 @@
                 {
                     "name1": "Petronilla",
                     "name2": "Petronilla",
-                    "deepdiff": "{\"values_changed\": {\"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -268,7 +900,7 @@
                 {
                     "name1": "Simon",
                     "name2": "Simon",
-                    "deepdiff": "{\"values_changed\": {\"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}, \"root['root['title']']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['place_of_origin']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
                     "values_changed": 3,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -277,7 +909,7 @@
                 {
                     "name1": "Galfrid",
                     "name2": "Galfridus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['root['legal_relationship'][0].related_person']\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -377,7 +1009,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['root['family_relations'][1].relation_type']\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['family_relations'][1].relation_type\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 3,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -395,7 +1027,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -404,7 +1036,7 @@
                 {
                     "name1": "Petronilla",
                     "name2": "Petronilla",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -413,7 +1045,7 @@
                 {
                     "name1": "Simon",
                     "name2": "Simon",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}, \"root['root['title']']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['place_of_origin']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
                     "values_changed": 3,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -522,7 +1154,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['root['family_relations'][1].relation_type']\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['family_relations'][1].relation_type\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -540,7 +1172,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -549,7 +1181,7 @@
                 {
                     "name1": "Petronilla",
                     "name2": "Petronilla",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -558,7 +1190,7 @@
                 {
                     "name1": "Simon",
                     "name2": "Simon",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['root['title']']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
                     "values_changed": 3,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -567,7 +1199,7 @@
                 {
                     "name1": "Galfrid",
                     "name2": "Galfridus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['root['legal_relationship'][0].related_person']\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -667,7 +1299,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -685,7 +1317,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -694,7 +1326,7 @@
                 {
                     "name1": "Petronilla",
                     "name2": "Petronilla",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -703,7 +1335,7 @@
                 {
                     "name1": "Simon",
                     "name2": "Simon",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}, \"root['root['title']']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['place_of_origin']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
                     "values_changed": 4,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -712,7 +1344,7 @@
                 {
                     "name1": "Galfrid",
                     "name2": "Galfridus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['root['legal_relationship'][0].related_person']\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -812,7 +1444,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['root['family_relations'][1].relation_type']\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['family_relations'][1].relation_type\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 3,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -830,7 +1462,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -839,7 +1471,7 @@
                 {
                     "name1": "Petronilla",
                     "name2": "Petronilla",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -848,7 +1480,7 @@
                 {
                     "name1": "Simon",
                     "name2": "Simon",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['place_of_origin']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}}}",
                     "values_changed": 3,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -857,7 +1489,7 @@
                 {
                     "name1": "Galfrid",
                     "name2": "Galfridus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['root['legal_relationship'][0].related_person']\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -957,7 +1589,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['root['family_relations'][1].relation_type']\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['family_relations'][1].relation_type\": {\"old_value\": \"Nepos\", \"new_value\": \"Avie\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 3,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -975,7 +1607,7 @@
                 {
                     "name1": "Willelmus",
                     "name2": "Willelmus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"Bedewrth\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -984,7 +1616,7 @@
                 {
                     "name1": "Petronilla",
                     "name2": "Petronilla",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"de Turvill\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -993,7 +1625,7 @@
                 {
                     "name1": "Simon",
                     "name2": "Simon",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}, \"root['root['title']']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"de Thurvill\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"Heres\"}, \"root['place_of_origin']\": {\"old_value\": \"\", \"new_value\": \"Thurvill\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}}",
                     "values_changed": 4,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1002,7 +1634,7 @@
                 {
                     "name1": "Galfrid",
                     "name2": "Galfridus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['legal_relationship'][0].relation_type']\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['root['legal_relationship'][0].related_person']\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Attornatus\", \"new_value\": \"Tenens\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Isabella\", \"new_value\": \"Willelmus\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1075,7 +1707,7 @@
                 {
                     "name1": "Hugo",
                     "name2": "Hugo",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1084,7 +1716,7 @@
                 {
                     "name1": "Petrus",
                     "name2": "Petrus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1093,7 +1725,7 @@
                 {
                     "name1": "Ricardus",
                     "name2": "Ricardus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1102,7 +1734,7 @@
                 {
                     "name1": "Thomas",
                     "name2": "Thomas",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1111,7 +1743,7 @@
                 {
                     "name1": "Johannis",
                     "name2": "Johannis",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1183,7 +1815,7 @@
                 {
                     "name1": "Hugo",
                     "name2": "Hugo",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1192,7 +1824,7 @@
                 {
                     "name1": "Petrus",
                     "name2": "Petrus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1201,7 +1833,7 @@
                 {
                     "name1": "Ricardus",
                     "name2": "Ricardus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1210,7 +1842,7 @@
                 {
                     "name1": "Thomas",
                     "name2": "Thomas",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1219,7 +1851,7 @@
                 {
                     "name1": "Johannis",
                     "name2": "Johannis",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1292,7 +1924,7 @@
                 {
                     "name1": "Hugo",
                     "name2": "Hugo",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1301,7 +1933,7 @@
                 {
                     "name1": "Petrus",
                     "name2": "Petrus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1310,7 +1942,7 @@
                 {
                     "name1": "Ricardus",
                     "name2": "Ricardus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1319,7 +1951,7 @@
                 {
                     "name1": "Thomas",
                     "name2": "Thomas",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1328,7 +1960,7 @@
                 {
                     "name1": "Johannis",
                     "name2": "Johannis",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1401,7 +2033,7 @@
                 {
                     "name1": "Hugo",
                     "name2": "Hugo",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1410,7 +2042,7 @@
                 {
                     "name1": "Petrus",
                     "name2": "Petrus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1419,7 +2051,7 @@
                 {
                     "name1": "Ricardus",
                     "name2": "Ricardus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1428,7 +2060,7 @@
                 {
                     "name1": "Thomas",
                     "name2": "Thomas",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1437,7 +2069,7 @@
                 {
                     "name1": "Johannis",
                     "name2": "Johannis",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1510,7 +2142,7 @@
                 {
                     "name1": "Hugo",
                     "name2": "Hugo",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1519,7 +2151,7 @@
                 {
                     "name1": "Petrus",
                     "name2": "Petrus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1528,7 +2160,7 @@
                 {
                     "name1": "Ricardus",
                     "name2": "Ricardus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1537,7 +2169,7 @@
                 {
                     "name1": "Thomas",
                     "name2": "Thomas",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1546,7 +2178,7 @@
                 {
                     "name1": "Johannis",
                     "name2": "Johannis",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1619,7 +2251,7 @@
                 {
                     "name1": "Hugo",
                     "name2": "Hugo",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1628,7 +2260,7 @@
                 {
                     "name1": "Petrus",
                     "name2": "Petrus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1637,7 +2269,7 @@
                 {
                     "name1": "Ricardus",
                     "name2": "Ricardus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1646,7 +2278,7 @@
                 {
                     "name1": "Thomas",
                     "name2": "Thomas",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['root['place_of_origin']']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}, \"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
                     "values_changed": 2,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1655,7 +2287,7 @@
                 {
                     "name1": "Johannis",
                     "name2": "Johannis",
-                    "deepdiff": "{\"values_changed\": {\"root['root['profession']']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"--\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1728,7 +2360,7 @@
                 {
                     "name1": "Hugo",
                     "name2": "Hugo",
-                    "deepdiff": "{\"values_changed\": {\"root['root['place_of_origin']']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1737,7 +2369,7 @@
                 {
                     "name1": "Petrus",
                     "name2": "Petrus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['cognomen']']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1746,7 +2378,7 @@
                 {
                     "name1": "Ricardus",
                     "name2": "Ricardus",
-                    "deepdiff": "{\"values_changed\": {\"root['root['place_of_origin']']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1755,7 +2387,7 @@
                 {
                     "name1": "Thomas",
                     "name2": "Thomas",
-                    "deepdiff": "{\"values_changed\": {\"root['root['place_of_origin']']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
+                    "deepdiff": "{\"values_changed\": {\"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}}",
                     "values_changed": 1,
                     "iterable_item_added": 0,
                     "iterable_item_removed": 0,
@@ -1781,13 +2413,76 @@
             ]
         }
     ],
-    "overall_results": {
-        "overall_exact_score": 0.6578947368421053,
-        "overall_fuzzy_score": 0.6902255639097744,
-        "total_exact_matches": 875,
-        "total_fuzzy_matches": 918,
-        "total_exact_misses": 455,
-        "total_fuzzy_misses": 412,
-        "total_fields_count": 1330
-    }
+    "overall_results": [
+        {
+            "overall_path_exclude": "root['id']",
+            "overall_exact_score": 0.6637168141592921,
+            "overall_fuzzy_score": 0.7035398230088495,
+            "total_exact_matches": 150,
+            "total_fuzzy_matches": 159,
+            "total_exact_misses": 76,
+            "total_fuzzy_misses": 67,
+            "total_fields_count": 226
+        },
+        {
+            "overall_path_exclude": "root['id'],root['cognomen']",
+            "overall_exact_score": 0.7212389380530974,
+            "overall_fuzzy_score": 0.7300884955752213,
+            "total_exact_matches": 163,
+            "total_fuzzy_matches": 165,
+            "total_exact_misses": 63,
+            "total_fuzzy_misses": 61,
+            "total_fields_count": 226
+        },
+        {
+            "overall_path_exclude": "root['id'],root['legal_relationship']",
+            "overall_exact_score": 0.6769911504424779,
+            "overall_fuzzy_score": 0.7168141592920354,
+            "total_exact_matches": 153,
+            "total_fuzzy_matches": 162,
+            "total_exact_misses": 73,
+            "total_fuzzy_misses": 64,
+            "total_fields_count": 226
+        },
+        {
+            "overall_path_exclude": "root['id'],root['place_of_origin']",
+            "overall_exact_score": 0.6991150442477876,
+            "overall_fuzzy_score": 0.7345132743362832,
+            "total_exact_matches": 158,
+            "total_fuzzy_matches": 166,
+            "total_exact_misses": 68,
+            "total_fuzzy_misses": 60,
+            "total_fields_count": 226
+        },
+        {
+            "overall_path_exclude": "root['id'],root['family_relations']",
+            "overall_exact_score": 0.672566371681416,
+            "overall_fuzzy_score": 0.7123893805309734,
+            "total_exact_matches": 152,
+            "total_fuzzy_matches": 161,
+            "total_exact_misses": 74,
+            "total_fuzzy_misses": 65,
+            "total_fields_count": 226
+        },
+        {
+            "overall_path_exclude": "root['id'],root['title']",
+            "overall_exact_score": 0.668141592920354,
+            "overall_fuzzy_score": 0.7079646017699115,
+            "total_exact_matches": 151,
+            "total_fuzzy_matches": 160,
+            "total_exact_misses": 75,
+            "total_fuzzy_misses": 66,
+            "total_fields_count": 226
+        },
+        {
+            "overall_path_exclude": "root['id'],root['profession']",
+            "overall_exact_score": 0.6991150442477876,
+            "overall_fuzzy_score": 0.7389380530973452,
+            "total_exact_matches": 158,
+            "total_fuzzy_matches": 167,
+            "total_exact_misses": 68,
+            "total_fuzzy_misses": 59,
+            "total_fields_count": 226
+        }
+    ]
 }

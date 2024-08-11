@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from thefuzz import fuzz
 from data_classes.document import create_documents
 from data_classes.person import Person
+from evaluation.json_comparison.OverallResult import OverallResultList
 from evaluation.json_comparison.PersonMatching import PersonMatching
 from langchain.evaluation import JsonEditDistanceEvaluator
 
@@ -261,9 +262,10 @@ class JsonComparison:
         exact_count_matches = 0
         all_fields_count = 0
 
+        overall_results_list = OverallResultList(exclusions)
         comparison_results = {
             'individual_results': [],
-            'overall_results': {}
+            'overall_results': []
         }
 
         for gt_filename, gt_document in gt_dict.items():
@@ -297,9 +299,13 @@ class JsonComparison:
 
                     comparison_results['individual_results'].append(individual_result)
 
-                    fuzzy_count_matches += fuzzy_matches
-                    exact_count_matches += exact_matches
-                    all_fields_count += total_field_count
+                    # fuzzy_count_matches += fuzzy_matches
+                    # exact_count_matches += exact_matches
+                    # all_fields_count += total_field_count
+                    overall_results_list.add_counts(exclusion_path=exclude_paths,
+                                                    fuzzy_count_matches=fuzzy_matches,
+                                                    exact_count_matches=exact_matches,
+                                                    all_fields_count=total_field_count)
 
             else:
                 comparison_results['individual_results'].append({
@@ -307,18 +313,19 @@ class JsonComparison:
                     'error': 'JSON file with predicted results not found.'
                 })
 
-        overall_score_exact = exact_count_matches / all_fields_count if all_fields_count > 0 else 0
-        overall_score_fuzzy = fuzzy_count_matches / all_fields_count if all_fields_count > 0 else 0
+        # overall_score_exact = exact_count_matches / all_fields_count if all_fields_count > 0 else 0
+        # overall_score_fuzzy = fuzzy_count_matches / all_fields_count if all_fields_count > 0 else 0
 
-        comparison_results['overall_results'] = {
-            'overall_exact_score': overall_score_exact,
-            'overall_fuzzy_score': overall_score_fuzzy,
-            'total_exact_matches': exact_count_matches,
-            'total_fuzzy_matches': fuzzy_count_matches,
-            'total_exact_misses': all_fields_count - exact_count_matches,
-            'total_fuzzy_misses': all_fields_count - fuzzy_count_matches,
-            'total_fields_count': all_fields_count
-        }
+        # comparison_results['overall_results'].append({
+        #     'overall_exact_score': overall_score_exact,
+        #     'overall_fuzzy_score': overall_score_fuzzy,
+        #     'total_exact_matches': exact_count_matches,
+        #     'total_fuzzy_matches': fuzzy_count_matches,
+        #     'total_exact_misses': all_fields_count - exact_count_matches,
+        #     'total_fuzzy_misses': all_fields_count - fuzzy_count_matches,
+        #     'total_fields_count': all_fields_count
+        # })
+        comparison_results['overall_results'] = overall_results_list.get_overall_results()
 
         # Write all results to the file in one go
         with open(output_file, 'a') as result_file:
@@ -396,15 +403,16 @@ class JsonComparison:
         output.append(f"------------------------------------------------------------\n")
 
         # Format overall results
-        overall_results = comparison_results['overall_results']
-        output.append(f"Overall Exact Score: {overall_results['overall_exact_score']:.4f}\n")
-        output.append(f"Overall Fuzzy Score: {overall_results['overall_fuzzy_score']:.4f}\n")
-        output.append(f"Total Exact Matches: {overall_results['total_exact_matches']}\n")
-        output.append(f"Total Fuzzy Matches: {overall_results['total_fuzzy_matches']}\n")
-        output.append(f"Total Exact Misses: {overall_results['total_exact_misses']}\n")
-        output.append(f"Total Fuzzy Misses: {overall_results['total_fuzzy_misses']}\n")
-        output.append(f"Total Fields Count: {overall_results['total_fields_count']}\n")
-        output.append(f"{'-' * 60}\n")
+        for overall_results in comparison_results['overall_results']:
+            output.append(f"Path Exclusion: {overall_results['overall_path_exclude']}\n")
+            output.append(f"Overall Exact Score: {overall_results['overall_exact_score']:.4f}\n")
+            output.append(f"Overall Fuzzy Score: {overall_results['overall_fuzzy_score']:.4f}\n")
+            output.append(f"Total Exact Matches: {overall_results['total_exact_matches']}\n")
+            output.append(f"Total Fuzzy Matches: {overall_results['total_fuzzy_matches']}\n")
+            output.append(f"Total Exact Misses: {overall_results['total_exact_misses']}\n")
+            output.append(f"Total Fuzzy Misses: {overall_results['total_fuzzy_misses']}\n")
+            output.append(f"Total Fields Count: {overall_results['total_fields_count']}\n")
+            output.append(f"{'-' * 60}\n\n")
 
         return "\n".join(output)
 
