@@ -3,12 +3,12 @@ import os
 
 
 class ModelRegistry:
-    def __init__(self, registry_file_name='model_registry.json'):
+    def __init__(self, relative_path, registry_file_name):
         base_directory = os.getenv('PROJECT_BASE_DIR', '/default/path')
         if not base_directory:
             raise ValueError("PROJECT_BASE_DIR environment variable not set.")
 
-        relative_path = 'fine_tuning_files/openai/created_models'
+        # relative_path = 'fine_tuning_files/openai/created_models'
         self.registry_file = os.path.join(base_directory, relative_path, registry_file_name)
 
         dir_name = os.path.dirname(self.registry_file)

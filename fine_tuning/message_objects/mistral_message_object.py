@@ -12,11 +12,13 @@ from prompting.prompting_strategies import PromptBuilder
 
 
 class MistralMessageObject:
-    def __init__(self):
+    def __init__(self, mistral_model):
+        load_dotenv()
         self.messages = []
         self.tools = []
         base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
         self.demonstrations = os.path.join(base_dir, "test_data", "demonstrations", "demonstration_1.txt")
+        self.mistral_model = mistral_model
 
     def add_message(self, role, content, tool_call_id=None):
         message = {
@@ -84,72 +86,76 @@ class MistralMessageObject:
                   .build_prompt())
         return prompt
 
+    def create_fine_tuning_for_single_prompt(self, file_path, gt_function_arguments, model):
+        function_object = ExtractJsonFromPlainText(model)
+        mistral_message_obj = MistralMessageObject(model)
 
-def create_fine_tuning_for_single_prompt(file_path, gt_function_arguments):
-    function_object = ExtractJsonFromPlainText()
-    mistral_message_object = MistralMessageObject()
+        system_message = mistral_message_obj.build_system_message()
+        mistral_message_obj.add_message('system', system_message)
 
-    system_message = mistral_message_object.build_system_message()
-    mistral_message_object.add_message('system', system_message)
+        prompt = mistral_message_obj.build_prompt(file_path)
+        mistral_message_obj.add_message('user', prompt)
 
-    prompt = mistral_message_object.build_prompt(file_path)
-    mistral_message_object.add_message('user', prompt)
+        with open(gt_function_arguments, 'r') as f:
+            gt_content = f.read()
 
-    with open(gt_function_arguments, 'r') as f:
-        gt_content = f.read()
+        tool_call_id = mistral_message_obj.generate_tool_call(function_object.get_definition().function.name,
+                                                              gt_content)
 
-    tool_call_id = mistral_message_object.generate_tool_call(function_object.get_definition().name,
-                                                             gt_content)
+        mistral_message_obj.add_message('tool', gt_content, tool_call_id)
 
-    mistral_message_object.add_message('tool', gt_content, tool_call_id)
+        mistral_message_obj.add_tool(function=function_object.get_definition_dict())
 
-    mistral_message_object.add_tool(function=function_object.get_definition_dict())
+        mistral_message_obj.add_message('assistant', "This is the structured JSON output: " + gt_content)
 
-    mistral_message_object.add_message('assistant', "This is the structured JSON output: " + gt_content)
+        return mistral_message_obj
 
-    return mistral_message_object
+    def run(self):
+        load_dotenv()
+        base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+        text_files_dir = os.path.join(base_dir, "test_data", "ft_test_txt")
+        gt_files_dir = os.path.join(base_dir, "test_data", "ft_test_gt")
 
+        fine_tuning_objects = []
 
-def run():
-    load_dotenv()
-    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    text_files_dir = os.path.join(base_dir, "evaluation_results", "text_files")
-    gt_files_dir = os.path.join(base_dir, "evaluation_results", "ground_truth")
+        for text_file in os.listdir(text_files_dir):
+            if text_file.endswith(".txt"):
+                base_name = os.path.splitext(text_file)[0]
+                gt_file_name = f"{base_name}.json"
+                gt_file_path = os.path.join(gt_files_dir, gt_file_name)
 
-    fine_tuning_objects = []
+                if os.path.exists(gt_file_path):
+                    fine_tuning_object = self.create_fine_tuning_for_single_prompt(
+                        os.path.join(text_files_dir, text_file),
+                        gt_file_path,
+                        self.mistral_model
+                    )
+                    fine_tuning_objects.append(fine_tuning_object.build())
+                else:
+                    print(f"Ground truth file {gt_file_name} does not exist for text file {text_file}")
 
-    for text_file in os.listdir(text_files_dir):
-        if text_file.endswith(".txt"):
-            base_name = os.path.splitext(text_file)[0]
-            gt_file_name = f"{base_name}.json"
-            gt_file_path = os.path.join(gt_files_dir, gt_file_name)
-
-            if os.path.exists(gt_file_path):
-                fine_tuning_object = create_fine_tuning_for_single_prompt(
-                    os.path.join(text_files_dir, text_file),
-                    gt_file_path
+        fine_tuning_file_path = os.path.join(base_dir,
+                                             "fine_tuning_files",
+                                             "mistral",
+                                             "fine_tuning_data",
+                                             "total_ft_data")
+        os.makedirs(fine_tuning_file_path, exist_ok=True)
+        output_file_path = os.path.join(fine_tuning_file_path, "file-finetune-mistral.jsonl")
+        with open(output_file_path, 'w') as output_file:
+            for obj in fine_tuning_objects:
+                json_string = json.dumps(obj)
+                cleaned_json_string = (
+                    json_string
+                    .replace("\\\\n", "")  # newline in json
+                    .replace("\\n", " ")  # newline in text
+                    .replace("\n", " ")
+                    .replace("\\t", " ")  # tab in text
+                    .replace("\\u00ad", "")
+                    .replace("\\u2022", "")
                 )
-                fine_tuning_objects.append(fine_tuning_object.build())
-            else:
-                print(f"Ground truth file {gt_file_name} does not exist for text file {text_file}")
-
-    fine_tuning_file_path = os.path.join(base_dir, "test_data", "fine_tuning")
-    os.makedirs(fine_tuning_file_path, exist_ok=True)
-    output_file_path = os.path.join(fine_tuning_file_path, "file-finetune-mistral.jsonl")
-    with open(output_file_path, 'w') as output_file:
-        for obj in fine_tuning_objects:
-            json_string = json.dumps(obj)
-            cleaned_json_string = (
-                json_string
-                .replace("\\\\n", "")  # newline in json
-                .replace("\\n", " ")  # newline in text
-                .replace("\n", " ")
-                .replace("\\t", " ")  # tab in text
-                .replace("\\u00ad", "")
-                .replace("\\u2022", "")
-            )
-            output_file.write(cleaned_json_string + '\n')
+                output_file.write(cleaned_json_string + '\n')
 
 
 if __name__ == "__main__":
-    run()
+    mistral_message_object = MistralMessageObject("open-mistral-7b")
+    mistral_message_object.run()
