@@ -83,39 +83,41 @@ class OpenAIAPIInteractionForFineTuning:
     @staticmethod
     def fine_tune_model(training_file, validation_file, result_file_directory, gpt_model_path):
         open_ai_interaction = OpenAIAPIInteractionForFineTuning(result_file_directory)
-        model_registry = ModelRegistry()
+        model_registry = ModelRegistry('fine_tuning_files/openai/created_models',
+                                       "model_registry_openai")
 
-        # upload_response_train_file = open_ai_interaction.upload_data_to_api(training_file)
-        # print(upload_response_train_file)
-        #
-        # upload_response_validation_file = open_ai_interaction.upload_data_to_api(validation_file)
-        # print(upload_response_validation_file)
-        #
-        # training_file_id = upload_response_train_file.id
-        # existing_model_id = model_registry.get_model_id(training_file_id)
-        #
-        # validation_file_id = upload_response_validation_file.id
-        #
-        # if existing_model_id:
-        #     print(f"Using existing model: {existing_model_id}")
-        # else:
-        #     response_model_creation = open_ai_interaction.create_model(train_file=training_file_id,
-        #                                                                model=gpt_model_path,
-        #                                                                validation_file=validation_file_id)
-        #     print(response_model_creation)
-        #
-        #     ft_job_id = response_model_creation.id
-        #     fine_tune_results = open_ai_interaction.wait_for_job_to_finish(ft_job_id)
-        #     print(fine_tune_results.finished_at)
-        #
-        #     model_registry.add_model_id(training_file_id, validation_file_id, ft_job_id, gpt_model_path)
-        #     open_ai_interaction.get_result_file(ft_job_id)
-        model_registry.add_model_id("file-bUlvAiXzLJCY5YEGBBmboEEh",
-                                    "file-bUlvAiXzLJCY5YEGBBmboEEh",
-                                    "ftjob-DAxstQl595n0nHwNfA3xUelp",
-                                    gpt_model_path)
-        open_ai_interaction.get_result_file(fine_tuning_job_id="ftjob-DAxstQl595n0nHwNfA3xUelp",
-                                            model=gpt_model_path)
+        upload_response_train_file = open_ai_interaction.upload_data_to_api(training_file)
+        print(upload_response_train_file)
+
+        upload_response_validation_file = open_ai_interaction.upload_data_to_api(validation_file)
+        print(upload_response_validation_file)
+
+        training_file_id = upload_response_train_file.id
+        existing_model_id = model_registry.get_model_id(training_file_id)
+
+        validation_file_id = upload_response_validation_file.id
+
+        if existing_model_id:
+            print(f"Using existing model: {existing_model_id}")
+        else:
+            response_model_creation = open_ai_interaction.create_model(train_file=training_file_id,
+                                                                       model=gpt_model_path,
+                                                                       validation_file=validation_file_id)
+            print(response_model_creation)
+
+            ft_job_id = response_model_creation.id
+            fine_tune_results = open_ai_interaction.wait_for_job_to_finish(ft_job_id)
+            print(fine_tune_results.finished_at)
+
+            model_registry.add_model_id(training_file_id, validation_file_id, ft_job_id, gpt_model_path)
+            open_ai_interaction.get_result_file(ft_job_id, gpt_model_path)
+
+        # model_registry.add_model_id("file-bUlvAiXzLJCY5YEGBBmboEEh",
+        #                             "file-bUlvAiXzLJCY5YEGBBmboEEh",
+        #                             "ftjob-DAxstQl595n0nHwNfA3xUelp",
+        #                             gpt_model_path)
+        # open_ai_interaction.get_result_file(fine_tuning_job_id="ftjob-DAxstQl595n0nHwNfA3xUelp",
+        #                                     model=gpt_model_path)
 
 
 if __name__ == "__main__":
@@ -161,3 +163,4 @@ if __name__ == "__main__":
                                                                       "metrics"])
 
     open_ai_interaction_for_ft.fine_tune_model(train_file, val_file, result_file_dir, gpt_model)
+
