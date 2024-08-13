@@ -1,0 +1,181 @@
+{
+    "id": "8ea76bca-8d79-4254-8f14-05c4a888db4c",
+    "auto_start": false,
+    "hyperparameters": {
+        "training_steps": 10,
+        "learning_rate": 0.0001,
+        "epochs": 19.67191463176695,
+        "fim_ratio": null
+    },
+    "model": "open-mistral-7b",
+    "status": "SUCCESS",
+    "job_type": "FT",
+    "created_at": 1723577543,
+    "modified_at": 1723577768,
+    "training_files": [
+        "7c330e8b-5f43-4344-802d-95c85db38647"
+    ],
+    "validation_files": [
+        "4212898f-3785-45f9-8820-4973187c2d20"
+    ],
+    "OBJECT": "job",
+    "fine_tuned_model": "ft:open-mistral-7b:f7574669:20240813:8ea76bca",
+    "suffix": null,
+    "integrations": [],
+    "trained_tokens": 1310720,
+    "repositories": [],
+    "metadata": {
+        "expected_duration_seconds": 100,
+        "cost": 2.63,
+        "cost_currency": "USD",
+        "train_tokens_per_step": 131072,
+        "train_tokens": 1310720,
+        "data_tokens": 66629,
+        "estimated_start_time": null
+    },
+    "events": [
+        {
+            "name": "status-updated",
+            "created_at": 1723577768,
+            "data": {
+                "status": "SUCCESS"
+            }
+        },
+        {
+            "name": "status-updated",
+            "created_at": 1723577663,
+            "data": {
+                "status": "RUNNING"
+            }
+        },
+        {
+            "name": "status-updated",
+            "created_at": 1723577662,
+            "data": {
+                "status": "QUEUED"
+            }
+        },
+        {
+            "name": "status-updated",
+            "created_at": 1723577546,
+            "data": {
+                "status": "VALIDATED"
+            }
+        },
+        {
+            "name": "status-updated",
+            "created_at": 1723577546,
+            "data": {
+                "status": "RUNNING"
+            }
+        },
+        {
+            "name": "status-updated",
+            "created_at": 1723577543,
+            "data": {
+                "status": "QUEUED"
+            }
+        }
+    ],
+    "checkpoints": [
+        {
+            "metrics": {
+                "train_loss": 0.116696,
+                "valid_loss": 0.018136,
+                "valid_mean_token_accuracy": 1.012651
+            },
+            "step_number": 10,
+            "created_at": 1723577746
+        }
+    ]
+}{
+    "id": "25e436e1-e926-4c09-b46c-dd18ec4ee236",
+    "auto_start": false,
+    "hyperparameters": {
+        "training_steps": 10,
+        "learning_rate": 0.0001,
+        "epochs": 20.502103830692466,
+        "fim_ratio": null
+    },
+    "model": "open-mistral-7b",
+    "status": "SUCCESS",
+    "job_type": "FT",
+    "created_at": 1723583950,
+    "modified_at": 1723584087,
+    "training_files": [
+        "4edebb18-2844-43c0-8753-da8da9b068ec"
+    ],
+    "validation_files": [
+        "022f1ff8-5e30-4356-b63c-3388f465ce59"
+    ],
+    "OBJECT": "job",
+    "fine_tuned_model": "ft:open-mistral-7b:f7574669:20240813:25e436e1",
+    "suffix": null,
+    "integrations": [],
+    "trained_tokens": 1310720,
+    "repositories": [],
+    "metadata": {
+        "expected_duration_seconds": 100,
+        "cost": 2.63,
+        "cost_currency": "USD",
+        "train_tokens_per_step": 131072,
+        "train_tokens": 1310720,
+        "data_tokens": 63931,
+        "estimated_start_time": null
+    },
+    "events": [
+        {
+            "name": "status-updated",
+            "created_at": 1723584087,
+            "data": {
+                "status": "SUCCESS"
+            }
+        },
+        {
+            "name": "status-updated",
+            "created_at": 1723583981,
+            "data": {
+                "status": "RUNNING"
+            }
+        },
+        {
+            "name": "status-updated",
+            "created_at": 1723583981,
+            "data": {
+                "status": "QUEUED"
+            }
+        },
+        {
+            "name": "status-updated",
+            "created_at": 1723583952,
+            "data": {
+                "status": "VALIDATED"
+            }
+        },
+        {
+            "name": "status-updated",
+            "created_at": 1723583952,
+            "data": {
+                "status": "RUNNING"
+            }
+        },
+        {
+            "name": "status-updated",
+            "created_at": 1723583950,
+            "data": {
+                "status": "QUEUED"
+            }
+        }
+    ],
+    "checkpoints": [
+        {
+            "metrics": {
+                "train_loss": 0.143836,
+                "valid_loss": 0.006453,
+                "valid_mean_token_accuracy": 1.004483
+            },
+            "step_number": 10,
+            "created_at": 1723584064
+        }
+    ]
+}

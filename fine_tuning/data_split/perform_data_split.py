@@ -67,6 +67,17 @@ class PerformDataSplit:
             # Training set is the concatenation of all other folds
             training_set = [item for j, fold in enumerate(self.folds) if j != i for item in fold]
 
+            # Calculate the size of the validation set as 20% of the training set size
+            training_size = len(training_set)
+            validation_size = max(1, int(0.2 * training_size))  # Ensure at least one validation sample
+
+            # Split training set to create validation set
+            if validation_size < len(validation_set):
+                validation_set = validation_set[:validation_size]
+                training_set.extend(self.folds[i][validation_size:])  # Add remaining to training set
+            else:
+                validation_size = len(validation_set)  # Use all validation set if too small
+
             # Construct file paths for the current fold
             train_file_path = os.path.join(fold_dir, 'train.jsonl')
             val_file_path = os.path.join(fold_dir, 'val.jsonl')
@@ -83,16 +94,33 @@ class PerformDataSplit:
 if __name__ == '__main__':
     load_dotenv()
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+
+    # gpt
     gpt_model = 'gpt-3.5-turbo'
-    fine_tuning_dir = os.path.join(base_dir,
-                                   'fine_tuning_files',
-                                   "openai",
-                                   'fine_tuning_data',
-                                   'total_ft_data')
-    fine_tuning_files = os.path.join(fine_tuning_dir, 'file-finetune-openai.jsonl')
-    output_directory = os.path.join(base_dir,
-                                    'fine_tuning_files',
-                                    "openai",
-                                    'fine_tuning_data')
-    data_splitter = PerformDataSplit(fine_tuning_files, 5, output_directory, gpt_model)
+    fine_tuning_dir_open_ai = os.path.join(base_dir,
+                                           'fine_tuning_files',
+                                           "openai",
+                                           'fine_tuning_data',
+                                           'total_ft_data')
+    fine_tuning_files_open_ai = os.path.join(fine_tuning_dir_open_ai, 'file-finetune-openai.jsonl')
+    output_directory_open_ai = os.path.join(base_dir,
+                                            'fine_tuning_files',
+                                            "openai",
+                                            'fine_tuning_data')
+    data_splitter = PerformDataSplit(fine_tuning_files_open_ai, 5, output_directory_open_ai, gpt_model)
+    data_splitter.generate_train_val_sets()
+
+    # mistral
+    mistral_model = 'open-mistral-7b'
+    fine_tuning_dir_mistral = os.path.join(base_dir,
+                                           'fine_tuning_files',
+                                           'mistral',
+                                           'fine_tuning_data',
+                                           'total_ft_data')
+    fine_tuning_files_mistral = os.path.join(fine_tuning_dir_mistral, 'file-finetune-mistral.jsonl')
+    output_directory_mistral = os.path.join(base_dir,
+                                            'fine_tuning_files',
+                                            'mistral',
+                                            'fine_tuning_data')
+    data_splitter = PerformDataSplit(fine_tuning_files_mistral, 5, output_directory_mistral, mistral_model)
     data_splitter.generate_train_val_sets()
