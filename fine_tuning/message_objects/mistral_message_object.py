@@ -104,7 +104,7 @@ class MistralMessageObject:
 
         mistral_message_obj.add_message('tool', gt_content, tool_call_id)
 
-        mistral_message_obj.add_tool(function=function_object.get_definition_dict())
+        mistral_message_obj.add_tool(function=function_object.get_definition_dict()["function"])
 
         mistral_message_obj.add_message('assistant', "This is the structured JSON output: " + gt_content)
 

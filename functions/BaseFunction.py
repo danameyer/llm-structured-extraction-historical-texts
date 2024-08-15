@@ -23,7 +23,7 @@ class BaseFunction:
         if self.use_short_definition:
             return {"name": self.get_definition().function.name}
         else:
-            return json.loads(jsons.dumps(self.get_definition().function))
+            return json.loads(jsons.dumps(self.get_definition()))
 
     def del_none(self, d):
         """
