@@ -57,11 +57,17 @@ class ExperimentFunctionCallingEvaluation:
                                                                    gpt_model,
                                                                    self.experiment_dir,
                                                                    pred_file_name)
+        elif self.prompt_experiment_name == "best_prompt":
+            return ExperimentFunctionCallingWithOptimisedPrompt(test_files,
+                                                                demonstrations_files,
+                                                                gpt_model,
+                                                                self.experiment_dir,
+                                                                pred_file_name)
         else:
             raise ValueError("Wrong prompt name: " + self.prompt_experiment_name)
 
     def get_base_directory(self):
-       return Path(os.getenv('PROJECT_BASE_DIR'))
+        return Path(os.getenv('PROJECT_BASE_DIR'))
 
     def get_ground_truth_folder(self, base_dir):
         return os.path.join(base_dir, "evaluation_results", "ground_truth")
@@ -138,7 +144,8 @@ class ExperimentFunctionCallingEvaluation:
 
         test_files = [path_to_text_file]
         demonstrations = [os.path.join(demonstrations_folder, "demonstration_1.txt")]
-        experiment_function_calling = self.init_prompt_experiment(demonstrations, test_files, gpt_model=gpt_model, pred_file_name=base_name)
+        experiment_function_calling = self.init_prompt_experiment(demonstrations, test_files, gpt_model=gpt_model,
+                                                                  pred_file_name=base_name)
         response_json = experiment_function_calling.run()
         response_json_str = json.dumps(response_json, indent=4)
 
