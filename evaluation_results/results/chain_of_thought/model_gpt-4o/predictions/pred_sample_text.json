@@ -3,8 +3,6 @@
         {
             "id": 1,
             "name": "Petronilla",
-            "cognomen": "",
-            "profession": "",
             "family_relations": [
                 {
                     "relation_type": "Uxor",
@@ -17,13 +15,14 @@
             ],
             "legal_relationship": [],
             "place_of_origin": "",
-            "title": ""
+            "title": "",
+            "cognomen": "",
+            "profession": ""
         },
         {
             "id": 2,
             "name": "Robertus",
-            "cognomen": "Aurifabri",
-            "profession": "Aurifaber",
+            "cognomen": "Aurifaber",
             "family_relations": [
                 {
                     "relation_type": "Maritus",
@@ -36,13 +35,13 @@
             ],
             "legal_relationship": [],
             "place_of_origin": "",
-            "title": ""
+            "title": "",
+            "profession": ""
         },
         {
             "id": 3,
             "name": "Johannes",
-            "cognomen": "Aurifabri",
-            "profession": "",
+            "cognomen": "Aurifaber",
             "family_relations": [
                 {
                     "relation_type": "Filius",
@@ -55,28 +54,37 @@
             ],
             "legal_relationship": [],
             "place_of_origin": "",
-            "title": ""
+            "title": "",
+            "profession": ""
         },
         {
             "id": 4,
             "name": "Willelmus",
             "cognomen": "de Pesemere",
-            "profession": "",
-            "family_relations": [],
+            "family_relations": [
+                {
+                    "relation_type": "Filius",
+                    "related_person": 5
+                }
+            ],
             "legal_relationship": [
                 {
                     "relation_type": "Deforciator",
-                    "related_person": 3
+                    "related_person": 1
+                },
+                {
+                    "relation_type": "Plegiarius",
+                    "related_person": 5
                 }
             ],
             "place_of_origin": "Pesemere",
-            "title": ""
+            "title": "",
+            "profession": ""
         },
         {
             "id": 5,
             "name": "Ricardus",
             "cognomen": "de Pesemere",
-            "profession": "",
             "family_relations": [
                 {
                     "relation_type": "Pater",
@@ -84,8 +92,9 @@
                 }
             ],
             "legal_relationship": [],
-            "place_of_origin": "",
-            "title": ""
+            "place_of_origin": "Pesemere",
+            "title": "",
+            "profession": ""
         }
     ]
 }

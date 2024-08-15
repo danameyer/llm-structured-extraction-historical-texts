@@ -3,7 +3,7 @@
         {
             "id": 1,
             "name": "Simon",
-            "cognomen": "de Leukenor",
+            "cognomen": "de Leukenor'",
             "profession": "",
             "family_relations": [],
             "legal_relationship": [],
@@ -23,11 +23,11 @@
         {
             "id": 3,
             "name": "Wydo",
-            "cognomen": "filius Roberti",
+            "cognomen": "",
             "profession": "",
             "family_relations": [
                 {
-                    "relation_type": "pater",
+                    "relation_type": "Filius",
                     "related_person": 4
                 }
             ],
@@ -37,10 +37,15 @@
         },
         {
             "id": 4,
-            "name": "Robertus",
+            "name": "Roberti",
             "cognomen": "",
             "profession": "",
-            "family_relations": [],
+            "family_relations": [
+                {
+                    "relation_type": "Pater",
+                    "related_person": 3
+                }
+            ],
             "legal_relationship": [],
             "place_of_origin": "",
             "title": ""
