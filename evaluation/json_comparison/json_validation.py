@@ -4,7 +4,7 @@ from pathlib import Path
 
 import jsonschema
 from dotenv import load_dotenv
-from jsonschema.validators import Draft7Validator
+from jsonschema.validators import Draft202012Validator
 
 from utils import file_reader_util
 
@@ -67,7 +67,7 @@ class JsonValidator:
 
             print("Data being validated:", data)
 
-            json_validator = Draft7Validator(self.json_schema)
+            json_validator = Draft202012Validator(self.json_schema)
             errors = sorted(json_validator.iter_errors(data), key=lambda exception: exception.path)
 
             if errors:
