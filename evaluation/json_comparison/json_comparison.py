@@ -185,15 +185,19 @@ class JsonComparison:
                 print("This is the number of values changed:", value_change_count)
             metric_values_changed += value_change_count
 
+            ddiff_as_dict["iterable_item_added"] = exact_ddiff_as_dict.get("iterable_item_added", {})
+            ddiff_as_dict["iterable_item_removed"] = exact_ddiff_as_dict.get("iterable_item_removed", {})
+
             ddiff_as_json = json.dumps(ddiff_as_dict)
 
             # Items added or removed
             iterable_item_added = ddiff_as_dict.get("iterable_item_added", {})
             iterable_item_removed = ddiff_as_dict.get("iterable_item_removed", {})
-            metric_items_change_count += len(iterable_item_added) + len(iterable_item_removed)
+            metric_items_change_count += self.count_internal_items(iterable_item_added) + self.count_internal_items(iterable_item_removed)
 
             # type changes
-            type_changes: Dict = ddiff_as_dict.get("type_changes", {})
+            # type_changes: Dict = ddiff_as_dict.get("type_changes", {})
+            type_changes: Dict = exact_ddiff_as_dict.get("type_changes", {})
             metric_type_changes += len(type_changes)
 
             deepdiff_results.append({
@@ -201,12 +205,18 @@ class JsonComparison:
                 'name2': person_2.name,
                 'deepdiff': ddiff_as_json,
                 'values_changed': value_change_count,
-                'iterable_item_added': len(iterable_item_added),
-                'iterable_item_removed': len(iterable_item_removed),
+                'iterable_item_added': self.count_internal_items(iterable_item_added),
+                'iterable_item_removed': self.count_internal_items(iterable_item_removed),
                 'type_changes': len(type_changes)
             })
 
         return metric_values_changed, metric_items_change_count, number_fields_total, metric_type_changes, deepdiff_results
+
+    def count_internal_items(self, iterable_item_added: Dict[str, Dict]):
+        count = 0
+        for key in iterable_item_added:
+            count += len(iterable_item_added[key])
+        return count
 
     def calculate_not_found_metric(self, person_matching: PersonMatching) -> int:
         not_found_counts = [self.count_fields(person.__dict__) for person in person_matching.not_found]

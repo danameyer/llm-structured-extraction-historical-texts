@@ -3,29 +3,54 @@
         {
             "id": 1,
             "name": "Simon",
-            "cognomen": "de Leukenor'",
+            "cognomen": "",
             "profession": "",
             "family_relations": [],
             "legal_relationship": [],
-            "place_of_origin": "",
+            "place_of_origin": "Leukenor",
             "title": ""
         },
         {
             "id": 2,
             "name": "Alanus",
-            "cognomen": "de Farnham",
+            "cognomen": "",
             "profession": "",
             "family_relations": [],
-            "legal_relationship": [],
-            "place_of_origin": "",
+            "legal_relationship": [
+                {
+                    "relation_type": "Vicecomes",
+                    "related_person": 1
+                }
+            ],
+            "place_of_origin": "Farnham",
             "title": ""
         },
         {
             "id": 3,
             "name": "Wydo",
-            "cognomen": "filius Roberti",
+            "cognomen": "",
             "profession": "",
             "family_relations": [],
+            "legal_relationship": [
+                {
+                    "relation_type": "Filius",
+                    "related_person": 4
+                }
+            ],
+            "place_of_origin": "Roberti",
+            "title": ""
+        },
+        {
+            "id": 4,
+            "name": "Robertus",
+            "cognomen": "",
+            "profession": "",
+            "family_relations": [
+                {
+                    "relation_type": "Pater",
+                    "related_person": 3
+                }
+            ],
             "legal_relationship": [],
             "place_of_origin": "",
             "title": ""
