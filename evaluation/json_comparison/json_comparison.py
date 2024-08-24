@@ -137,13 +137,13 @@ class JsonComparison:
                     person_matching,
                     apply_fuzzy=True,
                     exclude_paths=exclude_paths))
-        metric_persons_added_or_removed = self.calculate_not_found_metric(person_matching)
+        number_of_fields_of_missing_persons = self.calculate_not_found_metric(person_matching)
 
-        number_fields_total += metric_persons_added_or_removed
+        number_fields_total += number_of_fields_of_missing_persons
 
         # Calculate total differences
         all_diffs = (metric_values_changed
-                     + metric_persons_added_or_removed
+                     + number_of_fields_of_missing_persons
                      + metric_items_change_count
                      + metric_type_changes)
         matches = number_fields_total - all_diffs
@@ -154,7 +154,7 @@ class JsonComparison:
         print("Number of matches:", matches)
         print("Number of differences:", all_diffs)
 
-        return accuracy_score, matches, all_diffs, deep_diff_results, number_fields_total
+        return accuracy_score, matches, all_diffs, deep_diff_results, number_fields_total, number_of_fields_of_missing_persons
 
     def calculate_diff_metrics(self,
                                person_matching: PersonMatching,
@@ -287,24 +287,26 @@ class JsonComparison:
 
                 for exclude_paths in exclusions:
                     matching_person_object = self.find_matching_person(gt_document.persons, pred_document.persons)
-                    exact_score, exact_matches, exact_diffs, deep_diff_results, total_field_count = self.calculate_metric(
+                    exact_score, exact_matches, exact_diffs, deep_diff_results, total_field_count, number_of_fields_of_missing_persons = self.calculate_metric(
                         matching_person_object, exclude_paths=exclude_paths)
-                    fuzzy_score, fuzzy_matches, fuzzy_diffs, deep_diff_results_fuzzy, total_field_count = self.calculate_metric(
+                    fuzzy_score, fuzzy_matches, fuzzy_diffs, deep_diff_results_fuzzy, total_field_count, number_of_fields_of_missing_persons = self.calculate_metric(
                         matching_person_object, apply_fuzzy=True, exclude_paths=exclude_paths)
 
                     individual_result = {
                         'file_name1': gt_filename,
                         'file_name2': pred_document.document_name,
-                        'deepdiff_comparison_results': deep_diff_results,
+                        'exclude_paths': exclude_paths,
                         'exact_score': exact_score,
                         'exact_matches': exact_matches,
                         'exact_differences': exact_diffs,
-                        'deep_diff_comparison_results_fuzzy': deep_diff_results_fuzzy,
                         'fuzzy_score': fuzzy_score,
                         'fuzzy_matches': fuzzy_matches,
                         'fuzzy_differences': fuzzy_diffs,
                         'total_field_count': total_field_count,
-                        'exclude_paths': exclude_paths
+                        'number_of_missing_persons': len(matching_person_object.not_found),
+                        'number_of_fields_of_missing_persons': number_of_fields_of_missing_persons,
+                        'deepdiff_comparison_results': deep_diff_results,
+                        'deep_diff_comparison_results_fuzzy': deep_diff_results_fuzzy
                     }
 
                     comparison_results['individual_results'].append(individual_result)

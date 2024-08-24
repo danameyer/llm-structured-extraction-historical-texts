@@ -183,8 +183,8 @@ class ExperimentFunctionCallingEvaluation:
 
 
 def _main():
-    model_name = 'gpt-3.5-turbo'
-    prompt_name = 'chain_of_thought'
+    model_name = 'gpt-4o-mini'
+    prompt_name = 'best_prompt'
     regenerate_predictions = False
     exclusions = [["root['id']"],
                   ["root['id']", "root['cognomen']"],
