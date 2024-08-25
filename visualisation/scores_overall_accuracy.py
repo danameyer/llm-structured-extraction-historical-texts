@@ -64,6 +64,8 @@ class OverallAccuracy:
 
         plt.tight_layout()
         output_dir = os.path.join('output_overall_plots')
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir, exist_ok=True)
         plt.savefig(os.path.join(output_dir, f'overall_scores_{prompt_name}.png'))
 
 
@@ -71,7 +73,16 @@ if __name__ == '__main__':
     overall_accuracy = OverallAccuracy()
     load_dotenv()
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    prompt_name = 'best_prompt'
-    models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_name)
-    model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir)
-    overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_name)
+
+    results_dir = os.path.join(base_dir, 'evaluation_results', 'results')
+    prompt_dirs = os.listdir(results_dir)
+
+    for prompt_dir_name in prompt_dirs:
+        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
+        model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir)
+        overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_dir_name)
+
+    # prompt_name = 'best_prompt'
+    # models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_name)
+    # model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir)
+    # overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_name)
