@@ -49,7 +49,7 @@ class OverallAccuracy:
         return model_names, exact_scores, fuzzy_scores
 
     @staticmethod
-    def plot_overall_accuracy(model_names, exact_scores, fuzzy_scores):
+    def plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_name):
         x = np.arange(len(model_names))
         bar_width = 0.35
         fig, ax = plt.subplots()
@@ -63,13 +63,15 @@ class OverallAccuracy:
         ax.legend()
 
         plt.tight_layout()
-        plt.show()
+        output_dir = os.path.join('output_overall_plots')
+        plt.savefig(os.path.join(output_dir, f'overall_scores_{prompt_name}.png'))
 
 
 if __name__ == '__main__':
     overall_accuracy = OverallAccuracy()
     load_dotenv()
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    models_dir = os.path.join(base_dir, 'evaluation_results', 'results', 'best_prompt')
+    prompt_name = 'best_prompt'
+    models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_name)
     model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir)
-    overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores)
+    overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_name)
