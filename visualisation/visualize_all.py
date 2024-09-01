@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 
 from visualisation.box_plot_fuzzy_score import BoxPlotFuzzyScore
 from visualisation.plot_accuracy_json_size import JsonSizeScatterPlot
+from visualisation.plot_mistral_metrics import PlotMistralMetrics
+from visualisation.plot_open_ai_metrics import PlotOpenAIMetrics
 from visualisation.scores_error_types import ErrorTypePlot
 from visualisation.scores_for_exclude_paths import ExcludePathsPlot
 from visualisation.scores_overall_accuracy import OverallAccuracy
@@ -72,9 +74,39 @@ def plot_box_plot():
     box_plot_fuzzy_score.plot_fuzzy_scores_by_prompt_and_model(all_fuzzy_scores)
 
 
+def plot_openai_results():
+    load_dotenv()
+    base_dir = os.getenv('PROJECT_BASE_DIR')
+    relative_path = 'fine_tuning_files/openai/fine_tuning_evaluation'
+    root_path = os.path.join(base_dir, relative_path)
+    plot_openai_metrics = PlotOpenAIMetrics()
+
+    extracted_data = plot_openai_metrics.extract_metrics_data(root_path)
+
+    for model_name, df, file_name in extracted_data:
+        plot_output_dir = os.path.join(base_dir, 'visualisation', 'openai_ft_plots')
+        plot_openai_metrics.plot_metrics(model_name, df, plot_output_dir, file_name)
+
+
+def plot_mistral_results():
+    load_dotenv()
+    base_dir = os.getenv('PROJECT_BASE_DIR')
+    relative_path = 'fine_tuning_files/mistral/fine_tuning_evaluation'
+    root_path = os.path.join(base_dir, relative_path)
+    plot_mistral_metrics = PlotMistralMetrics()
+
+    extracted_data = plot_mistral_metrics.extract_metrics_data(root_path)
+
+    for model_name, checkpoints, file_name in extracted_data:
+        plot_output_dir = os.path.join(base_dir, 'visualisation', 'mistral_ft_plots')
+        plot_mistral_metrics.plot_metrics(model_name, checkpoints, plot_output_dir, file_name)
+
+
 if __name__ == '__main__':
     plot_overall_accuracy()
     plot_error_types()
     plot_exclude_paths()
     plot_json_size_vs_accuracy()
     plot_box_plot()
+    plot_openai_results()
+    plot_mistral_results()

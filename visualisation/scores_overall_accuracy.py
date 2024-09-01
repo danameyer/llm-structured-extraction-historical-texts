@@ -53,20 +53,20 @@ class OverallAccuracy:
         x = np.arange(len(model_names))
         bar_width = 0.35
         fig, ax = plt.subplots()
-        ax.bar(x - bar_width / 2, exact_scores, bar_width, label='Exact Score')
-        ax.bar(x + bar_width / 2, fuzzy_scores, bar_width, label='Fuzzy Score')
+        ax.bar(x - bar_width / 2, exact_scores, bar_width, label='Exact Accuracy')
+        ax.bar(x + bar_width / 2, fuzzy_scores, bar_width, label='Fuzzy Accuracy')
         ax.set_xlabel('Models')
-        ax.set_ylabel('Scores')
-        ax.set_title('Exact vs Fuzzy Scores by Model (Excluding root["id"])')
+        ax.set_ylabel('Accuracy')
+        ax.set_title('Exact vs Fuzzy Accuracy by Model (Excluding id)')
         ax.set_xticks(x)
         ax.set_xticklabels(model_names, rotation=45, ha='right')
-        ax.legend()
+        ax.legend(loc='upper left', bbox_to_anchor=(1, 1))
 
         plt.tight_layout()
         output_dir = os.path.join('output_overall_plots')
         if not os.path.exists(output_dir):
             os.makedirs(output_dir, exist_ok=True)
-        plt.savefig(os.path.join(output_dir, f'overall_scores_{prompt_name}.png'))
+        plt.savefig(os.path.join(output_dir, f'overall_scores_{prompt_name}.png'), bbox_inches='tight')
 
 
 if __name__ == '__main__':
@@ -82,7 +82,3 @@ if __name__ == '__main__':
         model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir)
         overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_dir_name)
 
-    # prompt_name = 'best_prompt'
-    # models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_name)
-    # model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir)
-    # overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_name)

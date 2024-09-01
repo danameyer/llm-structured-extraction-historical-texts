@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
@@ -40,18 +41,24 @@ class ErrorTypePlot:
                                         if 'exclude_paths' not in doc or 'error' in doc:
                                             continue
                                         exclude_path = doc['exclude_paths']
+                                        extracted_attributes = ', '.join(
+                                            ', '.join(re.findall(r"\['(.*?)'\]",
+                                                                 path if isinstance(path, str) else ' '.join(
+                                                                     [p for sublist in path for p in sublist])))
+                                            for path in exclude_path
+                                        )
 
                                         # Process exact deepdiff comparison results
-                                        for comparison_result in doc['deepdiff_comparison_results']:
-                                            for key in ['values_changed', 'iterable_item_added',
-                                                        'iterable_item_removed', 'type_changes']:
-                                                error_counts[f'{exclude_path}_exact'][key] += comparison_result[key]
+                                        # for comparison_result in doc['deepdiff_comparison_results']:
+                                        #     for key in ['values_changed', 'iterable_item_added',
+                                        #                 'iterable_item_removed', 'type_changes']:
+                                        #        error_counts[f'{exclude_path}_exact'][key] += comparison_result[key]
 
                                         # Process fuzzy deepdiff comparison results
                                         for comparison_result in doc['deep_diff_comparison_results_fuzzy']:
                                             for key in ['values_changed', 'iterable_item_added',
                                                         'iterable_item_removed', 'type_changes']:
-                                                error_counts[f'{exclude_path}_fuzzy'][key] += comparison_result[key]
+                                                error_counts[f'{extracted_attributes}'][key] += comparison_result[key]
 
                                     all_error_counts[(prompt_type_folder, model_folder)] = error_counts
 
@@ -74,22 +81,22 @@ class ErrorTypePlot:
                 ax.bar(bar_positions[i] + j * bar_width, count, width=bar_width, color=colors[j],
                        label=error_type if i == 0 else "")
 
-        ax.set_xlabel('Exclusion Path and Type')
-        ax.set_ylabel('Count of Errors')
-        ax.set_title(f'Error Count for {model_name} in {prompt_type}')
+        ax.set_xlabel('Excluded Attributes')
+        ax.set_ylabel('Error Count')
+        ax.set_title(f'Error Count for {model_name} in {prompt_type} (only fuzzy accuracy)')
 
         ax.set_xticks(bar_positions + (num_error_types / 2 - 0.5) * bar_width)
         ax.set_xticklabels(list(error_counts.keys()), rotation=45, ha='right')
 
         handles, labels = ax.get_legend_handles_labels()
         by_label = dict(zip(labels, handles))
-        ax.legend(by_label.values(), by_label.keys(), title='Error Type')
+        ax.legend(by_label.values(), by_label.keys(), title='Error Type', loc='upper left', bbox_to_anchor=(1, 1))
 
         plt.tight_layout()
 
         output_dir = os.path.join('output_plots_errors', prompt_type)
         os.makedirs(output_dir, exist_ok=True)
-        plt.savefig(os.path.join(output_dir, f'{model_name}_error_counts.png'))
+        plt.savefig(os.path.join(output_dir, f'{model_name}_error_counts.png'), bbox_inches='tight')
 
         plt.close(fig)
 

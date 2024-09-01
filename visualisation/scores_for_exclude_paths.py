@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -51,26 +52,29 @@ class ExcludePathsPlot:
 
     @staticmethod
     def plot_scores(prompt_type, model_name, exclude_paths, exact_scores, fuzzy_scores):
+        extracted_attributes = [
+            ', '.join([attr for path in paths.split(',') for attr in re.findall(r"\['(.*?)']", path)])
+            for paths in exclude_paths
+        ]
         x = np.arange(len(exclude_paths))
         bar_width = 0.35
 
         fig, ax = plt.subplots()
-        ax.bar(x - bar_width / 2, exact_scores, bar_width, label='Exact Score')
-        ax.bar(x + bar_width / 2, fuzzy_scores, bar_width, label='Fuzzy Score')
+        ax.bar(x - bar_width / 2, exact_scores, bar_width, label='Exact Accuracy')
+        ax.bar(x + bar_width / 2, fuzzy_scores, bar_width, label='Fuzzy Accuracy')
 
-        ax.set_xlabel('Exclude Paths')
-        ax.set_ylabel('Scores')
-        ax.set_title(f'Exact vs Fuzzy Scores for {model_name} in {prompt_type}')
+        ax.set_xlabel('Excluded Attributes')
+        ax.set_ylabel('Accuracy')
+        ax.set_title(f'Exact vs Fuzzy Accuracy for {model_name} in {prompt_type}')
         ax.set_xticks(x)
-        ax.set_xticklabels(exclude_paths, rotation=45, ha='right')
-        ax.legend()
+        ax.set_xticklabels(extracted_attributes, rotation=45, ha='right')
+        ax.legend(loc='upper left', bbox_to_anchor=(1, 1))
 
         plt.tight_layout()
-        # plt.show()
 
-        output_dir = os.path.join('output_plots', prompt_type)
+        output_dir = os.path.join('output_plots_attributes_excluded', prompt_type)
         os.makedirs(output_dir, exist_ok=True)
-        plt.savefig(os.path.join(output_dir, f'{model_name}_scores.png'))
+        plt.savefig(os.path.join(output_dir, f'{model_name}_scores.png'), bbox_inches='tight')
 
         plt.close()
 

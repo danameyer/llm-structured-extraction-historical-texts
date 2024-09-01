@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from collections import defaultdict
 from pathlib import Path
 
@@ -56,18 +57,20 @@ class BoxPlotFuzzyScore:
             scores_by_prompt_and_model (dict): A nested dictionary where the first key is the prompt type,
                                                the second key is the model name, and the value is a dictionary
                                                with exclude paths as keys and fuzzy accuracy scores as values.
-            output_directory (str): The directory where the plots will be saved.
         """
         for prompt_type, models_scores in scores_by_prompt_and_model.items():
             for model_name, scores_by_exclude_paths in models_scores.items():
-                labels = [', '.join(paths) if paths else 'No Excludes' for paths in scores_by_exclude_paths.keys()]
+                labels = [
+                    ', '.join([attr for path in paths for attr in re.findall(r"\['(.*?)'\]", path)])
+                    for paths in scores_by_exclude_paths.keys()
+                ]
                 data = list(scores_by_exclude_paths.values())
 
                 plt.figure(figsize=(10, 6))
                 plt.boxplot(data, patch_artist=True, medianprops=dict(color='black'))
                 plt.xticks(ticks=range(1, len(labels) + 1), labels=labels, rotation=45, ha='right')
                 plt.title(f'Fuzzy Accuracy Box Plot for {prompt_type} - {model_name}')
-                plt.ylabel('Fuzzy Accuracy Scores')
+                plt.ylabel('Fuzzy Accuracy')
                 plt.grid(True, linestyle='--', alpha=0.7)
                 plt.tight_layout()
 
