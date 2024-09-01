@@ -3,6 +3,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from visualisation.box_plot_fuzzy_score import BoxPlotFuzzyScore
 from visualisation.plot_accuracy_json_size import JsonSizeScatterPlot
 from visualisation.scores_error_types import ErrorTypePlot
 from visualisation.scores_for_exclude_paths import ExcludePathsPlot
@@ -62,10 +63,18 @@ def plot_json_size_vs_accuracy():
         jsonSizeScatterPlot.plot_fuzzy_accuracy_vs_field_count(data_points_for_model_and_prompt)
 
 
+def plot_box_plot():
+    box_plot_fuzzy_score = BoxPlotFuzzyScore()
+    load_dotenv()
+    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+    models_dir = os.path.join(base_dir, 'evaluation_results', 'results')
+    all_fuzzy_scores = box_plot_fuzzy_score.extract_fuzzy_scores_by_prompt_and_model(models_dir)
+    box_plot_fuzzy_score.plot_fuzzy_scores_by_prompt_and_model(all_fuzzy_scores)
+
+
 if __name__ == '__main__':
-    # plot_overall_accuracy('best_prompt')
-    # plot_overall_accuracy('chain_of_thought')
     plot_overall_accuracy()
     plot_error_types()
     plot_exclude_paths()
     plot_json_size_vs_accuracy()
+    plot_box_plot()
