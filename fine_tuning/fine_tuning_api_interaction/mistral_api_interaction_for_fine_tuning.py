@@ -58,7 +58,7 @@ class MistralApiInteractionForFineTuning:
         else:
             return obj
 
-    def wait_for_job_to_finish(self, finetune_job_id, model, check_interval=30):
+    def wait_for_job_to_finish(self, finetune_job_id, model, fold_number, check_interval=30):
         while True:
             ft_results = self.retrieve_fine_tuning_results_mistral(finetune_job_id)
             status = ft_results.status
@@ -66,9 +66,8 @@ class MistralApiInteractionForFineTuning:
 
             if status == 'VALIDATED':
                 print("Job has been validated. Starting the job...")
-                # Start the job once it's validated
                 self.client.fine_tuning.jobs.start(job_id=finetune_job_id)
-                break  # Exit the loop as we have started the job
+                break
 
             elif status in ('FAILED', 'FAILED_VALIDATION'):
                 print("Fine-tuning job failed.")
@@ -80,9 +79,8 @@ class MistralApiInteractionForFineTuning:
 
             else:
                 print(f"Unexpected status: {status}.")
-                return ft_results  # or handle it differently based on requirements
+                return ft_results
 
-        # Now wait for the job to finish
         while True:
             ft_results = self.retrieve_fine_tuning_results_mistral(finetune_job_id)
             status = ft_results.status
@@ -90,7 +88,7 @@ class MistralApiInteractionForFineTuning:
 
             if status == 'SUCCESS':
                 data_dict = self.to_dict(ft_results)
-                self.save_ft_results(data_dict, model)
+                self.save_ft_results(data_dict, model, fold_number)
                 print("Fine-tuning job succeeded!")
                 return ft_results
 
@@ -106,9 +104,8 @@ class MistralApiInteractionForFineTuning:
                 print(f"Unexpected status: {status}.")
                 return ft_results
 
-
-    def save_ft_results(self, ft_results, model):
-        file_name = f"result_file_{model}.txt"
+    def save_ft_results(self, ft_results, model, fold_nr):
+        file_name = f"result_file_{model}_{fold_nr}.txt"
         file_path = os.path.join(self.result_file_path, file_name)
 
         with open(file_path, 'a') as file:
@@ -116,7 +113,7 @@ class MistralApiInteractionForFineTuning:
 
         print(f"Saved fine-tuning results to {file_path}")
 
-    def fine_tune_model_mistral(self, training_file, validation_file, model):
+    def fine_tune_model_mistral(self, training_file, validation_file, model, fold_number):
         model_registry = ModelRegistry('fine_tuning_files/mistral/created_models',
                                        "model_registry_mistral")
         upload_response_train_file = self.upload_data_to_mistral_api(training_file)
@@ -132,33 +129,12 @@ class MistralApiInteractionForFineTuning:
                                                 validation_file_id,
                                                 model)
         print(created_job)
-        fine_tune_results = self.wait_for_job_to_finish(created_job.id, model)
+        fine_tune_results = self.wait_for_job_to_finish(created_job.id, model, fold_number)
         print("fine_tune_results: ", fine_tune_results)
         model_registry.add_model_id(training_file_id,
                                     validation_file_id,
                                     fine_tune_results.fine_tuned_model,
                                     model)
-
-
-        # existing_model_id = model_registry.get_model_id(training_file_id)
-        # created_job = self.create_model_mistral(training_file_id, validation_file_id, model)
-        # training_file_id = "7fecca6f-cf42-4781-bd9f-faf3939e4a42"
-        # validation_file_id = "1fe39bbd-d489-4226-8f1b-a380e86c0b45"
-        # existing_model_id = ""
-
-        # created_job = self.create_model_mistral(training_file_id,
-        #                                         validation_file_id,
-        #                                         model)
-        # print(created_job)
-
-        # self.client.fine_tuning.jobs.start(job_id="8ea76bca-8d79-4254-8f14-05c4a888db4c")
-        # print("job started")
-        # fine_tune_results = self.wait_for_job_to_finish("8ea76bca-8d79-4254-8f14-05c4a888db4c", model)
-        # print("fine_tune_results: ", fine_tune_results)
-        # model_registry.add_model_id("7c330e8b-5f43-4344-802d-95c85db38647",
-        #                             "4212898f-3785-45f9-8820-4973187c2d20",
-        #                             fine_tune_results.fine_tuned_model,
-        #                             model)
 
 
 def construct_file_path(base_directory: Path, path_components: List[str], file_name="") -> str:
@@ -174,8 +150,9 @@ def construct_file_path(base_directory: Path, path_components: List[str], file_n
 if __name__ == "__main__":
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     model_name = "open-mistral-7b"
+    fold_nr = "fold_0"
 
-    mistral_message_object = MistralMessageObject("model_name")
+    mistral_message_object = MistralMessageObject(model_name)
     mistral_message_object.run()
 
     fine_tuning_dir_mistral = os.path.join(base_dir,
@@ -205,14 +182,14 @@ if __name__ == "__main__":
                                          "fine_tuning_files",
                                          "mistral",
                                          "fine_tuning_data",
-                                         "fold_0"], "train.jsonl")
+                                         fold_nr], "train.jsonl")
 
     val_file = construct_file_path(base_dir,
                                    [
                                        "fine_tuning_files",
                                        "mistral",
                                        "fine_tuning_data",
-                                       "fold_0"],
+                                       fold_nr],
                                    "val.jsonl")
 
-    mistral_interaction_for_ft.fine_tune_model_mistral(train_file, val_file, model_name)
+    mistral_interaction_for_ft.fine_tune_model_mistral(train_file, val_file, model_name, fold_nr)

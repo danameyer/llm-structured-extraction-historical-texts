@@ -41,12 +41,12 @@ class OpenAIAPIInteractionForFineTuning:
         ft_results = self.client.fine_tuning.jobs.retrieve(finetune_job_id)
         return ft_results
 
-    def get_result_file(self, fine_tuning_job_id, model):
+    def get_result_file(self, fine_tuning_job_id, model, fold_nr):
         ft_results = self.retrieve_fine_tuning_results(fine_tuning_job_id)
         result_files = ft_results.result_files
 
         for result_file in result_files:
-            file_name = f"result_file_{model}.txt"
+            file_name = f"result_file_{model}_{fold_nr}.txt"
             file_path = os.path.join(self.result_file_path, file_name)
             file = self.client.files.retrieve(result_file)
             content = self.client.files.content(file.id)
@@ -81,7 +81,7 @@ class OpenAIAPIInteractionForFineTuning:
         return str(full_path)
 
     @staticmethod
-    def fine_tune_model(training_file, validation_file, result_file_directory, gpt_model_path):
+    def fine_tune_model(training_file, validation_file, result_file_directory, gpt_model_path, fold_nr):
         open_ai_interaction = OpenAIAPIInteractionForFineTuning(result_file_directory)
         model_registry = ModelRegistry('fine_tuning_files/openai/created_models',
                                        "model_registry_openai")
@@ -110,20 +110,14 @@ class OpenAIAPIInteractionForFineTuning:
             print(fine_tune_results.finished_at)
 
             model_registry.add_model_id(training_file_id, validation_file_id, ft_job_id, gpt_model_path)
-            open_ai_interaction.get_result_file(ft_job_id, gpt_model_path)
-
-        # model_registry.add_model_id("file-bUlvAiXzLJCY5YEGBBmboEEh",
-        #                             "file-bUlvAiXzLJCY5YEGBBmboEEh",
-        #                             "ftjob-DAxstQl595n0nHwNfA3xUelp",
-        #                             gpt_model_path)
-        # open_ai_interaction.get_result_file(fine_tuning_job_id="ftjob-DAxstQl595n0nHwNfA3xUelp",
-        #                                     model=gpt_model_path)
+            open_ai_interaction.get_result_file(ft_job_id, gpt_model_path, fold_nr)
 
 
 if __name__ == "__main__":
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     gpt_model = 'gpt-3.5-turbo'
-    open_ai_message_object = OpenAiMessageObject("gpt-3.5-turbo")
+    fold_nr = 'fold_0'
+    open_ai_message_object = OpenAiMessageObject(gpt_model)
     open_ai_message_object.run()
 
     fine_tuning_dir = os.path.join(base_dir,
@@ -145,14 +139,14 @@ if __name__ == "__main__":
                                                                     "fine_tuning_files",
                                                                     "openai",
                                                                     "fine_tuning_data",
-                                                                    "fold_0"], "train.jsonl")
+                                                                    fold_nr], "train.jsonl")
 
     val_file = open_ai_interaction_for_ft.construct_file_path(base_dir,
                                                               [
                                                                   "fine_tuning_files",
                                                                   "openai",
                                                                   "fine_tuning_data",
-                                                                  "fold_0"],
+                                                                  fold_nr],
                                                               "val.jsonl")
 
     result_file_dir = open_ai_interaction_for_ft.construct_file_path(base_dir,
@@ -162,5 +156,5 @@ if __name__ == "__main__":
                                                                       f"model_{gpt_model}",
                                                                       "metrics"])
 
-    open_ai_interaction_for_ft.fine_tune_model(train_file, val_file, result_file_dir, gpt_model)
+    open_ai_interaction_for_ft.fine_tune_model(train_file, val_file, result_file_dir, gpt_model, fold_nr)
 
