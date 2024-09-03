@@ -14,6 +14,7 @@ from openai.types.chat import ChatCompletion
 from evaluation.json_comparison.json_validation import JsonValidator
 from function_calling_components.chat_file_writer import ChatFileWriter
 from function_calling_components.function_calling import Message, SimpleChatGptMessage
+from function_calling_components.runtime_calculation import RuntimeCalculation
 from function_calling_components.token_counting import TokenCounter
 from functions.BaseFunction import BaseFunction
 from tenacity import (
@@ -44,6 +45,7 @@ class DialogueCompletion:
         self.chat_file_writer = ChatFileWriter(experiment_dir)
         self.function_call_result = None
         self.token_counter = TokenCounter(self.model)
+        self.runtime_calculator = RuntimeCalculation()
 
     def _request_response(self,
                           messages: List[Message],
@@ -67,12 +69,19 @@ class DialogueCompletion:
             print(f"Input response content: {messages_as_dict}")
             functions_as_dict_list = [x.get_definition_dict() for x in functions] if functions else None
 
+            self.runtime_calculator.start()
+
             completion: Union[ChatCompletion, None] = self.client.chat.completions.create(
                 model=self.model,
                 messages=messages_as_dict,
                 tools=functions_as_dict_list,
                 tool_choice=function_call if functions else None
             )
+
+            self.runtime_calculator.end()
+
+            # Print the runtime
+            print(f"API call duration: {self.runtime_calculator.calculate_runtime():.2f} seconds")
 
             output_response = completion.choices[0].message.content
             print(f"Output response content: {output_response}")

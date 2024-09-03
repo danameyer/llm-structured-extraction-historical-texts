@@ -98,6 +98,11 @@ class ExperimentFunctionCallingEvaluation:
         os.makedirs(costs_folder, exist_ok=True)
         return costs_folder
 
+    def create_runtime_folder(self, experiment_dir):
+        runtime_folder = os.path.join(experiment_dir, "runtime")
+        os.makedirs(runtime_folder, exist_ok=True)
+        return runtime_folder
+
     def create_logs_folder(self, experiment_dir):
         logs_folder = os.path.join(experiment_dir, "logs_failed_files")
         os.makedirs(logs_folder, exist_ok=True)
@@ -152,18 +157,30 @@ class ExperimentFunctionCallingEvaluation:
         chat_file_writer = ChatFileWriter(self.experiment_dir)
         chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False, append=False)
         print(f"Processed {os.path.basename(path_to_text_file)}: Saved predictions to {pred_filename}")
+        base_file_name = os.path.splitext(os.path.basename(pred_filename))[0]
 
         cost_summary = experiment_function_calling.dialogue.token_counter.get_cost_summary(pred_filename)
-        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename = "cost_summary_" + pred_filename + "_" + timestamp + ".json"
+        # timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        filename = "cost_summary_" + base_file_name + ".json"
         costs_directory = self.create_costs_folder(self.experiment_dir)
         self.save_costs_to_file(cost_summary, costs_directory, filename)
+
+        runtime_summary = experiment_function_calling.dialogue.runtime_calculator.get_runtime_summary(pred_filename)
+        filename_runtime = "runtime_summary_" + base_file_name + "_" + ".json"
+        runtime_directory = self.create_runtime_folder(self.experiment_dir)
+        self.save_runtime_to_file(runtime_summary, runtime_directory, filename_runtime)
 
     def save_costs_to_file(self, costs, directory: str, filename):
         costs_as_string = json.dumps(costs)
         file_path = os.path.join(directory, filename)
         with open(file_path, 'w') as f:
             f.write(costs_as_string)
+
+    def save_runtime_to_file(self, runtime, directory: str, filename_runtime):
+        runtime_as_string = json.dumps(runtime)
+        file_path = os.path.join(directory, filename_runtime)
+        with open(file_path, 'w') as f:
+            f.write(runtime_as_string)
 
     def run(self, gpt_model, exclusions: List[List[str]]):
         base_dir = self.get_base_directory()
@@ -183,8 +200,8 @@ class ExperimentFunctionCallingEvaluation:
 
 
 def _main():
-    model_name = 'gpt-4o-mini'
-    prompt_name = 'best_prompt'
+    model_name = 'gpt-3.5-turbo'
+    prompt_name = 'chain_of_thought'
     regenerate_predictions = False
     exclusions = [["root['id']"],
                   ["root['id']", "root['cognomen']"],
