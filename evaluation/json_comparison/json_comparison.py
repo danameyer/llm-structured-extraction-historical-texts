@@ -187,6 +187,7 @@ class JsonComparison:
 
             ddiff_as_dict["iterable_item_added"] = exact_ddiff_as_dict.get("iterable_item_added", {})
             ddiff_as_dict["iterable_item_removed"] = exact_ddiff_as_dict.get("iterable_item_removed", {})
+            ddiff_as_dict["type_changes"] = exact_ddiff_as_dict.get("type_changes", {})
 
             ddiff_as_json = json.dumps(ddiff_as_dict)
 
