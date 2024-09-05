@@ -1,0 +1,1754 @@
+{
+    "individual_results": [
+        {
+            "file_name1": "foreign_pleas_461.json",
+            "file_name2": "pred_foreign_pleas_461.json",
+            "exclude_paths": [
+                "root['id']"
+            ],
+            "exact_score": 0.23809523809523808,
+            "exact_matches": 20,
+            "exact_differences": 64,
+            "fuzzy_score": 0.32142857142857145,
+            "fuzzy_matches": 27,
+            "fuzzy_differences": 57,
+            "total_field_count": 84,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 22,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"Thurville\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"u xor Simonis de Th urvill\", \"old_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"avie\", \"old_value\": \"Uxor\"}, \"root['family_relations'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Simon\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"pupillus\", \"old_value\": \"Petitor\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['title']\": {\"new_value\": \"fuit\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 7,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"custos\", \"old_value\": \"Reus\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}, \"root['family_relations'][0]\": {\"new_value\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}, \"old_value\": {\"relation_type\": \"Maritus\", \"related_person\": \"Isabella\"}}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}, \"root['legal_relationship'][0]\": {\"new_value\": {\"relation_type\": \"custos\", \"related_person\": \"Isabella\"}, \"old_value\": {\"relation_type\": \"Pupillus\", \"related_person\": \"Simon\"}}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Montfort\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"heres\", \"old_value\": \"Custos\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Isabella\", \"old_value\": \"Willelmus\"}, \"root['title']\": {\"new_value\": \"\", \"old_value\": \"Comes de Leyc'\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 6,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"Thurville\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor Simonis de Th urvill\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Uxor\", \"new_value\": \"avie\"}, \"root['family_relations'][0].related_person\": {\"old_value\": \"Simon\", \"new_value\": \"Willelmu\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Petitor\", \"new_value\": \"pupillus\"}, \"root['title']\": {\"old_value\": \"\", \"new_value\": \"fuit\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 6,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Reus\", \"new_value\": \"custos\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"heres\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Willelmus\", \"new_value\": \"Isabella\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "foreign_pleas_461.json",
+            "file_name2": "pred_foreign_pleas_461.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['cognomen']"
+            ],
+            "exact_score": 0.2976190476190476,
+            "exact_matches": 25,
+            "exact_differences": 59,
+            "fuzzy_score": 0.38095238095238093,
+            "fuzzy_matches": 32,
+            "fuzzy_differences": 52,
+            "total_field_count": 84,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 22,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"new_value\": \"u xor Simonis de Th urvill\", \"old_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"avie\", \"old_value\": \"Uxor\"}, \"root['family_relations'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Simon\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"pupillus\", \"old_value\": \"Petitor\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['title']\": {\"new_value\": \"fuit\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 6,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"custos\", \"old_value\": \"Reus\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}, \"root['family_relations'][0]\": {\"new_value\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}, \"old_value\": {\"relation_type\": \"Maritus\", \"related_person\": \"Isabella\"}}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}, \"root['legal_relationship'][0]\": {\"new_value\": {\"relation_type\": \"custos\", \"related_person\": \"Isabella\"}, \"old_value\": {\"relation_type\": \"Pupillus\", \"related_person\": \"Simon\"}}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"heres\", \"old_value\": \"Custos\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Isabella\", \"old_value\": \"Willelmus\"}, \"root['title']\": {\"new_value\": \"\", \"old_value\": \"Comes de Leyc'\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor Simonis de Th urvill\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Uxor\", \"new_value\": \"avie\"}, \"root['family_relations'][0].related_person\": {\"old_value\": \"Simon\", \"new_value\": \"Willelmu\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Petitor\", \"new_value\": \"pupillus\"}, \"root['title']\": {\"old_value\": \"\", \"new_value\": \"fuit\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Reus\", \"new_value\": \"custos\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"heres\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Willelmus\", \"new_value\": \"Isabella\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "foreign_pleas_461.json",
+            "file_name2": "pred_foreign_pleas_461.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['legal_relationship']"
+            ],
+            "exact_score": 0.35714285714285715,
+            "exact_matches": 30,
+            "exact_differences": 54,
+            "fuzzy_score": 0.4166666666666667,
+            "fuzzy_matches": 35,
+            "fuzzy_differences": 49,
+            "total_field_count": 84,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 22,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"Thurville\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"u xor Simonis de Th urvill\", \"old_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"avie\", \"old_value\": \"Uxor\"}, \"root['family_relations'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Simon\"}, \"root['title']\": {\"new_value\": \"fuit\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}, \"root['family_relations'][0]\": {\"new_value\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}, \"old_value\": {\"relation_type\": \"Maritus\", \"related_person\": \"Isabella\"}}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Montfort\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['title']\": {\"new_value\": \"\", \"old_value\": \"Comes de Leyc'\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"Thurville\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor Simonis de Th urvill\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Uxor\", \"new_value\": \"avie\"}, \"root['family_relations'][0].related_person\": {\"old_value\": \"Simon\", \"new_value\": \"Willelmu\"}, \"root['title']\": {\"old_value\": \"\", \"new_value\": \"fuit\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "foreign_pleas_461.json",
+            "file_name2": "pred_foreign_pleas_461.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['place_of_origin']"
+            ],
+            "exact_score": 0.27380952380952384,
+            "exact_matches": 23,
+            "exact_differences": 61,
+            "fuzzy_score": 0.35714285714285715,
+            "fuzzy_matches": 30,
+            "fuzzy_differences": 54,
+            "total_field_count": 84,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 22,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"Thurville\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"u xor Simonis de Th urvill\", \"old_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"avie\", \"old_value\": \"Uxor\"}, \"root['family_relations'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Simon\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"pupillus\", \"old_value\": \"Petitor\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['title']\": {\"new_value\": \"fuit\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 7,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"custos\", \"old_value\": \"Reus\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['family_relations'][0]\": {\"new_value\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}, \"old_value\": {\"relation_type\": \"Maritus\", \"related_person\": \"Isabella\"}}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['legal_relationship'][0]\": {\"new_value\": {\"relation_type\": \"custos\", \"related_person\": \"Isabella\"}, \"old_value\": {\"relation_type\": \"Pupillus\", \"related_person\": \"Simon\"}}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Montfort\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"heres\", \"old_value\": \"Custos\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Isabella\", \"old_value\": \"Willelmus\"}, \"root['title']\": {\"new_value\": \"\", \"old_value\": \"Comes de Leyc'\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 6,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"Thurville\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor Simonis de Th urvill\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Uxor\", \"new_value\": \"avie\"}, \"root['family_relations'][0].related_person\": {\"old_value\": \"Simon\", \"new_value\": \"Willelmu\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Petitor\", \"new_value\": \"pupillus\"}, \"root['title']\": {\"old_value\": \"\", \"new_value\": \"fuit\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 6,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Reus\", \"new_value\": \"custos\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"heres\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Willelmus\", \"new_value\": \"Isabella\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "foreign_pleas_461.json",
+            "file_name2": "pred_foreign_pleas_461.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['family_relations']"
+            ],
+            "exact_score": 0.39285714285714285,
+            "exact_matches": 33,
+            "exact_differences": 51,
+            "fuzzy_score": 0.4642857142857143,
+            "fuzzy_matches": 39,
+            "fuzzy_differences": 45,
+            "total_field_count": 84,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 22,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"Thurville\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"u xor Simonis de Th urvill\", \"old_value\": \"\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"pupillus\", \"old_value\": \"Petitor\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['title']\": {\"new_value\": \"fuit\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"custos\", \"old_value\": \"Reus\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}, \"root['legal_relationship'][0]\": {\"new_value\": {\"relation_type\": \"custos\", \"related_person\": \"Isabella\"}, \"old_value\": {\"relation_type\": \"Pupillus\", \"related_person\": \"Simon\"}}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Montfort\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"heres\", \"old_value\": \"Custos\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Isabella\", \"old_value\": \"Willelmus\"}, \"root['title']\": {\"new_value\": \"\", \"old_value\": \"Comes de Leyc'\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 6,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"Thurville\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor Simonis de Th urvill\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Petitor\", \"new_value\": \"pupillus\"}, \"root['title']\": {\"old_value\": \"\", \"new_value\": \"fuit\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Reus\", \"new_value\": \"custos\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"heres\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Willelmus\", \"new_value\": \"Isabella\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "foreign_pleas_461.json",
+            "file_name2": "pred_foreign_pleas_461.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['title']"
+            ],
+            "exact_score": 0.2619047619047619,
+            "exact_matches": 22,
+            "exact_differences": 62,
+            "fuzzy_score": 0.34523809523809523,
+            "fuzzy_matches": 29,
+            "fuzzy_differences": 55,
+            "total_field_count": 84,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 22,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"Thurville\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"u xor Simonis de Th urvill\", \"old_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"avie\", \"old_value\": \"Uxor\"}, \"root['family_relations'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Simon\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"pupillus\", \"old_value\": \"Petitor\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 6,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"custos\", \"old_value\": \"Reus\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}, \"root['family_relations'][0]\": {\"new_value\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}, \"old_value\": {\"relation_type\": \"Maritus\", \"related_person\": \"Isabella\"}}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['profession']\": {\"new_value\": \"filii Simonis\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}, \"root['legal_relationship'][0]\": {\"new_value\": {\"relation_type\": \"custos\", \"related_person\": \"Isabella\"}, \"old_value\": {\"relation_type\": \"Pupillus\", \"related_person\": \"Simon\"}}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Montfort\"}, \"root['profession']\": {\"new_value\": \"u xor\", \"old_value\": \"\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"heres\", \"old_value\": \"Custos\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Isabella\", \"old_value\": \"Willelmus\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"Thurville\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor Simonis de Th urvill\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Uxor\", \"new_value\": \"avie\"}, \"root['family_relations'][0].related_person\": {\"old_value\": \"Simon\", \"new_value\": \"Willelmu\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Petitor\", \"new_value\": \"pupillus\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Reus\", \"new_value\": \"custos\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"filii Simonis\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"Th urvill\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"u xor\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"heres\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Willelmus\", \"new_value\": \"Isabella\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "foreign_pleas_461.json",
+            "file_name2": "pred_foreign_pleas_461.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['profession']"
+            ],
+            "exact_score": 0.2976190476190476,
+            "exact_matches": 25,
+            "exact_differences": 59,
+            "fuzzy_score": 0.38095238095238093,
+            "fuzzy_matches": 32,
+            "fuzzy_differences": 52,
+            "total_field_count": 84,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 22,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"Thurville\", \"old_value\": \"\"}, \"root['family_relations'][0].relation_type\": {\"new_value\": \"avie\", \"old_value\": \"Uxor\"}, \"root['family_relations'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Simon\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"pupillus\", \"old_value\": \"Petitor\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['title']\": {\"new_value\": \"fuit\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 6,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"custos\", \"old_value\": \"Reus\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}, \"root['family_relations'][0]\": {\"new_value\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}, \"old_value\": {\"relation_type\": \"Maritus\", \"related_person\": \"Isabella\"}}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Willelmu\", \"old_value\": \"Willelmus\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Thuvrill\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Thuvrill\"}, \"root['legal_relationship'][0]\": {\"new_value\": {\"relation_type\": \"custos\", \"related_person\": \"Isabella\"}, \"old_value\": {\"relation_type\": \"Pupillus\", \"related_person\": \"Simon\"}}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Simonis\", \"old_value\": \"Simon\"}, \"root['cognomen']\": {\"new_value\": \"Th urvill\", \"old_value\": \"De Montfort\"}, \"root['legal_relationship'][0].relation_type\": {\"new_value\": \"heres\", \"old_value\": \"Custos\"}, \"root['legal_relationship'][0].related_person\": {\"new_value\": \"Isabella\", \"old_value\": \"Willelmus\"}, \"root['title']\": {\"new_value\": \"\", \"old_value\": \"Comes de Leyc'\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Isabella",
+                    "name2": "Isabella",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"Thurville\"}, \"root['family_relations'][0].relation_type\": {\"old_value\": \"Uxor\", \"new_value\": \"avie\"}, \"root['family_relations'][0].related_person\": {\"old_value\": \"Simon\", \"new_value\": \"Willelmu\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Petitor\", \"new_value\": \"pupillus\"}, \"root['title']\": {\"old_value\": \"\", \"new_value\": \"fuit\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 5,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Reus\", \"new_value\": \"custos\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['family_relations'][1]\": {\"relation_type\": \"Nepos\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"heres\", \"related_person\": \"Isabella\"}}, \"iterable_item_removed\": {\"root['family_relations'][1]\": {\"relation_type\": \"Pater\", \"related_person\": \"Willelmus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Willelmus",
+                    "name2": "Willelmu",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Thuvrill\", \"new_value\": \"Th urvill\"}, \"root['place_of_origin']\": {\"old_value\": \"Thuvrill\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Simon\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Heres\", \"related_person\": \"Petronilla\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Simon",
+                    "name2": "Simonis",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"De Montfort\", \"new_value\": \"Th urvill\"}, \"root['legal_relationship'][0].relation_type\": {\"old_value\": \"Custos\", \"new_value\": \"heres\"}, \"root['legal_relationship'][0].related_person\": {\"old_value\": \"Willelmus\", \"new_value\": \"Isabella\"}, \"root['title']\": {\"old_value\": \"Comes de Leyc'\", \"new_value\": \"\"}}, \"iterable_item_added\": {\"root['family_relations'][0]\": {\"relation_type\": \"progenitor\", \"related_person\": \"Willelmu\"}}, \"iterable_item_removed\": {}}",
+                    "values_changed": 4,
+                    "iterable_item_added": 2,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "civil_pleas_1.json",
+            "file_name2": "pred_civil_pleas_1.json",
+            "exclude_paths": [
+                "root['id']"
+            ],
+            "exact_score": 0.3018867924528302,
+            "exact_matches": 32,
+            "exact_differences": 74,
+            "fuzzy_score": 0.3490566037735849,
+            "fuzzy_matches": 37,
+            "fuzzy_differences": 69,
+            "total_field_count": 106,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 26,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Pageham\", \"old_value\": \"De Pageham\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Pageham\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Wulfrici\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Dreyton\", \"old_value\": \"De Dreyton\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Dreyton\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Johannes\", \"old_value\": \"Johannis\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "civil_pleas_1.json",
+            "file_name2": "pred_civil_pleas_1.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['cognomen']"
+            ],
+            "exact_score": 0.3490566037735849,
+            "exact_matches": 37,
+            "exact_differences": 69,
+            "fuzzy_score": 0.3584905660377358,
+            "fuzzy_matches": 38,
+            "fuzzy_differences": 68,
+            "total_field_count": 106,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 26,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Pageham\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Dreyton\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Johannes\", \"old_value\": \"Johannis\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "civil_pleas_1.json",
+            "file_name2": "pred_civil_pleas_1.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['legal_relationship']"
+            ],
+            "exact_score": 0.5471698113207547,
+            "exact_matches": 58,
+            "exact_differences": 48,
+            "fuzzy_score": 0.5943396226415094,
+            "fuzzy_matches": 63,
+            "fuzzy_differences": 43,
+            "total_field_count": 106,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 26,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Pageham\", \"old_value\": \"De Pageham\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Pageham\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Wulfrici\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Dreyton\", \"old_value\": \"De Dreyton\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Dreyton\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Johannes\", \"old_value\": \"Johannis\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 0,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "civil_pleas_1.json",
+            "file_name2": "pred_civil_pleas_1.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['place_of_origin']"
+            ],
+            "exact_score": 0.33962264150943394,
+            "exact_matches": 36,
+            "exact_differences": 70,
+            "fuzzy_score": 0.3867924528301887,
+            "fuzzy_matches": 41,
+            "fuzzy_differences": 65,
+            "total_field_count": 106,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 26,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Pageham\", \"old_value\": \"De Pageham\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Wulfrici\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Dreyton\", \"old_value\": \"De Dreyton\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Johannes\", \"old_value\": \"Johannis\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "civil_pleas_1.json",
+            "file_name2": "pred_civil_pleas_1.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['family_relations']"
+            ],
+            "exact_score": 0.3584905660377358,
+            "exact_matches": 38,
+            "exact_differences": 68,
+            "fuzzy_score": 0.4056603773584906,
+            "fuzzy_matches": 43,
+            "fuzzy_differences": 63,
+            "total_field_count": 106,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 26,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Pageham\", \"old_value\": \"De Pageham\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Pageham\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Wulfrici\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Dreyton\", \"old_value\": \"De Dreyton\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Dreyton\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Johannes\", \"old_value\": \"Johannis\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "civil_pleas_1.json",
+            "file_name2": "pred_civil_pleas_1.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['title']"
+            ],
+            "exact_score": 0.3018867924528302,
+            "exact_matches": 32,
+            "exact_differences": 74,
+            "fuzzy_score": 0.3490566037735849,
+            "fuzzy_matches": 37,
+            "fuzzy_differences": 69,
+            "total_field_count": 106,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 26,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Pageham\", \"old_value\": \"De Pageham\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Pageham\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Wulfrici\", \"old_value\": \"\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Dreyton\", \"old_value\": \"De Dreyton\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Dreyton\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 3,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Johannes\", \"old_value\": \"Johannis\"}, \"root['profession']\": {\"new_value\": \"unknown\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}, \"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}, \"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['profession']\": {\"old_value\": \"\", \"new_value\": \"unknown\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ]
+        },
+        {
+            "file_name1": "civil_pleas_1.json",
+            "file_name2": "pred_civil_pleas_1.json",
+            "exclude_paths": [
+                "root['id']",
+                "root['profession']"
+            ],
+            "exact_score": 0.3584905660377358,
+            "exact_matches": 38,
+            "exact_differences": 68,
+            "fuzzy_score": 0.4056603773584906,
+            "fuzzy_matches": 43,
+            "fuzzy_differences": 63,
+            "total_field_count": 106,
+            "number_of_missing_persons": 2,
+            "number_of_fields_of_missing_persons": 26,
+            "deepdiff_comparison_results": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Pageham\", \"old_value\": \"De Pageham\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Pageham\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"filius Wulfrici\", \"old_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Dreyton\", \"old_value\": \"De Dreyton\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Dreyton\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"new_value\": \"de Parco\", \"old_value\": \"De Parco\"}, \"root['place_of_origin']\": {\"new_value\": \"\", \"old_value\": \"Parco\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 2,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {\"root['name']\": {\"new_value\": \"Johannes\", \"old_value\": \"Johannis\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ],
+            "deep_diff_comparison_results_fuzzy": [
+                {
+                    "name1": "Hugo",
+                    "name2": "Hugo",
+                    "deepdiff": "{\"values_changed\": {\"root['place_of_origin']\": {\"old_value\": \"Pageham\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Wulfrichus\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Petrus",
+                    "name2": "Petrus",
+                    "deepdiff": "{\"values_changed\": {\"root['cognomen']\": {\"old_value\": \"\", \"new_value\": \"filius Wulfrici\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Wulfrichus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 4,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Ricardus",
+                    "name2": "Ricardus",
+                    "deepdiff": "{\"values_changed\": {\"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Filius\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Pupillus\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Reus\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Thomas",
+                    "name2": "Thomas",
+                    "deepdiff": "{\"values_changed\": {\"root['place_of_origin']\": {\"old_value\": \"Dreyton\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Hugo\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Petrus\"}, \"root['legal_relationship'][2]\": {\"relation_type\": \"Petitor\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][3]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Walterus\"}, \"root['legal_relationship'][4]\": {\"relation_type\": \"Dominus Feodi\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 10,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Walterus",
+                    "name2": "Walterus",
+                    "deepdiff": "{\"values_changed\": {\"root['place_of_origin']\": {\"old_value\": \"Parco\", \"new_value\": \"\"}}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['family_relations'][0]\": {\"relation_type\": \"Pater\", \"related_person\": \"Ricardus\"}, \"root['legal_relationship'][0]\": {\"relation_type\": \"Tenens\", \"related_person\": \"R.\"}, \"root['legal_relationship'][1]\": {\"relation_type\": \"Tenens\", \"related_person\": \"Thomas\"}}}",
+                    "values_changed": 1,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 6,
+                    "type_changes": 0
+                },
+                {
+                    "name1": "Johannis",
+                    "name2": "Johannes",
+                    "deepdiff": "{\"values_changed\": {}, \"iterable_item_added\": {}, \"iterable_item_removed\": {\"root['legal_relationship'][0]\": {\"relation_type\": \"Plegiarius\", \"related_person\": \"4\"}}}",
+                    "values_changed": 0,
+                    "iterable_item_added": 0,
+                    "iterable_item_removed": 2,
+                    "type_changes": 0
+                }
+            ]
+        }
+    ],
+    "overall_results": [
+        {
+            "overall_path_exclude": "root['id']",
+            "overall_exact_score": 0.2736842105263158,
+            "overall_fuzzy_score": 0.3368421052631579,
+            "total_exact_matches": 52,
+            "total_fuzzy_matches": 64,
+            "total_exact_misses": 138,
+            "total_fuzzy_misses": 126,
+            "total_fields_count": 190
+        },
+        {
+            "overall_path_exclude": "root['id'],root['cognomen']",
+            "overall_exact_score": 0.3263157894736842,
+            "overall_fuzzy_score": 0.3684210526315789,
+            "total_exact_matches": 62,
+            "total_fuzzy_matches": 70,
+            "total_exact_misses": 128,
+            "total_fuzzy_misses": 120,
+            "total_fields_count": 190
+        },
+        {
+            "overall_path_exclude": "root['id'],root['legal_relationship']",
+            "overall_exact_score": 0.4631578947368421,
+            "overall_fuzzy_score": 0.5157894736842106,
+            "total_exact_matches": 88,
+            "total_fuzzy_matches": 98,
+            "total_exact_misses": 102,
+            "total_fuzzy_misses": 92,
+            "total_fields_count": 190
+        },
+        {
+            "overall_path_exclude": "root['id'],root['place_of_origin']",
+            "overall_exact_score": 0.3105263157894737,
+            "overall_fuzzy_score": 0.3736842105263158,
+            "total_exact_matches": 59,
+            "total_fuzzy_matches": 71,
+            "total_exact_misses": 131,
+            "total_fuzzy_misses": 119,
+            "total_fields_count": 190
+        },
+        {
+            "overall_path_exclude": "root['id'],root['family_relations']",
+            "overall_exact_score": 0.3736842105263158,
+            "overall_fuzzy_score": 0.43157894736842106,
+            "total_exact_matches": 71,
+            "total_fuzzy_matches": 82,
+            "total_exact_misses": 119,
+            "total_fuzzy_misses": 108,
+            "total_fields_count": 190
+        },
+        {
+            "overall_path_exclude": "root['id'],root['title']",
+            "overall_exact_score": 0.28421052631578947,
+            "overall_fuzzy_score": 0.3473684210526316,
+            "total_exact_matches": 54,
+            "total_fuzzy_matches": 66,
+            "total_exact_misses": 136,
+            "total_fuzzy_misses": 124,
+            "total_fields_count": 190
+        },
+        {
+            "overall_path_exclude": "root['id'],root['profession']",
+            "overall_exact_score": 0.33157894736842103,
+            "overall_fuzzy_score": 0.39473684210526316,
+            "total_exact_matches": 63,
+            "total_fuzzy_matches": 75,
+            "total_exact_misses": 127,
+            "total_fuzzy_misses": 115,
+            "total_fields_count": 190
+        }
+    ]
+}

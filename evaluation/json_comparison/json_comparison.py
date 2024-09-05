@@ -320,10 +320,11 @@ class JsonComparison:
                                                     all_fields_count=total_field_count)
 
             else:
-                comparison_results['individual_results'].append({
-                    'file_name1': gt_filename,
-                    'error': 'JSON file with predicted results not found.'
-                })
+                continue
+                # comparison_results['individual_results'].append({
+                #     'file_name1': gt_filename,
+                #     'error': 'JSON file with predicted results not found.'
+                # })
 
         # overall_score_exact = exact_count_matches / all_fields_count if all_fields_count > 0 else 0
         # overall_score_fuzzy = fuzzy_count_matches / all_fields_count if all_fields_count > 0 else 0

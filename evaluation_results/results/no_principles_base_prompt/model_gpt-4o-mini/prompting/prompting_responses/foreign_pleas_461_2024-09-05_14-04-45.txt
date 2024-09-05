@@ -1,0 +1,101 @@
+### Task 1: Extract Information about Persons and Their Relations
+
+1. **Isabella**
+   - Title: que fuit
+   - Relation: uxor (wife) of Simonis de Th u rvill'
+   - Family Relations: 
+     - Mater (mother) of Willelmum de Th urvill'
+   - Legal Relationship: 
+     - Testator of Willelmum de Th urvill'
+   - Cognomen: 
+   - Place of Origin: 
+
+2. **Simonis de Th u rvill'**
+   - Title: de Th u rvill'
+   - Relation: Pater (father) of Willelmum de Th urvill'
+   - Family Relations: 
+     - Uxor (wife) is Isabella
+   - Legal Relationship: 
+     - Dominus Feodi (lord of the fee) of Willelmum de Th urvill'
+   - Cognomen: 
+   - Place of Origin: 
+
+3. **Willelmum de Th urvill'**
+   - Title: de Th urvill'
+   - Relation: Filius (son) of Simonis de Th u rvill'
+   - Family Relations: 
+     - No additional relations mentioned
+   - Legal Relationship: 
+     - Plegarius (pledgee) of Simonis de Th u rvill'
+   - Cognomen: 
+   - Place of Origin: 
+
+### Task 2: Structure Results in JSON
+
+```json
+{
+  "document": 1,
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Isabella",
+      "profession": "uxor",
+      "family_relations": [
+        {
+          "relation_type": "mater",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "testator",
+          "related_person": 2
+        }
+      ],
+      "title": "que fuit",
+      "cognomen": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 2,
+      "name": "Simonis de Th u rvill'",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "pater",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "dominus feodi",
+          "related_person": 3
+        }
+      ],
+      "title": "de Th u rvill'",
+      "cognomen": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 3,
+      "name": "Willelmum de Th urvill'",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "filius",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "plegiarius",
+          "related_person": 2
+        }
+      ],
+      "title": "de Th urvill'",
+      "cognomen": "",
+      "place_of_origin": ""
+    }
+  ]
+}
+```

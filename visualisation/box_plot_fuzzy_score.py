@@ -42,9 +42,10 @@ class BoxPlotFuzzyScore:
                                     # Extract and add fuzzy scores to the list
                                     for result in data['individual_results']:
                                         exclude_paths = tuple(result.get('exclude_paths', []))
-                                        fuzzy_score = result['fuzzy_score']
-                                        scores_by_prompt_and_model[prompt_type_folder][model_folder][
-                                            exclude_paths].append(fuzzy_score)
+                                        fuzzy_score = result.get('fuzzy_score')
+                                        if fuzzy_score is not None:
+                                            scores_by_prompt_and_model[prompt_type_folder][model_folder][
+                                                exclude_paths].append(fuzzy_score)
 
         return scores_by_prompt_and_model
 

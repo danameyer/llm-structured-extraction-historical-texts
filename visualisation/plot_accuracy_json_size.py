@@ -82,15 +82,16 @@ class JsonSizeScatterPlot:
                         if isinstance(data.get('individual_results'), list):
                             for document in data['individual_results']:
                                 document_name = document.get('file_name1', 'Unnamed Document')
-                                fuzzy_score = document['fuzzy_score']
-                                total_field_count = document['total_field_count']
-                                exclude_path = document.get('exclude_paths')
+                                fuzzy_score = document.get('fuzzy_score')
+                                if fuzzy_score is not None:
+                                    total_field_count = document['total_field_count']
+                                    exclude_path = document.get('exclude_paths')
 
-                                if exclude_path == desired_exclusion_path:
-                                    data_point = DataPoint(document_name, total_field_count, fuzzy_score)
-                                    data_point_library.add_data_point(data_point=data_point,
-                                                                      llm_model=model_folder,
-                                                                      prompt_name=prompt_type_folder)
+                                    if exclude_path == desired_exclusion_path:
+                                        data_point = DataPoint(document_name, total_field_count, fuzzy_score)
+                                        data_point_library.add_data_point(data_point=data_point,
+                                                                          llm_model=model_folder,
+                                                                          prompt_name=prompt_type_folder)
 
         return data_point_library
 
@@ -117,6 +118,7 @@ class JsonSizeScatterPlot:
         if not os.path.exists(output_dir):
             os.makedirs(output_dir, exist_ok=True)
         plt.savefig(os.path.join(output_dir, f'overall_scores_{model_name}_{prompt_name}.png'))
+        plt.close()
 
 
 if __name__ == '__main__':

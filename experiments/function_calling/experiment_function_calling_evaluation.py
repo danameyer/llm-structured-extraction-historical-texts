@@ -75,8 +75,8 @@ class ExperimentFunctionCallingEvaluation:
     def get_demonstrations_folder(self, base_dir):
         return os.path.join(base_dir, "test_data", "demonstrations")
 
-    def get_sample_folder(self, base_dir):
-        return os.path.join(base_dir, "evaluation_results", "text_files")
+    def get_sample_folder(self, base_dir, sample_folder_name):
+        return os.path.join(base_dir, "evaluation_results", sample_folder_name)
 
     def create_predictions_folder(self, base_dir):
         predictions_folder = os.path.join(base_dir, "predictions")
@@ -182,9 +182,9 @@ class ExperimentFunctionCallingEvaluation:
         with open(file_path, 'w') as f:
             f.write(runtime_as_string)
 
-    def run(self, gpt_model, exclusions: List[List[str]]):
+    def run(self, gpt_model, exclusions: List[List[str]], sample_folder_name):
         base_dir = self.get_base_directory()
-        sample_folder = self.get_sample_folder(base_dir)
+        sample_folder = self.get_sample_folder(base_dir, sample_folder_name)
         ground_truth_folder = self.get_ground_truth_folder(base_dir)
         demonstrations_folder = self.get_demonstrations_folder(base_dir)
         predictions_folder = self.create_predictions_folder(self.experiment_dir)
@@ -199,9 +199,10 @@ class ExperimentFunctionCallingEvaluation:
                                                 exclusions)
 
 
-def _main():
-    model_name = 'gpt-3.5-turbo'
-    prompt_name = 'chain_of_thought'
+def _prepare_and_run_experiment(model_name: str, prompt_name: str, sample_folder_name: str):
+
+    # model_name = 'gpt-3.5-turbo'
+    # prompt_name = 'chain_of_thought'
     regenerate_predictions = False
     exclusions = [["root['id']"],
                   ["root['id']", "root['cognomen']"],
@@ -221,7 +222,40 @@ def _main():
                                                      gpt_model_name=model_name,
                                                      regenerate_predictions=regenerate_predictions,
                                                      experiment_dir=experiment_folder)
-    experiment.run(model_name, exclusions=exclusions)
+    experiment.run(model_name, exclusions=exclusions, sample_folder_name=sample_folder_name)
+
+
+def _main():
+    # experiment 1: prompt-selection
+    models_list = ['gpt-3.5-turbo',
+                   'gpt-4o',
+                   'gpt-4o-mini']
+
+    prompt_list = ['chain_of_thought',
+                   'all_principles_zero_shot',
+                   'all_principles_few_shot',
+                   'no_principles_base_prompt'
+                   ]
+
+    sample_folder_name_prompt_selection = 'txt_files_prompt_selection'
+
+    for model in models_list:
+        for prompt in prompt_list:
+            _prepare_and_run_experiment(model_name=model, prompt_name=prompt, sample_folder_name=sample_folder_name_prompt_selection)
+
+    # experiment 2: function calling evaluation
+    models_list = ['gpt-3.5-turbo',
+                   'gpt-4o',
+                   'gpt-4o-mini']
+
+    prompt = 'best_prompt'
+
+    sample_folder_name_prompt_selection = 'txt_files_function_calling_evaluation'
+
+    for model in models_list:
+        _prepare_and_run_experiment(model_name=model, prompt_name=prompt, sample_folder_name=sample_folder_name_prompt_selection)
+
+    # experiment 3: fine-tuning evaluation
 
 
 if __name__ == '__main__':

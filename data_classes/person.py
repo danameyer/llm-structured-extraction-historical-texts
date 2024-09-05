@@ -10,7 +10,7 @@ from utils import file_reader_util
 
 @dataclass
 class Relation:
-    relation_type: str
+    relation_type: str  # Union[str, list[str]]
     related_person: Union[int, 'Person']
 
     def to_dict(self) -> Dict:
@@ -21,8 +21,8 @@ class Relation:
 
 
 class RelationSchema(Schema):
-    relation_type = fields.Str(required=True)
-    related_person = fields.Int(required=True)
+    relation_type = fields.Raw(required=True)
+    related_person = fields.Raw(required=True, allow_none=True)
 
     @post_load
     def make_relation(self, data, **kwargs):
