@@ -5,8 +5,10 @@ from dotenv import load_dotenv
 
 from visualisation.box_plot_fuzzy_score import BoxPlotFuzzyScore
 from visualisation.plot_accuracy_json_size import JsonSizeScatterPlot
+from visualisation.plot_costs import CostPlot
 from visualisation.plot_mistral_metrics import PlotMistralMetrics
 from visualisation.plot_open_ai_metrics import PlotOpenAIMetrics
+from visualisation.plot_runtime import RuntimePlot
 from visualisation.scores_error_types import ErrorTypePlot
 from visualisation.scores_for_exclude_paths import ExcludePathsPlot
 from visualisation.scores_overall_accuracy import OverallAccuracy
@@ -74,6 +76,34 @@ def plot_box_plot():
     box_plot_fuzzy_score.plot_fuzzy_scores_by_prompt_and_model(all_fuzzy_scores)
 
 
+def plot_runtime():
+    runtime_plot = RuntimePlot()
+    load_dotenv()
+    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+
+    results_dir = os.path.join(base_dir, 'evaluation_results', 'results')
+    prompt_dirs = os.listdir(results_dir)
+
+    for prompt_dir_name in prompt_dirs:
+        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
+        model_names, runtimes = runtime_plot.calculate_runtime(models_dir)
+        runtime_plot.plot_runtime(model_names, runtimes, prompt_dir_name)
+
+
+def plot_costs_per_model():
+    cost_plot = CostPlot()
+    load_dotenv()
+    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+
+    results_dir = os.path.join(base_dir, 'evaluation_results', 'results')
+    prompt_dirs = os.listdir(results_dir)
+
+    for prompt_dir_name in prompt_dirs:
+        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
+        model_names, costs = cost_plot.calculate_costs(models_dir)
+        cost_plot.plot_costs(model_names, costs, prompt_dir_name)
+
+
 def plot_openai_results():
     load_dotenv()
     base_dir = os.getenv('PROJECT_BASE_DIR')
@@ -108,5 +138,7 @@ if __name__ == '__main__':
     plot_exclude_paths()
     plot_json_size_vs_accuracy()
     plot_box_plot()
+    plot_costs_per_model()
+    plot_runtime()
     plot_openai_results()
     plot_mistral_results()
