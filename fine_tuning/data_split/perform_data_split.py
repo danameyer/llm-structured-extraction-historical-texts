@@ -82,13 +82,24 @@ class PerformDataSplit:
             train_file_path = os.path.join(fold_dir, 'train.jsonl')
             val_file_path = os.path.join(fold_dir, 'val.jsonl')
 
+            fold_info_file_path = os.path.join(fold_dir, 'fold_info_file.json')
+            fold_info = dict()
+            fold_info['fold'] = i
+            fold_info['training_set'] = list()
+            fold_info['validation_set'] = list()
+
             # Write the training and validation sets to files
             with open(train_file_path, 'w') as train_file, \
                     open(val_file_path, 'w') as val_file:
                 for item in training_set:
-                    train_file.write(json.dumps(item) + '\n')
+                    train_file.write(json.dumps(item['jsonl']) + '\n')
+                    fold_info['training_set'].append(item['text_file'])
                 for item in validation_set:
-                    val_file.write(json.dumps(item) + '\n')
+                    val_file.write(json.dumps(item['jsonl']) + '\n')
+                    fold_info['validation_set'].append(item['text_file'])
+
+            with open(fold_info_file_path, 'w') as fold_info_file:
+                json.dump(fold_info, fold_info_file)
 
 
 if __name__ == '__main__':
@@ -107,7 +118,7 @@ if __name__ == '__main__':
                                             'fine_tuning_files',
                                             "openai",
                                             'fine_tuning_data')
-    data_splitter = PerformDataSplit(fine_tuning_files_open_ai, 5, output_directory_open_ai, gpt_model)
+    data_splitter = PerformDataSplit(fine_tuning_files_open_ai, 3, output_directory_open_ai, gpt_model)
     data_splitter.generate_train_val_sets()
 
     # mistral
@@ -122,5 +133,5 @@ if __name__ == '__main__':
                                             'fine_tuning_files',
                                             'mistral',
                                             'fine_tuning_data')
-    data_splitter = PerformDataSplit(fine_tuning_files_mistral, 5, output_directory_mistral, mistral_model)
+    data_splitter = PerformDataSplit(fine_tuning_files_mistral, 3, output_directory_mistral, mistral_model)
     data_splitter.generate_train_val_sets()

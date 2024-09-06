@@ -108,8 +108,10 @@ class OpenAIAPIInteractionForFineTuning:
             ft_job_id = response_model_creation.id
             fine_tune_results = open_ai_interaction.wait_for_job_to_finish(ft_job_id)
             print(fine_tune_results.finished_at)
+            fine_tuned_model = fine_tune_results.fine_tuned_model
+            print(fine_tuned_model)
 
-            model_registry.add_model_id(training_file_id, validation_file_id, ft_job_id, gpt_model_path)
+            model_registry.add_model_id(training_file_id, validation_file_id, fine_tuned_model, gpt_model_path)
             open_ai_interaction.get_result_file(ft_job_id, gpt_model_path, fold_nr)
 
 
@@ -156,5 +158,5 @@ if __name__ == "__main__":
                                                                       f"model_{gpt_model}",
                                                                       "metrics"])
 
-    open_ai_interaction_for_ft.fine_tune_model(train_file, val_file, result_file_dir, gpt_model, fold_nr)
+    # open_ai_interaction_for_ft.fine_tune_model(train_file, val_file, result_file_dir, gpt_model, fold_nr)
 
