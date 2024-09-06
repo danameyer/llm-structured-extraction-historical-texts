@@ -1,0 +1,57 @@
+**Court Document Information Extraction and JSON Structuring**
+
+**Court Document:**
+---
+'''8.	(dimidia marca)  Henricus  Capellanus  de  Stanford  dat dimidiam  marcam  pro l icencia concordandi cum Ricardo de Keton' et Agnete uxore ejus de placito terre per plegi um Reginald i filii Johannis de Stamford ', et habeant cyrographu m etc.'''
+
+### Step 1: Extract Information
+- **Henricus Capellanus de Stanford**
+  - Relation: nothing specified directly but is involved in a legal situation
+- **Ricardo de Keton'**
+  - Relation: part of a legal case with Henricus and is married to Agnete
+- **Agnete**
+  - Relation: Wife (uxor) of Ricardo de Keton'
+- **Reginald i filii Johannis de Stamford'**
+  - Relation: Son (filius) of Johannis, involved as pledge in the same legal matter
+- **Johannis de Stamford'**
+  - Relation: Father of Reginald i
+
+### Step 2: Structure Information into JSON
+
+```json
+{
+  "court_document": {
+    "title": "dimidia marca",
+    "date": "unknown",
+    "legal_case": {
+      "Henricus Capellanus de Stanford": {
+        "roles": ["participant"],
+        "related_persons": []
+      },
+      "Ricardo de Keton'": {
+        "roles": ["opponent"],
+        "related_persons": ["Agnete"]
+      },
+      "Agnete": {
+        "relation": "wife",
+        "related_persons": ["Ricardo de Keton'"]
+      },
+      "Reginald i": {
+        "roles": ["pledge"],
+        "relation": "son",
+        "related_persons": ["Johannis de Stamford'"]
+      },
+      "Johannis de Stamford'": {
+        "relation": "father",
+        "related_persons": ["Reginald i"]
+      }
+    }
+  }
+}
+```
+
+**Explanation:**
+- **Title**: Derived from the most significant portion related to the legal transaction, "dimidia marca" (half a mark).
+- **Date**: Not provided in the snippet.
+- **Legal Case**: Contains involved persons with their respective roles and relations to other persons.
+

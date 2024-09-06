@@ -1,0 +1,178 @@
+Let's begin with the first document provided:
+
+**Step 1: Extract information about the persons mentioned in the document and their relations to each other.**
+
+### Court Document:
+'''
+468. (Rote/' + Hereford') Jurata inter Ricardum Pecke petentem et Willelmum de Colevill' per attornatum suum tenentem de tercie parte feodi unius militis cum pertinenciis in Belmesthorp et Rihal' ponitur in respectum usque in octabis sancti Michaelis apud Hereford' preceparcium nisi Rogerus de Thurkelby (et G. de Preston '') prius veniant in partibus illis etc. Et vicecomes tune habeat ibi corpora juratorum etc.
+'''
+
+From this text, we can identify the following individuals and their relations:
+
+1. **Ricardus Pecke** - Petitor (plaintiff)
+2. **Willelmus de Colevill'** - Tenens (tenant)
+3. **Attornatus of Willelmus de Colevill'** - The attorney representing Willelmus de Colevill'
+4. **Rogerus de Thurkelby** - No explicit legal or family relation mentioned within this document excerpt, but involved in the case.
+5. **G. de Preston** - Similar to Rogerus de Thurkelby, mentioned as needing to be present in the area but no direct legal or family relation detailed in the excerpt.
+
+### Step 2: Transfer the results to structured JSON output for each document by using a tool.
+
+Let's convert this information into JSON format using the specified schema. 
+
+JSON Output:
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ricardus",
+      "cognomen": "Pecke",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "de Colevill'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Tenens",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "",
+      "cognomen": "",
+      "profession": "Attornatus",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Rogerus",
+      "cognomen": "de Thurkelby",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "G.",
+      "cognomen": "de Preston",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Function Call
+
+Now, let's execute the function to generate the JSON using the structured format above.
+
+```json
+{
+  "tool_uses": [
+    {
+      "recipient_name": "functions.extract_json_from_plaintext",
+      "parameters": {
+        "person_list": [
+          {
+            "id": 1,
+            "name": "Ricardus",
+            "cognomen": "Pecke",
+            "profession": "",
+            "family_relations": [],
+            "legal_relationship": [
+              {
+                "relation_type": "Petitor",
+                "related_person": 2
+              }
+            ],
+            "place_of_origin": "",
+            "title": ""
+          },
+          {
+            "id": 2,
+            "name": "Willelmus",
+            "cognomen": "de Colevill'",
+            "profession": "",
+            "family_relations": [],
+            "legal_relationship": [
+              {
+                "relation_type": "Tenens",
+                "related_person": 1
+              }
+            ],
+            "place_of_origin": "",
+            "title": ""
+          },
+          {
+            "id": 3,
+            "name": "",
+            "cognomen": "",
+            "profession": "Attornatus",
+            "family_relations": [],
+            "legal_relationship": [
+              {
+                "relation_type": "Attornatus",
+                "related_person": 2
+              }
+            ],
+            "place_of_origin": "",
+            "title": ""
+          },
+          {
+            "id": 4,
+            "name": "Rogerus",
+            "cognomen": "de Thurkelby",
+            "profession": "",
+            "family_relations": [],
+            "legal_relationship": [],
+            "place_of_origin": "",
+            "title": ""
+          },
+          {
+            "id": 5,
+            "name": "G.",
+            "cognomen": "de Preston",
+            "profession": "",
+            "family_relations": [],
+            "legal_relationship": [],
+            "place_of_origin": "",
+            "title": ""
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+The provided JSON document has been formatted according to the required structure and schema. The task for the given court document is now complete.

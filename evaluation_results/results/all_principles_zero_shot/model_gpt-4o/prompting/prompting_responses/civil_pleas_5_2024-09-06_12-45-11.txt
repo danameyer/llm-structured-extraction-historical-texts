@@ -1,0 +1,75 @@
+Here is the structured JSON output for the given court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Thomas",
+      "cognomen": "De Apelton'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Apelton'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmum",
+      "cognomen": "De Merton'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Merton'",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Nicholai",
+      "cognomen": "De Hanred",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Hanred",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Analysis of the Document
+
+1. **Person List Extraction:**
+   - **Thomas de Apelton:** Identified as the defendant (Reus).
+   - **Willelmum de Merton:** Identified as the plaintiff (Petitor).
+   - **Nicholai de Hanred:** Identified as the surety (Plegiarius) for Willelmum de Merton.
+
+2. **Relationships:**
+   - **Thomas de Apelton** (Reus) vs. **Willelmum de Merton** (Petitor).
+   - **Nicholai de Hanred** (Plegiarius) for **Willelmum de Merton**.
+
+### Explanation of JSON Structure:
+- **id:** Unique identifier for each person.
+- **name:** First name of the person in the nominative singular form.
+- **cognomen:** Additional names or titles, often indicative of their place of origin or familial lineage.
+- **profession:** The occupation or work done by the person, left empty if not provided.
+- **family_relations:** Describes familial relationships, left empty if not provided.
+- **legal_relationship:** Describes legal relationships such as defendant/plaintiff (Reus/Petitor), surety (Plegiarius), etc.
+- **place_of_origin:** Extracted from place names following 'de'.
+- **title:** Official titles, left empty if not provided.
+
+This data respects the original Latin terms and structure of the historical legal document while translating its essential details accurately into JSON format.

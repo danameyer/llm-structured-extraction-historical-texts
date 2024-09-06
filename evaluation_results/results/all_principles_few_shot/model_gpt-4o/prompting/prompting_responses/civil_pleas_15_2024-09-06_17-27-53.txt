@@ -1,0 +1,140 @@
+Certainly! Below is the structured JSON output for the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Thomas",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Andree",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Warinum",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Geroldi",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Willelmus",
+      "cognomen": "Le Curter",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Abbendone",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Nrcholaus",
+      "cognomen": "Clericus",
+      "profession": "Clericus",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Abbendone",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation of the JSON Output:
+1. **Thomas**:
+   - Is the son (**Filius**) of **Andree** (Person 2).
+   - Acts as a **Petitor** (plaintiff) against **Warinum** (Person 3) twice.
+  
+2. **Andree**:
+   - Is the father (**Pater**) of **Thomas** (Person 1).
+
+3. **Warinum**:
+   - Is the son (**Filius**) of **Geroldi** (Person 4).
+   - Acts as a **Reus** (defendant) against **Thomas** (Person 1) twice.
+
+4. **Geroldi**:
+   - Is the father (**Pater**) of **Warinum** (Person 3).
+
+5. **Willelmus Le Curter**:
+   - Is a **Plegiarius** (surety) for **Thomas** (Person 1).
+   - Comes from **Abbendon**.
+
+6. **Nrcholaus Clericus**:
+   - Is a **Plegiarius** (surety) for **Thomas** (Person 1).
+   - His profession is **Clericus**.
+   - Comes from **Abbendon**.

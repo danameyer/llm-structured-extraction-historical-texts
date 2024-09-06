@@ -1,0 +1,68 @@
+Assuming each court document is processed separately, based on the individual text provided, here is the JSON representation according to your provided schema.
+
+### Information Extraction
+1. **Philippus**
+   - Name: Philippus
+   - Family Relation: Filius (Son) of Radulfus Stake
+   - Place of Origin: Lamburn'
+   - Cognomen: Filius Radulfi Stake
+
+2. **Radulfus Stake**
+   - Name: Radulfus
+   - Cognomen: Stake
+   - Family Relation: Pater (Father) of Philippus
+
+3. **Wydo**
+   - Name: Wydo
+   - Cognomen: Filius Roberti
+   - Title: Vicecomes (Sheriff)
+
+### Structured JSON Output
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Philippus",
+      "cognomen": "Filius Radulfi Stake",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Lamburn'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Radulfus",
+      "cognomen": "Stake",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Wydo",
+      "cognomen": "Filius Roberti",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Vicecomes"
+    }
+  ]
+}
+```
+
+This JSON represents the structured details extracted from your given 13th and 14th-century court document. Each person's details are categorized correctly, ensuring no crucial information is missed. Let me know if you need further adjustments or have additional documents to process.

@@ -1,0 +1,66 @@
+### Task 1: Extract Information and Relationships in the Court Document
+
+1. **Osbertus de Wulfrode**:
+   - **Role in Document**: Defendant
+   - **Actions**: Allegedly disseised Robertus de Harpenham from his free tenement in Ingelpenn and obstructed a road causing inconvenience.
+   - **Legal Outcome**: Found to have unjustly disseised Robertus and obstructed the road. Ordered to remove the obstruction and was held in mercy by pledge.
+
+2. **Robertus de Harpenham**:
+   - **Role in Document**: Plaintiff
+   - **Claim**: Unjustly disseised from his free tenement and affected by the obstruction of the road.
+   - **Legal Outcome**: Won the case and was allowed to recover possession of his tenement.
+
+### Task 2: Structured JSON Output
+
+```json
+{
+    "court_document_1": {
+        "persons": [
+            {
+                "name": "Osbertus",
+                "surname": "de Wulfrode",
+                "role": "Defendant",
+                "actions": [
+                    {
+                        "type": "disseisin",
+                        "target": "Robertus de Harpenham",
+                        "detail": "unjustly disseised Robertus from his free tenement in Ingelpenn"
+                    },
+                    {
+                        "type": "obstruction",
+                        "target": "Robertus de Harpenham",
+                        "detail": "unjustly obstructed a road causing inconvenience to free tenement"
+                    }
+                ],
+                "legal_outcome": [
+                    {
+                        "type": "found guilty",
+                        "details": "Ordered to remove the obstruction and held in mercy by pledge"
+                    }
+                ]
+            },
+            {
+                "name": "Robertus",
+                "surname": "de Harpenham",
+                "role": "Plaintiff",
+                "claims": [
+                    {
+                        "type": "disseisin",
+                        "detail": "unjustly disseised from his free tenement in Ingelpenn"
+                    },
+                    {
+                        "type": "obstruction",
+                        "detail": "affected by the obstruction of the road"
+                    }
+                ],
+                "legal_outcome": [
+                    {
+                        "type": "won",
+                        "details": "Allowed to recover possession of his tenement"
+                    }
+                ]
+            }
+        ]
+    }
+}
+```

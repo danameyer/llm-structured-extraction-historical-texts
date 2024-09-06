@@ -1,0 +1,95 @@
+Here is the detailed extraction and the corresponding JSON output for the court document provided:
+
+### Extraction of Information
+
+1. **Agnes**:
+   - **ID**: 1
+   - **Name**: Agnes
+   - **Cognomen**: Que Fuit Uxor Willelmi Bordon
+     - Indicates she is the widow of Willelmus Bordon.
+   - **Place of Origin**: Derby
+   - **Legal Relationship**: 
+     - **Relation Type**: Petitor (Plaintiff)
+     - **Related Person**: ID 3 (Magister Robertus de Shardelawe) - This is inferred as Robertus de Shardelawe is listed first in the "versus" structure of the Latin text, which generally lists the defendant second.
+   - **Family Relations**: None mentioned specifically in this text beyond her late husband.
+
+2. **Willelmus de Eton**:
+   - **ID**: 2
+   - **Name**: Willelmus
+   - **Cognomen**: De Eton
+   - **Place of Origin**: Eton
+   - **Legal Relationship**:
+     - **Relation Type**: Attornatus (Attorney)
+     - **Related Person**: ID 1 (Agnes)
+     - **Related Person**: ID 3 (Magister Robertus de Shardelawe)
+   - **Family Relations**: None specified in this document. 
+   - **Title**: None specified.
+
+3. **Robertus de Shardelawe**:
+   - **ID**: 3
+   - **Name**: Robertus
+   - **Cognomen**: De Shardelawe
+   - **Title**: Magister
+   - **Place of Origin**: Not clearly specified in text (name suggests Shardelawe)
+   - **Legal Relationship**: None explicitly described within this snippet.
+   - **Family Relations**: None specified in this document.
+
+### JSON Output
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Agnes",
+      "cognomen": "Que Fuit Uxor Willelmi Bordon",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Derby",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "De Eton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Eton",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Robertus",
+      "cognomen": "De Shardelawe",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Magister"
+    }
+  ]
+}
+```
+
+### Explanation
+- Agnes is identified with the relationship of a Petitor (Plaintiff) against Robertus de Shardelawe.
+- Willelmus de Eton is identified as the attorney (Attornatus) acting for both Agnes and Robertus.
+- Robertus de Shardelawe is a Magister (a scholarly or clerical title).
+   
+The extracted relationships and origins should provide a clear representation of the given court document.

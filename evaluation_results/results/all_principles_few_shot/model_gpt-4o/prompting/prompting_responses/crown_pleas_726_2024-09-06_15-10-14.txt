@@ -1,0 +1,52 @@
+Here is the structured JSON output for the given court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Raerus",
+      "cognomen": "de Bochamton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Custos",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Brochamton",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Dominus",
+      "cognomen": "Regis",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Rex"
+    }
+  ]
+}
+```
+
+### Explanation:
+1. **Raerus de Bochamton** (ID 1):
+   - **Name**: Raerus
+   - **Cognomen**: de Bochamton
+   - **Profession**: Notpecified
+   - **Family Relations**: None mentioned
+   - **Legal Relationship**: Custos (warden) with Dominus Regis (ID 2)
+   - **Place of Origin**: Brochamton
+   - **Title**: None
+
+2. **Dominus Regis** (ID 2):
+   - **Name**: Dominus
+   - **Cognomen**: Regis
+   - **Profession**: Not specified
+   - **Family Relations**: None mentioned
+   - **Legal Relationship**: None mentioned
+   - **Place of Origin**: Not specified
+   - **Title**: Rex (King)

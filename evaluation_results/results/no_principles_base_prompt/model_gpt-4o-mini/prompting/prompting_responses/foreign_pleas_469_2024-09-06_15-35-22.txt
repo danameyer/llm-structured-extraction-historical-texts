@@ -1,0 +1,97 @@
+(1) Extracted information about the persons mentioned in the document and their relations:
+
+- **Ricardus de Vernun**: 
+  - ID: 1
+  - Profession: unknown 
+  - Family Relations: None 
+  - Legal Relationship: None 
+
+- **Walterum de Wahull'**: 
+  - ID: 2
+  - Profession: unknown 
+  - Family Relations: None 
+  - Legal Relationship: None 
+
+- **Adam Maunadlet**: 
+  - ID: 3
+  - Profession: unknown 
+  - Family Relations: None 
+  - Legal Relationship: None 
+
+- **Hawisia**: 
+  - ID: 4
+  - Profession: unknown 
+  - Family Relations: 
+    - Relation Type: uxor 
+    - Related Person: Robertus de Vernon (ID: 5)
+  - Legal Relationship: None 
+
+- **Robertus de Vernon**: 
+  - ID: 5
+  - Profession: unknown 
+  - Family Relations: None 
+  - Legal Relationship: None 
+
+(2) Structured JSON output for the document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ricardus de Vernun",
+      "profession": "unknown",
+      "family_relations": [],
+      "cognomen": "",
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Walterum de Wahull'",
+      "profession": "unknown",
+      "family_relations": [],
+      "cognomen": "",
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Adam Maunadlet",
+      "profession": "unknown",
+      "family_relations": [],
+      "cognomen": "",
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Hawisia",
+      "profession": "unknown",
+      "family_relations": [
+        {
+          "relation_type": "uxor",
+          "related_person": 5
+        }
+      ],
+      "cognomen": "",
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus de Vernon",
+      "profession": "unknown",
+      "family_relations": [],
+      "cognomen": "",
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```

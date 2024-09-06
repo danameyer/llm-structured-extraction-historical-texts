@@ -1,0 +1,97 @@
+Here's a structured JSON output based on the given court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Radulfus",
+      "cognomen": "Le Skyr",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Elias",
+      "cognomen": "Filius Alexandri",
+      "profession": "Ballivus",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Villa de Lamburn",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Fulco",
+      "cognomen": "Filius Warini",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Senescallus",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Rex",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Rex"
+    },
+    {
+      "id": 5,
+      "name": "Mareshallus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Mareshallus"
+    }
+  ]
+}
+```
+
+### Explanation
+
+1. **Radulfus le Skyr**:
+   - Name: Radulfus
+   - Cognomen: Le Skyr
+   - Profession, Family relations, Legal relationships, Place of origin, and Title are not explicitly mentioned in the document.
+
+2. **Elias filius Alexandri**:
+   - Name: Elias
+   - Cognomen: Filius Alexandri
+   - Profession: Ballivus
+   - Place of origin: Villa de Lamburn 
+
+3. **Fulco filius Warini**:
+   - Name: Fulco
+   - Cognomen: Filius Warini
+   - Legal Relationship: Senescallus (Steward) related to person with id 4
+   
+4. **Rex**:
+   - Name: Rex (Commonly used in documents to refer to the King, hence treated as a separate entity)
+   - Title: Rex (indicating he holds the royal title “King”)
+   
+5. **Mareshallus (of the King)**:
+   - Name: Mareshallus
+   - Title: Mareshallus (implicating the role of the Marshal related to the King)
+
+### Additional Considerations
+
+- **Place of origin**: 'Villa de Lamburn' is the only clear place in the documentation, assigning it to Elias.
+- **Legal Relationships**:
+  - **Senescallus**: Fulco is a steward (Senescallus), underlining his responsibility or connection to the King (Rex).
+  
+This structured approach carefully follows the provided rules and aims for accurate historical representation by using the precise information from the document.

@@ -1,0 +1,80 @@
+Here's the structured JSON output for the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Isabella",
+      "profession": "uxor",
+      "family_relations": [
+        {
+          "relation_type": "mater",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "heres",
+          "related_person": 2
+        }
+      ],
+      "title": "que fuit uxor Simonis de Th urvill'",
+      "cognomen": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "profession": "filius",
+      "family_relations": [
+        {
+          "relation_type": "pater",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "custos",
+          "related_person": 3
+        }
+      ],
+      "title": "de Th urvill'",
+      "cognomen": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 3,
+      "name": "Simonis de Th urvill'",
+      "profession": "testator",
+      "legal_relationship": [
+        {
+          "relation_type": "tenens",
+          "related_person": 2
+        }
+      ],
+      "title": "Simonis de Monteforti Comitis Leyc'",
+      "cognomen": "",
+      "family_relations": [],
+      "place_of_origin": ""
+    },
+    {
+      "id": 4,
+      "name": "Petronille",
+      "profession": "avia",
+      "legal_relationship": [
+        {
+          "relation_type": "progenitor",
+          "related_person": 2
+        }
+      ],
+      "title": "de Turvil l'",
+      "cognomen": "",
+      "family_relations": [],
+      "place_of_origin": ""
+    }
+  ]
+}
+```
+
+In this JSON structure, each person is represented with a unique ID and appropriate relationships are defined between them based on the information extracted from the court document.

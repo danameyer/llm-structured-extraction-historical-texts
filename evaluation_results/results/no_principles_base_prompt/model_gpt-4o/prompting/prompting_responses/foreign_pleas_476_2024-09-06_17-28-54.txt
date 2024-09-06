@@ -1,0 +1,37 @@
+(1) Extract information about the persons mentioned in the document and their relations to each other.
+
+- Walterus de Bulehith' is the attorney (attornatus) for Franci. Thomas de Fereres.
+
+(2) Transfer your results to structured JSON output separately for each document by using a tool.
+
+```json
+{
+  "person_list": [
+    {
+      "name": "Walterus de Bulehith'",
+      "legal_relationship": [
+        {
+          "relation_type": "attornatus",
+          "related_person": 2
+        }
+      ],
+      "id": 1,
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "name": "Franci. Thomas de Fereres",
+      "id": 2,
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```

@@ -1,0 +1,159 @@
+Let's go through the document step-by-step to extract the required information and transfer it to structured JSON output:
+
+### Step-by-step Extraction
+
+1. **Person 1:** 
+   - **Name:** Radulfus
+   - **Cognomen:** le Skyr
+   - **Profession:** 
+   - **Family relations:** 
+   - **Legal relations:** 
+   - **Place of Origin:** 
+   - **Title:** 
+
+2. **Person 2:** 
+   - **Name:** Elias
+   - **Cognomen:** Filius Alexandri
+   - **Profession:** 
+   - **Family relations:** Filius (son) of Alexander (ID 3)
+   - **Legal relations:** 
+   - **Place of Origin:** 
+   - **Title:** 
+
+3. **Person 3 (Relations inferred):**
+   - **Name:** Alexander
+   - **Cognomen:** 
+   - **Profession:** 
+   - **Family relations:** 
+   - **Legal relations:** 
+   - **Place of Origin:** Lamburn
+   - **Title:** Ballivus (Bailiff)
+
+4. **Person 4:** 
+   - **Name:** Fulco
+   - **Cognomen:** Filius Warini
+   - **Profession:** 
+   - **Family relations:** 
+   - **Legal relations:** 
+   - **Place of Origin:** 
+   - **Title:** 
+
+### JSON Construction
+
+Following the schema provided and the rules specified, the structured JSON output for this document will look like this:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Radulfus",
+      "cognomen": "Le Skyr",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Elias",
+      "cognomen": "Filius Alexandri",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Alexander",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Lamburn",
+      "title": "Ballivus"
+    },
+    {
+      "id": 4,
+      "name": "Fulco",
+      "cognomen": "Filius Warini",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Summary of Relationships
+
+- Radulfus le Skyr and Elias are implicated in altering the village measures of Lamburn without warrant.
+- Elias is identified as the son of Alexander, who is the bailiff of Lamburn.
+- Fulco appears as the son of Warin and intervenes to clarify the actions of the King's marshal related to village measures.
+
+### Final Structured JSON Output:
+
+Here's the complete JSON output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Radulfus",
+      "cognomen": "Le Skyr",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Elias",
+      "cognomen": "Filius Alexandri",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Alexander",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Lamburn",
+      "title": "Ballivus"
+    },
+    {
+      "id": 4,
+      "name": "Fulco",
+      "cognomen": "Filius Warini",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This output retains the structure and details extracted consistently with your requirements.

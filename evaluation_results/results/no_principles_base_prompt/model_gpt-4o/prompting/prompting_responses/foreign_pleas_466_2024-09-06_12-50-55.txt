@@ -1,0 +1,81 @@
+### Document Analysis:
+
+1. Extract information about the persons mentioned in the document and their relations to each other:
+   
+   - **Hugo de Yerly:** Is the plaintiff who offers himself on the fourth day against Bartholomeus de Merden regarding the services and duties owed to Hugo from the free tenement held by Bartholomeus in Merden.
+   - **Bartholomeus de Merden:** Is the defendant who is being summoned for not providing the required services and duties from his free tenement in Merden.
+   - **Ricardus Guscard:** Is a surety (pledge) for Bartholomeus.
+   - **Herveus de Manigeford:** Is another surety (pledge) for Bartholomeus.
+
+2. Transfer your results to structured JSON output separately for each document by using a tool.
+
+```json
+{
+  "persons": [
+    {
+      "id": 1,
+      "name": "Hugo",
+      "surname": "de Yerly",
+      "role": "plaintiff",
+      "relations": [
+        {
+          "type": "legal",
+          "related_person_id": 2,
+          "relation_description": "claims Bartholomeus owes services and duties"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Bartholomeus",
+      "surname": "de Merden",
+      "role": "defendant",
+      "relations": [
+        {
+          "type": "legal",
+          "related_person_id": 1,
+          "relation_description": "owes services and duties to Hugo"
+        },
+        {
+          "type": "surety",
+          "related_person_id": 3,
+          "relation_description": "Ricardus is a surety for Bartholomeus"
+        },
+        {
+          "type": "surety",
+          "related_person_id": 4,
+          "relation_description": "Herveus is a surety for Bartholomeus"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Ricardus",
+      "surname": "Guscard",
+      "role": "surety",
+      "relations": [
+        {
+          "type": "surety",
+          "related_person_id": 2,
+          "relation_description": "surety for Bartholomeus"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Herveus",
+      "surname": "de Manigeford",
+      "role": "surety",
+      "relations": [
+        {
+          "type": "surety",
+          "related_person_id": 2,
+          "relation_description": "surety for Bartholomeus"
+        }
+      ]
+    }
+  ]
+}
+```
+
+This JSON structure provides a clear representation of the individuals involved in the court document and their relationships with each other, making it understandable and accessible for further processing or analysis.

@@ -1,0 +1,63 @@
+Here is the structured JSON output for the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Reginald",
+      "profession": "not specified",
+      "family_relations": [
+        {
+          "relation_type": "filius",
+          "related_person": 2
+        },
+        {
+          "relation_type": "soror",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Aqua",
+      "cognomen": "",
+      "legal_relationship": [],
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Philippus",
+      "profession": "not specified",
+      "family_relations": [
+        {
+          "relation_type": "pater",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Aqua",
+      "cognomen": "",
+      "legal_relationship": [],
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Agnes",
+      "profession": "not specified",
+      "family_relations": [
+        {
+          "relation_type": "soror",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Aqua",
+      "cognomen": "",
+      "legal_relationship": [],
+      "title": ""
+    }
+  ]
+}
+```
+
+### Notes:
+- **Reginald** is identified as the son (filius) of **Philippus** and the brother (soror) of **Agnes**.
+- **Philippus** is identified as the father (pater) of **Reginald**.
+- **Agnes** is identified as the sister (soror) of **Reginald**.
+- All persons listed have a place of origin noted as **Aqua**. No professions or specific legal titles were mentioned in the text.

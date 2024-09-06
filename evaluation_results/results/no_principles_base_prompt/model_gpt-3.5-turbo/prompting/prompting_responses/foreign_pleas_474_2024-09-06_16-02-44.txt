@@ -1,0 +1,70 @@
+(1) Extracted information about the persons mentioned in the document and their relations to each other:
+
+- Agnes: Former wife of Willelmus Bordon.
+- Willelmus: Father of Eton.
+- Eton: Child of Willelmus and Agnes.
+- Magister Robertus de Shardelawe: No specific relations mentioned in this document.
+
+(2) Transfer results to structured JSON output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Agnes",
+      "cognomen": "null",
+      "profession": "null",
+      "family_relations": [
+        {
+          "relation_type": "uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "null",
+      "profession": "null",
+      "family_relations": [
+        {
+          "relation_type": "pater",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Eton",
+      "cognomen": "null",
+      "profession": "null",
+      "family_relations": [
+        {
+          "relation_type": "mater",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Magister Robertus",
+      "cognomen": "null",
+      "profession": "null",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```

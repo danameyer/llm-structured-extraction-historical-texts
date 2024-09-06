@@ -1,0 +1,90 @@
+Here is the structured JSON output based on the provided court document.
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Walentinus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Dominus feodi",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Testator",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Neubir",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "Dod",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Avunculus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Heres",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Radulfus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Ade",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Breakdown of the JSON content:
+1. **Walentinus**:
+   - Legal Relationships: He is the feudal lord to Willelmus (Heres) and has a testator relationship with him.
+   - Place of Origin: Neubir.
+
+2. **Willelmus**:
+   - Cognomen: Dod.
+   - Family Relations: He is the uncle to Walentinus.
+   - Legal Relationship: He is the heir of Walentinus.
+
+3. **Radulfus**:
+   - Family Relations: He is the son of Ade.
+
+4. **Ade**:
+   - No additional data is provided.
+
+This JSON structure captures all relevant information about the individuals mentioned and their relationships as specified in the original document. If you need further adjustments or if there's another document to process, please let me know!

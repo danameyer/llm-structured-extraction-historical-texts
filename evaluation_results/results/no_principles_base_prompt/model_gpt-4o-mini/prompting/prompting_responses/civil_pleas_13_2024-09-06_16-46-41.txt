@@ -1,0 +1,78 @@
+Here are the results for the provided court document:
+
+### Extracted Information
+
+(1) **Persons Mentioned and Their Relations**:
+- **Gilbertus de Evrinton**: He is accused of damaging property (specifically a stangnum) belonging to **Petri de Feringdon**.
+- **Petri de Feringdon**: Owner of the tenement that Gilbertus allegedly harmed.
+- **Galfridus de Wauncy**: A recognitor (witness) who did not appear in court, leading to a judgment against Gilbertus in mercy.
+- **Elie de Bagington**: Associated with Gilbertus in mercy, likely as a surety or pledge.
+
+### Structured JSON Output
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Gilbertus de Evrinton",
+      "profession": "unknown",
+      "family_relations": [],
+      "cognomen": "",
+      "legal_relationship": [
+        {
+          "type": "accused",
+          "relation": "damaged property of",
+          "related_person": "Petri de Feringdon"
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Petri de Feringdon",
+      "profession": "unknown",
+      "family_relations": [],
+      "cognomen": "",
+      "legal_relationship": [
+        {
+          "type": "wronged party",
+          "relation": "owner",
+          "related_person": "Gilbertus de Evrinton"
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Galfridus de Wauncy",
+      "profession": "unknown",
+      "family_relations": [],
+      "cognomen": "",
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Elie de Bagington",
+      "profession": "unknown",
+      "family_relations": [],
+      "cognomen": "",
+      "legal_relationship": [
+        {
+          "type": "surety",
+          "relation": "associated with",
+          "related_person": "Gilbertus de Evrinton"
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+``` 
+
+This JSON structure encapsulates the relationships and roles of individuals as mentioned in the court document.

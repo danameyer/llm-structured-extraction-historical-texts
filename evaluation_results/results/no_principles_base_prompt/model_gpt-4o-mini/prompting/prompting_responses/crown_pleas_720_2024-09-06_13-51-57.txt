@@ -1,0 +1,36 @@
+### Task 1: Extract Information about Persons and their Relations
+
+**Persons Mentioned:**
+1. **Englescheria**
+   - **Profession:** Presentatur
+   - **Relations:**
+     - **Pater:** Related to a father (unidentified)
+     - **Mater:** Related to a mother (unidentified)
+
+### Task 2: Structured JSON Output
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Englescheria",
+      "profession": "presentatur",
+      "family_relations": [
+        {
+          "relation_type": "pater",
+          "related_person": 2
+        },
+        {
+          "relation_type": "mater",
+          "related_person": 3
+        }
+      ],
+      "cognomen": "",
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```

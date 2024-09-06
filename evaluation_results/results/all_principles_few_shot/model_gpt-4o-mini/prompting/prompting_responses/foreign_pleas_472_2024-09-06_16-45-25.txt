@@ -1,0 +1,77 @@
+Let's work through the given court document step-by-step according to your instructions.
+
+**Court Document:**
+'''472.	(Buk ') Magister Jacobus de Evre ponit loco suo Galfrid um le Ma reschal versus Isabellam de Sunnyghyll ' de placito dotis.
+'''
+
+**(1) Extract information about the persons mentioned in the document and their relations to each other:**
+
+1. **Jacobus de Evre**
+   - Title: Magister
+   - Relation: He is the plaintiff in the case.
+   - Place of Origin: Evre (from the cognomen).
+
+2. **Galfrid le Mareschal**
+   - Role: He is the person being placed in the case by Jacobus.
+   - Place of Origin: Not specified.
+   - Relationship: No specific relations mentioned.
+
+3. **Isabella de Sunnyghyll**
+   - Role: She is the defendant (the one against whom the case is).
+   - Place of Origin: Sunnyghyll (from the cognomen).
+
+**(2) Transfer the results to structured JSON output:**
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Jacobus",
+      "cognomen": "de Evre",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Evre",
+      "title": "Magister"
+    },
+    {
+      "id": 2,
+      "name": "Galfrid",
+      "cognomen": "le Mareschal",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Tenens",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Isabella",
+      "cognomen": "de Sunnyghyll",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Sunnyghyll",
+      "title": ""
+    }
+  ]
+}
+```
+
+I hope this meets your requirements accurately. If you have any further questions or need modifications, please let me know!

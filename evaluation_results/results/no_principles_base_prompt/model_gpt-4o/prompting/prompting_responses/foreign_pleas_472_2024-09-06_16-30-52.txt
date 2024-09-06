@@ -1,0 +1,43 @@
+```json
+{
+  "court_document": {
+    "persons_mentioned": [
+      {
+        "id": 1,
+        "name": "Jacobus de Evre",
+        "title": "Magister",
+        "relations": [
+          {
+            "relation_type": "petitor",
+            "related_person_id": 2
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Galfridus le Mareschal",
+        "relations": [
+          {
+            "relation_type": "attornatus",
+            "related_person_id": 1
+          },
+          {
+            "relation_type": "reus",
+            "related_person_id": 3
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Isabella de Sunnyghyll",
+        "relations": [
+          {
+            "relation_type": "reus",
+            "related_person_id": 2
+          }
+        ]
+      }
+    ]
+  }
+}
+```

@@ -1,0 +1,133 @@
+Below is the JSON output for the provided court document.
+
+### Court Document
+'''
+732. De indictatis dicunt quod Rogerus de Estbur' rettatus de latrocinio subtraxit
+(se1 et malecreditur, ideo exigatur et utlagetur. Nulla habuit catalla. Et fuit in decenna Radulfi Fabri in Estbur', ideo in misericordia.
+'''
+
+### JSON Output
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Rogerus",
+      "cognomen": "de Estbur'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "Estbur'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Radulfus",
+      "cognomen": "Fabri",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Estbur'",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Detailed Breakdown by Rule
+
+1. **Unique ID**:
+    - Rogerus is assigned ID 1.
+    - Radulfus is assigned ID 2.
+  
+2. **Nominative Singular Form**:
+    - Names are in the nominative singular form: "Rogerus" and "Radulfus".
+  
+3. **Spelling**:
+    - Used the spelling variations from the document: "Rogerus de Estbur'", "Radulfus Fabri".
+  
+4. **Values**:
+    - Entries left empty if no information is provided.
+  
+5. **Latin Terms**:
+    - "Latrocinio", "Decenna", "In misericordia", etc.
+  
+6. **Prepositions 'de'**:
+    - "De Estbur'" under the 'place_of_origin' category for both Rogerus and Radulfus.
+  
+7. **Professions**:
+    - No professions indicated in the document, hence left empty.
+  
+8. **Pronouns/Attributes**:
+    - Used attributes to identify already mentioned persons.
+  
+9. **Same Names**:
+    - Separate entries for same names with different roles, if applicable.
+  
+10. **First Names**:
+    - Only the first name in the 'name' category.
+  
+11. **Cognomen**:
+    - "De Estbur'" and "Fabri" listed with the prepositions where present.
+  
+12. **Church Jobs**:
+    - No ecclesiastical titles listed in the document.
+  
+13. **Titles Like Rex or Prior**:
+    - Not applicable in this document.
+  
+14. **Relation Types**:
+    - Malecreditur (suspected): Rogerus as "Reus".
+    - Decenna (a group of men under the responsibility of a chief tithing-man): Radulfus mentioned as part of this system, implies a minor form of local jurisdiction or community responsibility but no direct legal relation listed.
+
+15. **Spelling**:
+    - Capitalized initial letters for all values.
+  
+16. **Power Relations**:
+    - Rogerus identified as "Reus" without a corresponding "Petitor" explicitly named.
+    - No further power relations.
+
+This structured approach ensures a comprehensive and accurate transformation of the unstructured medieval Latin text into a detailed and usable JSON format for historical legal analysis.
+Let's extract the information about the persons mentioned in the provided court document and their relations to each other. Here is the detailed breakdown:
+
+### Court Document
+'''
+732. De indictatis dicunt quod Rogerus de Estbur' rettatus de latrocinio subtraxit se1 et malecreditur, ideo exigatur et utlagetur. Nulla habuit catalla. Et fuit in decenna Radulfi Fabri in Estbur', ideo in misericordia.
+'''
+
+### Persons and Their Relations
+
+1. **Rogerus de Estbur'**
+   - **Name:** Rogerus
+   - **Cognomen:** de Estbur'
+   - **Profession:** Not mentioned
+   - **Place of Origin:** Estbur'
+   - **Legal Status:** 
+     - Accused of theft ("rettatus de latrocinio")
+     - Suspected and deemed as an outlaw ("malecreditur, ideo exigatur et utlagetur")
+     - No possessions ("Nulla habuit catalla")
+
+2. **Radulfus Fabri**
+   - **Name:** Radulfus
+   - **Cognomen:** Fabri
+   - **Profession:** Not mentioned
+   - **Place of Origin:** Estbur'
+   - **Legal Status:**
+     - Part of the decenna (a group of ten men responsible for each other's conduct) ("fuit in decenna")
+     - Held accountable for Roger's actions in some manner due to his role in the decenna ("ideo in misericordia")
+
+### Relationships
+- **Rogerus de Estbur'** and **Radulfus Fabri**
+  - **Relation Type:** Radulfus is part of the decenna, the collective responsible group to which Rogerus belonged.
+  - **Legal Context:** Radulfus is indirectly implicated in Rogerus' actions due to the communal responsibility of the decenna.
+
+### Summary
+- **Rogerus de Estbur'** is accused and outlawed for theft. He belongs to a decenna that includes Radulfus Fabri.
+- **Radulfus Fabri** is part of the decenna group responsible for Rogerus' conduct, leading to his being held accountable ("in misericordia").
+
+With this information clearly extracted, we can proceed to construct the corresponding structured JSON output reflecting this analysis.

@@ -1,0 +1,49 @@
+(1) Extracted Information:
+
+**Persons:**
+1. **Rogerus de Estbur'**
+   - Profession: Latrocinio (Robbery)
+   - Legal Relationship: He is the defendant (Reus) in the case.
+   - Place of Origin: Estbur'
+
+2. **Radulfus Fabri**
+   - Profession: (not mentioned)
+   - Place of Origin: Estbur'
+
+**Relations:**
+- There are no explicit family relations noted.
+- Rogerus is reported to have been in the decenna (a term suggesting a community or administrative unit) of Radulfus, which could imply a power relationship or connection, but there's no explicit legal relation defined in this context.
+
+(2) Structured JSON Output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Rogerus",
+      "cognomen": "de Estbur'",
+      "profession": "latrocinio",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Estbur'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Radulfus",
+      "cognomen": "Fabri",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Estbur'",
+      "title": ""
+    }
+  ]
+}
+```

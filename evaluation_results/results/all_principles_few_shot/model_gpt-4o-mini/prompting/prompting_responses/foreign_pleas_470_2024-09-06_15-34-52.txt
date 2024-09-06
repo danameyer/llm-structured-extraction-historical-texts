@@ -1,0 +1,91 @@
+Based on the provided court document, I will complete the tasks consecutively.
+
+### Court Document:
+'''470. (Bed ') Anestasia uxor Thome de Grauncurt ponit loco suo ipsum Thomam virum suum versus Julianam que fuit uxor Ricardi filii Radulfi de placito vasti.'''
+
+### Task 1: Extract Information
+
+1. **Anestasia** - A woman who is the wife of Thomas.
+   - **Relation**: Uxor (wife) of Thomas.
+   
+2. **Thome de Grauncurt** - A man who is the husband of Anestasia.
+   - **Relation**: Maritus (husband) of Anestasia.
+   
+3. **Juliana** - A woman who was the wife of Richard, the son of Radulf.
+   - **Relation**: Uxor (wife) of Richard.
+   
+4. **Ricardi** - The son of Radulf.
+   - **Relation**: Filius (son) of Radulf.
+   
+5. **Radulfi** - The father of Richard.
+
+### Task 2: Transfer Results to Structured JSON Output
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Anestasia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Uxor"
+    },
+    {
+      "id": 2,
+      "name": "Thome",
+      "cognomen": "de Grauncurt",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Juliana",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Uxor"
+    },
+    {
+      "id": 4,
+      "name": "Ricardi",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Radulfi",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This output reflects the relationships and details as derived from the text of the document accurately and according to the provided JSON schema.

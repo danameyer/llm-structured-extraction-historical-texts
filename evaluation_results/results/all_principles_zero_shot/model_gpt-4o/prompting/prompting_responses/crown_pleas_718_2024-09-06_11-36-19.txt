@@ -1,0 +1,76 @@
+Below is the structured JSON output based on the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Simon",
+      "cognomen": "de Leukenor",
+      "profession": "Vicecomes",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Leukenor",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Alanus",
+      "cognomen": "de Farnham",
+      "profession": "Vicecomes",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Farnham",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Wydo",
+      "cognomen": "",
+      "profession": "Vicecomes",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+1. **Person 1**:
+   - **Name**: Simon
+   - **Cognomen**: de Leukenor
+   - **Profession**: Vicecomes
+   - **Place of Origin**: Leukenor
+
+2. **Person 2**:
+   - **Name**: Alanus
+   - **Cognomen**: de Farnham
+   - **Profession**: Vicecomes
+   - **Place of Origin**: Farnham
+
+3. **Person 3**:
+   - **Name**: Wydo
+   - **Profession**: Vicecomes
+   - **Family Relation**: Filius (Son) to Robertus (Person 4)
+
+4. **Person 4**:
+   - **Name**: Robertus
+
+Since Wydo is mentioned as the son of Robertus, a family relation of type 'Filius' is created linking Wydo (Person 3) as the son of Robertus (Person 4). The titles and other relations are assigned as provided in the document. Please ensure the IDs are unique and correctly linked for an accurate representation.

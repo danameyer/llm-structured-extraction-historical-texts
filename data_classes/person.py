@@ -1,8 +1,10 @@
+import logging
 import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List, Union, Dict
 
+import marshmallow
 from dotenv import load_dotenv
 from marshmallow import Schema, fields, post_load
 from utils import file_reader_util
@@ -98,9 +100,19 @@ class PersonSchema(Schema):
 
 def create_person_object(file_path: str) -> List[Person]:
     data = file_reader_util.read_json(file_path)
+    if data and data.get('person_list') is not None:
+        print(data['person_list'])
+    else:
+        print("person_list is None or not present.")
 
     person_schema = PersonSchema()
-    persons = [person_schema.load(person) for person in data['person_list']]
+    if data is not None and 'person_list' in data:
+        try:
+            persons = [person_schema.load(person) for person in data['person_list'] if person is not None]
+        except marshmallow.exceptions.ValidationError as ex:
+            logging.error(f"Could not load PersonSchema for file {file_path} because of exception: {ex.messages}")
+    else:
+        persons = []
 
     person_dict: Dict[int, Person] = {person.id: person for person in persons}
 

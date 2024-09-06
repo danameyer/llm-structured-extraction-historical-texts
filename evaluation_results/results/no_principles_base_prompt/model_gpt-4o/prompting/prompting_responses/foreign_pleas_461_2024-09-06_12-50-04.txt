@@ -1,0 +1,54 @@
+### Task 1: Extract Information
+
+1. **Isabella**:
+   - Formerly the wife of Simon de Th u rvill.
+   - Petitioner for one-third of a messuage and one carucate of land in Bedworth as her dower.
+
+2. **Willelmum de Th urvill**:
+   - Defendant in the case.
+   - Calls upon a warrant.
+
+3. **Willelmu rn filium**:
+   - Son and heir of Simon de Th u rvill.
+   - Ward under custody of Simon de Monteforti, Comte of Leycester, on behalf of Petronilla de Turvil, his grandmother.
+
+4. **Simon de Th u rvill**:
+   - Deceased.
+   - Formerly the husband of Isabella.
+
+5. **Simon de Monteforti**:
+   - Comte of Leycester.
+   - Custodian of Willelmu rn filium by a charter from Petronilla de Turvil.
+
+6. **Petronilla de Turvil**:
+   - Grandmother of Willelmu rn filium.
+   - Mentioned in regard to the custody charter.
+
+7. **Galfridum de Creft**:
+   - Representative for Willelmum de Th urvill in court.
+
+### Task 2: JSON Output
+
+```json
+[
+  {
+    "document_id": "461",
+    "person_list": [
+      {"id": 1, "name": "Isabella", "relation": "formerly wife of Simon de Th u rvill", "role": "petitioner", "claim": "one-third of a messuage and one carucate of land in Bedworth as dower"},
+      {"id": 2, "name": "Willelmum de Th urvill", "relation": "", "role": "defendant", "action": "calls upon a warrant"},
+      {"id": 3, "name": "Willelmu rn filium", "relation": "son and heir of Simon de Th u rvill", "role": "ward", "custodian": "Simon de Monteforti, on behalf of Petronilla de Turvil"},
+      {"id": 4, "name": "Simon de Th u rvill", "relation": "husband of Isabella", "role": "deceased"},
+      {"id": 5, "name": "Simon de Monteforti", "relation": "custodian of Willelmu rn filium", "role": "Comte of Leycester"},
+      {"id": 6, "name": "Petronilla de Turvil", "relation": "grandmother of Willelmu rn filium", "role": "issuer of the custody charter"},
+      {"id": 7, "name": "Galfridum de Creft", "relation": "", "role": "representative for Willelmum de Th urvill in court"}
+    ],
+    "relations": [
+      {"from": 1, "to": 4, "relation_type": "spouse"},
+      {"from": 3, "to": 4, "relation_type": "child"},
+      {"from": 3, "to": 6, "relation_type": "grandchild"},
+      {"from": 3, "to": 5, "relation_type": "ward"},
+      {"from": 5, "to": 6, "relation_type": "custodian_by_charter"}
+    ]
+  }
+]
+```

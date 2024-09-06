@@ -1,0 +1,123 @@
+Let's work through the document step-by-step, extracting the required information and generating the structured JSON output.
+
+**Step 1: Extract information about the persons mentioned in the document and their relations to each other**
+
+1. **Johannes de Froxefeld'**
+   - **ID**: 1 
+   - **Role**: Deceased person; died after falling from a cart.
+   - **Place of Origin**: Froxefeld
+   - **Legal Relationship**: 
+
+2. **Radulfus filius Willelmi**
+   - **ID**: 2 
+   - **Role**: First discoverer of Johannes' body; not suspected of wrongdoing.
+   - **Relations**:
+     - **Family Relation**: Son of Willelmus (ID 3)
+
+3. **Willelmus** 
+   - **ID**: 3
+   - **Role**: Father of Radulfus
+   - **Relations**:
+     - **Family Relation**: Father of Radulfus (ID 2)
+
+4. **Simon serviens Stephani de Wodenesdiche**
+   - **ID**: 4 
+   - **Role**: Servant of Stephanus (ID 5); involved in the incident with Johannes.
+   - **Place of Origin**: Wodenesdiche
+   - **Relations**:
+     - **Legal Relationship**: Servant of Stephanus (ID 5)
+
+5. **Stephanus de Wodenesdiche**
+   - **ID**: 5 
+   - **Role**: Master of Simon
+   - **Place of Origin**: Wodenesdiche
+
+6. **Ricardus de Havering'**
+   - **ID**: 6
+   - **Role**: Person ordered to ensure Simon's appearance in court.
+   - **Place of Origin**: Havering
+
+**Step 2: Transfer results to structured JSON output**
+
+**JSON Output:**
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Johannes",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "Froxefeld",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Radulfus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Filius",
+        "related_person": 3
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Willelmus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "Simon",
+    "cognomen": "Serviens",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Serviens",
+        "related_person": 5
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 5,
+    "name": "Stephanus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "Wodenesdiche",
+    "title": ""
+  },
+  {
+    "id": 6,
+    "name": "Ricardus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "Havering",
+    "title": ""
+  }
+]
+```
+
+**Explanation:**
+- Each person mentioned is assigned a unique ID.
+- Relations are clearly indicated, such as Radulfus being the son of Willelmus.
+- Simon is noted as a servant of Stephanus, indicating a legal relationship (Serviens/Servant).
+- The places of origin are listed accurately according to the information provided in the document.

@@ -1,0 +1,81 @@
+**Task 1: Extract information about the persons mentioned in the document and their relations to each other.**
+
+1. **Simon de Leukenor**
+   - Profession: Vicecomes
+   - Family Relations: None
+   - Legal Relationships: None
+
+2. **Alanus de Farnham**
+   - Profession: Vicecomes
+   - Family Relations: None
+   - Legal Relationships: None
+
+3. **Wydo**
+   - Cognomen: Filius Roberti
+   - Profession: Vicecomes
+   - Family Relations: 
+     - Relation Type: Filius (Son) 
+       - Related Person: Robertus (not mentioned directly, but inferred)
+   - Legal Relationships: None
+
+**Relationship Overview:**
+- Simon de Leukenor and Alanus de Farnham are both vicecomites (sheriffs) without any mentioned familial or legal relations.
+- Wydo is a vicecomes and is identified as the son of Robertus, establishing a family relation.
+
+---
+
+**Task 2: Transfer results to structured JSON output.**
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Simon de Leukenor",
+      "profession": "vicecomes",
+      "cognomen": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Alanus de Farnham",
+      "profession": "vicecomes",
+      "cognomen": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Wydo",
+      "cognomen": "filius Roberti",
+      "profession": "vicecomes",
+      "family_relations": [
+        {
+          "relation_type": "filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4, 
+      "name": "Robertus", 
+      "profession": "", 
+      "cognomen": "", 
+      "family_relations": [], 
+      "legal_relationship": [], 
+      "place_of_origin": "", 
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON structure captures the individuals mentioned in the document, their relationships, and relevant attributes systematically.

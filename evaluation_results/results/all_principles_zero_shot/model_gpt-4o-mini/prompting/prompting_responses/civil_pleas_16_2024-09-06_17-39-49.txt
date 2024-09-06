@@ -1,0 +1,103 @@
+Here is the structured information extraction for the court document provided:
+
+### Step 1: Extract Information
+
+1. **Agnes**: 
+   - Relationship: She is the **Petitor** against the Prior.
+   - Legal relations with her deceased husband, **Johannes de Apelford**.
+  
+2. **Prior de Pogele**:
+   - Relationship: He is the **Reus** (defendant) in relation to Agnes.
+   - Title: Prior.
+  
+3. **Johannes de Apelford**: 
+   - Family relationship: He is the **Maritus** (husband) of Agnes.
+  
+4. **Bartholomeus Peche**:
+   - He acts as a **Plegiarius** (person who provides surety).
+
+### Step 2: Structured JSON Output
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Agnes",
+      "cognomen": "de J a River",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Prior",
+      "cognomen": "de Pogele",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": "Prior"
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "de Apelford",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Bartholomeus",
+      "cognomen": "Peche",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This extracted and structured information can be used for further historical analysis as needed. If you have additional court documents or further tasks, please let me know!

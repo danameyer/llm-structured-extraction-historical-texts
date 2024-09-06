@@ -1,0 +1,54 @@
+The information extracted from the court document is structured into the following JSON format:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Thomas",
+      "cognomen": "Filius A ndree",
+      "profession": "",
+      "family_relations": [
+        {"relation_type": "Filius", "related_person": 2}
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Bateliking",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Warin",
+      "cognomen": "Filius Geroldi",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [{"relation_type": "Reus", "related_person": 1}],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Willelmus",
+      "cognomen": "Je Curter de Abbendon",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [{"relation_type": "Plegiarius", "related_person": 1}],
+      "place_of_origin": "Abbendon",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Nicholaus",
+      "cognomen": "Clericus de Abbendon",
+      "profession": "Clericus",
+      "family_relations": [],
+      "legal_relationship": [{"relation_type": "Plegiarius", "related_person": 1}],
+      "place_of_origin": "Abbendon",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON output contains structured information about the persons mentioned in the court document, including their names, family relations, legal relationships, place of origin, and any additional details such as professions or titles.
+
+If you have any further documents to analyze or any specific requirements, please let me know!

@@ -1,0 +1,88 @@
+Task 1: Extracted information about the persons mentioned in the document and their relations to each other:
+
+1. Ema de Pavilly
+   - Name: Ema
+   - Cognomen: de Pavilly
+   - Family Relations: Maritus - Alanu m Bosher
+   - Place of Origin: Pavilly
+
+2. Willelmus de Pavilly
+   - Name: Willelmus
+   - Cognomen: de Pavilly
+
+3. Alanu m Bosher
+   - Name: Alanu
+   - Cognomen: m Bosher
+   - Family Relations: Uxor - Ema de Pavilly
+   - Place of Origin: Bosher
+
+4. Aviciam uxorem m Bosher
+   - Name: Aviciam
+   - Cognomen: uxorem m Bosher
+   - Place of Origin: Bosher
+
+5. Willelm u m filium Ed uard i
+   - Name: Willelm
+   - Cognomen: Ed uard i
+   - Legal Relationship: Petitor - Ema de Pavilly
+   - Place of Origin: Edmund
+
+Task 2: JSON Output from the Extracted Information:
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ema",
+      "cognomen": "de Pavilly",
+      "profession": "",
+      "family_relations": [{"relation_type": "Uxor", "related_person": 3}],
+      "legal_relationship": [],
+      "place_of_origin": "Pavilly",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "de Pavilly",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Alanu",
+      "cognomen": "m Bosher",
+      "profession": "",
+      "family_relations": [{"relation_type": "Maritus", "related_person": 1}],
+      "legal_relationship": [],
+      "place_of_origin": "Bosher",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Aviciam",
+      "cognomen": "uxorem m Bosher",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Bosher",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Willelm",
+      "cognomen": "Ed uard i",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [{"relation_type": "Petitor", "related_person": 1}],
+      "place_of_origin": "Edmund",
+      "title": ""
+    }
+  ]
+}
+```
+
+If you have any questions or need further assistance, feel free to ask!

@@ -1,0 +1,92 @@
+Here is the structured JSON output based on the given court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Petrus",
+      "cognomen": "De Esthen",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Tenens",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "Esthan",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Progenies",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Matillis",
+      "cognomen": "De Esthahn",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Tenens",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "Esthann",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Thomas",
+      "cognomen": "De Drayton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Dominus Feodi",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Dominus Feodi",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Drayton",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON structure captures all relevant details about the persons mentioned in the document and their relationships, as stated in the instructions.

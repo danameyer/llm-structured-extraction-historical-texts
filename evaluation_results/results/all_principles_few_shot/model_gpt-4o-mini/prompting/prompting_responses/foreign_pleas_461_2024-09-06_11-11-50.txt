@@ -1,0 +1,128 @@
+(1) Extracted Information about Persons and Their Relations:
+
+1. **Isabella**
+   - Uxor of Simon de Thurvill
+   
+2. **Simon**
+   - Cognomen: de Thurvill
+   - Husband of Isabella (Uxor)
+
+3. **Willelmus (de Thurvill)**
+   - Reus in the case brought by Isabella (Petitor) 
+   
+4. **Willelmus (unknown last name)**
+   - Filius of Simon de Thurvill
+   - Heres of Simon (de Thurvill)
+   
+5. **Simon (de Monteforti Comitis Leyc)**
+   - Custos of Willelmus (the son)   
+   
+6. **Petronilla**
+   - Cognomen: de Thurvill
+
+7. **Galfridus**
+   - Cognomen: de Creft
+  
+(2) Structured JSON Output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Isabella",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Simon",
+      "cognomen": "de Thurvill",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Willelmus",
+      "cognomen": "de Thurvill",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Heres",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Simon",
+      "cognomen": "de Monteforti Comitis Leyc",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Custos",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Petronilla",
+      "cognomen": "de Thurvill",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Galfridus",
+      "cognomen": "de Creft",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```

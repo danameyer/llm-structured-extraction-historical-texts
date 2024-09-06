@@ -1,0 +1,119 @@
+### Extracted Information and Relations
+
+**(1) Extracted Information:**
+1. **Radulfus Skyr**
+   - Relation: Plaintiff
+   - Action: Appeals against Robertus le Messer, Willelmus le Butiller, and Willelmus Luvegent
+   - Status: Declared poor
+   - Appeals:
+     1. Against Robertus le Messer for causing a wound on his right shoulder.
+     2. Against Willelmus le Butiller for wounding him.
+     3. Against Willelmus Luvegent for being present during the incident.
+   
+2. **Robertus le Messer**
+   - Relation: Defendant
+   - Action: Accused of causing a wound on Radulfus Skyr's right shoulder.
+   - Status: Outlawed by the court at Radulfus Skyr's suit.
+
+3. **Willelmus le Butiller**
+   - Relation: Defendant
+   - Action: Accused of wounding Radulfus Skyr.
+   - Status: Fined along with Willelmus Luvegent, bailed by Robertus de Uffinton and Simonis de Fauflure.
+
+4. **Willelmus Luvegent**
+   - Relation: Defendant
+   - Action: Accused of being present during the incident where Willelmus le Butiller wounded Radulfus Skyr.
+   - Status: Fined along with Willelmus le Butiller, bailed by Robertus de Uffinton and Simonis de Fauflure.
+
+5. **Robertus de Uffinton**
+   - Relation: Bailor
+   - Action: Provided bail for Willelmus le Butiller and Willelmus Luvegent.
+
+6. **Simonis de Fauflure**
+   - Relation: Bailor
+   - Action: Provided bail for Willelmus le Butiller and Willelmus Luvegent.
+
+**(2) Structured JSON:**
+
+```json
+[
+  {
+    "document": "court_document_1",
+    "persons": [
+      {
+        "id": 1,
+        "name": "Radulfus Skyr",
+        "relation": "Plaintiff",
+        "actions": [
+          {
+            "against": "Robertus le Messer",
+            "accusation": "Caused a wound on his right shoulder."
+          },
+          {
+            "against": "Willelmus le Butiller",
+            "accusation": "Wounded him."
+          },
+          {
+            "against": "Willelmus Luvegent",
+            "accusation": "Present during the incident."
+          }
+        ],
+        "status": "Declared poor"
+      },
+      {
+        "id": 2,
+        "name": "Robertus le Messer",
+        "relation": "Defendant",
+        "actions": [
+          {
+            "accusation": "Accused of causing a wound on Radulfus Skyr's right shoulder."
+          }
+        ],
+        "status": "Outlawed by the court at Radulfus Skyr's suit."
+      },
+      {
+        "id": 3,
+        "name": "Willelmus le Butiller",
+        "relation": "Defendant",
+        "actions": [
+          {
+            "accusation": "Accused of wounding Radulfus Skyr."
+          }
+        ],
+        "status": "Fined. Bailed by Robertus de Uffinton and Simonis de Fauflure."
+      },
+      {
+        "id": 4,
+        "name": "Willelmus Luvegent",
+        "relation": "Defendant",
+        "actions": [
+          {
+            "accusation": "Accused of being present during the incident where Willelmus le Butiller wounded Radulfus Skyr."
+          }
+        ],
+        "status": "Fined. Bailed by Robertus de Uffinton and Simonis de Fauflure."
+      },
+      {
+        "id": 5,
+        "name": "Robertus de Uffinton",
+        "relation": "Bailor",
+        "actions": [
+          {
+            "bail_for": ["Willelmus le Butiller", "Willelmus Luvegent"]
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Simonis de Fauflure",
+        "relation": "Bailor",
+        "actions": [
+          {
+            "bail_for": ["Willelmus le Butiller", "Willelmus Luvegent"]
+          }
+        ]
+      }
+    ]
+  }
+]
+```

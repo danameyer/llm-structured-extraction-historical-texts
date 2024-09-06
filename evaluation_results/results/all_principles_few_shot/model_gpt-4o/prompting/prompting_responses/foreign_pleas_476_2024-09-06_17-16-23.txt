@@ -1,0 +1,37 @@
+Here is the structured JSON output based on the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Walterus",
+      "cognomen": "De Bulehith",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Franci",
+      "cognomen": "Thomas de Fereres",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+1. **Walterus de Bulehith'** is identified as the attorney (attornatus) of **Franci. Thomas de Fereres**. Thus, the relation of "Attornatus" is assigned to Walterus.
+2. **Franci. Thomas de Fereres** is listed with no additional roles or relationships noted, except being related to Walterus as the individual represented by the attorney.

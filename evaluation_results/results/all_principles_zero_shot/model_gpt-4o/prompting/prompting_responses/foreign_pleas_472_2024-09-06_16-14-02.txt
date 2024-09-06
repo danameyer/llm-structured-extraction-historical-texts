@@ -1,0 +1,82 @@
+Here is the extracted information from the provided court document in a structured JSON format:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Jacobus",
+      "cognomen": "de Evre",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": "Magister"
+    },
+    {
+      "id": 2,
+      "name": "Galfridus",
+      "cognomen": "le Mareschal",
+      "profession": "Mareschal",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Isabella",
+      "cognomen": "de Sunnyghyll",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Reasoning and Details:
+
+1. **Jacobus de Evre (ID: 1)**
+   - **Name**: Jacobus
+   - **Cognomen**: de Evre
+   - **Title**: Magister
+   - **Legal Relationships**:
+     - As **Petitor** against Isabella de Sunnyghyll (ID: 3)
+     - As **Attornatus** for Galfridus le Mareschal (ID: 2)
+
+2. **Galfridus le Mareschal (ID: 2)**
+   - **Name**: Galfridus
+   - **Cognomen**: le Mareschal
+   - **Profession**: Mareschal
+   - **Legal Relationships**:
+     - As **Attornatus** by Jacobus de Evre (ID: 1) (This relationship is mutual)
+   
+3. **Isabella de Sunnyghyll (ID: 3)**
+   - **Name**: Isabella
+   - **Cognomen**: de Sunnyghyll
+   - **Legal Relationships**:
+     - As **Reus** against Jacobus de Evre (ID: 1)
+
+It's essential to note that the preposition "de" is preserved in the `cognomen` category for proper identification, and appropriate relations are established based on the names in the document.

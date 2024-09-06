@@ -1,0 +1,50 @@
+Let's proceed with the extraction for the provided court document.
+
+### Step 1: Extract Information
+
+The court document provided is:
+```
+476. Walterus de Bulehith' est attornatus Franci. Thomas de Fereres.
+```
+
+From the text, we can gather the following information:
+1. **Walterus de Bulehith** is an attorney (attornatus) for **Franci**.
+2. **Thomas de Fereres** is mentioned but does not have any indicated relationships, title, or profession in the text.
+
+### Step 2: JSON Output
+
+Using the information extracted, the structured JSON output will look like this:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Walterus",
+      "cognomen": "de Bulehith",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Thomas",
+      "cognomen": "de Fereres",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON structure accurately represents the information as extracted from the court document, adhering to the schema provided. If you have more documents to process, feel free to share them!

@@ -1,0 +1,36 @@
+(1) In the first court document:
+
+- Eustachio de Cantil is mentioned as the petitioner and has an attorney.
+- Johanni de Aule is mentioned as the tenant.
+
+(2) JSON output for the first court document:
+
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Eustachio",
+      "cognomen": "de Cantil",
+      "profession": "petenti",
+      "legal_relationship": [
+        {
+          "relation_type": "attornatus",
+          "related_person": 2
+        }
+      ],
+      "family_relations": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Johanni",
+      "cognomen": "de Aule",
+      "profession": "tenenti",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}

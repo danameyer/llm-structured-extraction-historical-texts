@@ -1,0 +1,109 @@
+Here is the structured JSON output based on the given court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Robertus",
+      "cognomen": "De Rogo",
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Esgarston",
+      "profession": "",
+      "family_relations": [],
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Henricus",
+      "cognomen": "Le Clerk",
+      "place_of_origin": "Esgarston",
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "profession": "",
+      "family_relations": [],
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Robertus",
+      "cognomen": "De Wekenholt",
+      "place_of_origin": "",
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 2
+        }
+      ],
+      "profession": "",
+      "family_relations": [],
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Walterus",
+      "cognomen": "De Wykenholt",
+      "place_of_origin": "",
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "profession": "",
+      "family_relations": [],
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+1. **Robertus de Rogo**:
+    - `id`: 1
+    - `name`: Robertus
+    - `cognomen`: De Rogo
+    - `place_of_origin`: Esgarston
+    - `legal_relationship`: Petitor related to Henricus (id 2)
+    - `profession`: empty
+    - `family_relations`: empty
+    - `title`: empty
+
+2. **Henricus le Clerk**:
+    - `id`: 2
+    - `name`: Henricus
+    - `cognomen`: Le Clerk
+    - `place_of_origin`: Esgarston
+    - `legal_relationship`: Reus related to Robertus (id 1)
+    - `profession`: empty
+    - `family_relations`: empty
+    - `title`: empty
+
+3. **Robertus de Wekenholt**:
+    - `id`: 3
+    - `name`: Robertus
+    - `cognomen`: De Wekenholt
+    - `place_of_origin`: empty
+    - `legal_relationship`: Plegiarius related to Henricus (id 2)
+    - `profession`: empty
+    - `family_relations`: empty
+    - `title`: empty
+
+4. **Walterus de Wykenholt**:
+    - `id`: 4
+    - `name`: Walterus
+    - `cognomen`: De Wykenholt
+    - `place_of_origin`: empty
+    - `legal_relationship`: Plegiarius related to Robertus (id 1)
+    - `profession`: empty
+    - `family_relations`: empty
+    - `title`: empty
