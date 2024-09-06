@@ -259,9 +259,9 @@ class JsonComparison:
         return deep_diff_formated_fuzzy_changes, fuzzy_diffs_counter
 
     def perform_json_comparison(self, gt_folder, prediction_folder, output_folder, json_output_folder, exclusions: List[List[str]]):
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        output_file = os.path.join(output_folder, f'results_{timestamp}.txt')
-        json_output_file = os.path.join(json_output_folder, f'results_{timestamp}.json')
+        # timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        output_file = os.path.join(output_folder, f'results.txt')
+        json_output_file = os.path.join(json_output_folder, f'results.json')
 
         gt_documents = create_documents(gt_folder)
         pred_documents = create_documents(prediction_folder)
