@@ -116,7 +116,7 @@ class MistralMessageObject:
         text_files_dir = os.path.join(base_dir, "test_data", "ft_test_txt")
         gt_files_dir = os.path.join(base_dir, "test_data", "ft_test_gt")
 
-        fine_tuning_objects = []
+        fine_tuning_objects = dict()
 
         for text_file in os.listdir(text_files_dir):
             if text_file.endswith(".txt"):
@@ -130,7 +130,7 @@ class MistralMessageObject:
                         gt_file_path,
                         self.mistral_model
                     )
-                    fine_tuning_objects.append(fine_tuning_object.build())
+                    fine_tuning_objects[text_file] = fine_tuning_object.build()
                 else:
                     print(f"Ground truth file {gt_file_name} does not exist for text file {text_file}")
 
@@ -142,8 +142,12 @@ class MistralMessageObject:
         os.makedirs(fine_tuning_file_path, exist_ok=True)
         output_file_path = os.path.join(fine_tuning_file_path, "file-finetune-mistral.jsonl")
         with open(output_file_path, 'w') as output_file:
-            for obj in fine_tuning_objects:
-                json_string = json.dumps(obj)
+            for key in fine_tuning_objects:
+                obj = fine_tuning_objects[key]
+                super_dict = dict()
+                super_dict['text_file'] = key
+                super_dict['jsonl'] = obj
+                json_string = json.dumps(super_dict)
                 cleaned_json_string = (
                     json_string
                     .replace("\\\\n", "")  # newline in json
@@ -153,6 +157,7 @@ class MistralMessageObject:
                     .replace("\\u00ad", "")
                     .replace("\\u2022", "")
                 )
+
                 output_file.write(cleaned_json_string + '\n')
 
 

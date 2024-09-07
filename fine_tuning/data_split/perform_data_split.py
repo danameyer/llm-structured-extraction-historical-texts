@@ -6,6 +6,22 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
+class FoldInfo:
+    def __init__(self, fold_id):
+        self.fold_id = fold_id
+        self.training_set = list()
+        self.validation_set = list()
+
+    def add_training_file(self, training_file):
+        self.training_set.append(training_file)
+
+    def add_validation_file(self, validation_file):
+        self.validation_set.append(validation_file)
+
+    def to_dict(self):
+        return self.__dict__
+
+
 class PerformDataSplit:
     def __init__(self, jsonl_file, k, output_dir, model):
         """
@@ -56,6 +72,8 @@ class PerformDataSplit:
         # Ensure the output directory exists
         os.makedirs(self.output_dir, exist_ok=True)
 
+        fold_info_list: list[FoldInfo] = list()
+
         for i in range(self.k):
             # Create a directory for the current fold
             fold_dir = os.path.join(self.output_dir, f'fold_{i}')
@@ -83,23 +101,28 @@ class PerformDataSplit:
             val_file_path = os.path.join(fold_dir, 'val.jsonl')
 
             fold_info_file_path = os.path.join(fold_dir, 'fold_info_file.json')
-            fold_info = dict()
-            fold_info['fold'] = i
-            fold_info['training_set'] = list()
-            fold_info['validation_set'] = list()
+            fold_info = FoldInfo(i)
+            # fold_info = dict()
+            # fold_info['fold'] = i
+            # fold_info['training_set'] = list()
+            # fold_info['validation_set'] = list()
 
             # Write the training and validation sets to files
             with open(train_file_path, 'w') as train_file, \
                     open(val_file_path, 'w') as val_file:
                 for item in training_set:
                     train_file.write(json.dumps(item['jsonl']) + '\n')
-                    fold_info['training_set'].append(item['text_file'])
+                    fold_info.add_training_file(item['text_file'])
                 for item in validation_set:
                     val_file.write(json.dumps(item['jsonl']) + '\n')
-                    fold_info['validation_set'].append(item['text_file'])
+                    fold_info.add_validation_file(item['text_file'])
+
+            fold_info_list.append(fold_info)
 
             with open(fold_info_file_path, 'w') as fold_info_file:
-                json.dump(fold_info, fold_info_file)
+                json.dump(fold_info.to_dict(), fold_info_file)
+
+        return fold_info_list
 
 
 if __name__ == '__main__':
