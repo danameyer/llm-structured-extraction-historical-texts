@@ -1,0 +1,180 @@
+Let's start working on the first task based on the provided "court document":
+'''736. Johan nes Ingeri et Ricard us Baudewi n rettati de morte Johan ne fil ie Juliane veni u nt et ponu nt se super patriam de bono et malo. Et juratores isti us hu nd redi et xij juratores de hund redi de Eggel' dicunt super sacramentum suum quod pred icti Johan nes et Ricard us non su nt culpabiles de predicta morte, ideo inde quieti . Et bene d icunt quod hoe crimen impositum fuit eis odio per Eliam fili um Alexand ri , ideo in misericordia.
+'''
+
+Let's start by extracting the persons involved along with their information.
+
+JSON output:
+'''
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Johannes",
+      "cognomen": "de Ingeri",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Eggel",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Ricardus",
+      "cognomen": "Baudewin",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Juliana",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filia",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Elias",
+      "cognomen": "filius Alexandri",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+'''
+Based on the second task, let's continue with extracting the information about the persons mentioned in the document and their relations to each other:
+
+'''673. (Su.ff ' + misericordia) Assisa venit recognitura quis advocatus tempore pacis presentavit ultimam personam que mortua est ad ecclesiam de Wridelington' que vacat cujus advocacionem Willelmus de Wyston' clamat ad se pertinere et quam advocacionem Robertus de Schales ei deforciat, et unde <licit quad ipsemet presentavit quemdam Simonem clericum suum ad predictam ecclesiam tempore domini Regis nunc, qui ad presentacionem suam fuit admissus et institutus et qui ultimo obiit persona in eadem. Et Robertus non venit et fuit resummonitus, ideo capiatur assisa versus eum per defaltam. Juratores dicunt quod Willelmus de Wythindon' pater predicti Willelmi tempore domini Regis nunc presentavit (predictum) clericum suum Martinum de PateshuW nomine qui ad presentacionem suam fuit admissus et institutus et obiit persona in eadem, et post mortem ipsius Martini presentavit predictus Willelmus filius Willelmi quendam Simonem fratrem suum ad predictam ecclesiam et predictus Robertus de Schales presentavit quendam filium suum ad eandem, eo quod terra ad quam pertinebat predicta advocacio partita fuit inter ipsum Robertum et predictum Willelmum, ita quod episcopus loci eo quod filius predicti Roberti fuit minoris etatis et ob contentioeroam inter partes coram eo motam noluit predictum filium Roberti ad predictam ecclesiam admittere, et tunc venit predictus Robertus et de assensu et voluntate predicti Willelmi presentavit predictum Simonem fratrem predicti Willelmi ad eandem ecclesiam, qui ad presentacionem ipsius Roberti de assensu et voluntate predicti Willelmi sicut praedictum est fuit admissus et institutus in eadem, et post mortem predicti Simonis presentavit predictus Willelmus Hugonem de Pateshil clericum suum ad eandem qui ad presentacionem suam fuit admissus et institutus et qui obiit inde persona, et post mortem ipsius Hugonis presentavit predictus Willelmus quendam Simonem de Asseby clericum suum qui ad presentacionem suam fuit admissus et institutus et ultimo fuit persona in eadem donee habitum religionis suscepit. Et juratores requisiti si unquam convenisset inter predictum Willelmum et predictum Robertum de predicta ecclesia alternatim conferenda dicunt praecise quod non. Et quia convictum est per predictam assisam quod predictus Willelmus ultimo et penultimo presentavit ad ecclesiam predictam clericos suos (sine impedimenta ipsius Roberti 1, qui ad eandem fuerunt admissi et instituti, consideratum est quod predictus Willelmus recuperat seisinam suam de predicta advocacione et habeat breve ad Episcopum Norwyc'quod non obstante etc. et Robertus in misericordia.
+'''
+
+Let's extract the information about the persons mentioned and their relations to each other in the provided court document.
+For the second task, here is the structured JSON output based on the information extracted from the provided court document:
+
+'''
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Frater",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "Wyston",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Pater",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Wythindon",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Martinus",
+      "cognomen": "",
+      "profession": "Clericus",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "PateshuW",
+      "title": "Persona"
+    },
+    {
+      "id": 4,
+      "name": "Simon",
+      "cognomen": "",
+      "profession": "Clericus",
+      "family_relations": [
+        {
+          "relation_type": "Frater",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Filius",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Persona"
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Schales",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Hugo",
+      "cognomen": "",
+      "profession": "Clericus",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Pateshil",
+      "title": "Persona"
+    },
+    {
+      "id": 7,
+      "name": "Simon",
+      "cognomen": "",
+      "profession": "Clericus",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Asseby",
+      "title": ""
+    }
+  ]
+}
+'''
+Please let me know if you need any modifications or further assistance with the tasks.

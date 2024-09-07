@@ -1,0 +1,253 @@
+Sure! Let's work on the provided court document step-by-step. Here's the court document again for reference:
+
+'''21. Willelmus de Berefeld' ponit loco suo Terricu m de Sottebrok' versus Matillidem que fuit uxor Roberti de Sottebrok' de placito dotis.'''
+
+This text describes a legal case involving three individuals:
+1. Willelmus de Berefeld
+2. Terricus de Sottebrok
+3. Matillidem, who was the wife of Robertus de Sottebrok
+
+Let's structure this information according to the given JSON schema.
+
+### Step-by-Step Process:
+
+1. Identify and list the individuals mentioned.
+2. Extract relevant information such as name, cognomen, place of origin, profession, family relations, legal relations, and title for each individual.
+3. Use the correct Latin terms and follow the given rules.
+
+### Step 1: Identify and List Individuals
+From the document, we have three main persons:
+- Willelmus de Berefeld
+- Terricus de Sottebrok
+- Matillidem (wife of Robertus de Sottebrok)
+
+### Step 2: Extract Relevant Information
+1. **Willelmus de Berefeld**:
+    - Name: Willelmus
+    - Cognomen: de Berefeld'
+    - Place of Origin: Berefeld'
+    - Legal Relationship: Attornatus (attorney), since he places Terricus in his place in a legal matter.
+
+2. **Terricus de Sottebrok**:
+    - Name: Terricus
+    - Cognomen: de Sottebrok'
+    - Place of Origin: Sottebrok'
+    - Legal Relationship: Petitor (plaintiff) versus Matillidem, in a legal case about dower (placito dotis).
+
+3. **Matillidem**:
+    - Name: Matillidem
+    - Cognomen: 
+    - Place of Origin: 
+    - Legal Relationship: Uxor (wife) of Robertus de Sottebrok, Reus (defendant) in a legal case brought by Terricus.
+    - Family Relations: Uxor (wife) of Robertus de Sottebrok.
+
+### Step 3: Build the JSON Output
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Willelmus",
+      "cognomen": "de Berefeld'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Berefeld'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Terricus",
+      "cognomen": "de Sottebrok'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Sottebrok'",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Matillidem",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "de Sottebrok'",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Sottebrok'",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation of the JSON Output
+- **Person 1**: Willelmus de Berefeld, who acts as an attorney for Terricus de Sottebrok.
+- **Person 2**: Terricus de Sottebrok, the plaintiff against Matillidem.
+- **Person 3**: Matillidem, the defendant in the case and wife of Robertus.
+- **Person 4**: Robertus de Sottebrok, mentioned only in the context of Matillidem's family relationship, i.e., her husband.
+
+This output captures all the information provided in the court document accurately and follows the given schema and rules.
+Let's carefully extract and analyse the information contained in the court document step-by-step. The document reads:
+
+'''21. Willelmus de Berefeld' ponit loco suo Terricum de Sottebrok' versus Matillidem que fuit uxor Roberti de Sottebrok' de placito dotis.'''
+
+### Step-by-Step Extraction and Analysis
+
+1. **Names and Cognomens**:
+   - **Willelmus de Berefeld'**: The name is Willelmus, and the cognomen is "de Berefeld'".
+   - **Terricus de Sottebrok'**: The name is Terricus, and the cognomen is "de Sottebrok'".
+   - **Matillidem**: The name is Matillidem, there is no cognomen provided for Matillidem explicitly, but she is referenced as the former wife of Robertus de Sottebrok.
+   - **Robertus de Sottebrok'**: The name is Robertus, and the cognomen is "de Sottebrok'".
+
+2. **Places of Origin**:
+   - **Willelmus**: Berefeld'
+   - **Terricus**: Sottebrok'
+   - **Matillidem**: Not explicitly mentioned.
+   - **Robertus**: Sottebrok'
+
+3. **Roles and Relations**:
+   - **Legal Context**: The document refers to a legal plea (placito dotis) about dower.
+   - **Willelmus de Berefeld'**: Acts as an "Attornatus" (attorney), placing Terricus in his place to pursue the legal matter.
+   - **Terricus de Sottebrok'**: The "Petitor" (plaintiff) in the case against Matillidem.
+   - **Matillidem**: The "Reus" (defendant) in the case, and the "Uxor" (wife) of Robertus.
+   - **Robertus de Sottebrok'**: Described as the "Maritus" (husband) of Matillidem.
+
+Now, let's summarize the extracted information about persons and their relations.
+
+### Persons and Their Relations:
+
+1. **Willelmus de Berefeld'**
+   - **Name**: Willelmus
+   - **Cognomen**: de Berefeld'
+   - **Place of Origin**: Berefeld'
+   - **Legal Relationship**: Acts as an "Attornatus" (attorney) for Terricus (legal relationship).
+   
+2. **Terricus de Sottebrok'**
+   - **Name**: Terricus
+   - **Cognomen**: de Sottebrok'
+   - **Place of Origin**: Sottebrok'
+   - **Legal Relationship**: The "Petitor" (plaintiff) against Matillidem (legal relationship).
+   
+3. **Matillidem**
+   - **Name**: Matillidem
+   - **Cognomen**: 
+   - **Family Relationship**: "Uxor" (wife) of Robertus de Sottebrok.
+   - **Legal Relationship**: "Reus" (defendant) against Terricus (legal relationship).
+   
+4. **Robertus de Sottebrok'**
+   - **Name**: Robertus
+   - **Cognomen**: de Sottebrok'
+   - **Place of Origin**: Sottebrok'
+   - **Family Relationship**: "Maritus" (husband) of Matillidem.
+
+This analysis outlines all the persons involved and their relationships with each other, both in family terms and in the context of the legal case.
+Here is the structured JSON output based on the extracted information:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Willelmus",
+      "cognomen": "de Berefeld'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Berefeld'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Terricus",
+      "cognomen": "de Sottebrok'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Sottebrok'",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Matillidem",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "de Sottebrok'",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Sottebrok'",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON output captures all the necessary details extracted from the court document, conforming to the specified schema and rules provided.

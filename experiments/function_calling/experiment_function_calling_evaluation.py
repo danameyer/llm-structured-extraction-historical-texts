@@ -227,33 +227,35 @@ def _prepare_and_run_experiment(model_name: str, prompt_name: str, sample_folder
 
 def _main():
     # experiment 1: prompt-selection
-    models_list = ['gpt-3.5-turbo',
-                   'gpt-4o',
-                   'gpt-4o-mini']
-
-    prompt_list = ['chain_of_thought',
-                   'all_principles_zero_shot',
-                   'all_principles_few_shot',
-                   'no_principles_base_prompt'
-                   ]
-
-    sample_folder_name_prompt_selection = 'txt_files_prompt_selection'
-
-    for model in models_list:
-        for prompt in prompt_list:
-            _prepare_and_run_experiment(model_name=model, prompt_name=prompt, sample_folder_name=sample_folder_name_prompt_selection)
-
-    # experiment 2: function calling evaluation
     # models_list = ['gpt-3.5-turbo',
     #                'gpt-4o',
     #                'gpt-4o-mini']
     #
-    # prompt = 'best_prompt'
+    # prompt_list = ['chain_of_thought',
+    #                'all_principles_zero_shot',
+    #                'all_principles_few_shot',
+    #                'no_principles_base_prompt'
+    #                ]
     #
-    # sample_folder_name_prompt_selection = 'txt_files_function_calling_evaluation'
+    # sample_folder_name_prompt_selection = 'txt_files_prompt_selection'
     #
     # for model in models_list:
-    #     _prepare_and_run_experiment(model_name=model, prompt_name=prompt, sample_folder_name=sample_folder_name_prompt_selection)
+    #     for prompt in prompt_list:
+    #         _prepare_and_run_experiment(model_name=model, prompt_name=prompt, sample_folder_name=sample_folder_name_prompt_selection)
+
+    # experiment 2: function calling evaluation
+    models_list = ['gpt-3.5-turbo',
+                   'gpt-4o',
+                   'gpt-4o-mini']
+
+    prompt = 'best_prompt'
+
+    sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
+
+    for model in models_list:
+        _prepare_and_run_experiment(model_name=model,
+                                    prompt_name=prompt,
+                                    sample_folder_name=sample_folder_name_function_calling)
 
     # experiment 3: fine-tuning evaluation
 

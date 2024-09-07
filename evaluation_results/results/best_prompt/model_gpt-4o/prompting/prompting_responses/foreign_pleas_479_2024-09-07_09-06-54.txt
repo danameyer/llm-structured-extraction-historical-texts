@@ -1,0 +1,294 @@
+Understood! Let's carefully process the provided document following the given rules and schema. Here is the court document to process:
+
+**Court Document:**
+'''
+479.	(Line' +) Johanna que fuit uxor Petri de Lekebu rn' per attornatum suu m petit versus Galfrid um filium Willel mi u n um mesuagiu m cum pertinenciis in Line' ut jus suum per breve de ingressu etc.
+Et Galfrid us per attornatu m suu m veni t et vocat inde ad warantu m Robertu m filium Petri de Lekebu rn'. Habeat eum apud Rad i ng' a die sancti Johannis Baptiste in tres septimanas per auxilium curie.
+'''
+
+### Task 1: Extract Entities and Relationships
+
+Let's analyze and extract the entities and relationships:
+
+1. **Johanna**
+   - Relationship: Uxor (wife) of Petrus de Lekeburn
+   - Petitor (plaintiff) vs. Galfridus (defendant)
+
+2. **Petrus de Lekeburn**
+   - Relationship: Maritus (husband) of Johanna
+
+3. **Galfridus filius Willelmi**
+   - Relationship: Filius (son) of Willelmus
+   - Reus (defendant) vs. Johanna (plaintiff)
+   - Calls Robertus filius Petri de Lekeburn as warranty
+
+4. **Willelmus**
+   - Relationship: Pater (father) of Galfridus
+
+5. **Robertus filius Petri de Lekeburn**
+   - Relationship: Filius (son) of Petrus de Lekeburn
+
+6. **Petrus de Lekeburn**
+   - Relationship: Pater (father) of Robertus
+
+### Task 2: JSON Output
+
+Based on the extracted information, here is the structured JSON output:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Johanna",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 2
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Petitor",
+        "related_person": 3
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Petrus",
+    "cognomen": "de Lekeburn",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Pater",
+        "related_person": 5
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "Lekeburn",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Galfridus",
+    "cognomen": "filius Willelmi",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Filius",
+        "related_person": 4
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "Willelmus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Pater",
+        "related_person": 3
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 5,
+    "name": "Robertus",
+    "cognomen": "filius Petri de Lekeburn",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Filius",
+        "related_person": 2
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "Lekeburn",
+    "title": ""
+  }
+]
+```
+
+### Summary:
+- **Johanna** is the plaintiff and the wife of **Petrus de Lekeburn**.
+- **Galfridus** is the son of **Willelmus** and the defendant.
+- **Robertus** is the son of **Petrus de Lekeburn** and is called as a warranty by **Galfridus**.
+
+If you have further questions or need additional information, feel free to ask!
+Sure! Let's extract detailed information about each person mentioned in the document and their relations to each other.
+
+### Persons Mentioned:
+
+1. **Johanna**
+   - **Relationship**: Uxor (wife) of Petrus de Lekeburn
+   - **Role**: Petitor (plaintiff)
+   - **Attornatus**: Has an attorney representing her.
+   - **Action**: Petitions against Galfridus regarding a messuage in Line' (Lincoln).
+
+2. **Petrus de Lekeburn**
+   - **Relationship**: Maritus (husband) of Johanna
+   - **Role**: Mentioned indirectly in the relationship with Johanna and Robertus.
+
+3. **Galfridus filius Willelmi**
+   - **Relationship**: Filius (son) of Willelmus
+   - **Role**: Reus (defendant)
+   - **Attornatus**: Has an attorney representing him.
+   - **Action**: Responds to Johanna's petition and calls Robertus as warranty.
+   
+4. **Willelmus**
+   - **Relationship**: Pater (father) of Galfridus
+   - **Role**: Mentioned indirectly via the relationship with Galfridus.
+
+5. **Robertus filius Petri de Lekeburn**
+   - **Relationship**: Filius (son) of Petrus de Lekeburn
+   - **Role**: Called as a warranty by Galfridus.
+
+### Detailed Relationships:
+
+- **Johanna**: 
+  - Uxor (wife) of **Petrus de Lekeburn**.
+  - Petitor (plaintiff) against **Galfridus filius Willelmi**.
+  - Represented by an attorney.
+
+- **Petrus de Lekeburn**:
+  - Maritus (husband) of **Johanna**.
+  - Pater (father) of **Robertus**.
+
+- **Galfridus filius Willelmi**:
+  - Filius (son) of **Willelmus**.
+  - Reus (defendant) against **Johanna**.
+  - Calls **Robertus filius Petri de Lekeburn** as warranty.
+  - Represented by an attorney.
+
+- **Willelmus**:
+  - Pater (father) of **Galfridus**.
+
+- **Robertus filius Petri de Lekeburn**:
+  - Filius (son) of **Petrus de Lekeburn**.
+  - Called as warranty by **Galfridus filius Willelmi**.
+
+### Summary:
+
+- **Johanna** (wife of **Petrus de Lekeburn**) is the plaintiff against **Galfridus filius Willelmi** in a dispute over a messuage in Lincoln.
+- **Galfridus filius Willelmi** is the son of **Willelmus** and the defendant. He calls **Robertus filius Petri de Lekeburn** (the son of **Petrus de Lekeburn**) as a warranty.
+
+This detailed extraction will guide us in constructing the accurate JSON output. Let's proceed to the next task where we construct the JSON.
+Here is the structured JSON output for the provided document based on the extracted information:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Johanna",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Petrus",
+      "cognomen": "de Lekeburn",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Pater",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Lekeburn",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Galfridus",
+      "cognomen": "filius Willelmi",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "filius Petri de Lekeburn",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Lekeburn",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON captures the essential details and relationships described in the court document, ensuring clarity and structure in the representation of the legal and familial connections among the people mentioned.

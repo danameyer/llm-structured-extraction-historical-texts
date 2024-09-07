@@ -1,0 +1,146 @@
+Understood! Please provide me with the first task, and I will start working on it.
+Task (1):
+
+Extracted information about the persons mentioned in the document and their relations to each other:
+
+JSON output:
+```
+{
+  "person_list":
+  [
+    {
+      "id": 1,
+      "name": "Cristiana",
+      "cognomen": "de Luvel",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Potestas",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Robertus",
+      "cognomen": "de Marisco",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Cliente",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Ricardus",
+      "cognomen": "Leuvel",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Dominus feodi",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+``` 
+
+Let me know if you need any modifications or further details!
+Structured JSON output for the provided court document:
+
+```
+{
+  "document": 473,
+  "persons": [
+    {
+      "person_id": 1,
+      "name": "Cristiana",
+      "cognomen": "de Luvel",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Potestas",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "person_id": 2,
+      "name": "Robertus",
+      "cognomen": "de Marisco",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Cliente",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "person_id": 3,
+      "name": "Ricardus",
+      "cognomen": "Leuvel",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Dominus feodi",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+Feel free to let me know if you need any further adjustments or more details!
