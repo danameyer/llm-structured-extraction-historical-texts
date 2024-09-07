@@ -1,16 +1,18 @@
 import json
 import os
 import random
+import shutil
 from pathlib import Path
+from typing import List
 
 from dotenv import load_dotenv
 
 
 class FoldInfo:
     def __init__(self, fold_id):
-        self.fold_id = fold_id
-        self.training_set = list()
-        self.validation_set = list()
+        self.fold_id: int = fold_id
+        self.training_set: List[str] = list()
+        self.validation_set: List[str] = list()
 
     def add_training_file(self, training_file):
         self.training_set.append(training_file)
@@ -65,6 +67,58 @@ class PerformDataSplit:
 
         return folds
 
+    def copy_text_files(self, fold_info_list: List[FoldInfo], path_to_text_files: str, output_directory: str):
+        fold_directories = os.listdir(output_directory)
+        if fold_directories:
+            fold_dir_paths = [os.path.join(output_directory, fold_dir) for fold_dir in fold_directories]
+            raise FileExistsError(f"""
+                                One or more fold directories already exists within the output directory.
+                                The fold directories should not exist. Please delete them. 
+                                Found fold directories: {fold_dir_paths}
+                                """)
+
+        for fold_info in fold_info_list:
+            self._copy_text_files_for_fold(fold_info, path_to_text_files, output_directory)
+
+    def _copy_text_files_for_fold(self, fold_info: FoldInfo, path_to_text_files: str, output_directory: str):
+        text_file_names_training = fold_info.training_set
+        text_file_names_validation = fold_info.validation_set
+        text_files_paths_training = [os.path.join(path_to_text_files, text_file_name) for text_file_name in text_file_names_training]
+        text_files_paths_validation = [os.path.join(path_to_text_files, text_file_name) for text_file_name in text_file_names_validation]
+
+        fold_id = fold_info.fold_id
+        fold_dir = os.path.join(output_directory, f"fold_{fold_id}")
+        training_dir = os.path.join(fold_dir, "training_text_files")
+        validation_dir = os.path.join(fold_dir, "validation_text_files")
+        os.makedirs(output_directory, exist_ok=True)
+
+        # require empty output directory
+        try:
+            os.makedirs(fold_dir)
+            os.makedirs(training_dir)
+            os.makedirs(validation_dir)
+        except OSError as error:
+            raise FileExistsError(f"""
+            The fold directory already exists but should not. Please delete it. 
+            See error:
+            {str(error)}
+            """)
+
+        copied_training_files: List[str] = list()
+        for training_file_path in text_files_paths_training:
+            destination = shutil.copy(training_file_path, training_dir)
+            copied_training_files.append(destination)
+
+        copied_validation_files: List[str] = list()
+        for validation_file_path in text_files_paths_validation:
+            destination = shutil.copy(validation_file_path, validation_dir)
+            copied_validation_files.append(destination)
+
+        return {
+            "training_file_destinations": copied_training_files,
+            "validation_file_destinations": copied_validation_files
+        }
+
     def generate_train_val_sets(self):
         """
         Generates training and validation sets for each fold and writes them to files.
@@ -102,10 +156,6 @@ class PerformDataSplit:
 
             fold_info_file_path = os.path.join(fold_dir, 'fold_info_file.json')
             fold_info = FoldInfo(i)
-            # fold_info = dict()
-            # fold_info['fold'] = i
-            # fold_info['training_set'] = list()
-            # fold_info['validation_set'] = list()
 
             # Write the training and validation sets to files
             with open(train_file_path, 'w') as train_file, \
@@ -129,6 +179,14 @@ if __name__ == '__main__':
     load_dotenv()
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
 
+    data_dir = os.path.join(base_dir, 'data')
+    test_gt_dir = os.path.join(data_dir, 'test_gt')
+    test_txt_dir = os.path.join(data_dir, 'test_txt')
+
+    training_evaluation_data_dir = os.path.join(base_dir,
+                                                'evaluation_results',
+                                                'txt_files_fine_tuning_evaluation_data')
+
     # gpt
     gpt_model = 'gpt-3.5-turbo'
     fine_tuning_dir_open_ai = os.path.join(base_dir,
@@ -141,8 +199,10 @@ if __name__ == '__main__':
                                             'fine_tuning_files',
                                             "openai",
                                             'fine_tuning_data')
+
     data_splitter = PerformDataSplit(fine_tuning_files_open_ai, 3, output_directory_open_ai, gpt_model)
-    data_splitter.generate_train_val_sets()
+    fold_info_list_openai = data_splitter.generate_train_val_sets()
+    data_splitter.copy_text_files(fold_info_list_openai, test_txt_dir, training_evaluation_data_dir)
 
     # mistral
     mistral_model = 'open-mistral-7b'
@@ -157,4 +217,4 @@ if __name__ == '__main__':
                                             'mistral',
                                             'fine_tuning_data')
     data_splitter = PerformDataSplit(fine_tuning_files_mistral, 3, output_directory_mistral, mistral_model)
-    data_splitter.generate_train_val_sets()
+    fold_info_list_mistral = data_splitter.generate_train_val_sets()
