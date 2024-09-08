@@ -1,6 +1,8 @@
 import base64
+import logging
 import os
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, List
 from dotenv import load_dotenv
@@ -8,6 +10,7 @@ from openai import OpenAI
 from create_model_registry import ModelRegistry
 from fine_tuning.data_split.perform_data_split import PerformDataSplit
 from fine_tuning.message_objects.open_ai_message_object import OpenAiMessageObject
+from function_calling_components.model_pricing import ModelPricing
 
 load_dotenv()
 openai_api_key: Optional[str] = os.getenv("OPENAI_API_KEY")
@@ -110,30 +113,113 @@ class OpenAIAPIInteractionForFineTuning:
             print(fine_tune_results.finished_at)
             fine_tuned_model = fine_tune_results.fine_tuned_model
             print(fine_tuned_model)
+            epoch_num = fine_tune_results.hyperparameters.n_epochs
+            token_num = fine_tune_results.trained_tokens
+            ft_start = fine_tune_results.created_at
+            ft_end = fine_tune_results.finished_at
+            # Convert Unix timestamps to datetime objects
+            created_datetime = datetime.fromtimestamp(ft_start, timezone.utc)
+            finished_datetime = datetime.fromtimestamp(ft_end, timezone.utc)
 
-            model_registry.add_model_id(training_file_id, validation_file_id, fine_tuned_model, gpt_model_path)
+            # Calculate the duration
+            duration = finished_datetime - created_datetime
+            duration_as_seconds = duration.total_seconds()
+
+            model_pricing = ModelPricing()
+            pricing_per_token = model_pricing.get_price_per_token(model_name=gpt_model_path,
+                                                                  is_finetune=True)
+            training_price = pricing_per_token["training"] * token_num * epoch_num
+
+            model_registry.add_model_entry(training_file_id,
+                                           validation_file_id,
+                                           ft_job_id,
+                                           fine_tuned_model,
+                                           gpt_model_path,
+                                           fold_nr,
+                                           token_num,
+                                           epoch_num,
+                                           duration_as_seconds,
+                                           training_price)
             open_ai_interaction.get_result_file(ft_job_id, gpt_model_path, fold_nr)
+
+        # test scenario
+
+        # ft_job_id = "ftjob-8u0HVcsAwMtmZY7ueUHNi2Qw"
+        # training_file_id = "file-oaGESJuM0Bj9k3CajeDCHoNw"
+        # validation_file_id = "file-4Ax1TecpCFcEvxw9DixDVmqf"
+        # fine_tuned_model = "ft:gpt-4o:personal::9sv2TPIE"
+        # epoch_num = 5
+        # token_num = 5768
+        # created_datetime = datetime.fromtimestamp(1692661014, timezone.utc)
+        # finished_datetime = datetime.fromtimestamp(1692661190, timezone.utc)
+        # duration = finished_datetime - created_datetime
+        # duration_as_seconds = duration.total_seconds()
+        #
+        # model_pricing = ModelPricing()
+        # pricing_per_token = model_pricing.get_price_per_token(model_name=gpt_model_path, is_finetune=True)
+        # training_price = pricing_per_token["training"] * token_num * epoch_num
+        #
+        # model_registry.add_model_entry(training_file_id,
+        #                                validation_file_id,
+        #                                ft_job_id,
+        #                                fine_tuned_model,
+        #                                gpt_model_path,
+        #                                fold_nr,
+        #                                token_num,
+        #                                epoch_num,
+        #                                duration_as_seconds,
+        #                                training_price)
+        # open_ai_interaction.get_result_file(ft_job_id, gpt_model_path, fold_nr)
 
 
 if __name__ == "__main__":
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    gpt_model = 'gpt-3.5-turbo'
+    gpt_model = 'gpt-4o-mini-2024-07-18'
     fold_nr = 'fold_0'
-    open_ai_message_object = OpenAiMessageObject(gpt_model)
-    open_ai_message_object.run()
 
+    # Data splitting
     fine_tuning_dir = os.path.join(base_dir,
                                    'fine_tuning_files',
                                    "openai",
                                    'fine_tuning_data',
                                    'total_ft_data')
-    fine_tuning_files = os.path.join(fine_tuning_dir, 'file-finetune-openai.jsonl')
-    output_directory = os.path.join(base_dir,
-                                    'fine_tuning_files',
-                                    "openai",
-                                    'fine_tuning_data')
-    data_splitter = PerformDataSplit(fine_tuning_files, 5, output_directory, gpt_model)
-    data_splitter.generate_train_val_sets()
+    fine_tuning_files = os.path.join(fine_tuning_dir,
+                                     'file-finetune-openai.jsonl')
+    output_directory_data_split = os.path.join(base_dir,
+                                               'fine_tuning_files',
+                                               "openai",
+                                               'fine_tuning_data')
+    output_directory_fine_tuning_evaluation_data = os.path.join(base_dir,
+                                                                'evaluation_results',
+                                                                'txt_files_fine_tuning_evaluation_data')
+    path_to_text_files = os.path.join(base_dir,
+                                      'data',
+                                      'test_txt')
+
+    # Only perform data splitting if no old runs exist
+    try:
+        open_ai_message_object = OpenAiMessageObject(gpt_model)
+        open_ai_message_object.run()
+
+        data_splitter = PerformDataSplit(fine_tuning_files, 3, output_directory_data_split, gpt_model)
+        fold_info_list = data_splitter.generate_train_val_sets()
+
+        data_splitter.copy_text_files(fold_info_list=fold_info_list,
+                                      path_to_text_files=path_to_text_files,
+                                      output_directory=output_directory_fine_tuning_evaluation_data)
+
+    except FileExistsError as file_exists_error:
+        print(f"""
+                One operation failed:
+                  - creating OpenAiMessageObject or 
+                  - splitting data or 
+                  - copying text files for fine-tuning evaluation
+                
+                This error is raised because old files are still present.
+                Some steps will be skipped and the pipeline will continue with the actual fine-tuning.
+                
+                Details: {file_exists_error}
+                """)
 
     open_ai_interaction_for_ft = OpenAIAPIInteractionForFineTuning
     train_file = open_ai_interaction_for_ft.construct_file_path(base_dir,
@@ -159,4 +245,3 @@ if __name__ == "__main__":
                                                                       "metrics"])
 
     # open_ai_interaction_for_ft.fine_tune_model(train_file, val_file, result_file_dir, gpt_model, fold_nr)
-

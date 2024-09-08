@@ -131,10 +131,10 @@ class MistralApiInteractionForFineTuning:
         print(created_job)
         fine_tune_results = self.wait_for_job_to_finish(created_job.id, model, fold_number)
         print("fine_tune_results: ", fine_tune_results)
-        model_registry.add_model_id(training_file_id,
-                                    validation_file_id,
-                                    fine_tune_results.fine_tuned_model,
-                                    model)
+        model_registry.add_model_entry(training_file_id,
+                                       validation_file_id,
+                                       fine_tune_results.fine_tuned_model,
+                                       model)
 
 
 def construct_file_path(base_directory: Path, path_components: List[str], file_name="") -> str:

@@ -91,7 +91,7 @@ class OpenAiMessageObject:
 
         open_ai_message_obj.add_assistant_tool_call(function_object.get_definition().function.name,
                                                     gt_content)
-        open_ai_message_obj.add_tool(function=function_object.get_definition_dict())
+        open_ai_message_obj.add_tool(function=function_object.get_function_dict_for_fine_tuning())
 
         return open_ai_message_obj
 
@@ -100,6 +100,21 @@ class OpenAiMessageObject:
         base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
         text_files_dir = os.path.join(base_dir, "test_data", "ft_test_txt")
         gt_files_dir = os.path.join(base_dir, "test_data", "ft_test_gt")
+
+        # output directory needs to exist but it should be empty
+        fine_tuning_file_path = os.path.join(base_dir,
+                                             "fine_tuning_files",
+                                             "openai",
+                                             "fine_tuning_data",
+                                             "total_ft_data")
+        os.makedirs(fine_tuning_file_path, exist_ok=True)
+        old_files = os.listdir(fine_tuning_file_path)
+        if old_files:
+            old_files_paths = [os.path.join(fine_tuning_file_path, old_file) for old_file in old_files]
+            raise FileExistsError(f"""
+            Old fine-tuning files exist.
+            If you want to perform a new fine-tuning please delete: {old_files_paths}
+            """)
 
         fine_tuning_objects = dict()
 
@@ -119,12 +134,6 @@ class OpenAiMessageObject:
                 else:
                     print(f"Ground truth file {gt_file_name} does not exist for text file {text_file}")
 
-        fine_tuning_file_path = os.path.join(base_dir,
-                                             "fine_tuning_files",
-                                             "openai",
-                                             "fine_tuning_data",
-                                             "total_ft_data")
-        os.makedirs(fine_tuning_file_path, exist_ok=True)
         output_file_path = os.path.join(fine_tuning_file_path, "file-finetune-openai.jsonl")
         with open(output_file_path, 'w') as output_file:
 

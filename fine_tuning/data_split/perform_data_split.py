@@ -123,8 +123,16 @@ class PerformDataSplit:
         """
         Generates training and validation sets for each fold and writes them to files.
         """
-        # Ensure the output directory exists
+        # Ensure the output directory exists but is empty
         os.makedirs(self.output_dir, exist_ok=True)
+        old_output_dir_content = os.listdir(self.output_dir)
+        old_fold_directories = [old_dir for old_dir in old_output_dir_content if old_dir.startswith("fold_")]
+        if old_fold_directories:
+            fold_dir_paths = [os.path.join(self.output_dir, fold_dir) for fold_dir in old_fold_directories]
+            raise FileExistsError(f"""
+            One or more fold directories already exist but should not. 
+            Please delete them: {fold_dir_paths}
+            """)
 
         fold_info_list: list[FoldInfo] = list()
 

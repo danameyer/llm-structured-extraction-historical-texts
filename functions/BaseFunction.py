@@ -25,6 +25,9 @@ class BaseFunction:
         else:
             return json.loads(jsons.dumps(self.get_definition()))
 
+    def get_function_dict_for_fine_tuning(self) -> Dict:
+        return json.loads(jsons.dumps(self.get_definition().function))
+
     def del_none(self, d):
         """
         Delete keys with the value ``None`` in a dictionary, recursively.

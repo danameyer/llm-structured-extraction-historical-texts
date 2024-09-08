@@ -244,20 +244,21 @@ def _main():
     #         _prepare_and_run_experiment(model_name=model, prompt_name=prompt, sample_folder_name=sample_folder_name_prompt_selection)
 
     # experiment 2: function calling evaluation
-    models_list = ['gpt-3.5-turbo',
-                   'gpt-4o',
-                   'gpt-4o-mini']
-
-    prompt = 'best_prompt'
-
-    sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
-
-    for model in models_list:
-        _prepare_and_run_experiment(model_name=model,
-                                    prompt_name=prompt,
-                                    sample_folder_name=sample_folder_name_function_calling)
+    # models_list = ['gpt-3.5-turbo',
+    #                'gpt-4o',
+    #                'gpt-4o-mini']
+    #
+    # prompt = 'best_prompt'
+    #
+    # sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
+    #
+    # for model in models_list:
+    #     _prepare_and_run_experiment(model_name=model,
+    #                                 prompt_name=prompt,
+    #                                 sample_folder_name=sample_folder_name_function_calling)
 
     # experiment 3: fine-tuning evaluation
+    pass
 
 
 if __name__ == '__main__':

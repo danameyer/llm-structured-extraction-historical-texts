@@ -1,5 +1,6 @@
 import json
 import os
+import datetime
 
 
 class ModelRegistry:
@@ -35,21 +36,36 @@ class ModelRegistry:
                 return entry['model_id']
         return None
 
-    def add_model_id(self, train_file_id, validation_file_id, model_id, model_name):
-        existing_entry = self.get_model_entry(train_file_id)
-        if existing_entry:
-            existing_entry['model_id'] = model_id
-        else:
-            self.registry.append({
-                'train_file_id': train_file_id,
-                'validation_file_id': validation_file_id,
-                'model_id': model_id,
-                'model_name': model_name
-            })
+    def add_model_entry(self,
+                        train_file_id,
+                        validation_file_id,
+                        ft_job_id,
+                        ft_model_id,
+                        model_name,
+                        fold_number,
+                        token_number,
+                        epoch_number,
+                        duration,
+                        training_price):
+        # existing_entry = self.get_model_entry(train_file_id)
+        # if not existing_entry['ft_model_id'] == ft_model_id:
+        self.registry.append({
+            'time_stamp': str(datetime.datetime.now()),
+            'train_file_id': train_file_id,
+            'validation_file_id': validation_file_id,
+            'ft_job_id': ft_job_id,
+            'ft_model_id': ft_model_id,
+            'model_name': model_name,
+            'fold_number': fold_number,
+            'token_number': token_number,
+            'epoch_number': epoch_number,
+            'duration': duration,
+            'training_price': training_price
+        })
         self.save_registry()
 
-    def get_model_entry(self, train_file_id):
-        for entry in self.registry:
-            if entry.get('train_file_id') == train_file_id:
-                return entry
-        return None
+    # def get_model_entry(self, ft_model_id):
+    #     for entry in self.registry:
+    #         if entry.get('ft_model_id') == ft_model_id:
+    #             return entry
+    #     return None

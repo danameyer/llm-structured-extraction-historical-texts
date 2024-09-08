@@ -1,6 +1,8 @@
 import tiktoken
 from typing import List
 
+from function_calling_components.model_pricing import ModelPricing
+
 
 class TokenCounter:
     def __init__(self, model):
@@ -50,33 +52,18 @@ class TokenCounter:
         return len(tokens)
 
     def _calculate_costs(self, input_token_count: int, output_token_count: int) -> float:
-        model_pricing = {
-            "gpt-3.5-turbo": {
-                "input": 0.0005,
-                "output": 0.0015
-            },
-            "gpt-3.5-turbo-0125": {
-                "input": 0.0005,
-                "output": 0.0015
-            },
-            "gpt-4o": {
-                "input": 0.005,
-                "output": 0.015
-            },
-            "gpt-4o-mini": {
-                "input": 0.00015,
-                "output": 0.0006
-            },
-            "gpt-4-turbo": {
-                "input": 0.01,
-                "output": 0.03
-            }
-        }
-        input_cost_per_1000_tokens = model_pricing.get(self.model, {}).get("input", 0)
-        output_cost_per_1000_tokens = model_pricing.get(self.model, {}).get("output", 0)
 
-        input_cost = (input_token_count / 1000) * input_cost_per_1000_tokens
-        output_cost = (output_token_count / 1000) * output_cost_per_1000_tokens
+        model_pricing = ModelPricing()
+        is_finetune_model = self.model.lower().startswith("ft:")
+
+        if is_finetune_model:
+            truncated_model_name = str(self.model).split(":")[1]
+            pricing_per_token = model_pricing.get_price_per_token(model_name=truncated_model_name, is_finetune=True)
+        else:
+            pricing_per_token = model_pricing.get_price_per_token(model_name=self.model, is_finetune=False)
+
+        input_cost = pricing_per_token["input"] * input_token_count
+        output_cost = pricing_per_token["output"] * output_token_count
 
         total_cost = input_cost + output_cost
         return total_cost
