@@ -188,7 +188,7 @@ class OpenAIAPIInteractionForFineTuning:
 def _main():
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     gpt_model = 'gpt-4o-mini-2024-07-18'
-    fold_nr = 'fold_0'
+    fold_nr = 'fold_1'
 
     number_of_folds = 3
 
@@ -272,12 +272,10 @@ def _main():
 
     # Check if training is allowed
     if progress_check.is_training_allowed():
-        # open_ai_interaction_for_ft.fine_tune_model(train_file, val_file, result_file_dir, gpt_model, fold_nr)
-        # progress_check.tick_training_performed()
+        open_ai_interaction_for_ft.fine_tune_model(train_file, val_file, result_file_dir, gpt_model, fold_nr)
+        progress_check.tick_training_performed()
         print(
             f"""
-            Training will be skipped because I am just testing stuff ...")
-            
             ProgressCheck:
             {json.dumps(progress_check.__dict__, indent=4)}
             """)
