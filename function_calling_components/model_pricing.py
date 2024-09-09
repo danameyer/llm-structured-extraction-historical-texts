@@ -51,7 +51,7 @@ class ModelPricing:
         if is_finetune:
             pricing = self.ft_model_pricing[model_name]
             pricing_per_token = {
-                "intput": pricing["input"] / self.ft_divisor,
+                "input": pricing["input"] / self.ft_divisor,
                 "output": pricing["output"] / self.ft_divisor,
                 "training": pricing["training"] / self.ft_divisor
             }
@@ -59,7 +59,7 @@ class ModelPricing:
         else:
             pricing = self.regular_model_pricing[model_name]
             pricing_per_token = {
-                "intput": pricing["input"] / self.regular_divisor,
+                "input": pricing["input"] / self.regular_divisor,
                 "output": pricing["output"] / self.regular_divisor
             }
             return pricing_per_token

@@ -278,33 +278,32 @@ def _main():
 
     # experiment 3: fine-tuning evaluation
 
-    # model for fold_0
-    models_list_fold_0 = ['gpt-4o-mini',
-                          'ft:gpt-4o-mini-2024-07-18:personal::A5aqraNs']
-    prompt = "fine_tuning_best_prompt_fold_0"
-    sample_folder_name_fold_0 = 'txt_files_fine_tuning_evaluation_data/fold_0'
+    # # model for fold_0
+    # models_list_fold_0 = ['gpt-4o-mini',
+    #                       'ft:gpt-4o-mini-2024-07-18:personal::A5aqraNs']
+    # prompt = "fine_tuning_best_prompt_fold_0"
+    # sample_folder_name_fold_0 = 'txt_files_fine_tuning_evaluation_data/fold_0/validation_text_files'
+    #
+    # for model in models_list_fold_0:
+    #     _prepare_and_run_experiment(model_name=model,
+    #                                 prompt_name=prompt,
+    #                                 sample_folder_name=sample_folder_name_fold_0)
 
-    for model in models_list_fold_0:
+    # model for fold_1
+    models_list_fold_1 = ['gpt-4o-mini',
+                          'ft:gpt-4o-mini-2024-07-18:personal::A5b7MHRw']
+    prompt = "fine_tuning_best_prompt_fold_1"
+    sample_folder_name_fold_1 = 'txt_files_fine_tuning_evaluation_data/fold_1/validation_text_files'
+    for model in models_list_fold_1:
         _prepare_and_run_experiment(model_name=model,
                                     prompt_name=prompt,
-                                    sample_folder_name=sample_folder_name_fold_0)
+                                    sample_folder_name=sample_folder_name_fold_1)
 
-#     # model for fold_1
-#     models_list_fold_1 = ['gpt-4o-mini',
-#                           'ft:gpt-4o-mini-2024-07-18:personal::A5b7MHRw']
-#     prompt = "fine_tuning_best_prompt_fold_1"
-#     sample_folder_name_fold_1 = 'txt_files_fine_tuning_evaluation_data/fold_1'
-#
-#     for model in models_list_fold_1:
-#         _prepare_and_run_experiment(model_name=model,
-#                                     prompt_name=prompt,
-#                                     sample_folder_name=sample_folder_name_fold_1)
-#
 #     # model for fold_2
 #     models_list_fold_2 = ['gpt-4o-mini',
 #                           'ft:gpt-4o-mini-2024-07-18:personal::A5b7MHRw']
 #     prompt = "fine_tuning_best_prompt_fold_2"
-#     sample_folder_name_fold_2 = 'txt_files_fine_tuning_evaluation_data/fold_2'
+#     sample_folder_name_fold_2 = 'txt_files_fine_tuning_evaluation_data/fold_2/validation_text_files'
 #
 #     for model in models_list_fold_2:
 #         _prepare_and_run_experiment(model_name=model,
