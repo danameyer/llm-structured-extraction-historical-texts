@@ -118,24 +118,35 @@ class MistralApiInteractionForFineTuning:
         model_registry = ModelRegistry('fine_tuning_files/mistral/created_models',
                                        "model_registry_mistral")
         upload_response_train_file = self.upload_data_to_mistral_api(training_file)
-        print(upload_response_train_file)
+        print("This is the upload_response_train_file: ", upload_response_train_file)
 
         upload_response_validation_file = self.upload_data_to_mistral_api(validation_file)
-        print(upload_response_validation_file)
+        print("This is the upload_response_validation_file: ", upload_response_validation_file)
 
         training_file_id = upload_response_train_file.id
+        print("This is the training_file_id: ", training_file_id)
+
         validation_file_id = upload_response_validation_file.id
+        print("This is the validation_file_id: ", validation_file_id)
 
         created_job = self.create_model_mistral(training_file_id,
                                                 validation_file_id,
                                                 model)
-        print(created_job)
+        print("This is the created_job: ", created_job)
+
         fine_tune_results = self.wait_for_job_to_finish(created_job.id, model, fold_number)
-        print("fine_tune_results: ", fine_tune_results)
-        model_registry.add_model_entry(training_file_id,
-                                       validation_file_id,
-                                       fine_tune_results.fine_tuned_model,
-                                       model)
+        print("This is the fine_tune_results: ", fine_tune_results)
+
+        model_registry.add_model_entry(train_file_id=training_file_id,
+                                       validation_file_id=validation_file_id,
+                                       ft_job_id=created_job.id,
+                                       ft_model_id=fine_tune_results.fine_tuned_model,
+                                       model_name=model,
+                                       fold_number=fold_number,
+                                       token_number=fine_tune_results.trained_tokens,
+                                       epoch_number=fine_tune_results.hyperparameters.epochs,  # not sure if this is correct
+                                       duration=fine_tune_results.metadata.expected_duration_seconds,
+                                       training_price=fine_tune_results.metadata.cost)
 
 
 def construct_file_path(base_directory: Path, path_components: List[str], file_name="") -> str:
