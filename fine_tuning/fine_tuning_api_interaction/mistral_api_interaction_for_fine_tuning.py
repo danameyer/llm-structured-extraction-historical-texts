@@ -8,6 +8,7 @@ from mistralai import Mistral
 
 from fine_tuning.data_split.perform_data_split import PerformDataSplit
 from fine_tuning.fine_tuning_api_interaction.create_model_registry import ModelRegistry
+from fine_tuning.fine_tuning_api_interaction.progress_check import ProgressCheck
 from fine_tuning.message_objects.mistral_message_object import MistralMessageObject
 
 load_dotenv()
@@ -147,27 +148,54 @@ def construct_file_path(base_directory: Path, path_components: List[str], file_n
     return str(full_path)
 
 
-if __name__ == "__main__":
+def _main():
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     model_name = "open-mistral-7b"
     fold_nr = "fold_0"
 
-    mistral_message_object = MistralMessageObject(model_name)
-    mistral_message_object.run()
+    number_of_folds = 3
 
+    ##
+    # Data splitting
+    ##
     fine_tuning_dir_mistral = os.path.join(base_dir,
                                            'fine_tuning_files',
                                            'mistral',
                                            'fine_tuning_data',
                                            'total_ft_data')
     fine_tuning_files_mistral = os.path.join(fine_tuning_dir_mistral, 'file-finetune-mistral.jsonl')
-    output_directory_mistral = os.path.join(base_dir,
-                                            'fine_tuning_files',
-                                            'mistral',
-                                            'fine_tuning_data')
-    data_splitter = PerformDataSplit(fine_tuning_files_mistral, 5, output_directory_mistral, model_name)
-    data_splitter.generate_train_val_sets()
+    output_directory_mistral_data_split = os.path.join(base_dir,
+                                                       'fine_tuning_files',
+                                                       'mistral',
+                                                       'fine_tuning_data')
 
+    progress_check = ProgressCheck(dir_for_fold_data=output_directory_mistral_data_split,
+                                   dir_for_text_data_copy=None,
+                                   number_of_folds=number_of_folds)
+    try:
+        mistral_message_object = MistralMessageObject(model_name)
+        mistral_message_object.run()
+        progress_check.tick_creation_of_message_object_performed()
+
+        data_splitter = PerformDataSplit(fine_tuning_files_mistral, number_of_folds, output_directory_mistral_data_split, model_name)
+        data_splitter.generate_train_val_sets()
+        progress_check.tick_data_split_performed()
+
+    except FileExistsError as file_exists_error:
+        print(f"""
+                One operation failed:
+                  - creating MistralMessageObject or 
+                  - splitting data or 
+                
+                This error is raised because old files are still present.
+                Some steps will be skipped and the pipeline will continue with the actual fine-tuning.
+                
+                Details: {file_exists_error}
+                """)
+
+    ##
+    # Fine tuning
+    ##
     result_file_dir = construct_file_path(base_dir,
                                           ["fine_tuning_files",
                                            "mistral",
@@ -192,4 +220,33 @@ if __name__ == "__main__":
                                        fold_nr],
                                    "val.jsonl")
 
-    mistral_interaction_for_ft.fine_tune_model_mistral(train_file, val_file, model_name, fold_nr)
+    if progress_check.is_training_allowed_for_mistral():
+        # mistral_interaction_for_ft.fine_tune_model_mistral(train_file, val_file, model_name, fold_nr)
+        # progress_check.tick_training_performed()
+        print(
+            f"""
+            ProgressCheck:
+            {json.dumps(progress_check.__dict__, indent=4)}
+            """)
+    else:
+        raise RuntimeError(
+            f"""
+            Must not run training!!
+
+            The training data is not consistent with the validation data.
+
+            Please either check:
+                - that fresh data can be created in empty directories:
+                        - directory for fold data is empty
+                        - directory for the evaluation data (copied text files) is empty
+                - OR that old data can be used:
+                        - the old fold data is in place 
+                        - the old evaluation data (copied text files) is in place and matches the old fold data
+
+            Progress Check:
+            {json.dumps(progress_check.__dict__, indent=4)}
+            """)
+
+
+if __name__ == "__main__":
+    _main()

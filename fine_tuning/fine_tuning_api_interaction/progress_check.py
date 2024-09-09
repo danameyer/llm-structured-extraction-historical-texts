@@ -2,7 +2,7 @@ import os
 
 
 class ProgressCheck:
-    def __init__(self, dir_for_fold_data: str, dir_for_text_data_copy: str, number_of_folds: int):
+    def __init__(self, dir_for_fold_data: str, dir_for_text_data_copy: str | None, number_of_folds: int):
         self._dir_for_fold_data = dir_for_fold_data
         self._dir_for_text_data_copy = dir_for_text_data_copy
         self._number_of_folds = number_of_folds
@@ -34,6 +34,15 @@ class ProgressCheck:
         else:
             return False
 
+    def is_training_allowed_for_mistral(self):
+        if self._data_split_performed:
+            return True
+        elif ((not self._data_split_performed)
+              and self._does_fold_data_exist()):
+            return True
+        else:
+            return False
+
     def _does_fold_data_exist(self):
         content_fold_data_dir = os.listdir(self._dir_for_fold_data)
         fold_dirs = [fold_dir for fold_dir in content_fold_data_dir if fold_dir.startswith("fold_")]
@@ -61,6 +70,10 @@ class ProgressCheck:
         return True
 
     def _do_text_file_copies_exist(self):
+
+        if self._dir_for_text_data_copy is None:
+            raise FileNotFoundError("Directory with copied text files was not defined.")
+
         content_text_files_dir = os.listdir(self._dir_for_text_data_copy)
         fold_dirs = [fold_dir for fold_dir in content_text_files_dir if fold_dir.startswith("fold_")]
 

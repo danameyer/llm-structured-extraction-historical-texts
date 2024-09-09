@@ -116,6 +116,21 @@ class MistralMessageObject:
         text_files_dir = os.path.join(base_dir, "test_data", "ft_test_txt")
         gt_files_dir = os.path.join(base_dir, "test_data", "ft_test_gt")
 
+        # output directory needs to exist but it should be empty
+        fine_tuning_file_path = os.path.join(base_dir,
+                                             "fine_tuning_files",
+                                             "mistral",
+                                             "fine_tuning_data",
+                                             "total_ft_data")
+        os.makedirs(fine_tuning_file_path, exist_ok=True)
+        old_files = os.listdir(fine_tuning_file_path)
+        if old_files:
+            old_files_paths = [os.path.join(fine_tuning_file_path, old_file) for old_file in old_files]
+            raise FileExistsError(f"""
+                    Old fine-tuning files exist.
+                    If you want to perform a new fine-tuning please delete: {old_files_paths}
+                    """)
+
         fine_tuning_objects = dict()
 
         for text_file in os.listdir(text_files_dir):
