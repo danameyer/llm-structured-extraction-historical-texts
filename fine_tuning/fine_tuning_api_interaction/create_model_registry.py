@@ -30,11 +30,11 @@ class ModelRegistry:
         with open(self.registry_file, 'w') as file:
             json.dump(self.registry, file, indent=4)
 
-    def get_model_id(self, train_file_id):
-        for entry in self.registry:
-            if entry.get('train_file_id') == train_file_id:
-                return entry['model_id']
-        return None
+    # def get_model_id(self, train_file_id):
+    #     for entry in self.registry:
+    #         if entry.get('train_file_id') == train_file_id:
+    #             return entry['model_id']
+    #     return None
 
     def add_model_entry(self,
                         train_file_id,

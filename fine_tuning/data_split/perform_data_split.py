@@ -81,21 +81,21 @@ class PerformDataSplit:
             self._copy_text_files_for_fold(fold_info, path_to_text_files, output_directory)
 
     def _copy_text_files_for_fold(self, fold_info: FoldInfo, path_to_text_files: str, output_directory: str):
-        text_file_names_training = fold_info.training_set
+        # text_file_names_training = fold_info.training_set
         text_file_names_validation = fold_info.validation_set
-        text_files_paths_training = [os.path.join(path_to_text_files, text_file_name) for text_file_name in text_file_names_training]
+        # text_files_paths_training = [os.path.join(path_to_text_files, text_file_name) for text_file_name in text_file_names_training]
         text_files_paths_validation = [os.path.join(path_to_text_files, text_file_name) for text_file_name in text_file_names_validation]
 
         fold_id = fold_info.fold_id
         fold_dir = os.path.join(output_directory, f"fold_{fold_id}")
-        training_dir = os.path.join(fold_dir, "training_text_files")
+        # training_dir = os.path.join(fold_dir, "training_text_files")
         validation_dir = os.path.join(fold_dir, "validation_text_files")
         os.makedirs(output_directory, exist_ok=True)
 
         # require empty output directory
         try:
             os.makedirs(fold_dir)
-            os.makedirs(training_dir)
+            # os.makedirs(training_dir)
             os.makedirs(validation_dir)
         except OSError as error:
             raise FileExistsError(f"""
@@ -104,10 +104,10 @@ class PerformDataSplit:
             {str(error)}
             """)
 
-        copied_training_files: List[str] = list()
-        for training_file_path in text_files_paths_training:
-            destination = shutil.copy(training_file_path, training_dir)
-            copied_training_files.append(destination)
+        # copied_training_files: List[str] = list()
+        # for training_file_path in text_files_paths_training:
+        #     destination = shutil.copy(training_file_path, training_dir)
+        #     copied_training_files.append(destination)
 
         copied_validation_files: List[str] = list()
         for validation_file_path in text_files_paths_validation:
@@ -115,7 +115,7 @@ class PerformDataSplit:
             copied_validation_files.append(destination)
 
         return {
-            "training_file_destinations": copied_training_files,
+            # "training_file_destinations": copied_training_files,
             "validation_file_destinations": copied_validation_files
         }
 
