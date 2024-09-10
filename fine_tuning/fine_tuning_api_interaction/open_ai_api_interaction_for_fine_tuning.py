@@ -188,7 +188,7 @@ class OpenAIAPIInteractionForFineTuning:
 def _main():
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     gpt_model = 'gpt-4o-mini-2024-07-18'
-    fold_nr = 'fold_1'
+    fold_nr = 'fold_2'
 
     number_of_folds = 3
 
