@@ -96,28 +96,35 @@ class JsonSizeScatterPlot:
         return data_point_library
 
     @staticmethod
-    def plot_fuzzy_accuracy_vs_field_count(data_point_set: DataPointSet):
+    def plot_fuzzy_accuracy_vs_field_count(data_point_set):
         x_values = [x.total_field_count for x in data_point_set.data_points]
         y_values = [y.fuzzy_score for y in data_point_set.data_points]
 
         model_name = data_point_set.llm_model
         prompt_name = data_point_set.prompt_name
+        truncated_model_name = model_name.split('mini')[0] + 'mini' if 'mini' in model_name else model_name
 
-        title = f'''Fuzzy Accuracy vs. Total Field Count
-        Exclusion Path: "root[\'id\']"
-        Model: "{model_name}"
-        Prompt Name: "{prompt_name}"'''
+        title = f"Fuzzy Accuracy vs. Total Field Count for {truncated_model_name} {prompt_name}"
 
-        plt.title(title)
+        # Create the figure first
         plt.figure(figsize=(10, 6))
+
+        # Plot the data
         plt.scatter(x_values, y_values, color='blue', alpha=0.7)
         plt.xlabel('Total Field Count')
         plt.ylabel('Fuzzy Accuracy')
         plt.grid(True)
+
+        # Set the title after plotting
+        plt.title(title)
+
+        # Save the figure
         output_dir = os.path.join('output_scatter_plots')
         if not os.path.exists(output_dir):
             os.makedirs(output_dir, exist_ok=True)
         plt.savefig(os.path.join(output_dir, f'overall_scores_{model_name}_{prompt_name}.png'))
+
+        # Close the figure
         plt.close()
 
 

@@ -59,7 +59,11 @@ class OverallAccuracy:
         ax.set_ylabel('Accuracy')
         ax.set_title('Exact vs Fuzzy Accuracy by Model (Excluding id)')
         ax.set_xticks(x)
-        ax.set_xticklabels(model_names, rotation=45, ha='right')
+        truncated_model_names = [
+            name.split("-2024-07-18")[0] if "-2024-07-18" in name else name for name in
+            model_names]
+
+        ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1))
 
         plt.tight_layout()

@@ -83,7 +83,8 @@ class ErrorTypePlot:
 
         ax.set_xlabel('Excluded Attributes')
         ax.set_ylabel('Error Count')
-        ax.set_title(f'Error Count for {model_name} in {prompt_type} (only fuzzy accuracy)')
+        truncated_model_name = model_name.split('mini')[0] + 'mini' if 'mini' in model_name else model_name
+        ax.set_title(f'Error Count for {truncated_model_name} in {prompt_type} (only fuzzy accuracy)')
 
         ax.set_xticks(bar_positions + (num_error_types / 2 - 0.5) * bar_width)
         ax.set_xticklabels(list(error_counts.keys()), rotation=45, ha='right')

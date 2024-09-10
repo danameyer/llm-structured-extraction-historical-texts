@@ -16,7 +16,6 @@ class PlotMistralMetrics:
         Returns:
             list of tuples: Each tuple contains the model name and the extracted metrics data.
         """
-
         all_data = []
 
         for folder_name in os.listdir(root_path):
@@ -61,9 +60,18 @@ class PlotMistralMetrics:
         # Create the plots
         plt.figure(figsize=(14, 8))
 
+        title_name = os.path.splitext(file_name)[0].replace("result_file_", "")
+        plt.suptitle(f"Fine-Tuning Metrics for {title_name}", fontsize=16)
+
+        # Determine whether to use scatter plot or line plot
+        plot_type = 'scatter' if len(steps) == 1 else 'plot'
+
         # Plot Train Loss
         plt.subplot(2, 2, 1)
-        plt.plot(steps, train_loss, label='Train Loss', color='blue')
+        if plot_type == 'scatter':
+            plt.scatter(steps, train_loss, label='Train Loss', color='blue')
+        else:
+            plt.plot(steps, train_loss, label='Train Loss', color='blue')
         plt.xlabel('Step')
         plt.ylabel('Loss')
         plt.title('Train Loss Over Steps')
@@ -71,7 +79,10 @@ class PlotMistralMetrics:
 
         # Plot Validation Loss
         plt.subplot(2, 2, 2)
-        plt.plot(steps, valid_loss, label='Validation Loss', color='red')
+        if plot_type == 'scatter':
+            plt.scatter(steps, valid_loss, label='Validation Loss', color='red')
+        else:
+            plt.plot(steps, valid_loss, label='Validation Loss', color='red')
         plt.xlabel('Step')
         plt.ylabel('Loss')
         plt.title('Validation Loss Over Steps')
@@ -79,7 +90,10 @@ class PlotMistralMetrics:
 
         # Plot Validation Mean Token Accuracy
         plt.subplot(2, 2, 3)
-        plt.plot(steps, valid_mean_token_accuracy, label='Validation Mean Token Accuracy', color='orange')
+        if plot_type == 'scatter':
+            plt.scatter(steps, valid_mean_token_accuracy, label='Validation Mean Token Accuracy', color='orange')
+        else:
+            plt.plot(steps, valid_mean_token_accuracy, label='Validation Mean Token Accuracy', color='orange')
         plt.xlabel('Step')
         plt.ylabel('Accuracy')
         plt.title('Validation Mean Token Accuracy Over Steps')

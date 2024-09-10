@@ -16,7 +16,6 @@ class PlotOpenAIMetrics:
         Returns:
             list of tuples: Each tuple contains the model name and the DataFrame of the extracted data.
         """
-
         all_data = []
 
         for folder_name in os.listdir(root_path):
@@ -40,7 +39,7 @@ class PlotOpenAIMetrics:
     @staticmethod
     def plot_metrics(model_name, df, output_dir, file_name):
         """
-        Plots the metrics data and saves the plot to the specified output directory.
+        Plots the metrics data with interpolation for NaN values of specific columns and saves the plot to the specified output directory.
 
         Args:
             model_name (str): The name of the model (used for saving the plot).
@@ -48,36 +47,51 @@ class PlotOpenAIMetrics:
             output_dir (str): The directory where plots will be saved.
             file_name (str): The original name of the file to be used in the plot file name.
         """
+        # Interpolate to fill NaN values for specific columns (valid_loss, valid_mean_token_accuracy)
+        df_interpolated = df.copy()
+        df_interpolated['valid_loss'] = df_interpolated['valid_loss'].interpolate(method='linear')
+        df_interpolated['valid_mean_token_accuracy'] = df_interpolated['valid_mean_token_accuracy'].interpolate(
+            method='linear')
+
         # Create the plots
         plt.figure(figsize=(14, 8))
 
-        # Plot Train Loss
+        # Set a main title for all subplots
+        title_name = os.path.splitext(file_name)[0].replace("result_file_", "")
+        plt.suptitle(f"Fine-Tuning Metrics for {title_name}", fontsize=16)
+
+        # Plot Train Loss as a line plot (complete data)
         plt.subplot(2, 2, 1)
-        plt.plot(df['step'], df['train_loss'], label='Train Loss', color='blue')
+        plt.plot(df['step'], df['train_loss'], linestyle='-', color='blue', label='Train Loss')
         plt.xlabel('Step')
         plt.ylabel('Loss')
         plt.title('Train Loss Over Steps')
         plt.grid(True)
 
-        # Plot Train Accuracy
+        # Plot Train Accuracy as a line plot (complete data)
         plt.subplot(2, 2, 2)
-        plt.plot(df['step'], df['train_accuracy'], label='Train Accuracy', color='green')
+        plt.plot(df['step'], df['train_accuracy'], linestyle='-', color='green', label='Train Accuracy')
         plt.xlabel('Step')
         plt.ylabel('Accuracy')
         plt.title('Train Accuracy Over Steps')
         plt.grid(True)
 
-        # Plot Validation Loss
+        # Plot Validation Loss with interpolation
         plt.subplot(2, 2, 3)
-        plt.plot(df['step'], df['valid_loss'], label='Validation Loss', color='red')
+        plt.plot(df_interpolated['step'], df_interpolated['valid_loss'], linestyle='-', color='red',
+                 label='Validation Loss (Interpolated)')
+        plt.scatter(df['step'], df['valid_loss'], color='red', label='Validation Loss (Original Data)')
         plt.xlabel('Step')
         plt.ylabel('Loss')
         plt.title('Validation Loss Over Steps')
         plt.grid(True)
 
-        # Plot Validation Mean Token Accuracy
+        # Plot Validation Mean Token Accuracy with interpolation
         plt.subplot(2, 2, 4)
-        plt.plot(df['step'], df['valid_mean_token_accuracy'], label='Validation Mean Token Accuracy', color='orange')
+        plt.plot(df_interpolated['step'], df_interpolated['valid_mean_token_accuracy'], linestyle='-', color='orange',
+                 label='Validation Mean Token Accuracy (Interpolated)')
+        plt.scatter(df['step'], df['valid_mean_token_accuracy'], color='orange',
+                    label='Validation Mean Token Accuracy (Original Data)')
         plt.xlabel('Step')
         plt.ylabel('Accuracy')
         plt.title('Validation Mean Token Accuracy Over Steps')

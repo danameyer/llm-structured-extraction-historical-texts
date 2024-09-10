@@ -52,6 +52,7 @@ class CostPlot:
         if not os.path.exists(output_dir):
             os.makedirs(output_dir, exist_ok=True)
         plt.savefig(os.path.join(output_dir, f'cost_{prompt_name}.png'), bbox_inches='tight')
+        plt.close()
 
 
 if __name__ == '__main__':
