@@ -1,0 +1,409 @@
+Here is the structured JSON output based on the court document provided:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Isolda",
+      "cognomen": "De Nodar'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Alexander",
+      "cognomen": "De Nodar'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "De Dunheved",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Dunheved",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "De Harecurt",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Harecurt",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "Paynel",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Simon",
+      "cognomen": "De Whitacre",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Whitacre",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Johannes",
+      "cognomen": "De Walton'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Walton'",
+      "title": ""
+    },
+    {
+      "id": 8,
+      "name": "Thomas",
+      "cognomen": "De Bisshopesden'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Bisshopesden'",
+      "title": ""
+    },
+    {
+      "id": 9,
+      "name": "Ricardus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 10
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Wuscote",
+      "title": ""
+    },
+    {
+      "id": 10,
+      "name": "Oliverius",
+      "cognomen": "De Wuscote",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 9
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Wuscote",
+      "title": ""
+    },
+    {
+      "id": 11,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Greneherk'",
+      "title": "Prepositor"
+    },
+    {
+      "id": 12,
+      "name": "Simon",
+      "cognomen": "Blayz",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 13,
+      "name": "Johannes",
+      "cognomen": "De Knittecote",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Knittecote",
+      "title": ""
+    },
+    {
+      "id": 14,
+      "name": "Normanus",
+      "cognomen": "De Knicton'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Knichton'",
+      "title": ""
+    },
+    {
+      "id": 15,
+      "name": "Robertus",
+      "cognomen": "Wodeman",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Whitacre",
+      "title": ""
+    }
+  ]
+}
+``` 
+
+Let me know if you need any further adjustments or if there are additional documents to analyze!
+Based on the provided court document, here are the extractions of the persons mentioned along with their relations to each other:
+
+1. **Isolda de Nodar'**
+   - **Legal Relationship**: Petitor against Alexander de Nodar'
+   
+2. **Alexander de Nodar'**
+   - **Legal Relationship**: Reus against Isolda de Nodar'
+   
+3. **Johannes de Dunheved**
+   - **Role**: Witness for Alexander de Nodar'
+   
+4. **Robertus de Harecurt**
+   - **Role**: Witness for Alexander de Nodar'
+   
+5. **Robertus Paynel**
+   - **Role**: Witness for Alexander de Nodar'
+   
+6. **Simon de Whitacre**
+   - **Role**: Witness for Alexander de Nodar'
+   
+7. **Robertus de Walton'**
+   - **Role**: Attachiator of Johannes de Dunheved
+   
+8. **Thomas de Bisshopesden'**
+   - **Role**: Attachiator of Johannes de Dunheved
+   
+9. **Ricardus, filius Oliverii de Wuscote**
+   - **Role**: Attachiator of Robertus de Harecurt**
+   - **Family Relation**: Son of Oliverius de Wuscote
+   
+10. **Oliverius de Wuscote**
+    - **Role**: Related as father to Ricardus
+   
+11. **Willelmus, Prepositor de Greneherk'**
+    - **Role**: Attachiator of Robertus de Harecurt**
+   
+12. **Simon Blayz**
+    - **Role**: Attachiator of Robertus Paynel**
+    
+13. **Johannes de Knittecote**
+    - **Role**: Attachiator of Robertus Paynel**
+    
+14. **Normanus de Knicton'**
+    - **Role**: Attachiator of Simon de Whitacre**
+    
+15. **Robertus Wodeman de Whitacre**
+    - **Role**: Attachiator of Simon de Whitacre**
+
+In summary, Isolda is the plaintiff against Alexander, who is the defendant. Several individuals are listed as witnesses for Alexander, while others are noted as attachiators for different witnesses and parties involved. Additionally, Ricardus and Oliverius have a father-son relationship. 
+Here is the structured JSON output based on the information extracted from the court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Isolda",
+      "cognomen": "De Nodar'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Alexander",
+      "cognomen": "De Nodar'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "De Dunheved",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Dunheved",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "De Harecurt",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Harecurt",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "Paynel",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Simon",
+      "cognomen": "De Whitacre",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Whitacre",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Robertus",
+      "cognomen": "De Walton'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Walton'",
+      "title": ""
+    },
+    {
+      "id": 8,
+      "name": "Thomas",
+      "cognomen": "De Bisshopesden'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Bisshopesden'",
+      "title": ""
+    },
+    {
+      "id": 9,
+      "name": "Ricardus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 10
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Wuscote",
+      "title": ""
+    },
+    {
+      "id": 10,
+      "name": "Oliverius",
+      "cognomen": "De Wuscote",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 9
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Wuscote",
+      "title": ""
+    },
+    {
+      "id": 11,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Greneherk'",
+      "title": "Prepositor"
+    },
+    {
+      "id": 12,
+      "name": "Simon",
+      "cognomen": "Blayz",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 13,
+      "name": "Johannes",
+      "cognomen": "De Knittecote",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Knittecote",
+      "title": ""
+    },
+    {
+      "id": 14,
+      "name": "Normanus",
+      "cognomen": "De Knicton'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Knictatn'",
+      "title": ""
+    },
+    {
+      "id": 15,
+      "name": "Robertus",
+      "cognomen": "Wodeman",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Whitacre",
+      "title": ""
+    }
+  ]
+}
+``` 
+
+If you need further assistance or additional documents processed, please let me know!

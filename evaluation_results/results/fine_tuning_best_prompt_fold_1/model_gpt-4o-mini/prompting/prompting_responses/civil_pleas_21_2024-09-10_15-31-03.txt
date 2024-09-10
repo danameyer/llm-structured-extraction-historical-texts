@@ -1,0 +1,156 @@
+I will now process the provided court document according to your instructions. Here’s the structured JSON output for the court document you provided:
+
+### Court Document
+'''
+21 . Willelmus de Berefeld' ponit loco suo Terricum de Sottebrok' versus Matillidem que fuit uxor Roberti de Sottebrok' de placito dotis.
+'''
+
+### JSON Output
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Willelmus",
+      "cognomen": "de Berefeld",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Berefeld",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Matillidem",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Sottebrok",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Robertus",
+      "cognomen": "de Sottebrok",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Sottebrok",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+1. **Willelmus de Berefeld**: Identified as a petitioner in the case.
+2. **Matillidem**: Identified as the wife of Robertus, hence she has a marital relationship.
+3. **Robertus de Sottebrok**: Identified as the husband of Matillidem.
+4. Relationships and origins were drawn from the text, ensuring clarity on roles and relationships mentioned in the document.
+
+If you have any further instructions or if you'd like me to process another court document, please let me know!
+I will extract detailed information about the persons mentioned in the provided court document and their relations to each other based on the guidelines you've provided.
+
+### Extracted Information
+
+1. **Willelmus de Berefeld**:
+   - **Role**: Petitor (Plaintiff)
+   - **Place of Origin**: Berefeld
+   - **Cognomen**: de Berefeld
+   - **Relations**: 
+     - **None indicated** in provided text.
+
+2. **Matillidem**:
+   - **Role**: Uxor (Wife of Robertus)
+   - **Place of Origin**: Sottebrok
+   - **Cognomen**: N/A (not specifically mentioned)
+   - **Relations**: 
+     - **Robertus de Sottebrok**: Husband
+
+3. **Robertus de Sottebrok**:
+   - **Role**: Maritus (Husband of Matillidem)
+   - **Place of Origin**: Sottebrok
+   - **Cognomen**: de Sottebrok
+   - **Relations**: 
+     - **Matillidem**: Wife
+
+### Summary of Relationships:
+- **Willelmus de Berefeld** is the plaintiff in the case against Matillidem.
+- **Matillidem** is the wife of **Robertus de Sottebrok**.
+- **Robertus de Sottebrok** is the husband of **Matillidem**.
+
+If you need additional analysis or information from another document, please let me know!
+Here is the structured JSON output based on the extracted information for the provided court document:
+
+### JSON Output
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Willelmus",
+      "cognomen": "de Berefeld",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Berefeld",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Matillidem",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Sottebrok",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Robertus",
+      "cognomen": "de Sottebrok",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Sottebrok",
+      "title": ""
+    }
+  ]
+}
+```
+
+This output accurately reflects the relationships and relevant details derived from the court document. If you need assistance with another document or further tasks, please let me know!

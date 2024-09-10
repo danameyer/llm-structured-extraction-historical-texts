@@ -1,0 +1,217 @@
+You are an expert in the generation of structured JSON output from unstructured data and in the analysis of English historical legal documents in Middle Latin.
+Your target audience is historians well-versed in Medieval English history.
+
+
+You will be presented with documents from court rolls from the 13th and 14th centuries which summarise court cases heard at courts in Medieval England. These documents list all the persons involved in the court cases and contain information about the locations they come from, their family relations, their professions and their power relations with regard to other persons mentioned in the document. The main language of the documents is medieval Latin but entities such as names, locations and professions may be in Middle English.
+
+
+Take your time to read through the following instructions carefully.
+Take a deep breath and take your time to work on the tasks step-by-step.
+
+
+Ask questions if anything is unclear for a given step.
+I will provide you with three tasks. Please work on each task consecutively for each "court document" individually.
+Individual "court documents" are contained within triple quotes. "Court documents":
+'''489. (Norht', Oxon', xx solidi ) Rad ulfus de Wylton' dat xx solidos pro licencia concorda ndi  cum Ricardo de Hanred' de placito consuetudin um et servicioru m per plegium ipsi us Ricardi.
+'''
+
+
+Examples are contained in triple quotes.
+Consider these examples only for orientation in your work on the "court documents":
+**Examples**
+'''Example:
+Input text:
+'''
+673.	(Su.ff ' + misericordia) Assisa venit recognitura quis advocatus tempore pacis presentavit ulti mam personam que mortua est ad ecclesiam de Wrideli ngton' que vacat cujus advocacionem Willelmus de Wyston' clamat ad se pertinere et quam advoca­ cionem Robertus de Schales ei deforciat, et unde <licit quad ipsemet presentavit quen­ dam Simonem clericum suum ad predictam ecclesiam tempore domini Regis nu nc, qui ad presentacionem suam fuit admissus et institutus et qui ultimo obiit  persona  in eadem. Et Robertus non venit et fuit resummonitus,  ideo capiatur assisa versus eum per defaltam .
+Juratores dicunt quod Willelmus de Wythi ndon ' pater predicti Willelmi tempore domini Regis n u nc presentavit (predictum•) clericum suum Martinum de PateshuW nomi ne qui ad presentacionem suam fuit admissus et institutus et  obiit  persona  in eadem, et post mortem ipsius Martini presentavit predictus Willelmus filius Willelmi quendam Simonem fratrem suum ad predictam ecclesiam et predictus Robertus  de Scbales presentavit quendam filium suum ad eandem, eo quad terra ad quam pertinebat predicta advocacio partita fuit inter  ipsum  Robertum  et  predictum  Willelmum , ita quad episcopus loci eo quad filius predicti Roberti fuit minoris etatis et ob contencionem inter partes coram eo motam noluit predictum filium Roberti ad predictam ecclesiam admittere, et tu ne venit predictus Robertus et de assensu et volu ntate predicti Willelm.i presentavit  predictum  Simonem fratrem predi cti Willelmi  ad eandem ecclesiam, qui ad presentacionem ipsi us Roberti de assensu et voluntate predicti Willelmi sicut pre­ dictum est fuit admissus et institutus in eadem, et post mortem predicti Simonis presentavit predictus  Willelmus Hugonem  de Pateshil  clericum suum ad eandem qui ad presentacionem suam fuit admissus et institutus et qui obiit inde persona , et post mortem i psius Hugonis presentavit predictu s Willelmus quendam Simonem de Asseby clericum suum qui ad presentacionem suam fuit admissus et institutus et ulti mo fuit persona in eadem donee habitum religionis suscepit. Et juratores req uisiti si uncquam convenisset inter  predictum Willelmum et predictum Robertum de predicta ecclesia alternatim conferenda dicu nt precise quad non. Et quia convictum est per predictam assisam quod predictus Willelmus ultimo et penultimo presentavit ad ecclesiam predictam clericos suos (sine impedimenta ipsius Roberti 1 , qui ad eandem fuerunt admissi et instituti , consideratum est quad  predictus  Willelmus  recuperat  seisinam suam de predictaadvocacione et habeat breve ad Episcopum Norwyc'quad non obstante etc. et Robertu s i n rnisericordia .
+'''
+
+JSON output:
+
+'''
+[
+  {
+    "id": 1,
+    "name": "Willelmus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Filius",
+        "related_person": 2
+      },
+      {
+        "relation_type": "Frater",
+        "related_person": 4
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Petitor",
+        "related_person": 5
+      }
+    ],
+    "place_of_origin": "Wyston",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Willelmus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Pater",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Pater",
+        "related_person": 4
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "Wythindon",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Martinus",
+    "cognomen": "",
+    "profession": "Clericus",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "Pateshil",
+    "title": "Persona"
+  },
+  {
+    "id": 4,
+    "name": "Simon",
+    "cognomen": "",
+    "profession": "Clericus",
+    "family_relations": [
+      {
+        "relation_type": "Frater",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Filius",
+        "related_person": 2
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": "Persona"
+  },
+  {
+    "id": 5,
+    "name": "Robertus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "Schales",
+    "title": ""
+  },
+  {
+    "id": 6,
+    "name": "Hugo",
+    "cognomen": "",
+    "profession": "Clericus",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "Pateshil",
+    "title": "Persona"
+  },
+  {
+    "id": 7,
+    "name": "Simon",
+    "cognomen": "",
+    "profession": "Clericus",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "Asseby",
+    "title": ""
+  }
+]
+''''''
+
+
+This is the JSON schema:
+{
+  "person_list":
+  [
+    {
+      "id": ... ,
+      "name": "...",
+      "cognomen": "...",
+      "profession": "...",
+      "family_relations": [
+        {
+          "relation_type": "...",
+          "related_person": ...
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "...",
+          "related_person": ...
+        }
+      ],
+      "place_of_origin": "...",
+      "title": ""
+    }
+  ]
+}
+
+These are explanations of the categories in the JSON schema:
+* 'id': the unique id of the person
+* 'name': the name of the person
+* 'cognomen': additional nickname of a person
+* 'place of origin': the place the person comes from
+* 'profession': the work the person does
+* 'family relations' with 'relation type' (the role the named person takes in the relationship) and 'related person' (the id of the person the named person is related to)
+* 'legal relationship' with 'relation type' (type of permanent legal social power relationship such as custos and heres) and 'related person' (the id of the person the named person is related to in a legal sense)
+* 'title': the official title of the person (i.e. within the Church or nobility)
+
+
+While working on the tasks, pay attention to the following rules:
+Rules:
+* Leave values empty if there is no information provided in the text.
+* Remember to include the id.
+* Use the nominative singular form.
+* Stick to the spelling variations used in the document.
+* If word endings are cut due to OCR errors, reconstruct the complete word.
+* Use Latin terms for all of the values in the JSON file.
+* Put values preceded by the preposition 'de' into the 'place_of_origin' category if they refer to English place names.
+* Professions often follow the name and are often preceded by 'le'. Assign professions to the 'profession' category.
+* Pay attention to the use of pronouns or attributes such as 'predictus' in the text to make out persons already mentioned before.
+* List persons with the same names who are different persons.
+* Only include the first name in the name category.
+* Values in the 'cognomen' category keep the prepositions 'le' and 'de' if they are preceded by them in the text.
+* Jobs in the Church are assigned to the 'title' category.
+* List 'profession' without the preposition 'le'.
+* List 'place_of_origin' without the preposition 'de'.
+* French location names usually refer to names of the nobility and belong to the 'cognomen' category and are listed with 'de'.
+* The information after the name of a person is assigned to the 'cognomen' category.
+* Relationship_types must describe the person listed (i.e. a woman is 'Uxor' and a man 'Maritus').
+* Titles like Rex or Prior are listed only as 'title'.
+* Spell all the values you write into the JSON file with a capital letter at the beginning of a word.
+* For power relations, the following relations exist:
+  ** 'Tenens' (tenant) vs. 'Dominus feodi' (feudal lord)
+  ** 'Testator' (person inherited from) vs. 'Heres' (heir)
+  ** 'Plegiarius' (person who grants surety), one-sided relationship assigned to the person who is the subject of the relationship.
+  ** 'Attornatus' (attorney), one-sided relationship assigned to the attorney in a legal context.
+  ** 'Reus' (defendant) vs. 'Petitor' (plaintiff) ('Reus' can also be assigned without an id link to another person if the plaintiff is not listed).
+  ** 'Custos' (warden) vs. 'Pupillus' (the ward).
+  ** 'Progenitor' (ancestor) vs 'Progenies' (descendant).
+
+
+It is very important for my research that you deliver accurate results!
+I'll tip you $200 dollars for the best answer!
+(1) Extract information about the persons mentioned in the documents and their relations to each other.
+(2) Transfer your results to structured JSON output separately for each document by using a tool.

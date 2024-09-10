@@ -1,0 +1,393 @@
+Here's the structured JSON output based on the court document provided:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Matillis",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Mater",
+          "related_person": 10
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Ricardus",
+      "cognomen": "Rycheman",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Testator",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Ricardus",
+      "cognomen": "Peppard",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Agnes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Everardus",
+      "cognomen": "De Wanetinge",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Wanetinge",
+      "title": ""
+    },
+    {
+      "id": 8,
+      "name": "",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Neubyr",
+      "title": ""
+    },
+    {
+      "id": 9,
+      "name": "",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 10,
+      "name": "Matillis",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Summary of the JSON Structure:
+- Matillis is the petitioner, who is claiming against Ricardus Peppard and Agnes, who are holding her supposedly inherited property.
+- Ricardus Peppard and Agnes argue that they only have custody of the property belonging to their son Willelmus, a minor, thus claiming that they cannot be charged.
+- Everardus acts as the surety for the warden (custod) to Matillis in the mercy of the court, as indicated by the mention of "misericordia". 
+
+If additional clarifications or adjustments are needed, please let me know!
+Here’s the extracted information about the persons mentioned in the provided document along with their relations to each other:
+
+1. **Matillis** (Petitioner)
+   - **Relation to Ricardus Rycheman**: Daughter (Mater) 
+   - **Relation to Willelmus**: Grandmother
+   - **Legal Relationship**: Petitioner, claiming against Ricardus Peppard and Agnes for property.
+   - **Place of Origin**: N/A
+
+2. **Ricardus Rycheman** (父親)
+   - **Relation to Matillis**: Father
+   - **Legal Relationship**: Testator (deceased), Matillis inherits from him.
+   - **Place of Origin**: N/A
+
+3. **Ricardus Peppard** (Reus)
+   - **Relation to Agnes**: Husband (Maritus)
+   - **Relation to Willelmus**: Father
+   - **Legal Relationship**: Reus in the context of the claim by Matillis.
+   - **Place of Origin**: N/A
+
+4. **Agnes** (Reus)
+   - **Relation to Ricardus Peppard**: Wife (Uxor)
+   - **Relation to Willelmus**: Mother
+   - **Legal Relationship**: Reus in the context of Matillis's claim.
+   - **Place of Origin**: N/A
+
+5. **Willelmus** (In Custodia)
+   - **Relation to Ricardus Peppard**: Son (Filius)
+   - **Relation to Agnes**: Son (Filius)
+   - **Legal Relationship**: In the custody of Ricardus and Agnes as a minor, thus their responsibility.
+   - **Place of Origin**: N/A
+
+6. **Everardus de Wanetinge** (Plegiarius)
+   - **Legal Relationship**: Plegiarius for Matillis. He provides surety.
+   - **Place of Origin**: Wanetinge
+
+### Summary of Relationships:
+- Matillis is a daughter to Ricardus Rycheman (who is deceased and from whom she inherited the property) and is a grandmother to Willelmus.
+- Ricardus Peppard and Agnes are husband and wife, parents to Willelmus.
+- Willelmus is a minor under the guardianship of Ricardus and Agnes, being the warden (custod) of the property that Matillis is trying to reclaim.
+- Everardus de Wanetinge serves as the surety for Matillis in this legal matter. 
+
+If you need further details or clarifications about these relationships, please let me know!
+Here is the structured JSON output derived from the relationships identified in the court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Matillis",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Mater",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Avia",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Ricardus",
+      "cognomen": "Rycheman",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Testator",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Ricardus",
+      "cognomen": "Peppard",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Pater",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Agnes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        },
+        {
+          "relation_type": "Mater",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 3
+        },
+        {
+          "relation_type": "Filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Everardus",
+      "cognomen": "De Wanetinge",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Wanetinge",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation of the JSON Output:
+- Each person mentioned in the court document is detailed in the `person_list` array.
+- The `legal_relationship` array outlines the party's role in the case (Petitor, Reus, etc.).
+- The `family_relations` array provides information on direct familial ties.
+- Place of origin and title are included where applicable. 
+
+If you need further adjustments or another document processed, feel free to ask!

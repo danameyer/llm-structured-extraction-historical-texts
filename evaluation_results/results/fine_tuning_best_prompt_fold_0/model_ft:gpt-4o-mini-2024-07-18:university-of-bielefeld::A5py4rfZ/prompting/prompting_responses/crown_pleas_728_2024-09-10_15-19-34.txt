@@ -1,0 +1,215 @@
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Radulfus",
+      "cognomen": "Skyr",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Robertus",
+      "cognomen": "Le Messer",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Willelmus",
+      "cognomen": "Le Butiller",
+      "profession": "Butiller",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Willelmus",
+      "cognomen": "Luvegent",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "De Uffinton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Uffinton",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Simon",
+      "cognomen": "De Fauflure",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Fauflure",
+      "title": ""
+    }
+  ]
+}
+The extracted information about the persons mentioned in the document, along with their relationships, is as follows:
+
+1. **Radulfus Skyr**
+   - **Relations**:
+     - **Petitor** against Robertus le Messer (rebellion).
+     - **Petitor** against Willelmus le Butiller (rebellion).
+     - **Petitor** against Willelmus Luvegent (rebellion).
+
+2. **Robertus le Messer**
+   - **Relations**:
+     - **Reus** against Radulfus Skyr (rebellion).
+     - **Outlawed** due to the appeal by Radulfus Skyr. 
+     - **No jurisdiction** over any persons in the document as he had no property.
+
+3. **Willelmus le Butiller**
+   - **Relations**:
+     - **Reus** against Radulfus Skyr (rebellion).
+     - Participated in a legal agreement with Willelmus Luvegent.
+     - Jointly fined with Willelmus Luvegent in the presence of Robertus de Uffinton and Simon de Fauflure. 
+
+4. **Willelmus Luvegent**
+   - **Relations**:
+     - **Reus** against Radulfus Skyr (rebellion).
+     - Participated in a legal agreement with Willelmus le Butiller.
+     - Jointly fined with Willelmus le Butiller in the presence of Robertus de Uffinton and Simon de Fauflure.
+
+5. **Robertus de Uffinton**
+   - **Relations**:
+     - Pledgiarius for Willelmus le Butiller and Willelmus Luvegent during their legal agreement.
+
+6. **Simon de Fauflure**
+   - **Relations**:
+     - Pledgiarius for Willelmus le Butiller and Willelmus Luvegent during their legal agreement. 
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Radulfus",
+      "cognomen": "Skyr",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Robertus",
+      "cognomen": "Le Messer",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Willelmus",
+      "cognomen": "Le Butiller",
+      "profession": "Butiller",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Willelmus",
+      "cognomen": "Luvegent",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Uffinton",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Simon",
+      "cognomen": "De Fauflure",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Fauflure",
+      "title": ""
+    }
+  ]
+}
+```

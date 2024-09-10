@@ -1,0 +1,371 @@
+Here is the structured JSON output for the presented court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Willelmus",
+      "cognomen": "Mauduyt",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Rogerus",
+      "cognomen": "De Lyuns",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Lyuns",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Robertus",
+      "cognomen": "De Wancy",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Wancy",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Hawisia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filia",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Sibilla",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filia",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Johanna",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filia",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Galfridus",
+      "cognomen": "Ridel",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Testator",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Testator",
+          "related_person": 5
+        },
+        {
+          "relation_type": "Testator",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Dominus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+In this JSON structure:
+- Each person related to the case is assigned a unique ID.
+- Family relations and legal relationships elucidate the connections and roles each person holds.
+- Information has been richly detailed, adhering to the specific outlines given in the task.
+Here's the extracted information about the persons mentioned in the court document, along with their relationships:
+
+1. **Willelmus Mauduyt**
+   - **Profession**: Not specified
+   - **Family Relations**: None specified
+   - **Legal Relationships**:
+     - Petitor against Rogerus de Lyuns
+     - Petitor against Robertus de Wancy
+     - Custos (guardian) for Hawisia, Sibilla, and Johanna, the daughters and heirs of Galfridus Ridel.
+
+2. **Rogerus de Lyuns**
+   - **Profession**: Not specified
+   - **Family Relations**: None specified
+   - **Legal Relationships**:
+     - Reus (defendant) against Willelmus Mauduyt
+
+3. **Robertus de Wancy**
+   - **Profession**: Not specified
+   - **Family Relations**: None specified
+   - **Legal Relationships**:
+     - Reus (defendant) against Willelmus Mauduyt
+
+4. **Hawisia**
+   - **Profession**: Not specified
+   - **Family Relations**:
+     - Daughter and heiress of Galfridus Ridel
+   - **Legal Relationships**:
+     - Pupillus (ward) under the guardianship of Willelmus Mauduyt
+
+5. **Sibilla**
+   - **Profession**: Not specified
+   - **Family Relations**:
+     - Daughter and heiress of Galfridus Ridel
+   - **Legal Relationships**:
+     - Pupillus (ward) under the guardianship of Willelmus Mauduyt
+
+6. **Johanna**
+   - **Profession**: Not specified
+   - **Family Relations**:
+     - Daughter and heiress of Galfridus Ridel
+   - **Legal Relationships**:
+     - Pupillus (ward) under the guardianship of Willelmus Mauduyt
+
+7. **Galfridus Ridel**
+   - **Profession**: Not specified
+   - **Family Relations**:
+     - Father of Hawisia, Sibilla, and Johanna (all daughters)
+   - **Legal Relationships**:
+     - His heirs are Hawisia, Sibilla, and Johanna, whom Willelmus Mauduyt is acting as custodian for.
+
+**Summary of Relations:**
+- Willelmus Mauduyt has a guardian relationship with the three daughters (Hawisia, Sibilla, and Johanna) as they are orphans.
+- Rogerus de Lyuns and Robertus de Wancy are defendants in the claim by Willelmus Mauduyt.
+- All three daughters are heirs to Galfridus Ridel, while Willelmus Mauduyt is acting as their guardian.
+Here's the structured JSON output based on the extracted information from the court document provided:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Willelmus",
+      "cognomen": "Mauduyt",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        },
+        {
+          "relation_type": "Custos",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Custos",
+          "related_person": 5
+        },
+        {
+          "relation_type": "Custos",
+          "related_person": 6
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Rogerus",
+      "cognomen": "De Lyuns",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Lyuns",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Robertus",
+      "cognomen": "De Wancy",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Wancy",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Hawisia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filia",
+          "related_person": 7
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Sibilla",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filia",
+          "related_person": 7
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Johanna",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filia",
+          "related_person": 7
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Galfridus",
+      "cognomen": "Ridel",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Pater",
+          "related_person": 5
+        },
+        {
+          "relation_type": "Pater",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Testator",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Testator",
+          "related_person": 5
+        },
+        {
+          "relation_type": "Testator",
+          "related_person": 6
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON now contains all the relevant details about each person, including their family relations, legal relationships, place of origin, and any titles they may hold.

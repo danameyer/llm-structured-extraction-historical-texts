@@ -1,0 +1,74 @@
+Here is the structured JSON output for the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Rogerus",
+      "cognomen": "De Estbur'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "Estbur'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Radulfus",
+      "cognomen": "Fabri",
+      "profession": "Faber",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Estbur'",
+      "title": ""
+    }
+  ]
+}
+``` 
+
+### Explanation:
+- **Rogerus de Estbur'** is identified as the defendant (Reus) in the case of theft. No information about family relations or profession is available. The document mentions that he should be proclaimed an outlaw (utlagetur).
+- The document lists **Radulfus Fabri** of Estbur' as a person without any direct relation to Rogerus but in the context of a jurisdiction (within whose jurisdiction the offense occurred). His profession is that of a maker (Faber), indicating that he is a craftsman or artisan. There are no family relations or legal associations mentioned.
+Here is the extracted information about the persons mentioned in the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Rogerus",
+      "cognomen": "De Estbur'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "Estbur'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Radulfus",
+      "cognomen": "Fabri",
+      "profession": "Faber",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Estbur'",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Relations
+- **Rogerus de Estbur'** is the defendant (Reus) being accused of theft.
+- **Radulfus Fabri** is a local craftsman (Faber) in the same place, Estbur', likely representing the jurisdiction in which the court case is being held but not legally connected to Rogerus in this case.

@@ -1,0 +1,211 @@
+Here is the JSON output for the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ricardus",
+      "cognomen": "De Vernun",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "Vernun",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Walterus",
+      "cognomen": "De Wahull'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Wahull'",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Adam",
+      "cognomen": "Maunadlet",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Hawisia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "De Vernon",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Vernun",
+      "title": ""
+    }
+  ]
+}
+``` 
+
+This format accurately represents all the individuals involved in the case, their relationships, and their roles in the legal context as presented in the original document.
+Here is the extracted information about the persons mentioned in the document and their relations to each other:
+
+1. **Ricardus de Vernun**
+   - **Legal relationship**: Petitor against Hawisia (who was the wife of Robertus de Vernon).
+   - **Attorneys/Plegiarii**: Walterus de Wahull' and Adam Maunadlet, acting on his behalf.
+
+2. **Walterus de Wahull'**
+   - **Legal relationship**: Plegiarius for Ricardus de Vernun.
+   - **No family relations or additional legal powers mentioned.**
+
+3. **Adam Maunadlet**
+   - **Legal relationship**: Plegiarius for Ricardus de Vernun.
+   - **No family relations or additional legal powers mentioned.**
+
+4. **Hawisia**
+   - **Legal relationship**: Reus against Ricardus de Vernun.
+   - **Family relation**: Uxor (Wife) of Robertus de Vernon.
+
+5. **Robertus de Vernon**
+   - **Legal relationship**: No active role in the case.
+   - **Family relation**: Maritus (Husband) of Hawisia.
+
+The relations between the parties are primarily those of petitioner and respondent, with attorneys acting in the interest of the petitioner. Hawisia's marital bond to Robertus de Vernon also plays a role in her status within the case.
+Here is the structured JSON output reflecting the information extracted from the court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ricardus",
+      "cognomen": "De Vernun",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "Vernun",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Walterus",
+      "cognomen": "De Wahull'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Wahull'",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Adam",
+      "cognomen": "Maunadlet",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Hawisia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "De Vernon",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Vernun",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON structure maintains clear relationships between individuals and adheres to the guidelines provided, organizing the information in a way that can be easily processed or analyzed by software tools.

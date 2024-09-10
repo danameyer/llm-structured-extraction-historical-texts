@@ -1,0 +1,210 @@
+Here's the structured JSON output based on the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Hugo",
+      "cognomen": "De Yerly",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Yerly",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Bartholomeus",
+      "cognomen": "De Merden'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Merden'",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Ricardus",
+      "cognomen": "Guscard",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Herveus",
+      "cognomen": "De Manigeford",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Manigeford",
+      "title": ""
+    }
+  ]
+}
+``` 
+
+### Explanation:
+- **Hugo De Yerly** is the *petitor*, claiming that Bartholomeus must fulfill his obligations regarding the tenancy.
+- **Bartholomeus De Merden'** is the *reus*, failing to appear in court.
+- **Ricardus Guscard** and **Herveus De Manigeford** serve as pledgors (plegii), likely providing surety for Bartholomeus.
+- The places of origin are listed as per the document, and no family relations or professions are noted for the individuals.
+- The spelling variations, titles, and other nuances have been respected according to the document's original text.
+Here is a more detailed extraction of information regarding the persons mentioned in the document, focusing on their relationships and relevant information:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Hugo",
+      "cognomen": "De Yerly",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Yerly",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Bartholomeus",
+      "cognomen": "De Merden'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Merden'",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Ricardus",
+      "cognomen": "Guscard",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegii",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Herveus",
+      "cognomen": "De Manigeford",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegii",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Manigeford",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Summary of Relationships:
+- **Hugo De Yerly** is the *petitor* in the case against **Bartholomeus De Merden'**.
+- **Bartholomeus De Merden'** is the *reus*, being legally obligated to respond to the claim made by **Hugo De Yerly**.
+- **Ricardus Guscard** and **Herveus De Manigeford** are **plegii** (pledgors) for Bartholomeus, meaning they are pledging to take responsibility or provide surety for him in this legal matter.
+
+### Additional Notes:
+- The document mentions that Bartholomeus did not appear in court, which has led to additional legal measures involving the sheriff's actions to secure his presence.
+- There are no direct family relations or professions mentioned for the principal parties involved in this litigation aside from **Hugo De Yerly**, who is the dominant party pursuing the case.
+Here is the structured JSON output that reflects the information extracted from the document as per your specifications:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Hugo",
+      "cognomen": "De Yerly",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Yerly",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Bartholomeus",
+      "cognomen": "De Merden'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Merden'",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Ricardus",
+      "cognomen": "Guscard",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegii",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Herveus",
+      "cognomen": "De Manigeford",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegii",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Manigeford",
+      "title": ""
+    }
+  ]
+}
+```
