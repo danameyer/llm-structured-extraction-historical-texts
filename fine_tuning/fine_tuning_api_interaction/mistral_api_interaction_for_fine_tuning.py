@@ -137,10 +137,16 @@ class MistralApiInteractionForFineTuning:
         fine_tune_results = self.wait_for_job_to_finish(created_job.id, model, fold_number)
         print("This is the fine_tune_results: ", fine_tune_results)
 
+        created_job_id = created_job.id
+        print("This is the created_job_id: ", created_job_id)
+
+        ft_model_id = fine_tune_results.fine_tuned_model
+        print("This is the ft_model_id: ", ft_model_id)
+
         model_registry.add_model_entry(train_file_id=training_file_id,
                                        validation_file_id=validation_file_id,
-                                       ft_job_id=created_job.id,
-                                       ft_model_id=fine_tune_results.fine_tuned_model,
+                                       ft_job_id=created_job_id,
+                                       ft_model_id=ft_model_id,
                                        model_name=model,
                                        fold_number=fold_number,
                                        token_number=fine_tune_results.trained_tokens,
@@ -161,8 +167,8 @@ def construct_file_path(base_directory: Path, path_components: List[str], file_n
 
 def _main():
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    model_name = "open-mistral-7b"
-    fold_nr = "fold_0"
+    model_name = "open-mistral-nemo"
+    fold_nr = "fold_2"
 
     number_of_folds = 3
 
@@ -232,8 +238,8 @@ def _main():
                                    "val.jsonl")
 
     if progress_check.is_training_allowed_for_mistral():
-        # mistral_interaction_for_ft.fine_tune_model_mistral(train_file, val_file, model_name, fold_nr)
-        # progress_check.tick_training_performed()
+        mistral_interaction_for_ft.fine_tune_model_mistral(train_file, val_file, model_name, fold_nr)
+        progress_check.tick_training_performed()
         print(
             f"""
             ProgressCheck:

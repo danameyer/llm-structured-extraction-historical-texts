@@ -113,8 +113,8 @@ class MistralMessageObject:
     def run(self):
         load_dotenv()
         base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-        text_files_dir = os.path.join(base_dir, "test_data", "ft_test_txt")
-        gt_files_dir = os.path.join(base_dir, "test_data", "ft_test_gt")
+        text_files_dir = os.path.join(base_dir, "data", "test_txt")
+        gt_files_dir = os.path.join(base_dir, "data", "test_gt")
 
         # output directory needs to exist but it should be empty
         fine_tuning_file_path = os.path.join(base_dir,
