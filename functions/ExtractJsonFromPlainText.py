@@ -232,7 +232,8 @@ class ExtractJsonFromPlainText(BaseFunction):
                                                                           default_value=""),
                                                 "related_person": Property(property_type="integer",
                                                                            description="ID of the related person",
-                                                                           default_value=None)
+                                                                           # default_value=None
+                                                                           )
                                             }
                                         ),
                                         default_value=[]
