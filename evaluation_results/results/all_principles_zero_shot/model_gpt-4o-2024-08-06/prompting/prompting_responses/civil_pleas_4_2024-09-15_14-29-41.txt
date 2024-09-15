@@ -1,0 +1,88 @@
+Here is the extracted information in structured JSON format:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Willelmus",
+      "cognomen": "Osegot",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Johannes",
+      "cognomen": "Osegot",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Rogerus",
+      "cognomen": "Le Rus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Juliana",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation
+1. **Willelmus Osegot** and **Johannes Osegot** are identified as defendants ('Reus'). They are connected to Rogerus and Juliana as part of the lawsuit.
+2. **Rogerus Le Rus** is a plaintiff ('Petitor') in the case brought against both Willelmus and Johannes.
+3. **Juliana**, identified as the wife ('Uxor') of Rogerus, shares the plaintiff role with him against both Willelmus and Johannes. 
+
+This structure captures the legal interactions and family ties documented in the court case, adhering to the specified schema and rules.

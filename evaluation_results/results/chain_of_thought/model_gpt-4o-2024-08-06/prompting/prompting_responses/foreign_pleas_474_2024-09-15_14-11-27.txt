@@ -1,0 +1,199 @@
+Let's work through the court document to create the structured JSON output according to the given schema and rules. Here's the provided court document:
+
+'''474.	( Derby) Agnes que fuit uxor Willelmi Bordon ponit loco suo Willelm um de Eton ' versus Magistrum Robertum de Shardelawe de placito dotis.'''
+
+We need to identify the persons and their attributes mentioned in the court document.
+
+1. **Agnes** is mentioned as the wife ("uxor") of Willelmus Bordon and is listed as having appointed ("ponit loco suo") Willelmus de Eton in a case against Magistrum Robertum de Shardelawe. Therefore, her legal relationship is 'Petitor' in relation to the dower case.
+
+2. **Willelmus Bordon** is Agnes's deceased husband. Since he is not actively part of this case, he will not have specific legal relationships in this context beyond being mentioned in relation to Agnes.
+
+3. **Willelmus de Eton** is appointed by Agnes as her attorney ("ponit loco suo") in the legal case. This gives him the legal relationship of 'Attornatus'.
+
+4. **Magister Robertus de Shardelawe** is the defendant ("Reus") in the dower case.
+
+Based on the above analysis, let's create the JSON output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Agnes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "Bordon",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Willelmus",
+      "cognomen": "De Eton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Eton",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "De Shardelawe",
+      "profession": "Magister",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Shardelawe",
+      "title": ""
+    }
+  ]
+}
+```
+
+In this JSON output:
+- Each individual is listed with a unique ID.
+- Names, cognomina (nicknames or additional identifiers), professions, and places of origin are extracted according to the text.
+- Relations use consistent Latin descriptors for relationship types.
+- Legal roles are correctly assigned based on the details in the text. 
+
+This output captures an accurate representation of the relationships and roles in the document and follows the given schema and rules.
+To extract information about the persons mentioned in the document and their relationships, we need to identify each individual, any relationships they have, and roles they play within the context of the legal case.
+
+Here's the content of the court document once again:
+
+'''474.	( Derby) Agnes que fuit uxor Willelmi Bordon ponit loco suo Willelm um de Eton ' versus Magistrum Robertum de Shardelawe de placito dotis.'''
+
+1. **Agnes**: 
+   - Role: She appears as the petitioner in the dower case.
+   - Relationship: Previously married to Willelmus Bordon (indicated by "que fuit uxor", meaning "who was the wife").
+   - Legal action: She has appointed an attorney ("ponit loco suo") for her case.
+
+2. **Willelmus Bordon**: 
+   - Relationship: Deceased husband of Agnes. His direct involvement in this document is only through the mention by relation to Agnes as her late husband.
+
+3. **Willelmus de Eton**:
+   - Role: Appointed attorney by Agnes ("ponit loco suo") to represent her in the dower case against Robertus de Shardelawe.
+   - Legal relationship: Acts as an 'Attornatus' (attorney) for Agnes in the legal proceedings.
+
+4. **Magister Robertus de Shardelawe**:
+   - Title/Profession: Referred to as "Magister," indicating a possible academic or clerical position.
+   - Role: Defendant ("versus") in the dower case initiated by Agnes.
+
+The relationships are as follows:
+- Agnes is the 'Petitor' (plaintiff) in the case, and her legal representation is through Willelmus de Eton, who serves as her attorney.
+- Willelmus Bordon is related to Agnes as her late husband ('Maritus').
+- Magister Robertus de Shardelawe is the 'Reus' (defendant) in the case against Agnes.
+
+This structured information provides a clear understanding of the individuals involved and their respective roles and relationships in this legal document.
+Here's the structured JSON output for the court document, reflecting the extracted information about the individuals and their relationships:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Agnes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "Bordon",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Willelmus",
+      "cognomen": "De Eton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Eton",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "De Shardelawe",
+      "profession": "Magister",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Shardelawe",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON file includes all relevant details about each person mentioned in the court document, including relationships and legal roles.
+

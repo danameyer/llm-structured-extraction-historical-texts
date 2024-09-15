@@ -1,0 +1,122 @@
+Let's begin analyzing the given court document. It's essential to identify the individuals involved and their relationships based on the provided text.
+
+### Court Document
+```latin
+23.	Robertus de Bello Campo ponit loco suo Willelm u m de Pleseis versus Priorem de Saund leford de placi to redd itus etc.
+```
+
+### Task Steps
+
+1. **Identify and List Individuals:**
+   - **Robertus de Bello Campo** - referred to as the person making the arrangement.
+   - **Willelmus de Pleseis** - appointed by Robertus as his attorney.
+   - **Prior de Saundleford** - opposing party or defendant in the plea.
+
+2. **Determine Attributes:**
+   - **Robertus de Bello Campo**:
+     - Name: Robertus
+     - Cognomen: de Bello Campo
+     - Legal Relationship: Assign 'Attornatus' to Willelmus de Pleseis (Robertus appoints Willelmus as his attorney).
+     - Place of Origin: Leave blank as this is more of a cognomen referring to likely noble affiliation rather than a specific location origin in this text.
+
+   - **Willelmus de Pleseis**:
+     - Name: Willelmus
+     - Cognomen: de Pleseis
+     - Legal Relationship: 'Attornatus' assigned by Robertus de Bello Campo.
+     - Place of Origin: Similar to Robertus, 'de Pleseis' is likely a noble designation here.
+
+   - **Prior de Saundleford**:
+     - Name: Not explicitly given; referred to as the Prior
+     - Title: Prior
+     - Place of Origin: Saundleford
+     - Legal Relationship: 'Reus' in the plea involving Robertus (though not linked directly to another person here as a 'Reus').
+
+3. **Analyze Relations:**
+   - There are no familial relationships stated.
+   - Legal relationships are present between Robertus and Willelmus through the designation of attorney.
+
+4. **Construct JSON Schema:**
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Robertus",
+      "cognomen": "De Bello Campo",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "De Pleseis",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus"
+        }
+      ],
+      "place_of_origin": "Saundleford",
+      "title": "Prior"
+    }
+  ]
+}
+```
+
+### Explanation
+- The JSON data lists three individuals, each with their respective attributes and relationships determined from the text.
+- Placement of origin and cognomen is carefully assigned based on assumed context from the names.
+- The legal relationships particularly focus on the attornatus arrangement between Robertus and Willelmus.
+  
+Let me know if you need further elaboration or additional information!
+To extract information about the individuals mentioned in the court document and their relations to each other, let's analyze the provided text:
+
+### Court Document
+```latin
+23.	Robertus de Bello Campo ponit loco suo Willelm u m de Pleseis versus Priorem de Saund leford de placi to redd itus etc.
+```
+
+### Analysis
+
+1. **Robertus de Bello Campo**:
+   - He is the main participant who initiates the action of appointing an attorney.
+   - **Relation**: Robertus appoints Willelmus de Pleseis as his attorney, indicating a legal relationship where Willelmus acts on his behalf.
+
+2. **Willelmus de Pleseis**:
+   - Willelmus is designated by Robertus as his attorney.
+   - **Legal Role**: Acts as "Attornatus" for Robertus, representing him in the legal matter.
+
+3. **Prior de Saundleford**:
+   - Mentioned as the opposing party in the context of a legal plea.
+   - **Title**: Prior, indicating a clerical or monastic position.
+   - **Role in Case**: Acts as the "Reus" or defendant in relation to the plea initiated by Robertus (represented by Willelmus).
+
+### Relations
+
+- **Robertus de Bello Campo and Willelmus de Pleseis**:
+  - **Legal Relationship**: Robertus assigns Willelmus as his "Attornatus", which is a specific attorney-client relationship in the legal context.
+  
+- **Robertus de Bello Campo and Prior de Saundleford**:
+  - **Legal Opposition**: They stand in opposition in the plea, with the Prior being the defendant ("Reus") in this legal context.
+
+Thus, the document illustrates a legal proceeding involving a representative (Willelmus) appointed by Robertus to address a legal issue against the Prior of Saundleford. The significant focus here lies on the attorney appointment and the defensive posture of the Prior.

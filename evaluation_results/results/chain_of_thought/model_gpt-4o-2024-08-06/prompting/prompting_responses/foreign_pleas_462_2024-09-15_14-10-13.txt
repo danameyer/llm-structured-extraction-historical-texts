@@ -1,0 +1,199 @@
+Let's break down the document step-by-step to extract and structure the required information in the JSON format. We will analyze the court document contained within the triple quotes and identify the relevant information about the individuals mentioned in the case.
+
+Document:
+```
+462.	( Norht ' +) Magna assisa i nter W. de Forti bus Com i tem Al bemarl' per attornatu m suu m petentem et A bbatem de Sancto Ebrill' per attornatu m suum tenentem de advocacione ecclesie de Rodesdon' cum pertinenciis ponitu r i n respectu m usque in octabis sancti Michaelis prece parcium  nisi Rogerus de Th urkel by et G. de Preston' pri us veniant apud Norht'  etc. Idem dies datus est om ni bus militi bus ejusdem assise qui tu ne i bi veneru nt i n Banco etc.
+```
+
+### Step-by-Step Analysis:
+1. **Identify Persons and Attributes:**
+   - "W. de Fortibus" (comes de Albemarl'): This indicates a person named W., identified as the Count (Comes) of Albemarl'.
+   - "Abbatem de Sancto Ebrill'": An Abbot from "Sancto Ebrill'".
+   - "Rogerus de Thurkelby": A person from "Thurkelby".
+   - "G. de Preston": A person from "Preston".
+
+2. **Determine Relationships and Roles:**
+   - "W. de Fortibus" acts "per attornatum suum" as the petitioner.
+   - "Abbatem de Sancto Ebrill'" acts "per attornatum suum" as the tenant.
+   - Rogerus de Thurkelby and G. de Preston' are mentioned to potentially come to a location (Norht') but their specific roles in the trial aren't mentioned.
+
+3. **Locations and Contextual Information:**
+   - "Norht'", likely meaning Northampton.
+   - "Rodesdon'" is the location of the ecclesiastical advowson in question.
+   - This particular trial is put off until "octabis sancti Michaelis", which is after the feast of Saint Michael.
+
+4. **Extracted Persons and JSON Formatting:**
+   - Consider the information available regarding their names, locations, and roles to fill out the schema.
+
+Now, let's convert the information into the required JSON format:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "W.",
+    "cognomen": "De Fortibus",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Petitor",
+        "related_person": 3
+      },
+      {
+        "relation_type": "Attornatus",
+        "related_person": ""
+      }
+    ],
+    "place_of_origin": "",
+    "title": "Comes De Albemarl"
+  },
+  {
+    "id": 2,
+    "name": "Abbas",
+    "cognomen": "De Sancto Ebrill",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Tenens",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Attornatus",
+        "related_person": ""
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Rogerus",
+    "cognomen": "De Thurkelby",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "Thurkelby",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "G.",
+    "cognomen": "De Preston",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "Preston",
+    "title": ""
+  }
+]
+```
+
+### Notes:
+- The abbreviation and initial ("W.") reflect medieval practices; full names are often not recorded in historical documents.
+- The "attornatus" role is included with the assumption of a legal representation context implied by "per attornatum suum".
+- The places such as "Norht'" and "Rodesdon'" are recognized but are not directly attributed to a person's origin in this document.
+To extract the information about the persons mentioned in the document and their relations, we follow a careful examination of each phrase to identify individuals, roles, and relationships. Here's the extracted information from the document with a focus on identifying people and their legal and familial relationships:
+
+1. **W. de Fortibus (Comes de Albemarl')**
+   - **Name**: W.
+   - **Cognomen**: De Fortibus
+   - **Title**: Comes (Count) of Albemarl'
+   - **Legal Role**: 
+     - Petitor (Plaintiff) in the case concerning the advowson of the church in Rodesdon.
+     - He is represented by an attorney, hence has a relation described as "Attornatus."
+
+2. **Abbas de Sancto Ebrill'**
+   - **Name**: Abbas (Abbot)
+   - **Cognomen**: De Sancto Ebrill'
+   - **Title**: None explicitly stated, other than his role as Abbot.
+   - **Legal Role**: 
+     - Tenens (Tenant) in the case, indicating he holds the positon against the claim made by W. de Fortibus.
+     - Also represented by an attorney, which gives a role of "Attornatus."
+
+3. **Rogerus de Thurkelby**
+   - **Name**: Rogerus
+   - **Cognomen**: De Thurkelby
+   - **Title**: None mentioned
+   - **Place of Origin**: Thurkelby
+   - **Legal Role**: No explicit legal role in this specific excerpt, though mentioned as a potential attendee at Northampton.
+
+4. **G. de Preston**
+   - **Name**: G.
+   - **Cognomen**: De Preston
+   - **Title**: None mentioned
+   - **Place of Origin**: Preston
+   - **Legal Role**: Similar to Rogerus, no explicit role mentioned in provided excerpt, but identified as a potential attendee at Northampton.
+
+### Relations Extracted:
+- **W. de Fortibus** as Plaintiff against **Abbas de Sancto Ebrill'** who holds the position in question.
+- Both primary entities are represented by attorneys which reflects the procedural aspect of medieval legal contexts.
+
+In summary, the principal dynamic in this document is a legal contention over ecclesiastical advowson, with individuals W. de Fortibus and an unnamed abbot acting through their respective attorneys. Meanwhile, Rogerus de Thurkelby and G. de Preston are noted but their direct involvement in terms of legal standing or social relation to the case is not specified.
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "W.",
+      "cognomen": "De Fortibus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": "Comes De Albemarl"
+    },
+    {
+      "id": 2,
+      "name": "Abbas",
+      "cognomen": "De Sancto Ebrill",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Tenens",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Rogerus",
+      "cognomen": "De Thurkelby",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Thurkelby",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "G.",
+      "cognomen": "De Preston",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Preston",
+      "title": ""
+    }
+  ]
+}
+``` 
+
+This JSON output systematically represents each person mentioned in the document, their roles, and relations where specified, staying true to the original document’s details.

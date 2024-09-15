@@ -1,0 +1,47 @@
+
+(1) In the document provided, two individuals are mentioned:
+
+- **Rogerus de Estbu r'**: He is accused of theft (latrocinio). The document mentions that he did not possess any goods (catalla) and that he should be summoned (exigatur) and outlawed (utlagetur).
+
+- **Radulfi Fabri**: He is associated with the place Estbu r' and is mentioned to be responsible for maintaining a group of ten men (deenna), in which Rogerus was included, hence when an individual in his tithing was found to be guilty, he was held accountable, and so he is fined (in misericordia).
+
+(2) Here's the structured JSON output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Rogerus de Estbu r'",
+      "profession": "rettatus",
+      "legal_relationship": [
+        {
+          "relation_type": "reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "Estbu r'",
+      "cognomen": "",
+      "family_relations": [],
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Radulfi Fabri",
+      "place_of_origin": "Estbu r'",
+      "legal_relationship": [
+        {
+          "relation_type": "custos",
+          "related_person": 1
+        }
+      ],
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON object provides a summary of the individuals mentioned in the court document, detailing their names, roles, and relationships.

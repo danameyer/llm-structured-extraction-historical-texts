@@ -1,0 +1,48 @@
+Here is the structured JSON output for the given court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Nicholai",
+      "cognomen": "Haliday",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "Estgarston",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Vicecomes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+1. **Nicholai Haliday**:
+   - **Id**: 1
+   - **Name**: Nicholai
+   - **Cognomen**: Haliday
+   - **Place of Origin**: Estgarston'
+   - **Legal Relationship**: Reus (defendant). The plaintiff is not mentioned explicitly in the text, so the `related_person` is assigned `null`.
+   
+2. **Vicecomes**:
+   - **Id**: 2
+   - This person is the sheriff or representative handling the matter of the seized chattels (`catallis`), responding for it.
+   - Since no other details are given (name or place of origin), the fields are left empty.
+
+Please note that we must strictly adhere to the JSON schema provided in the task.

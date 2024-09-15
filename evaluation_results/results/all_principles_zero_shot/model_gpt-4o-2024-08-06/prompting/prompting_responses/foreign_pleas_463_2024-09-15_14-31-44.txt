@@ -1,0 +1,404 @@
+The court document is a summary of a legal dispute involving multiple individuals and their respective claims to land, highlighting familial and legal relationships among the parties. Below is a breakdown of the information extracted from the document, followed by its representation in structured JSON format:
+
+1. **Matillis** appears as the main plaintiff ("Petitor"), formerly the wife of Anselmus Marescallus. She is claiming her dower rights to land. Her family relation is that she was married to Anselmus (relation: 'Uxor').
+   
+2. **Francus de Bohun** along with his wife, **Sibilia**, is named as defendants in the case ("Reus"). Francus is also noted to have Sibilia as his wife (relation: 'Maritus').
+   
+3. **Sibilia** is noted as the wife of Francus (relation: 'Uxor') and, through legal mention, a descendant of Anselmus Marescallus as one of his heirs ('Progenies') but without an ID-linked family relationship in the document.
+   
+4. **Anselmus Marescallus** is referred to as deceased ('Progenitor') and the husband of Matillis.
+
+5. Additional individuals are listed as potentially sharing claims due to their familial connections through marriage or inheritance, denoted as participating parties:
+   - Nobility such as **Rogero le Bigot**, **Ricardus de Clare**, **Willelmus de Valene**, etc., and their spouses (relations: 'Maritus' or 'Uxor').
+   - Each noble's relationship to Sibilia is implied as part of the extended family or heirs of Anselmus's estate, though detailed roles are not extensively outlined here.
+
+Here's how this information is structured in JSON format:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Matillis",
+      "cognomen": "Que Fuit Uxor Anselmi Marescalli",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Francus",
+      "cognomen": "De Bohun",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Sibilia",
+      "cognomen": "Uxor",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Anselmus",
+      "cognomen": "Marescallus",
+      "title": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Progenitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": ""
+    },
+    {
+      "id": 5,
+      "name": "Rogero",
+      "cognomen": "Le Bigot",
+      "title": "Comes",
+      "profession": "",
+      "place_of_origin": "Norfolk",
+      "family_relations": [],
+      "legal_relationship": []
+    },
+    {
+      "id": 6,
+      "name": "Ricardus",
+      "cognomen": "De Clare",
+      "title": "Comes",
+      "place_of_origin": "Gloucestershire",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": []
+    },
+    {
+      "id": 7,
+      "name": "Willelmus",
+      "cognomen": "De Valene",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 8
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 8,
+      "name": "Johanna",
+      "cognomen": "Uxor",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 7
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 9,
+      "name": "Willelmus",
+      "cognomen": "De Vesey",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 10
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 10,
+      "name": "Agnes",
+      "cognomen": "Uxor",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 9
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 11,
+      "name": "Reginaldus",
+      "cognomen": "De Moyhun",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 12
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 12,
+      "name": "Isabella",
+      "cognomen": "Uxor",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 11
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 13,
+      "name": "Johannes",
+      "cognomen": "De Moyhun",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 14
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 14,
+      "name": "Johanna",
+      "cognomen": "Uxor",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 13
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 15,
+      "name": "Simon",
+      "cognomen": "De Kyme",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 16
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 16,
+      "name": "Matillidis",
+      "cognomen": "Uxor",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 15
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 17,
+      "name": "Willelmus",
+      "cognomen": "De Vallibus",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 18
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 18,
+      "name": "Elyenora",
+      "cognomen": "Uxor",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 17
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 19,
+      "name": "Agatha",
+      "cognomen": "De Fereres",
+      "title": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": ""
+    },
+    {
+      "id": 20,
+      "name": "Willelmus",
+      "cognomen": "De Kantilupo",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 21
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 21,
+      "name": "Eva",
+      "cognomen": "Uxor",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 20
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 22,
+      "name": "Rogero",
+      "cognomen": "De Mortimer",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 23
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 23,
+      "name": "Matillis",
+      "cognomen": "Uxor",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 22
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 24,
+      "name": "Hunfridus",
+      "cognomen": "De Bohun",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 25
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    },
+    {
+      "id": 25,
+      "name": "Alienora",
+      "cognomen": "Uxor",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 24
+        }
+      ],
+      "legal_relationship": [],
+      "title": "",
+      "profession": "",
+      "place_of_origin": ""
+    }
+  ]
+}
+```
+
+This extracted and structured information will help understand the legal and familial connections that impact ownership and inheritance rights during this period in Medieval England.

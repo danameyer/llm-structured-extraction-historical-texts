@@ -1,0 +1,273 @@
+Let's dissect the provided court document and break it down step by step into our structured JSON format, listing all the persons involved.
+
+Court document:
+```latin
+16.	(dimidia marca) Agnes de J a River peti t versus Priorem de Pogele duas solidatas redd itus cum perti nenciis in Hen neya quas clamat esse de racionabili dote sua de dono Geroldi de la River pri mi viri sui etc. i n quas non habet ingressurn nisi per Johan nem de Apelford ultimu m virum ipsius Agnetis qui illas ei dimisit cui i psa i n vita sua contra­ d icere non potu i t etc. Et Prior veni t et (deffedd i ts) jus pred icte Agnetis etc. et d ici t quod non debet ei ad hoc breve respondere quia dic.i t quod i psamet in Jigia vid ui tate sua q u ietu m clamavi t eidem Priori totum jus et clamiu m q uod  ipsa  habuit  in  predictis  duabus  solidati s redd i tus nomi ne dotis per cartam suam, quam profert et que hoc testatu r etc. Et Agnes d icit q uod carta illa non debet ei nocere quia d ici t quod ipsa facta fu i t tempore pred icti Johan nis de Appelford secu nd i viri sui cu i ipsa in vi ta sua etc. et de hoc pon i t se super pat riam et super testes nomi natos i n predicta carta, et Prior simi l i ter, et ideo fiat inde ju rata. Postea concordati sunt, et Agnes dat dimid iam marcam pro Jicencia concord and i per plegium Bartholomei Peche. Et est concord i a tal i s, quod pred i ctu s Prior recognoscit pred ictas d uas sol idatas redditus esse jus pred icte Agnetis et illas ei reddit tenend um tota vita sua nomi ne d otis, et unde reddet ei med ietatem ad Pasch' et al i am med ietatem ad festum sancti Michaelis quoli bet anno tota vi ta sua, et preterea idem Prior ded i t ei q uatuor solidos d i e q uo hac etc. et si milter dabit ei x sol id os ad festu m sancti Pet ri ad Vi ncula anno xxxij, et nisi fecerit concedit etc.
+```
+
+### Extracted Information:
+
+1. **Agnes de J a River**
+   - *Role*: Petitor
+   - *Cognomen*: De La River
+   - *Family Relation*: Uxor (Geroldi de la River, primus vir), Uxor (Johannes de Apelford, secundus vir)
+   - *Legal matter*: Claims the right over two solidatus redditus in Henneya as dowry from her first husband.
+   - *Place of Origin*: None explicitly mentioned
+
+2. **Geroldus de la River**
+   - *Role*: Progenitor (Agnetis)
+   - *Cognomen*: De La River
+   - *Legal Relation*: Donator (Agnetis)
+   - *Marital Status*: Maritus (Agnetis)
+   - *Place of Origin*: Implied by name, but no additional details
+
+3. **Johannes de Apelford**
+   - *Role*: Progenitor (Agnetis)
+   - *Cognomen*: None explicitly given
+   - *Legal Relation*: Prior holder of dowry that Agnes seeks (Deffeddits jus)
+   - *Marital Status*: Maritus (Agnetis)
+   - *Place of Origin*: Apelford
+
+4. **Prior de Pogele**
+   - *Role*: Reus, Dominus feodi.
+   - *Cognomen*: De Pogele
+   - *Profession/Title*: Prior
+   - *Place of Origin*: Pogele
+
+5. **Bartholomeus Peche**
+   - *Role*: Plegiarius
+   - *Cognomen*: Peche
+   - *Place of Origin*: None explicitly mentioned
+
+### JSON Representation:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Agnes",
+      "cognomen": "De La River",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Geroldus",
+      "cognomen": "De La River",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Donator",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Apelford",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "",
+      "cognomen": "Prior de Pogele",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Pogele",
+      "title": "Prior"
+    },
+    {
+      "id": 5,
+      "name": "Bartholomeus",
+      "cognomen": "Peche",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+- Each person extracted has been given a unique `id`.
+- The document involves multiple legal relationships primarily highlighting Agnes's case against the Prior of Pogele.
+- Family relations have been captured, detailing Agnes's marriages to Geroldus and Johannes.
+- The use of roles such as 'Petitor', 'Reus', and 'Plegiarius' specify legal positions.
+- Lacunas like explicit professions or additional details were left blank as per instructions.
+In the provided document, there are several individuals mentioned. Let's extract the information regarding each person and outline their relationships to each other:
+
+1. **Agnes de la River**
+   - **Role**: Plaintiff (Petitor) in the legal dispute.
+   - **Legal Claim**: Claims two solidatus rent with appurtenances in Henneya as her rightful dowry, given by her first husband.
+   - **Family Relations**:
+     - *Geroldus de la River*: Identified as her first husband (Progenitor of Agnes's claim).
+     - *Johannes de Apelford*: Her second husband, through whom she claims the property, as he allowed her to take possession of it without opposition.
+   - **Legal Relationships**:
+     - Against the *Prior of Pogele*: Who holds the property.
+
+2. **Geroldus de la River**
+   - **Role**: First husband of Agnes.
+   - **Relationship to Others**:
+     - *Agnes*: His wife, to whom he gave the property in question as dowry.
+
+3. **Johannes de Apelford**
+   - **Role**: Second husband of Agnes.
+   - **Relationship to Others**:
+     - *Agnes*: Her husband who relinquished claim or control over the property in question to Agnes. His action forms the basis for the legal argument.
+
+4. **Prior of Pogele**
+   - **Role**: Defendant (Reus) in the legal dispute.
+   - **Legal Argument**: Claims that Agnes, while a widow, had quieted (i.e., renounced) all right and claim to him for those two solidatus rent and produced a charter to this effect. Thus, argues that he should not need to respond to her claim based on his title and her past actions.
+
+5. **Bartholomeus Peche**
+   - **Role**: Acts as a surety (Plegiarius) for Agnes, facilitating the agreement conclusion.
+   - **Relationship**: Provides financial guarantee for the settlement negotiated between Agnes and the Prior.
+
+### Summary of Relations:
+- Agnes is connected to Geroldus as his widow and first wife.
+- Agnes is also the widow and former wife of Johannes de Apelford.
+- Geroldus is associated with Agnes by having granted her the dowry related to the claim.
+- Johannes is linked to Agnes as the second husband, whose relinquishing of the property forms a crucial part of the claim.
+- The Prior of Pogele stands as the legal opponent to Agnes in the claim of the dowry in question.
+- Bartholomeus Peche, while not directly involved in the family or legal ownership, supports Agnes's legal activities by being her surety, facilitating a resolution. 
+
+This outlines the primary individuals and the nature of their connections in the context of the court document.
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Agnes",
+      "cognomen": "De La River",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Geroldus",
+      "cognomen": "De La River",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Apelford",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "",
+      "cognomen": "Prior De Pogele",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Pogele",
+      "title": "Prior"
+    },
+    {
+      "id": 5,
+      "name": "Bartholomeus",
+      "cognomen": "Peche",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```

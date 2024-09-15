@@ -1,0 +1,88 @@
+To fulfill your request, I will process the given court document in a structured way:
+
+### Task 1: Extract Information
+
+1. **Radulfus Skyr**:
+   - Appellant.
+   - Appealed against Robertus le Messer and Willelmus le Butiller.
+
+2. **Robertus le Messer**:
+   - Defendant.
+   - Accused of causing Radulfus Skyr an injury.
+   - Outlawed in the county due to Radulfus's suit.
+
+3. **Willelmus le Butiller**:
+   - Defendant.
+   - Accused by Radulfus Skyr of breach of the king's peace and causing an injury.
+   - Jurors confirmed that he inflicted an injury on Radulfus.
+   - Paid a fine along with Willelmus Luvegent.
+
+4. **Willelmus Luvegent**:
+   - Defendant.
+   - Accused by Radulfus Skyr.
+   - Involved in violence, according to jurors.
+   - Paid a fine along with Willelmus le Butiller.
+
+5. **Robertus de Uffinton**:
+   - Pledged for Willelmus le Butiller and Willelmus Luvegent.
+
+6. **Simonis de Fauflure**:
+   - Pledged for Willelmus le Butiller and Willelmus Luvegent.
+
+### Task 2: JSON Output
+
+Here is the structured JSON output for the document:
+
+```json
+{
+  "document": [
+    {
+      "name": "Radulfus Skyr",
+      "role": "Appellant",
+      "actions": [
+        {
+          "defendant_name": "Robertus le Messer",
+          "accusation": "Causing injury and breach of peace"
+        },
+        {
+          "defendant_name": "Willelmus le Butiller",
+          "accusation": "Breach of king's peace and causing injury"
+        },
+        {
+          "defendant_name": "Willelmus Luvegent",
+          "accusation": "Involved in violence"
+        }
+      ],
+      "economic_status": "pauper"
+    },
+    {
+      "name": "Robertus le Messer",
+      "role": "Defendant",
+      "accusations_than": ["by Radulfus Skyr"],
+      "outcome": "Outlawed in the county"
+    },
+    {
+      "name": "Willelmus le Butiller",
+      "role": "Defendant",
+      "accusations_than": ["by Radulfus Skyr"],
+      "outcome": "Paid fine"
+    },
+    {
+      "name": "Willelmus Luvegent",
+      "role": "Defendant",
+      "accusation_than": ["by Radulfus Skyr"],
+      "outcome": "Paid fine"
+    },
+    {
+      "name": "Robertus de Uffinton",
+      "role": "Pledge"
+    },
+    {
+      "name": "Simonis de Fauflure",
+      "role": "Pledge"
+    }
+  ]
+}
+```
+
+This output captures the relevant parties in the legal document, their roles, and the relationships or outcomes related to them.

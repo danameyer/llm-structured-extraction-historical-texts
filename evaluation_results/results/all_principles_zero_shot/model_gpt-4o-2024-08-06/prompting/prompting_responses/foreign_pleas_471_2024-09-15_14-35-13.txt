@@ -1,0 +1,115 @@
+Here is the structured JSON output extracted from the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Rogerus",
+      "cognomen": "De Wymbervill'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Thomas",
+      "cognomen": "Le Mareschal",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "Clericus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Willelmus",
+      "cognomen": "Cerneis'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Petrus",
+      "cognomen": "Filius Capellani",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 0
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation
+1. **Rogerus de Wymbervill'**:
+   - **Name**: Rogerus
+   - **Cognomen**: De Wymbervill'
+   - **Legal Relationship**: As the plaintiff (Petitor) against Willelmus and Petrus.
+
+2. **Thomas le Mareschal**:
+   - **Name**: Thomas
+   - **Cognomen**: Le Mareschal
+   - **Legal Relationship**: Acts as an attorney (Attornatus) for Johannes in relation to the case with Willelmus and Petrus.
+
+3. **Johannes Clericus**:
+   - **Name**: Johannes
+   - **Cognomen**: Clericus
+   - **Legal Relationship**: Acts as an attorney (Attornatus) for Rogerus.
+
+4. **Willelmus Cerneis'**:
+   - **Name**: Willelmus
+   - **Cognomen**: Cerneis'
+   - **Legal Relationship**: Is a defendant (Reus) against Rogerus.
+
+5. **Petrus filius Capellani**:
+   - **Name**: Petrus
+   - **Cognomen**: Filius Capellani
+   - **Family Relations**: Described as the son (Filius) but no specific parent ID provided likely due to lack of context.
+   - **Legal Relationship**: Is a defendant (Reus) against Rogerus.

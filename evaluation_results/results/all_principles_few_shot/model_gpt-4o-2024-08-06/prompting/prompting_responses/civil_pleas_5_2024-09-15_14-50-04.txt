@@ -1,0 +1,69 @@
+Here is the structured JSON output for the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Thomas",
+      "cognomen": "De Apelton'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Apelton'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "De Merton'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Merton",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Nicholai",
+      "cognomen": "De Hanred",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Hanred",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+
+1. **Thomas De Apelton'**
+    - **Role**: As the defendant (Reus) in the case against Willelmus.
+    - **Connection**: Related to Willelmus as the defendant in the legal dispute over land.
+
+2. **Willelmus De Merton'**
+    - **Role**: The plaintiff (Petitor) in the case claiming unjust disseisin by Thomas.
+    - **Connection**: Willelmus presents the legal claim against Thomas.
+
+3. **Nicholai De Hanred**
+    - **Role**: Acts as the surety (Plegiarius) for Willelmus.
+    - **Connection**: Provides guaranty or surety for Willelmus’s case, highlighting a legal support relationship.
+
+In this JSON representation, we've structured the individuals, their roles, and their relationships accurately based on the information extracted from the court document.

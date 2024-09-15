@@ -1,0 +1,55 @@
+Let's break down the document and extract the relevant information:
+
+### Step 1: Extract Information
+
+1. **Walterus de Bulehith'**
+   - **Name:** Walterus
+   - **Cognomen:** De Bulehith' (from Bulehith')
+   - **Place of Origin:** Bulehith
+   - **Legal Relationship:** Attornatus (attorney) for Thomas de Fereres
+
+2. **Thomas de Fereres**
+   - **Name:** Thomas
+   - **Cognomen:** De Fereres
+   - **Place of Origin:** Fereres
+
+### Step 2: Transfer to Structured JSON
+
+Now let's convert this information into the structured JSON format:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Walterus",
+      "cognomen": "De Bulehith'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Bulehith",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Thomas",
+      "cognomen": "De Fereres",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Fereres",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+- **Walterus** acts as an "Attornatus" (attorney) for **Thomas**, thus establishing a legal relationship between them.
+- Place names are derived from the elements following 'de' in their full names.
+- No professions, titles, or family relations are indicated in the text, so those fields remain empty or are omitted from relations if not applicable.

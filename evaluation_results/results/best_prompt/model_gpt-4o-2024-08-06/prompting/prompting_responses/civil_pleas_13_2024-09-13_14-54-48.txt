@@ -1,0 +1,210 @@
+Let's break down the provided "court document" and extract the relevant information to generate a structured JSON output. Here's the document:
+
+'''13.	(misericordia, misericordia, dampna vj denarii) Assisa venit recogni tura si Gil bertus de Evrinton' injuste etc. exaltavit quoddam stangn u m in Feringdon' ad nocu ment u m liberi tenementi Petri de Feringdon' i n eadem vi lla post pri mam etc. et u nde queritur quod per exal tacionem illam inundat aqua et submergi t terram suam etc. Et Gil bertus veni t et nich il dicit q uare assisa remaneat nisi tanturn quod ipse non levavi t stangn u m ill ud alteri us quam semper esse solebat et de hoc ponit se super assisam. Et Galfrid us de Wau ncy u n us recogni torum non venit, ideo in misericord ia.
+J u ratores  d icu nt  quod  predictus  Gilbertus  exaltavit  predictu m   stangn u m   ad nocu mentu m li beri tenementi predicti Petri in predicta  vil la injuste  etc.  sicut  breve dicit. Et ideo consideratu m est q uod pred icta exal tacio q uantu m fuerit ad nocu ment u m per visu m recognitoru m prosternatu r, et Gilbertus in m isericordia per plegi u m Elie de Bagi nton'.
+'''
+
+Now let's proceed to extract the data:
+
+### Key Points of the Document
+
+1. **Gilbertus de Evrinton**: 
+   - His act of raising a certain dam ('stangnum') in Feringdon is in question.
+   - Alleged to have done this unjustly to the detriment of the freehold tenement of Petrus de Feringdon.
+   - He does not provide justification, so the jury will decide.
+   - He is mentioned as being in misericordia (mercy), and also mentioned with Elie de Baginton as pledging for him.
+
+2. **Petrus de Feringdon**: 
+   - His freehold tenement is allegedly harmed by the actions of Gilbertus.
+
+3. **Galfridus de Wauncy**: 
+   - Recognitor (juror) involved but did not appear.
+   - In misericordia due to non-appearance.
+
+4. **Elie de Baginton**: 
+   - Acts as surety (Plegiarius) for Gilbertus.
+
+### JSON Output
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Gilbertus",
+    "cognomen": "de Evrinton",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": 2
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": null
+      }
+    ],
+    "place_of_origin": "Evrinton",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Petrus",
+    "cognomen": "de Feringdon",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Petitor",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "Feringdon",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Galfridus",
+    "cognomen": "de Wauncy",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "Wauncy",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "Elie",
+    "cognomen": "de Baginton",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "Baginton",
+    "title": ""
+  }
+]
+```
+
+### Explanation of the JSON creation:
+
+- Each person mentioned is given a unique "id".
+- The "name" is extracted as the first name of each person.
+- Any additional identifiers such as 'de [Location]' are placed in the "cognomen" field.
+- Legal relationships such as "Reus" (defendant) and "Petitor" (plaintiff) are derived based on the described interactions.
+- "Plegiarius" relationship is one-sided, applied to Elie de Baginton in relation to Gilbertus.
+
+For this document, the given JSON captures the roles and relationships defined in the court case accurately. If there is anything not clear in the output or additional details needed, feel free to ask.
+Let's extract the information about the individuals mentioned in the document and their relationships.
+
+### 1. Gilbertus de Evrinton
+- **Name:** Gilbertus
+- **Cognomen:** de Evrinton
+- **Role:**
+  - Raised a dam in Feringdon allegedly to the detriment of another's property.
+  - **Legal Relationship:** 
+    - Defendant ('Reus') against Petrus de Feringdon.
+    - **In Mercy (Misericordia):** Subject to fines or penalty due to the jury's finding.
+  - **Relation:** Supported by Elie de Baginton as a surety ('Plegiarius').
+
+### 2. Petrus de Feringdon
+- **Name:** Petrus
+- **Cognomen:** de Feringdon
+- **Role:**
+  - Owner of the free tenement allegedly affected by Gilbertus's actions.
+  - **Legal Relationship:**
+    - Plaintiff ('Petitor') against Gilbertus de Evrinton regarding the flooding and land submersion cause by the dam.
+
+### 3. Galfridus de Wauncy
+- **Name:** Galfridus
+- **Cognomen:** de Wauncy
+- **Role:**
+  - Juror ('Recongnitor') in the assize but did not attend.
+  - **Penalty:**
+    - Listed as in mercy (misericordia) for failing to appear.
+
+### 4. Elie de Baginton
+- **Name:** Elie
+- **Cognomen:** de Baginton
+- **Role:**
+  - Acted as a surety ('Plegiarius') for Gilbertus.
+  - No legal dispute mentioned directly related to him other than providing surety for Gilbertus.
+
+### Relationships:
+- The key relationships revolve around the legal case. Gilbertus de Evrinton is the defendant, with Petrus de Feringdon as the plaintiff. Elie de Baginton supports Gilbertus legally as a surety, indicating a relationship of trust or obligation.
+- Galfridus being mentioned signifies his intended role in the judicial process, though no direct relationship to the main legal entities (Gilbertus and Petrus) in terms of the dispute itself other than failing to perform his duty as a juror.
+
+The extracted relationships primarily concern the court proceedings, shedding light on legal roles and forms of support as seen in medieval court records. Let me know if you need further details on these or any other aspect of the document!
+Here is the structured JSON output for the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Gilbertus",
+      "cognomen": "de Evrinton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "Evrinton",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Petrus",
+      "cognomen": "de Feringdon",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Feringdon",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Galfridus",
+      "cognomen": "de Wauncy",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Wauncy",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Elie",
+      "cognomen": "de Baginton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Baginton",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON structure encapsulates all the key details about the individuals mentioned in the document, including their legal roles and relationships during the case proceedings. Let me know if you need any additional modifications or explanations about this output.

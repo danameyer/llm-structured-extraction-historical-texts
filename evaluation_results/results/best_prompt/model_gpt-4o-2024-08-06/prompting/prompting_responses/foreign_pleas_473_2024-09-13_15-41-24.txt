@@ -1,0 +1,202 @@
+Let's break down the provided court document and parse out the information according to the schema provided. Here’s the court document:
+
+'''473. (Sum') Cristiana Luvel ponit loco suo Robertum de Marisco vel Petrum de Mara versus Ricardu m Luvel de placito finis facti et de placito debiti.'''
+
+We begin by identifying and extracting the relevant information for each person mentioned:
+
+### Step-by-step Analysis:
+
+1. **Cristiana Luvel**:
+   - **Name**: Cristiana
+   - **Cognomen**: Luvel
+   - **Legal Relationship**: 
+     - She is appointing someone to act on her behalf, which indicates she could be the "Petitor" against someone. However, she is not directly acting within this document but appointing another.
+   - **Id**: 1
+
+2. **Robertus de Marisco**:
+   - **Name**: Robertus
+   - **Cognomen**: De Marisco
+   - **Legal Relationship**: 
+     - He is appointed to act on behalf of Cristiana Luvel, which means he is her "Attornatus".
+   - **Id**: 2
+
+3. **Petrus de Mara**:
+   - **Name**: Petrus
+   - **Cognomen**: De Mara
+   - **Legal Relationship**:
+     - Similarly to Robertus de Marisco, he is appointed by Cristiana Luvel and would also be her "Attornatus".
+   - **Id**: 3
+
+4. **Ricardus Luvel**:
+   - **Name**: Ricardus
+   - **Cognomen**: Luvel
+   - **Legal Relationship**:
+     - He acts as the "Reus" (defendant) against either Cristiana (directly) or indirectly through her appointed attorney(s).
+   - **Id**: 4
+
+From this, we can create our JSON representation for these persons.
+
+### JSON Output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Cristiana",
+      "cognomen": "Luvel",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Robertus",
+      "cognomen": "De Marisco",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Petrus",
+      "cognomen": "De Mara",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Ricardus",
+      "cognomen": "Luvel",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+- **Cristiana Luvel** is the primary initiator in this context, appointing her attorney(s) for a legal purpose (a plea of debt).
+- Two potential attorneys, **Robertus de Marisco** and **Petrus de Mara**, are appointed to represent Cristiana, indicated by their role as "Attornatus".
+- **Ricardus Luvel** is the "Reus" in the plea initiated by Cristiana, which sets him as the defendant. 
+
+The logical relationships and roles were established from the context of the document, respecting the constraints and roles delineated by the medieval Latin terminology and legal practices involved.
+Let's extract the relevant information about each person mentioned in the provided court document and their relations:
+
+### Court Document:
+'''473. (Sum') Cristiana Luvel ponit loco suo Robertum de Marisco vel Petrum de Mara versus Ricardum Luvel de placito finis facti et de placito debiti.'''
+
+### Extracted Information:
+
+1. **Cristiana Luvel**:
+   - **Role in Document**: She is the individual initiating the legal action. She appoints others as representatives (attorneys) for her lawsuit.
+   - **Relationships**:
+     - Appoints Robertus de Marisco and potentially Petrus de Mara as her attorneys.
+   - **Legal Context**: Initiates a plea of debt (placito finis facti et de placito debiti) against Ricardus Luvel.
+
+2. **Robertus de Marisco**:
+   - **Role in Document**: Appointed as one of the attorneys for Cristiana Luvel.
+   - **Relationships**:
+     - Acts on behalf of Cristiana Luvel as an "Attornatus."
+
+3. **Petrus de Mara**:
+   - **Role in Document**: Also appointed as an alternative attorney for Cristiana Luvel.
+   - **Relationships**:
+     - Functions as an "Attornatus" for Cristiana Luvel, similar to Robertus.
+
+4. **Ricardus Luvel**:
+   - **Role in Document**: Defendant against whom the plea is directed.
+   - **Relationships**:
+     - Is the "Reus" in the legal matter initiated by Cristiana Luvel (plea of debt).
+
+### Summary of Relations:
+
+- **Cristiana Luvel** is involved in a legal action where she appoints **Robertus de Marisco** and possibly **Petrus de Mara** to represent her case against **Ricardus Luvel**. 
+- **Robertus de Marisco** and **Petrus de Mara** hold the role of attorneys ("Attornatus") for **Cristiana Luvel**.
+- **Ricardus Luvel** is the defendant ("Reus") in the legal dispute involving claims of settlement completion and debt.
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Cristiana",
+      "cognomen": "Luvel",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Robertus",
+      "cognomen": "De Marisco",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Petrus",
+      "cognomen": "De Mara",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Ricardus",
+      "cognomen": "Luvel",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```

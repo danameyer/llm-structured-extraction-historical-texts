@@ -1,0 +1,106 @@
+Here is the structured JSON output for the given court document, derived from the information extracted about the individuals and their relations:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Henricus",
+      "cognomen": "Capellanus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Stanford",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Ricardus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Keton",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Agnes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Reginaldus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Stanford",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Johannes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Stanford",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation of Extraction:
+
+1. **Henricus (id: 1)**:
+   - Cognomen: "Capellanus", indicating his role or title possibly related to clerical duties.
+   - Place of Origin: "Stanford".
+   - No specific legal or family relationships mentioned directly in the snippet.
+
+2. **Ricardus (id: 2)**:
+   - Marital relationship to Agnete (Agnes), indicated by "et Agnete uxore ejus," suggesting "Maritus" (husband) role.
+
+3. **Agnes (id: 3)**:
+   - Marital relationship to Ricardo (Ricardus), indicated by "uxore ejus," suggesting "Uxor" (wife) role.
+
+4. **Reginaldus (id: 4)**:
+   - Identified as "filii Johannis", which translates to "son of Johannes", establishing a familial relationship.
+   - Acts as a "Plegiarius" for Henricus, providing surety, marking an important legal relationship.
+
+5. **Johannes (id: 5)**:
+   - Identified as the father ("Pater") of Reginald, creating the familial link.
+   - Place of Origin: "Stanford", consistent with Reginald, confirming a possible familial residence link.
+
+This JSON output is developed with strict adherence to the rules, ensuring that family and legal relationships are accurately reflected as presented in the original Latin document.

@@ -1,0 +1,77 @@
+**Document Analysis**
+
+1. **Extracted Information:**
+   - **Thomas filius Andreae**: The petitioner who brought a writ of novel disseisin against **Warinum filium Geroldi** regarding the common pasture in Bateli.
+   - **Warinum filium Geroldi**: The defendant in the cases involving Thomas concerning both the pasture and land pertaining to Thomas' free tenement in Bateli.
+   - **Willelmus Je Curter**: Acts as a pledge for Thomas.
+   - **Nicholaus Clericus**: Also acts as a pledge for Thomas.
+   - **Locations**: Bateli and Abbendonia.
+
+2. **Structured JSON Output:**
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Thomas",
+      "cognomen": "filius Andreae",
+      "legal_relationship": [
+        {
+          "relation_type": "petitor",
+          "related_person": 2
+        }
+      ],
+      "title": "misericordia",
+      "profession": "",
+      "family_relations": [],
+      "place_of_origin": ""
+    },
+    {
+      "id": 2,
+      "name": "Warinum",
+      "cognomen": "filium Geroldi",
+      "legal_relationship": [
+        {
+          "relation_type": "reus",
+          "related_person": 1
+        }
+      ],
+      "profession": "",
+      "family_relations": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Willelmus Je Curter",
+      "place_of_origin": "Abbendonia",
+      "legal_relationship": [
+        {
+          "relation_type": "plegiarius",
+          "related_person": 1
+        }
+      ],
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Nicholaus Clericus",
+      "place_of_origin": "Abbendonia",
+      "legal_relationship": [
+        {
+          "relation_type": "plegiarius",
+          "related_person": 1
+        }
+      ],
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "title": ""
+    }
+  ]
+}
+```
+This output captures the relationships among the individuals involved in the legal procedures described in the document, as well as key identifiers and roles of each person.

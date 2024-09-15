@@ -1,0 +1,33 @@
+Let's break down the provided court document and extract the relevant information about the person mentioned:
+
+1. **Person Mentioned:**
+   - **Name and Cognomen**: The document lists "Nicholai Haliday" as the individual involved. Therefore, the person's name is "Nicholaus" and the cognomen (surname) is "Haliday".
+   - **Place of Origin**: "Estgarston" is listed as the place of origin, which will be assigned to the `place_of_origin` field without the preposition 'de', as per the instructions.
+   - **Legal Relationship**: The document states that Nicholaus was "dampnatus apud Wynton' pro latrocinio" (condemned at Winchester for theft). This indicates a legal situation where Nicholaus is being judged for a crime, identifying him as a "Reus" (defendant). However, there's no plaintiff mentioned explicitly that could serve as a counterparty in this relationship.
+   - **Other Information**: There is no explicit profession, family relations, or title mentioned for Nicholaus in the document. These fields will remain empty in the JSON structure.
+
+Based on the extracted information, here's the structured JSON output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Nicholaus",
+      "cognomen": "Haliday",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "Estgarston",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON accurately captures all the necessary known details from the document, ensuring that undefined or absent details are left appropriately blank.

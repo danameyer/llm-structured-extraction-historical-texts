@@ -1,0 +1,168 @@
+Sure, let's break down the court document step-by-step and create the structured JSON output based on the information provided. Here's the given court document:
+
+**Court Document**:
+```
+14.	(+ Glouc', Derb') Sarra que fuit uxor  Rad ulfi  M u rdak  petit  versus  Rad u l furn M usard terciam partem manerii de Spersholt cum pertinencii s et terciam  partem manerii de Shotindon' cum  perti nenciis i n comitatu  Glouc' et terciam  partem  manerii de Stavel' i n comitatu  Derb' ut dotem suam etc.
+Et Rad ulfus venit et per licenciam reddit ei predictas tercias partes pred ictoru rn maneriorum adeo integre sicut illa ten uit. Ideo habeat seisinam suam etc.
+```
+
+Now, let's extract the relevant entities and relationships from the text:
+
+1. **Sarra**:
+   - Name: Sarra
+   - She was the wife of Radulfus Murdrak.
+   - Sarra is the plaintiff (Petitor) requesting her dower.
+   - Place of Origin: The document does not specify a place of origin for Sarra.
+   - Legal relationship: Uxor (wife) of Radulfus Murdrak.
+  
+2. **Radulfus Murdrak**:
+   - Name: Radulfus
+   - Cognomen: Murdrak
+   - Spouse: Sarra (Uxor)
+   - No specific power roles indicated.
+
+3. **Radulfus Furnus Musard**:
+   - Name: Radulfus
+   - Cognomen: Furnus Musard
+   - He is the defendant (Reus) in the dispute with Sarra.
+   - He relinquishes the third parts of the manors to Sarra.
+   - No specific power roles indicated.
+
+We'll structure these into JSON format as follows:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Sarra",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 2
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Petitor",
+        "related_person": 3
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Radulfus",
+    "cognomen": "Murdrak",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 1
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Radulfus",
+    "cognomen": "Furnus Musard",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  }
+]
+```
+
+This JSON representation effectively captures the main entities and their relationships as presented in the medieval court document. Sarra is identified as a plaintiff against Radulfus Furnus Musard, and her marriage to Radulfus Murdrak is explicitly documented.
+From the provided court document, we can extract the following information about the persons mentioned and their relations:
+
+1. **Sarra**:
+   - Role: Plaintiff (Petitor)
+   - Spouse: She is noted as the wife (Uxor) of Radulfus Murdrak.
+   - Legal Action: She petitions against Radulfus Furnus Musard for one-third parts of the manors as her dower.
+
+2. **Radulfus Murdrak**:
+   - Role: Related to Sarra as her husband (Maritus).
+   - Other Actions: No direct legal actions mentioned in this specific document.
+
+3. **Radulfus Furnus Musard**:
+   - Role: Defendant (Reus) in the case brought by Sarra.
+   - Action: He concedes and restores the requested third parts of the manors to Sarra.
+
+The relationships between these individuals are:
+- Sarra is the Uxor (wife) of Radulfus Murdrak.
+- Sarra is the Petitor (plaintiff) against Radulfus Furnus Musard, who is the Reus (defendant).
+
+This information helps establish the interpersonal and legal dynamics within the case, capturing both familial and legal relationships among the parties involved.
+Here is the structured JSON output based on the extracted information from the court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Sarra",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Radulfus",
+      "cognomen": "Murdrak",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Radulfus",
+      "cognomen": "Furnus Musard",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON object accurately represents the data extracted from the document, detailing the roles and relationships of the individuals involved in the court case.

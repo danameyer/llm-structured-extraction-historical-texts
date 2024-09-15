@@ -1,0 +1,152 @@
+To translate the information from the medieval court document into structured JSON, I've identified the individuals, their relationships, and other relevant details as follows:
+
+1. **Hugo de Pageham** - He is one of the main defendants ("Reus") against Thomas de Dreyton. He is associated with an unjust disseisin of property and later has surety provided by Johannes Quatremeyns.
+
+2. **Petrus filius Wulfrici** - Mentioned as a potential defendant along with Hugo and Ricardus but is found not guilty of the claims by Thomas de Dreyton. Petrus is the son of Wulfricus.
+
+3. **Ricardus de Parco** - Also a potential defendant, related by being the son of Walterus de Parco. Similar to Petrus, he is found not guilty in the case against Thomas de Dreyton.
+
+4. **Thomas de Dreyton** - The plaintiff ("Petitor") against Hugo de Pageham, asserting his claim over disseisin of rightful tenement.
+
+5. **Wulfricus** - The original holder of the tenement which was assigned to Thomas. Father of Petrus.
+
+6. **Walterus de Parco** - Previous tenant of the tenement; father of Ricardus. He continues to pay the rent to Thomas de Dreyton during his lifetime.
+
+7. **R Episcopus Cycestr'** - This Bishop of Chichester acted as the warden ("Custos") for the lands and heir of Walterus de Parco while the heir (Ricardus) was underage, protecting the inheritance and fulfilling obligations to Thomas de Dreyton.
+
+8. **Johannes Quatremeyns** - Provided surety ("Plegiarius") for Hugo de Pageham, acting as his guarantor in the legal proceedings.
+
+The JSON structure is then filled with this extracted data:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Hugo",
+      "cognomen": "De Pageham",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Petrus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Ricardus",
+      "cognomen": "De Parco",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Thomas",
+      "cognomen": "De Dreyton'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Hanney",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Wulfricus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Walterus",
+      "cognomen": "De Parco",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Tenens",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "R",
+      "cognomen": "Episcopus Cycestr'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Custos",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Custos",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": "Episcopus"
+    },
+    {
+      "id": 8,
+      "name": "Johannes",
+      "cognomen": "Quatremeyns",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This structured JSON output captures the roles, relations, and details of each person involved in the legal case.

@@ -1,0 +1,52 @@
+Here is the structured JSON output for the given court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Osbertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Wulfrode",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Harpenham",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+
+1. **Osbertus de Wulfrode**:
+   - **Name**: Osbertus
+   - **Place of Origin**: Wulfrode
+   - **Legal Relationship**: As the defendant, he is labeled as "Reus" with Robertus as the plaintiff ("Petitor").
+  
+2. **Robertus de Harpenham**:
+   - **Name**: Robertus
+   - **Place of Origin**: Harpenham
+   - **Legal Relationship**: As the plaintiff, he is labeled as "Petitor" with Osbertus as the defendant ("Reus").
+
+The document describes a legal dispute over land and a blocked path, identifying the parties involved and their respective roles in the case. Both parties are distinguished by their place of origin as is typical in such documents. Other fields such as 'cognomen', 'profession', and 'title' remain empty owing to the lack of further information in the provided document.

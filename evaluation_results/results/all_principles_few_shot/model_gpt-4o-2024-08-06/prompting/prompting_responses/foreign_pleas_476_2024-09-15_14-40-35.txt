@@ -1,0 +1,48 @@
+Here is the structured JSON output derived from the court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Walterus",
+      "cognomen": "de Bulehith'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Franci",
+      "cognomen": "Thomas de Fereres",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+
+1. **Walterus de Bulehith'**:
+   - **ID**: Assigned as `1`.
+   - **Name**: Recorded as "Walterus".
+   - **Cognomen**: Identified as "de Bulehith'".
+   - **Legal Relationship**: Acts as the "Attornatus" (attorney) for "Franci", denoted by linking to person ID `2`.
+
+2. **Franci Thomas de Fereres**:
+   - **ID**: Assigned as `2`.
+   - **Name and Cognomen**: Since "Franci Thomas de Fereres" indicates full identification where "Thomas de Fereres" serves as an extended name or title, potentially implying an origin or lineage from Fereres (treated under cognomen here).
+   - **Legal Relationship**: None explicitly stated in this context.
+
+This structured JSON output preserves the relationships and information as extracted from the document, keeping intact the mentioned attorney relationship between Walterus and Franci. The spelling and forms are kept as they appear in the source text.

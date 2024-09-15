@@ -1,0 +1,65 @@
+For the provided court document, the extracted structured JSON output highlights the individuals involved and their interrelations. The document features four persons with specific roles and relationships to each other. Here's the structured JSON output:
+
+```json
+{
+  "person_list": [
+    {
+      "name": "Robertus de Rogo",
+      "cognomen": "de Esgarston'",
+      "profession": "appellavit",
+      "legal_relationship": [
+        {
+          "relation_type": "petitor",
+          "related_person": 2
+        }
+      ],
+      "id": 1,
+      "family_relations": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "name": "Henricus le Clerk'",
+      "cognomen": "de Esga rston'",
+      "id": 2,
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "name": "Roberti",
+      "cognomen": "de Weken holt",
+      "legal_relationship": [
+        {
+          "relation_type": "plegiarius",
+          "related_person": 2
+        }
+      ],
+      "id": 3,
+      "profession": "",
+      "family_relations": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "name": "Walters",
+      "cognomen": "de Wyken holt",
+      "id": 4,
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+In this document:
+
+1. **Robertus de Rogo** is the appellant against **Henricus le Clerk'** of Esgarston for breach of peace.
+2. **Henricus le Clerk'** is accused of causing an injury by a certain hatchet and eventually makes a settlement.
+3. **Roberti de Weken holt** serves as a surety for Henricus in making the settlement.
+4. **Walters de Wyken holt** is mentioned as another surety who has passed away.

@@ -1,0 +1,98 @@
+Here's how the information from the given court document has been extracted and structured into JSON format:
+
+### Extracted Information
+
+1. **Galfridus Pek (also spelled Galfrid us Pek')**
+   - Cognomen: de Westcumton
+   - Legal role: Petitor (one who brought a legal action)
+   - Plegii (pledges/pledges of prosecution): Johannes Faber and Ricardus Ruffus
+
+2. **Celestria**
+   - Cognomen: que fuit uxor Roberti Breghe (translated: who was the wife of Robertus Breghe)
+   - Legal role: Reus (defendant in the legal action)
+
+3. **Robertus Breghe**
+   - Status: Deceased
+
+4. **Johannes Faber**
+   - Cognomen: de Estcumton
+   - Role: Plegius (pledge for the prosecution, related to Galfridus Pek)
+
+5. **Ricardus Ruffus**
+   - Cognomen: de Westeuroton
+   - Status: Deceased
+
+### JSON Output
+```json
+{
+    "person_list": [
+        {
+            "id": 1,
+            "name": "Galfridus Pek",
+            "cognomen": "de Westcumton",
+            "legal_relationship": [
+                {
+                    "relation_type": "petitor",
+                    "related_person": null
+                }
+            ],
+            "profession": "",
+            "family_relations": [],
+            "place_of_origin": "",
+            "title": ""
+        },
+        {
+            "id": 2,
+            "name": "Celestria",
+            "cognomen": "que fuit uxor Roberti Breghe",
+            "legal_relationship": [
+                {
+                    "relation_type": "reus",
+                    "related_person": null
+                }
+            ],
+            "profession": "",
+            "family_relations": [],
+            "place_of_origin": "",
+            "title": ""
+        },
+        {
+            "id": 3,
+            "name": "Robertus Breghe",
+            "cognomen": "",
+            "profession": "deceased",
+            "family_relations": [],
+            "legal_relationship": [],
+            "place_of_origin": "",
+            "title": ""
+        },
+        {
+            "id": 4,
+            "name": "Johannes Faber",
+            "cognomen": "de Estcumton",
+            "legal_relationship": [
+                {
+                    "relation_type": "plegiarius",
+                    "related_person": 1
+                }
+            ],
+            "profession": "",
+            "family_relations": [],
+            "place_of_origin": "",
+            "title": ""
+        },
+        {
+            "id": 5,
+            "name": "Ricardus Ruffus",
+            "cognomen": "de Westeuroton",
+            "profession": "deceased",
+            "family_relations": [],
+            "legal_relationship": [],
+            "place_of_origin": "",
+            "title": ""
+        }
+    ]
+}
+``` 
+
+This JSON structure provides a clear representation of the people involved and their roles/connections within the context of the court document.

@@ -1,0 +1,73 @@
+(1) Persons mentioned in the document and their relationships:
+- Rogerus de Wymbervill' is involved in a legal case and appoints representatives.
+- Thomam le Mareschal and Johannem Clericum are appointed by Rogerus de Wymbervill' as his representatives (legal representatives).
+- Willelmum Cerneis' and Petrum (son of Capellani) are related parties in the legal dispute regarding land.
+  
+(2) Transferred information to structured JSON:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Rogerus",
+      "cognomen": "de Wymbervill'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": ["Appoints Thomam le Mareschal or Johannem Clericum as representatives"],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Thomam",
+      "cognomen": "le Mareschal",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": ["Representative of Rogerus de Wymbervill'"],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannem",
+      "cognomen": "Clericum",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": ["Representative of Rogerus de Wymbervill'"],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Willelmum",
+      "cognomen": "Cerneis'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": ["Party in the land dispute"],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Petrum",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": ["Son of Capellani"],
+      "legal_relationship": ["Party in the land dispute"],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Capellani",
+      "title": "filius",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": ["Father of Petrum"],
+      "legal_relationship": [],
+      "place_of_origin": ""
+    }
+  ]
+}
+```

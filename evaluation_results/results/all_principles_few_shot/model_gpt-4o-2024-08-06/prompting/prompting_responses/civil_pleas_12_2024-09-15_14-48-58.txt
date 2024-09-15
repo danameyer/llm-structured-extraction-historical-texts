@@ -1,0 +1,96 @@
+To generate a structured JSON output from the provided court document, let's break down the information:
+
+1. **Person Extraction and Relationships:**
+
+   - **Petrus de Esthen**:
+     - Mentioned as the father of Willelmus.
+     - Described as having possession of land ("seised") in demesne (his own use) in Esthan.
+     - He has a claim that is related to a piece of land which is being held by Matillis.
+
+   - **Willelmus**:
+     - Identified as the son of Petrus de Esthen.
+     - He cannot challenge the legal basis under which Thomas de Drayton holds the said land.
+
+   - **Matillis de Esthenn**:
+     - She currently holds the land in question in Esthenn.
+     - Claims that she should not have to respond to the writ, suggesting a legal defense against Willelmus.
+
+   - **Thomas de Drayton**:
+     - Claims that the land in question is his villeinage and is held from the demesne of the king in Esthann.
+     - He asserts that the land is not subject to such a writ as Willelmus attempts to use.
+
+2. **Transfer to JSON output:**
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Petrus",
+      "cognomen": "de Esthen",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Tenens",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Esthen",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Progenies",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Matillis",
+      "cognomen": "de Esthenn",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Esthenn",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Thomas",
+      "cognomen": "de Drayton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Drayton",
+      "title": ""
+    }
+  ]
+}
+```
+
+**Explanation:**
+
+- **Petrus de Esthen** is described with his legal relationship as a possessor (tenens) of the land currently held by Matillis, and his role as the father of Willelmus.
+  
+- **Willelmus** is identified primarily through his relationship as the son of Petrus and with his lack of ability to dispute Thomas's claim.
+
+- **Matillis de Esthenn** is acknowledged as a current landholder, hinting at a legal dispute but with no known familial relations identified.
+
+- **Thomas de Drayton** asserts a legal claim over the land in a manner suggesting he holds in a form of custody related to the king, without any links to other persons. 
+
+This JSON structure captures the key personal and legal relationships as outlined in the medieval Latin court roll text.

@@ -1,0 +1,142 @@
+Here is the breakdown of the extracted information from the court document:
+
+1. **Galfrid us Pek'**
+   - **ID**: 1
+   - **Name**: Galfrid
+   - **Cognomen**: us Pek'
+   - **Place of Origin**: Westcumton'
+   - **Legal Relationship**: Petitor (plaintiff)
+   - **Profession**: Not specified
+   - **Family Relations**: None
+   - **Title**: None
+
+2. **Celestria**
+   - **ID**: 2
+   - **Name**: Celestria
+   - **Family Relations**: Uxor (wife of Roberti Breghe)
+   - **Legal Relationship**: Reus (defendant) in relation to Galfrid
+   - **Cognomen**: None
+   - **Profession**: Not specified
+   - **Place of Origin**: Not specified
+   - **Title**: None
+
+3. **Robertus Breghe**
+   - **ID**: 3
+   - **Name**: Robertus
+   - **Family Relations**: Maritus (husband of Celestria)
+   - **Cognomen**: Breghe
+   - **Profession**: Not specified
+   - **Legal Relationship**: None
+   - **Place of Origin**: Not specified
+   - **Title**: None
+
+4. **Johannes Faber**
+   - **ID**: 4
+   - **Name**: Johannes
+   - **Place of Origin**: Estcumton'
+   - **Profession**: Faber (Smith)
+   - **Legal Relationship**: Plegiarius (surety) for Galfrid
+   - **Cognomen**: None
+   - **Family Relations**: None
+   - **Title**: None
+
+5. **Ricardus Ruffus**
+   - **ID**: 5
+   - **Name**: Ricardus
+   - **Cognomen**: Ruffus
+   - **Place of Origin**: Westcumton'
+   - **Legal Relationship**: Plegiarius (surety) for Galfrid
+   - **Profession**: None
+   - **Family Relations**: None
+   - **Title**: None
+
+These entries have been translated into the following structured JSON format:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Galfrid",
+      "cognomen": "us Pek'",
+      "place_of_origin": "Westcumton'",
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": null
+        }
+      ],
+      "profession": "",
+      "family_relations": [],
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Celestria",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "cognomen": "",
+      "profession": "",
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Robertus",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 2
+        }
+      ],
+      "cognomen": "",
+      "profession": "",
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Johannes",
+      "place_of_origin": "Estcumton'",
+      "profession": "Faber",
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "cognomen": "",
+      "family_relations": [],
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Ricardus",
+      "cognomen": "Ruffus",
+      "place_of_origin": "Westcumton'",
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "profession": "",
+      "family_relations": [],
+      "title": ""
+    }
+  ]
+}
+```
+
+This structured data sets out the relationships and origins of the persons described, translating the unstructured medieval Latin document into an easily readable and analyzable format for historians.

@@ -1,0 +1,52 @@
+Here is the structured output extracted from the court document, complete with explanations for the choices made:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Willelmus",
+      "cognomen": "Messarius",
+      "place_of_origin": "Lamburn'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Henricus",
+      "cognomen": "Hyliun",
+      "place_of_origin": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "title": ""
+    }
+  ]
+}
+```
+
+**Explanation:**
+
+1. **Willelmus Messarius:**
+   - **Name:** Willelmus
+   - **Cognomen:** Messarius — This cognomen may suggest a profession related to grain or milling, but it is categorized under cognomen as per document spelling.
+   - **Place_of_origin:** Lamburn' — Derived from "de Lamburn'", indicating origin.
+   - **Legal Relationship:** None, as Willelmus is the victim in this document.
+
+2. **Henricus Hyliun:**
+   - **Name:** Henricus
+   - **Cognomen:** Hyliun
+   - **Legal Relationship:** "Reus" — Henricus is accused of the death of Willelmus, hence the 'Reus' (defendant) relation to Willelmus (id: 1).
+
+3. **General Notes:**
+   - No professions are explicitly mentioned beyond those inferred.
+   - There are no family relations stated in the document, hence the empty list.
+   - Titles are not applicable based on the document text.
+   - All prepositions like 'de' for locations are discarded except where specified rules govern their use within cognomens.

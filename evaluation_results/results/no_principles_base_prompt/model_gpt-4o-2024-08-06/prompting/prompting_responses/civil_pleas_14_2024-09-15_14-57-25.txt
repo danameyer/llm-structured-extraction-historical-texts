@@ -1,0 +1,58 @@
+Below is the structured JSON output generated from the information extracted from the court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Sarra",
+      "cognomen": "que fuit uxor Radulfi Murdak",
+      "legal_relationship": [
+        {
+          "relation_type": "petitor",
+          "related_person": 3
+        }
+      ],
+      "title": "petitor",
+      "profession": "",
+      "family_relations": [],
+      "place_of_origin": ""
+    },
+    {
+      "id": 2,
+      "name": "Radulfus",
+      "cognomen": "furnus Musard",
+      "legal_relationship": [
+        {
+          "relation_type": "reus",
+          "related_person": 3
+        }
+      ],
+      "profession": "",
+      "family_relations": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Radulfus Murdak",
+      "legal_relationship": [
+        {
+          "relation_type": "progenitor",
+          "related_person": 1
+        }
+      ],
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+In this JSON output:
+- **Sarra** is identified as the petitioner (`petitor`) claiming her dower rights. She is the former wife of **Radulfus Murdak**.
+- **Radulfus**, bearing the cognomen "furnus Musard," is responding to the petition, implying a defense role (`reus`), perhaps in relation to managing the estates in question.
+- **Radulfus Murdak** is indirectly mentioned as Sarra's late husband, establishing a familial relation, though he does not appear as an active party in this document.

@@ -1,0 +1,196 @@
+Here is the structured JSON output based on the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Milo",
+      "cognomen": "Basset",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Northmorton",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Johannes",
+      "cognomen": "Je Flemeng",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Alicia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Prior",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Walingford",
+      "title": "Prior"
+    },
+    {
+      "id": 5,
+      "name": "Radulfus",
+      "cognomen": "Blakemor",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Alicia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Johannes",
+      "cognomen": "Basset",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 8,
+      "name": "Stephanus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 9
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 9
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 9,
+      "name": "Walterus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Progenitor",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 10,
+      "name": "Willelmus",
+      "cognomen": "Huntercumb",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Custos",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+
+1. **Milo Basset**: Identified as a plaintiff (Petitor), he is taking legal action against several parties concerning lands in Northmorton.
+
+2. **Johannes Je Flemeng and Alicia (his wife)**: Johannes is the husband (Maritus) of Alicia, and they are defendants (Reus) against Milo Basset's claim.
+
+3. **Prior of Walingford**: As a title holder "Prior," he is also named as a defendant in Milo's claim regarding land.
+
+4. **Radulfus de Blakemor and Alicia (his wife)**: Similar to Johannes and Alicia, Radulfus is the husband (Maritus) of his Alicia, and they are also defendants.
+
+5. **Johannes Basset**: Called to warrant by Johannes Je Flemeng and others; he has a legal role in the case but not directly as a petitioner or defendant linked to Milo.
+
+6. **Stephanus, son of Walterus**: As the son (Filius) of Walterus, Stephanus is a ward (Pupillus) under Willelmus de Huntercumb's guardianship (Custos).
+
+7. **Roles and Relations**: The text identifies familial and legal relationships between the persons involved, such as marital ties ('Maritus'-'Uxor'), defendants ('Reus'), and guardianship ('Custos'-'Pupillus').
+
+The JSON structure is generated following the analysis and extraction of persons and relationships outlined within the court document. The information has been systematically organized to depict social, legal, and familial roles as per the rules provided.

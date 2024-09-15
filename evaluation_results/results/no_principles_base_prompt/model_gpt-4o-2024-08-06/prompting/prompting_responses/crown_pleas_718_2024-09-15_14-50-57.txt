@@ -1,0 +1,63 @@
+1. **Extracted Information:**
+
+   - **Simon de Leukenor:** Served as a "vicecomes" (sheriff) and is now deceased. There are no specific family or legal relations mentioned.
+
+   - **Alanus de Farnham:** Served as a "vicecomes". There are no specific family or legal relations mentioned.
+
+   - **Wydo (son of Roberti):** Currently serves as a "vicecomes" and is noted as the son of Roberti.
+
+   - **Roberti:** Father of Wydo. No additional details or professions mentioned.
+
+2. **Structured JSON Output:**
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Simon",
+      "cognomen": "de Leukenor",
+      "profession": "vicecomes",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Alanus",
+      "cognomen": "de Farnham",
+      "profession": "vicecomes",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Wydo",
+      "profession": "vicecomes",
+      "family_relations": [
+        {
+          "relation_type": "filius",
+          "related_person": 4
+        }
+      ],
+      "cognomen": "",
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Roberti",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```

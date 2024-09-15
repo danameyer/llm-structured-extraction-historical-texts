@@ -1,0 +1,77 @@
+Here is the structured JSON output based on the court document provided, detailing the information extracted about the persons mentioned and their relations:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Agnes",
+      "cognomen": "Que Fuit Uxor Willelmi Bordon",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Derby",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "De Eton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Robertus",
+      "cognomen": "De Shardelawe",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": "Magister"
+    }
+  ]
+}
+```
+
+### Explanation:
+
+1. **Person 1: Agnes**
+   - **Name**: Agnes
+   - **Cognomen**: Que Fuit Uxor Willelmi Bordon
+   - **Place of Origin**: Derby
+   - **Legal Relationship**: Petitor (Plaintiff) in a legal plea against Robertus (ID 3)
+   - **Other fields**: Profession, Family Relations, and Title are empty as no related information is provided.
+
+2. **Person 2: Willelmus de Eton**
+   - **Name**: Willelmus
+   - **Cognomen**: De Eton
+   - **Legal Relationship**: Acted as Attornatus (Attorney) for Agnes (ID 1)
+   - **Other fields**: Place of Origin, Profession, Family Relations, and Title are empty as no related information is provided.
+
+3. **Person 3: Robertus de Shardelawe**
+   - **Name**: Robertus
+   - **Cognomen**: De Shardelawe
+   - **Title**: Magister
+   - **Legal Relationship**: Reus (Defendant) in a legal plea where Agnes (ID 1) is the plaintiff (no specific related person ID because Agnes is identified through her relationship type).
+   - **Other fields**: Profession, Family Relations, and Place of Origin are empty as no related information is provided. 
+
+By following the given rules and extracting detailed relationships and descriptors, this structured JSON captures the legal and social structure as represented in the document.

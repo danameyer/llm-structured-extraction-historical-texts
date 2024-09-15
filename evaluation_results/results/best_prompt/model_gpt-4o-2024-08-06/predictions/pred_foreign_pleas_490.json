@@ -1,0 +1,62 @@
+{
+    "person_list": [
+        {
+            "id": 1,
+            "name": "Ricardus",
+            "cognomen": "de Oxehaye",
+            "profession": "",
+            "family_relations": [
+                {
+                    "relation_type": "heres",
+                    "related_person": 2
+                }
+            ],
+            "legal_relationship": [
+                {
+                    "relation_type": "reus",
+                    "related_person": 3
+                },
+                {
+                    "relation_type": "tenens",
+                    "related_person": 3
+                }
+            ],
+            "place_of_origin": "Oxehaye",
+            "title": ""
+        },
+        {
+            "id": 2,
+            "name": "Nicolaus",
+            "cognomen": "de Oxehaye",
+            "profession": "",
+            "family_relations": [
+                {
+                    "relation_type": "progenitor",
+                    "related_person": 1
+                }
+            ],
+            "legal_relationship": [],
+            "place_of_origin": "Oxehaye",
+            "title": ""
+        },
+        {
+            "id": 3,
+            "name": "",
+            "cognomen": "",
+            "profession": "",
+            "family_relations": [],
+            "legal_relationship": [
+                {
+                    "relation_type": "petitor",
+                    "related_person": 1
+                },
+                {
+                    "relation_type": "petitor",
+                    "related_person": 2
+                }
+            ],
+            "place_of_origin": "Hurl'",
+            "title": "Prior"
+        }
+    ]
+}

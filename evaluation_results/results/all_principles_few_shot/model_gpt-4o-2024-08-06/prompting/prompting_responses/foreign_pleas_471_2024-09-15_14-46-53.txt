@@ -1,0 +1,109 @@
+Below is the structured JSON output based on the extracted information from the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Rogerus",
+      "cognomen": "De Wymbervill'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Thomas",
+      "cognomen": "Le Mareschal",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "Clericus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Willelmus",
+      "cognomen": "Cerneis'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Petrus",
+      "cognomen": "Filius Capellani",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "",
+      "cognomen": "Capellanus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Capellanus"
+    }
+  ]
+}
+```
+
+### Explanation:
+
+1. **Rogerus de Wymbervill'** (id: 1) is mentioned as appointing attorneys. He appoints **Thomas le Mareschal** (id: 2) and **Johannes Clericus** (id: 3) on his behalf against **Willelmus Cerneis'** (id: 4) and **Petrus, son of the Chaplain** (id: 5).
+   - He has two legal relationships as "Attornatus", one with Thomas (id: 2) and the other with Johannes (id: 3).
+
+2. **Thomas le Mareschal** (id: 2) is an appointed attorney of Rogerus de Wymbervill' but has no direct legal action mentioned against the others.
+
+3. **Johannes Clericus** (id: 3) is another appointed attorney of Rogerus de Wymbervill'.
+
+4. **Willelmus Cerneis'** (id: 4) is one of the defendants ("Reus"), but no specific related person outside this document is mentioned.
+
+5. **Petrus, Filius Capellani** (id: 5) is another defendant ("Reus"). He is identified with a family relationship as the "Filius" of an unnamed **Chaplain** (id: 6).
+
+6. **Capellanus** (id: 6) is referred to in the family context as the father of Petrus. In his title, he retains "Capellanus", indicating his ecclesiastical position.
+
+This structured output aims to reflect the complex web of relationships and legal actions indicated in the original court document while adhering to historical conventions and linguistic norms.

@@ -1,0 +1,58 @@
+Let's break down the information from the court document step by step:
+
+1. **Extracted Information:**
+
+    - **Hugo de Yerly**: He is the plaintiff in the case, who is bringing the lawsuit against Bartholomeus de Merden for obligations related to a free tenancy in Merden. 
+
+    - **Bartholomeus de Merden**: He is the defendant in the case and is accused of not performing the obligations and services required on the free tenancy he holds from Hugo de Yerly.
+
+    - **Ricardus Guscard**: He is listed as a surety (pledge) for Bartholomeus de Merden.
+
+    - **Herveus de Manigeford**: Also acts as a surety (pledge) for Bartholomeus de Merden.
+
+2. **Relations and Context:**
+
+    - Hugo de Yerly and Bartholomeus de Merden have a landlord-tenant relationship where Bartholomeus is supposed to provide certain services or dues to Hugo.
+    
+    - Ricardus Guscard and Herveus de Manigeford are providing some form of guarantee or bail for Bartholomeus's appearance or obligation fulfillment.
+
+3. **Structured JSON output:**
+
+```json
+{
+  "persons": [
+    {
+      "name": "Hugo de Yerly",
+      "role": "plaintiff",
+      "relations": {
+        "to": "Bartholomeus de Merden",
+        "type": "landlord-tenant"
+      }
+    },
+    {
+      "name": "Bartholomeus de Merden",
+      "role": "defendant",
+      "relations": {
+        "to": "Hugo de Yerly",
+        "type": "tenant-landlord"
+      },
+      "sureties": [
+        "Ricardus Guscard",
+        "Herveus de Manigeford"
+      ]
+    },
+    {
+      "name": "Ricardus Guscard",
+      "role": "surety",
+      "relation": "surety for Bartholomeus de Merden"
+    },
+    {
+      "name": "Herveus de Manigeford",
+      "role": "surety",
+      "relation": "surety for Bartholomeus de Merden"
+    }
+  ]
+}
+```
+
+This structured JSON captures the names, roles, and relationships between the individuals involved in the court document.

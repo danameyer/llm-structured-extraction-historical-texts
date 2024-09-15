@@ -1,0 +1,63 @@
+The document involves three primary individuals and their relationships:
+
+1. **Walentynus de Neubir'**:
+    - Described as the "avunculus" (uncle) of Willelmus Dod.
+    - Previously possessed the property in question as lord of the fee ("seisitus in dominico suo ut de feodo").
+    - Has died, prompting the legal proceedings over the property.
+    
+2. **Willelmus Dod**:
+    - Described as the closest heir ("heres") to Walentynus de Neubir'.
+    - Named in the legal proceedings as the person to recover his inheritance.
+
+3. **Radulfus filius Ade Cont**:
+    - Currently holds the properties (“mesuagia”) but does not contest the proceedings (“nichil dicit quare assisa remaneat”).
+    - Resulting in his placement in "misericordia" (mercy/fine) likely due to losing the case or not defending the claim effectively.
+
+Based on this understanding, here is the structured JSON output for the document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Walentynus de Neubir'",
+      "cognomen": "avunculus Willelmi Dod",
+      "legal_relationship": [
+        {
+          "relation_type": "dominus feodi",
+          "related_person": 1
+        }
+      ],
+      "title": "avunculus",
+      "profession": "",
+      "family_relations": [],
+      "place_of_origin": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus Dod",
+      "legal_relationship": [
+        {
+          "relation_type": "heres",
+          "related_person": 1
+        }
+      ],
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Radulfus filius Ade Cont",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```

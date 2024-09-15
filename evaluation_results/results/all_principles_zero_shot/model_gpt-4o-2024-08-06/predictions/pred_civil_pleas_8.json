@@ -1,0 +1,58 @@
+{
+    "person_list": [
+        {
+            "id": 1,
+            "name": "Henricus",
+            "profession": "Capellanus",
+            "place_of_origin": "Stanford",
+            "legal_relationship": [
+                {
+                    "relation_type": "petitor",
+                    "related_person": 2
+                },
+                {
+                    "relation_type": "plegiarius",
+                    "related_person": 3
+                }
+            ],
+            "cognomen": "",
+            "family_relations": [],
+            "title": ""
+        },
+        {
+            "id": 2,
+            "name": "Ricardus",
+            "cognomen": "de Keton'",
+            "legal_relationship": [
+                {
+                    "relation_type": "reus",
+                    "related_person": 1
+                }
+            ],
+            "profession": "",
+            "family_relations": [],
+            "place_of_origin": "",
+            "title": ""
+        },
+        {
+            "id": 3,
+            "name": "Agnes",
+            "family_relations": [
+                {
+                    "relation_type": "uxor",
+                    "related_person": 2
+                }
+            ],
+            "legal_relationship": [
+                {
+                    "relation_type": "reus",
+                    "related_person": 1
+                }
+            ],
+            "cognomen": "",
+            "profession": "",
+            "place_of_origin": "",
+            "title": ""
+        }
+    ]
+}

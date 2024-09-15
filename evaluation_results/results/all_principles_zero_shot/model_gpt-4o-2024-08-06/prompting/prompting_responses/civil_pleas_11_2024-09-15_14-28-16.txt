@@ -1,0 +1,156 @@
+Here's the analysis and structured JSON for the court document:
+
+### Analysis:
+
+1. **Ema de Pavilly**
+   - **Name:** Ema
+   - **Cognomen:** De Pavilly
+   - **Legal Relationship:** 
+     - **Petitor (plaintiff)** in the case against both Alanum Bosher and his wife Aviciam, as well as against Willelmum, son of Edwardi.
+   - **Relationships:**
+     - Has named Willelmum de Pavilly as her attorney.
+
+2. **Willelmum de Pavilly**
+   - **Name:** Willelmum
+   - **Cognomen:** De Pavilly
+   - **Legal Relationship:**
+     - **Attornatus (attorney)** for Ema.
+     - **Reus (defendant)** in the cases involving Alanum Bosher, his wife Aviciam, and Willelmum, son of Edwardi.
+
+3. **Alanum Bosher**
+   - **Name:** Alanum
+   - **Cognomen:** Bosher
+   - **Family Relations:**
+     - **Maritus (husband)** of Aviciam.
+   - **Legal Relationship:**
+     - **Reus (defendant)** in the case brought by Willelmum de Pavilly.
+
+4. **Willelmum (son of Edwardi)**
+   - **Name:** Willelmum
+   - **Family Relations:**
+     - **Filius (son)** of Edwardi.
+   - **Legal Relationship:**
+     - **Reus (defendant)** in the legal context with Willelmum de Pavilly.
+
+5. **Aviciam**
+   - **Name:** Aviciam
+   - **Family Relations:**
+     - **Uxor (wife)** of Alanum.
+
+6. **Edwardi**
+   - **Name:** Edwardi
+   - **Family Relations:** No active relations listed other than being the father of Willelmum (son of Edwardi).
+
+### JSON Output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ema",
+      "cognomen": "De Pavilly",
+      "place_of_origin": "",
+      "title": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Willelmum",
+      "cognomen": "De Pavilly",
+      "place_of_origin": "",
+      "title": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 3
+        },
+        {
+          "relation_type": "Reus",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Alanum",
+      "cognomen": "Bosher",
+      "place_of_origin": "",
+      "title": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Willelmum",
+      "cognomen": "",
+      "place_of_origin": "",
+      "title": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Aviciam",
+      "cognomen": "",
+      "place_of_origin": "",
+      "title": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": []
+    },
+    {
+      "id": 6,
+      "name": "Edwardi",
+      "cognomen": "",
+      "place_of_origin": "",
+      "title": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": []
+    }
+  ]
+}
+```
+
+This JSON output captures the persons involved along with their relationships and legal roles.

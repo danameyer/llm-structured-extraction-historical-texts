@@ -1,0 +1,86 @@
+Let's break down the court document and identify the relevant information according to the provided rules:
+
+Court Document:
+'''733. De defaltis dicu nt quod Petrus Sewine de Audeburn' et Ricardus de Legha non venerunt primo die, ideo in misericordia.'''
+
+1. **Identify Persons and Their Details**
+   - First Person: Petrus Sewine
+     - Name: Petrus
+     - Cognomen: Sewine
+     - Place of Origin: Audeburn
+     - Legal Relationship: Reus
+   - Second Person: Ricardus de Legha
+     - Name: Ricardus
+     - Cognomen: de Legha
+     - Legal Relationship: Reus
+   
+2. **JSON Construction**
+   - We have two individuals mentioned, both identified as 'Reus' (defendants) for not appearing on the first day, hence also in misericordia (at the mercy of the court likely for a penalty).
+
+Now, let's construct the JSON output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Petrus",
+      "cognomen": "Sewine",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "Audeburn",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Ricardus",
+      "cognomen": "de Legha",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+**Explanation:**
+- Both "Petrus Sewine" and "Ricardus de Legha" are listed as defendants because they didn't appear on the specified day. They are thus categorized with the legal relationship 'Reus'.
+- Petrus Sewine has a place of origin "Audeburn", while Ricardus does not have one specified beyond "de Legha", which could be a descriptor or a place, hence it's kept under cognomen. 
+- All other categories are left empty as no other information is provided in the text.
+The court document provided mentions two individuals and the circumstance surrounding them. Let's extract the information for each of these individuals and any relations they might have to each other based on the given text:
+
+**Court Document:**
+
+'''733. De defaltis dicu nt quod Petrus Sewine de Audeburn' et Ricardus de Legha non venerunt primo die, ideo in misericordia.'''
+
+**Extracted Information:**
+
+1. **Petrus Sewine:**
+   - **Name:** Petrus
+   - **Cognomen:** Sewine
+   - **Place of Origin:** Audeburn (modern spelling: Audbourne or similar)
+   - **Legal Role:** Reus (defendant) - due to not appearing on the specified day.
+
+2. **Ricardus de Legha:**
+   - **Name:** Ricardus
+   - **Cognomen:** de Legha
+   - **Place of Origin:** Not specified beyond "de Legha" which could indicate a location or familial designation.
+   - **Legal Role:** Reus (defendant) - also due to not appearing on the specified day.
+
+**Relations to Each Other:**
+- There is no direct relation specified between Petrus Sewine and Ricardus de Legha in terms of family or legal standing/relationship. Both are independently noted as failing to appear on the given day and thus subject to the same legal consequence, "in misericordia," indicating they may face a penalty for non-appearance in court.
+
+Since there's no indication of pre-existing relationships such as familial ties or professions connecting the two, they are simply co-defendants in the context of the document due to their shared absence.

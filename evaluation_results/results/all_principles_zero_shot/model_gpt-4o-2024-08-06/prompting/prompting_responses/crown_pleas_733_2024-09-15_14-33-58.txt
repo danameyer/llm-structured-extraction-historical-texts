@@ -1,0 +1,54 @@
+In this court document, we have extracted details about the people mentioned, along with their legal relationships:
+
+1. **Petrus Sewine de Audeburn'**
+   - **Name**: Petrus
+   - **Cognomen**: Sewine
+   - **Place of Origin**: Audeburn'
+   - **Legal Relationship**: He is listed as 'Reus' (defendant) since he did not attend the court ("non venerunt"), but no plaintiff is mentioned.
+   
+2. **Ricardus de Legha**
+   - **Name**: Ricardus
+   - **Cognomen**: de Legha
+   - **Place of Origin**: Not specified separately; however, 'de Legha' might denote his origin.
+   - **Legal Relationship**: He is also listed as 'Reus' (defendant) for not attending the court ("non venerunt"), with no plaintiff listed.
+
+Here is the structured JSON output corresponding to these details:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Petrus",
+      "cognomen": "Sewine",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "Audeburn'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Ricardus",
+      "cognomen": "de Legha",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON structure accurately reflects the information extracted from the court document, maintaining high fidelity to the original text and ensuring the correct identification of legal roles and places of origin.
