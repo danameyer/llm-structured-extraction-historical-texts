@@ -71,8 +71,9 @@ class BoxPlotFuzzyScore:
                 plt.boxplot(data, patch_artist=True, medianprops=dict(color='black'))
                 plt.xticks(ticks=range(1, len(labels) + 1), labels=labels, rotation=45, ha='right')
                 truncated_model_name = model_name.split('mini')[0] + 'mini' if 'mini' in model_name else model_name
-                plt.title(f'Fuzzy Accuracy Box Plot for {prompt_type} - {truncated_model_name}')
+                plt.title(f'Fuzzy Accuracy for {prompt_type} - {truncated_model_name}', pad=20)
                 plt.ylabel('Fuzzy Accuracy')
+                plt.ylim(-0.1, 1.1)
                 plt.grid(True, linestyle='--', alpha=0.7)
                 plt.tight_layout()
 

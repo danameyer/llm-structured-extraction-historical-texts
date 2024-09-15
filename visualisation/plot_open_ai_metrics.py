@@ -83,7 +83,7 @@ class PlotOpenAIMetrics:
         plt.scatter(df['step'], df['valid_loss'], color='red', label='Validation Loss (Original Data)')
         plt.xlabel('Step')
         plt.ylabel('Loss')
-        plt.title('Validation Loss Over Steps')
+        plt.title('Validation Loss Over Steps', pad=20)
         plt.grid(True)
 
         # Plot Validation Mean Token Accuracy with interpolation

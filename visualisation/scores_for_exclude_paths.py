@@ -66,7 +66,8 @@ class ExcludePathsPlot:
         ax.set_xlabel('Excluded Attributes')
         ax.set_ylabel('Accuracy')
         truncated_model_name = model_name.split('mini')[0] + 'mini' if 'mini' in model_name else model_name
-        ax.set_title(f'Exact vs Fuzzy Accuracy for {truncated_model_name} in {prompt_type}')
+        ax.set_title(f'Exact vs Fuzzy Accuracy for {truncated_model_name} in {prompt_type}',
+                     pad=20)
         ax.set_xticks(x)
         ax.set_xticklabels(extracted_attributes, rotation=45, ha='right')
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1))

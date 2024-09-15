@@ -74,7 +74,7 @@ class PlotMistralMetrics:
             plt.plot(steps, train_loss, label='Train Loss', color='blue')
         plt.xlabel('Step')
         plt.ylabel('Loss')
-        plt.title('Train Loss Over Steps')
+        plt.title('Train Loss Over Steps', pad=20)
         plt.grid(True)
 
         # Plot Validation Loss

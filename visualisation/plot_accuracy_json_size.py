@@ -113,10 +113,12 @@ class JsonSizeScatterPlot:
         plt.scatter(x_values, y_values, color='blue', alpha=0.7)
         plt.xlabel('Total Field Count')
         plt.ylabel('Fuzzy Accuracy')
-        plt.grid(True)
+        plt.ylim(-0.1, 1.1)
+        plt.xlim(-10, 370)
+        plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
 
         # Set the title after plotting
-        plt.title(title)
+        plt.title(title, pad=20)
 
         # Save the figure
         output_dir = os.path.join('output_scatter_plots')

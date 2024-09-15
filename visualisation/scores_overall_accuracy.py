@@ -53,11 +53,11 @@ class OverallAccuracy:
         x = np.arange(len(model_names))
         bar_width = 0.35
         fig, ax = plt.subplots()
-        ax.bar(x - bar_width / 2, exact_scores, bar_width, label='Exact Accuracy')
-        ax.bar(x + bar_width / 2, fuzzy_scores, bar_width, label='Fuzzy Accuracy')
+        ax.bar(x - bar_width / 2, exact_scores, bar_width, label='Exact Accuracy', zorder=3)
+        ax.bar(x + bar_width / 2, fuzzy_scores, bar_width, label='Fuzzy Accuracy', zorder=3)
         ax.set_xlabel('Models')
         ax.set_ylabel('Accuracy')
-        ax.set_title('Exact vs Fuzzy Accuracy by Model (Excluding id)')
+        ax.set_title(f'Exact vs Fuzzy Accuracy by Model for {prompt_name}', pad=20)
         ax.set_xticks(x)
         truncated_model_names = [
             name.split("-2024-07-18")[0] if "-2024-07-18" in name else name for name in
@@ -67,6 +67,8 @@ class OverallAccuracy:
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1))
 
         plt.tight_layout()
+        plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
+        plt.ylim(0.0, 1.0)
         output_dir = os.path.join('output_overall_plots')
         if not os.path.exists(output_dir):
             os.makedirs(output_dir, exist_ok=True)

@@ -37,16 +37,20 @@ class CostPlot:
         x = np.arange(len(model_names))
         bar_width = 0.35
         fig, ax = plt.subplots()
-        ax.bar(x, costs, bar_width)
+        ax.bar(x, costs, bar_width, zorder=3)
         ax.set_xlabel('Models')
         ax.set_ylabel('Costs in dollar')
-        ax.set_title('Costs per model')
+        ax.set_title(f'Costs per model {prompt_name}', pad=20)
         ax.set_xticks(x)
-        ax.set_xticklabels(model_names, rotation=45, ha='right')
+        truncated_model_names = [
+            name.split("-2024-07-18")[0] if "-2024-07-18" in name else name for name in
+            model_names]
+        ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
 
         plt.tight_layout()
         if y_max_scale is not None:
             plt.ylim(0, y_max_scale)
+        plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
 
         output_dir = os.path.join('cost_plots')
         if not os.path.exists(output_dir):
