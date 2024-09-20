@@ -4,7 +4,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from visualisation.box_plot_fuzzy_score import BoxPlotFuzzyScore
-from visualisation.plot_accuracy_json_size import JsonSizeScatterPlot
+from visualisation.plot_accuracy_document_size import ScatterPlot
 from visualisation.plot_costs import CostPlot
 from visualisation.plot_mistral_metrics import PlotMistralMetrics
 from visualisation.plot_open_ai_metrics import PlotOpenAIMetrics
@@ -56,7 +56,7 @@ def plot_json_size_vs_accuracy():
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     models_dir = os.path.join(base_dir, 'evaluation_results', 'results')
 
-    jsonSizeScatterPlot = JsonSizeScatterPlot()
+    jsonSizeScatterPlot = ScatterPlot()
 
     # Extract error counts
     data_point_set_library = jsonSizeScatterPlot.extract_fuzzy_scores_and_field_counts(models_dir, ["root['id']"])

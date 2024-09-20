@@ -52,7 +52,7 @@ class DataPointSetLibrary:
             self.data_point_sets[key] = data_point_set
 
 
-class JsonSizeScatterPlot:
+class ScatterPlot:
 
     @staticmethod
     def extract_fuzzy_scores_and_field_counts(results_directory, desired_exclusion_path: List[str]):
@@ -96,6 +96,57 @@ class JsonSizeScatterPlot:
         return data_point_library
 
     @staticmethod
+    def extract_fuzzy_accuracy_and_text_length(results_directory, desired_exclusion_path: List[str]):
+        load_dotenv()
+        base_folder = os.getenv("PROJECT_BASE_DIR")
+        txt_dir = os.path.join(base_folder, "data", "test_txt")
+        data_point_library: DataPointSetLibrary = DataPointSetLibrary()
+
+        for prompt_type_folder in os.listdir(results_directory):
+            prompt_type_path = os.path.join(results_directory, prompt_type_folder)
+            if os.path.isdir(prompt_type_path):
+                # Iterate through each model directory in the prompt type directory
+                for model_folder in os.listdir(prompt_type_path):
+                    model_path = os.path.join(prompt_type_path, model_folder)
+                    if os.path.isdir(model_path) and model_folder.startswith('model_'):
+                        scores_json_dir = os.path.join(model_path, 'scores_json')
+                        if os.path.exists(scores_json_dir):
+                            json_files = [file for file in os.listdir(scores_json_dir) if file.endswith('.json')]
+                            json_files.sort()
+
+                            if json_files:
+                                json_file_path = os.path.join(scores_json_dir, json_files[-1])
+                                with open(json_file_path, 'r') as file:
+                                    data = json.load(file)
+
+                        # Check if "individual_results" is a list
+                        if isinstance(data.get('individual_results'), list):
+                            for document in data['individual_results']:
+                                document_name = document.get('file_name1', 'Unnamed Document')
+                                fuzzy_score = document.get('fuzzy_score')
+                                if fuzzy_score is not None:
+
+                                    exclude_path = document.get('exclude_paths')
+
+                                    if exclude_path == desired_exclusion_path:
+                                        base_document_name = os.path.splitext(document_name)[0]
+
+                                        txt_file_path = os.path.join(txt_dir, f"{base_document_name}.txt")
+
+                                        total_text_length = 0
+
+                                        if os.path.exists(txt_file_path):
+                                            with open(txt_file_path, 'r') as txt_file:
+                                                txt_content = txt_file.read()
+                                                total_text_length = len(txt_content.split())
+                                        data_point = DataPoint(document_name, total_text_length, fuzzy_score)
+                                        data_point_library.add_data_point(data_point=data_point,
+                                                                          llm_model=model_folder,
+                                                                          prompt_name=prompt_type_folder)
+
+        return data_point_library
+
+    @staticmethod
     def plot_fuzzy_accuracy_vs_field_count(data_point_set):
         x_values = [x.total_field_count for x in data_point_set.data_points]
         y_values = [y.fuzzy_score for y in data_point_set.data_points]
@@ -121,10 +172,44 @@ class JsonSizeScatterPlot:
         plt.title(title, pad=20)
 
         # Save the figure
-        output_dir = os.path.join('output_scatter_plots')
+        output_dir = os.path.join('output_scatter_plots_json_size')
         if not os.path.exists(output_dir):
             os.makedirs(output_dir, exist_ok=True)
-        plt.savefig(os.path.join(output_dir, f'overall_scores_{model_name}_{prompt_name}.png'))
+        plt.savefig(os.path.join(output_dir, f'accuracy_vs_json_size_{model_name}_{prompt_name}.png'))
+
+        # Close the figure
+        plt.close()
+
+    @staticmethod
+    def plot_fuzzy_accuracy_vs_text_length(data_point_set):
+        x_values = [x.total_field_count for x in data_point_set.data_points]
+        y_values = [y.fuzzy_score for y in data_point_set.data_points]
+
+        model_name = data_point_set.llm_model
+        prompt_name = data_point_set.prompt_name
+        truncated_model_name = model_name.split('mini')[0] + 'mini' if 'mini' in model_name else model_name
+
+        title = f"Fuzzy Accuracy vs. Total Text Length for {truncated_model_name} {prompt_name}"
+
+        # Create the figure first
+        plt.figure(figsize=(10, 6))
+
+        # Plot the data
+        plt.scatter(x_values, y_values, color='blue', alpha=0.7)
+        plt.xlabel('Total Text Length')
+        plt.ylabel('Fuzzy Accuracy')
+        plt.ylim(-0.1, 1.1)
+        plt.xlim(-10, 370)
+        plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
+
+        # Set the title after plotting
+        plt.title(title, pad=20)
+
+        # Save the figure
+        output_dir = os.path.join('output_scatter_plots_text_length')
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir, exist_ok=True)
+        plt.savefig(os.path.join(output_dir, f'accuracy_vs_text_length_{model_name}_{prompt_name}.png'))
 
         # Close the figure
         plt.close()
@@ -135,12 +220,20 @@ if __name__ == '__main__':
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     models_dir = os.path.join(base_dir, 'evaluation_results', 'results')
 
-    jsonSizeScatterPlot = JsonSizeScatterPlot()
+    scatterPlot = ScatterPlot()
 
     # Extract error counts
-    data_point_set_library = jsonSizeScatterPlot.extract_fuzzy_scores_and_field_counts(models_dir, ["root['id']"])
+    data_point_set_library = scatterPlot.extract_fuzzy_scores_and_field_counts(models_dir,
+                                                                               ["root['id']"])
 
     # Plot error counts for each model and prompt type
     for key in data_point_set_library.data_point_sets:
         data_points_for_model_and_prompt = data_point_set_library.data_point_sets[key]
-        jsonSizeScatterPlot.plot_fuzzy_accuracy_vs_field_count(data_points_for_model_and_prompt)
+        scatterPlot.plot_fuzzy_accuracy_vs_field_count(data_points_for_model_and_prompt)
+
+    data_point_set_library_text_length = scatterPlot.extract_fuzzy_accuracy_and_text_length(models_dir,
+                                                                                            ["root['id']"])
+
+    for key in data_point_set_library_text_length.data_point_sets:
+        data_points_for_model_and_prompt_text_length = data_point_set_library_text_length.data_point_sets[key]
+        scatterPlot.plot_fuzzy_accuracy_vs_text_length(data_points_for_model_and_prompt_text_length)
