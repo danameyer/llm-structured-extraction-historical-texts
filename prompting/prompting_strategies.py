@@ -50,7 +50,7 @@ class PromptBuilder:
 
     def add_input_text(self, file_paths):
         prompt = (
-            "I will provide you with three tasks. Please work on each task consecutively for each \"court document\" individually.\n"
+            "I will provide you with two tasks. Please work on each task consecutively for each \"court document\" individually.\n"
             "Individual \"court documents\" are contained within triple quotes. \"Court documents\":\n" +
             self.concatenate_files(file_paths)
         )
