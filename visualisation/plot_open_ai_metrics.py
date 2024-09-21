@@ -1,4 +1,6 @@
 import os
+import re
+
 import matplotlib.pyplot as plt
 import pandas as pd
 from dotenv import load_dotenv
@@ -57,7 +59,7 @@ class PlotOpenAIMetrics:
         plt.figure(figsize=(14, 8))
 
         # Set a main title for all subplots
-        title_name = os.path.splitext(file_name)[0].replace("result_file_", "")
+        title_name = re.sub(r'result_file_|-\d{4}-\d{2}-\d{2}', '', os.path.splitext(file_name)[0])
         plt.suptitle(f"Fine-Tuning Metrics for {title_name}", fontsize=16)
 
         # Plot Train Loss as a line plot (complete data)
