@@ -1,0 +1,236 @@
+Here is the structured JSON output for the provided court document:
+
+'''478.	(Buk' +) Ricardus Roswys essoniator Willelmi Beneheyt attornati Roesie que fuit uxor Arnaldi de Thurvill' optulit se iiij die versus And ream de Goyz de placito quod reddat ei quatuor libras quas ei debet et injuste deti net etc. Et And reas non veni t etc. et preceptum fuit vicecomiti quod distringeret eum per omnes terras etc. ita etc. donec etc. et vicecomes mandavit quod districtus est. Et ideo sicut pri us preceptu m est vice­ comiti quod d istringat eum per omnes terras etc. ita etc. donec etc. et quod respondeat de exitibus etc. et quod habeat corpus ejus apud Hereford' a die sancti Michaelis in tres septimanas.
+'''
+
+JSON output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ricardus",
+      "cognomen": "Roswys",
+      "profession": "Essoniator",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "Beneheyt",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Vir",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Roesia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Uxor"
+    },
+    {
+      "id": 4,
+      "name": "Arnaldus",
+      "cognomen": "de Thurvill'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Thurvill'",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Andreas",
+      "cognomen": "de Goyz",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Goyz",
+      "title": ""
+    }
+  ]
+}
+```
+
+This output captures all relevant entities and relationships present in the provided court document, adhering to the specified schema and rules. Let me know if you have any additional tasks or questions!
+Here is the extracted information about the persons mentioned in the document and their relations to each other in structured JSON format:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ricardus",
+      "cognomen": "Roswys",
+      "profession": "Essoniator",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "Beneheyt",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Vir",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Roesia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Uxor"
+    },
+    {
+      "id": 4,
+      "name": "Arnaldus",
+      "cognomen": "de Thurvill'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Thurvill'",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Andreas",
+      "cognomen": "de Goyz",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Goyz",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation of Relationships:
+- **Ricardus Roswys** is the Attorney (Attornatus) for **Willelmus Beneheyt**.
+- **Willelmus Beneheyt** is the husband (Vir) of **Roesia**.
+- **Roesia** is the wife (Uxor) of **Willelmus Beneheyt**.
+- **Andreas de Goyz** is the defendant (Reus) in the case against **Ricardus Roswys**.
+
+This structured output presents the individuals, their relationships, and various attributes clearly. If you need further information or analysis, feel free to ask!
+Here is the structured JSON output for the provided court document, formatted separately as per your instruction:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ricardus",
+      "cognomen": "Roswys",
+      "profession": "Essoniator",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "Beneheyt",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Vir",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Roesia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Uxor"
+    },
+    {
+      "id": 4,
+      "name": "Arnaldus",
+      "cognomen": "de Thurvill'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Thurvill'",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Andreas",
+      "cognomen": "de Goyz",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Goyz",
+      "title": ""
+    }
+  ]
+}
+```
+
+This structured JSON output encapsulates all relevant details about the individuals and their relationships as dictated by the original court document. If you have any further requests or need adjustments, feel free to ask!

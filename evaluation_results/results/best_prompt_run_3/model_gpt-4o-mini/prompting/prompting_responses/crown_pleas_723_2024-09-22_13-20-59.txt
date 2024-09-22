@@ -1,0 +1,199 @@
+Below is the structured JSON output created from the provided court document:
+
+Input text:
+``` 
+723. J ohannes de Froxefeld' inventus fuit mortuus i n bruera de Uplamburn'. Et Radulfus filius Willelmi primus inventor venit et non malecreditur. Postea testatum est quod quidam Simon serviens Stephani de Wodenesdiche duxit quandam carettam simul cum predicto Johanne et ipse Johannes cecidit de predicta caretta ita quod obiit. Judicium : infortunium. Precium carette et equi : j marca (deodanda) unde idem vice­ comes respondeat. Et dictum est Ricardo de Havering' quod faciat venire predictum Simonem die Dominica. Ad diem ilium venit predictu s Simon, et juratores dicunt quod non malecred unt eum de predicta morte, ideo inde quietus.
+```
+
+JSON output:
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Johannes",
+      "cognomen": "de Froxefeld",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Froxefeld",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Radulfus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Simon",
+      "cognomen": "",
+      "profession": "Serviens",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Wodenesdiche",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Ricardus",
+      "cognomen": "de Havering",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Havering",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Analysis of the JSON Output:
+1. **Johannes de Froxefeld** is identified as a person of interest, who was found dead. The surname is integrated with the name.
+  
+2. **Radulfus filius Willelmi** indicates that Radulfus is the son of Willelmus. Hence, family relationship designation is applied.
+
+3. **Simon**, referred to as a servant, is recognized for his role in the court case and his place of origin is marked.
+
+4. **Ricardus de Havering** is mentioned in his full name where the occupation is left blank since the document does not provide further context.
+
+### Notes:
+- Empty fields are present where no information about profession or relationships is given.
+- The output adheres to the requested structure while maintaining clarity and compliance with the formatting rules provided in the schema.
+Here is the extracted information about the persons mentioned in the document and their relations to each other in a clearer format:
+
+1. **Johannes de Froxefeld**
+   - **ID**: 1
+   - **Cognomen**: de Froxefeld
+   - **Relation Type**: None specified (deceased)
+   - **Place of Origin**: Froxefeld
+
+2. **Radulfus**
+   - **ID**: 2
+   - **Cognomen**: (None)
+   - **Profession**: (None)
+   - **Family Relations**:
+     - **Father**: Willelmus (ID: 3)
+   - **Legal Relationship**: (None)
+   - **Place of Origin**: (Not specified)
+
+3. **Willelmus**
+   - **ID**: 3
+   - **Cognomen**: (None)
+   - **Profession**: (None)
+   - **Family Relations**: (None)
+   - **Legal Relationship**: (None)
+   - **Place of Origin**: (Not specified)
+
+4. **Simon**
+   - **ID**: 4
+   - **Cognomen**: (None)
+   - **Profession**: Serviens (Servant)
+   - **Family Relations**: (None)
+   - **Legal Relationship**: (None)
+   - **Place of Origin**: Wodenesdiche
+
+5. **Ricardus de Havering**
+   - **ID**: 5
+   - **Cognomen**: de Havering
+   - **Profession**: (None)
+   - **Family Relations**: (None)
+   - **Legal Relationship**: (None)
+   - **Place of Origin**: Havering
+
+### Summary of Relations:
+- **Radulfus** is identified as the son of **Willelmus**.
+- **Johannes** has no specified relations as he is deceased.
+- **Simon** has no listed family or legal relationships in the document.
+- **Ricardus** has no specified relations either and is mentioned regarding court procedures.
+
+This summarized extraction details the individuals and their interrelations derived from the court document. If further analysis or formatting adjustments are needed, please let me know!
+Here is the structured JSON output as a separate entry for the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Johannes",
+      "cognomen": "de Froxefeld",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Froxefeld",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Radulfus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Simon",
+      "cognomen": "",
+      "profession": "Serviens",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Wodenesdiche",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Ricardus",
+      "cognomen": "de Havering",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Havering",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+- The JSON structure includes a list of persons extracted from the document, containing each individual's details:
+  - **ID**, **Name**, **Cognomen**, **Profession**, **Family Relations**, **Legal Relationships**, **Place of Origin**, and **Title** are provided as per the specified categories.
+  
+Feel free to ask for further modifications if needed!

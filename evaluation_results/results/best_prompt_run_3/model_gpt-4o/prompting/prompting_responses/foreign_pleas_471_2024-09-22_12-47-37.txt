@@ -1,0 +1,326 @@
+Certainly! Let's proceed step-by-step to generate the expected JSON output for the provided court document.
+
+### Court Document:
+```
+471.	(Buk' ) Rogerus de Wymbervill' ponit loco suo Thomam le Mareschal vel Johannem Clericum versus Willelmum Cerneis' et Petru m filium Capellani de placito terre etc.
+```
+
+### Analysis:
+1. **Rogerus de Wymbervill'**: He is the primary person initiating the legal document.
+2. **Thomam le Mareschal**: He is appointed by Rogerus de Wymbervill'.
+3. **Johannem Clericum**: Alternative option appointed by Rogerus de Wymbervill'.
+4. **Willelmum Cerneis'**: One of the individuals being involved in the legal case, opposing Rogerus.
+5. **Petru m filium Capellani**: Another individual involved in the legal case, opposing Rogerus. **Capellani** probably refers to Peter's father's profession or title.
+
+### JSON Construction:
+
+Let's create the structured JSON for the individuals and their relationships:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Rogerus",
+    "cognomen": "de Wymbervill'",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Thomas",
+    "cognomen": "le Mareschal",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Attornatus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Johannes",
+    "cognomen": "Clericus",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Attornatus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "Willelmus",
+    "cognomen": "Cerneis'",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 5,
+    "name": "Petrus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Filius",
+        "related_person": 6
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 6,
+    "name": "",
+    "cognomen": "Capellanus",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Pater",
+        "related_person": 5
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": "Capellanus"
+  }
+]
+```
+
+### Explanation:
+1. **Rogerus de Wymbervill'** (Person initiating legal action): 
+   - Name: Rogerus
+   - Cognomen: de Wymbervill'
+   - Attornatus relationships indicating he appoints attorneys.
+   - No profession, title, or family relations specified.
+
+2. **Thomas le Mareschal** and **Johannes Clericus** (Attorneys appointed by Rogerus):
+   - Name: Thomas and Johannes respectively.
+   - Cognomen: le Mareschal and Clericus respectively.
+   - Legal Relationship: Attornatus for Rogerus de Wymbervill'.
+
+3. **Willelmum Cerneis'** (One defendant in the case):
+   - Name: Willelmus
+   - Cognomen: Cerneis'
+   - Legal Relationship: Reus (defendant) against Rogerus.
+
+4. **Petrus (son of Capellanus)** (Another defendant in the case):
+   - Name: Petrus
+   - Cognomen: None (but 'filius Capellani' indicates his father's role/title).
+   - Family Relations: Filius (son of Person id 6).
+   - Legal Relationship: Reus (defendant) against Rogerus.
+
+5. **Capellanus** (Father of Petrus, a priest):
+   - Name: Not stated.
+   - Cognomen: Capellanus (as implied)
+   - Family Relations: Pater (father of Petrus).
+   - Title: Capellanus (a clerical title)
+
+Each person is structured with their respective ID and relevant relations.
+
+If you need further clarification or adjustments, please let me know!
+Sure! Let's break down and extract information about the persons mentioned in the document and their relations to one another:
+
+### Document:
+```
+471.	(Buk' ) Rogerus de Wymbervill' ponit loco suo Thomam le Mareschal vel Johannem Clericum versus Willelmum Cerneis' et Petru m filium Capellani de placito terre etc.
+```
+
+### Persons Mentioned:
+1. **Rogerus de Wymbervill'**
+   - Role: Initiator of the legal action.
+   - Actions: Appoints attorneys.
+
+2. **Thomam le Mareschal**
+   - Role: Appointed as an attorney by Rogerus de Wymbervill'.
+   - Actions: To represent Rogerus de Wymbervill' in court.
+  
+3. **Johannem Clericum**
+   - Role: Alternative attorney appointed by Rogerus de Wymbervill'.
+   - Actions: Alternatively to represent Rogerus de Wymbervill' in court.
+
+4. **Willelmum Cerneis'**
+   - Role: Defendant in the case against Rogerus de Wymbervill'.
+   - Actions: Defending against a legal action involving land.
+
+5. **Petru m filium Capellani**
+   - Role: Defendant in the case against Rogerus de Wymbervill'.
+   - Actions: Defending against a legal action involving land.
+   - Family Relation: Son of Capellanus.
+
+6. **Capellanus**
+   - Role: Father of Petrus.
+   - Actions: His title Capellanus (chaplain/priest).
+   
+### Relationships Extracted:
+- **Rogerus de Wymbervill'** appoints **Thomam le Mareschal** and alternatively **Johannem Clericum** as his attorneys.
+- **Thomam le Mareschal** and **Johannem Clericum** are legally representing **Rogerus de Wymbervill'**.
+- **Willelmum Cerneis'** and **Petru m filium Capellani** are defendants in the legal case initiated by **Rogerus de Wymbervill'**.
+- **Petru m filium Capellani** is the son (**Filius**) of **Capellanus**.
+- **Capellanus** is the father (**Pater**) of **Petrus**.
+
+### Summary:
+- **Rogerus de Wymbervill'** -> Attorney (Thomam le Mareschal / Johannem Clericum)
+- **Thomam le Mareschal** -> Attorney for Rogerus
+- **Johannem Clericum** -> Alternate Attorney for Rogerus
+- **Willelmum Cerneis'** -> Defendant against Rogerus
+- **Petru m filium Capellani** -> Defendant against Rogerus
+- **Capellanus** -> Father of Petrus (Capellanus is the title)
+
+If there are any specific parts that you want to dig deeper into or require additional clarification, let me know!
+Here is the structured JSON output based on the extracted information:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Rogerus",
+      "cognomen": "de Wymbervill'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Thomas",
+      "cognomen": "le Mareschal",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "Clericus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Willelmus",
+      "cognomen": "Cerneis'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Petrus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "",
+      "cognomen": "Capellanus",
+      "profession": "",
+      "family_relrelationsns": [
+        {
+          "relation_type": "Pater",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Capellanus"
+    }
+  ]
+}
+```
+
+### Summary of JSON Structure:
+1. **Rogerus de Wymbervill'** 
+   - ID: 1
+   - Cognomen: de Wymbervill'
+   - No profession, family relations, legal relationships, place of origin, or title indicated.
+
+2. **Thomas le Mareschal**
+   - ID: 2
+   - Cognomen: le Mareschal
+   - Legal Relationship: Attornatus to Rogerus (ID 1).
+
+3. **Johannes Clericus**
+   - ID: 3
+   - Cognomen: Clericus
+   - Legal Relationship: Attornatus to Rogerus (ID 1).
+
+4. **Willelmus Cerneis'**
+   - ID: 4
+   - Cognomen: Cerneis'
+   - Legal Relationship: Reus (defendant) against Rogerus (ID 1).
+
+5. **Petrus** 
+   - ID: 5
+   - Family Relations: Filius (son) of Capellanus (ID 6).
+   - Legal Relationship: Reus (defendant) against Rogerus (ID 1).
+
+6. **Capellanus**
+   - ID: 6
+   - Cognomen: Capellanus
+   - Family Relations: Pater (father) of Petrus (ID 5).
+   - Title: Capellanus (indicating a church-related role)
+
+This structure provides a comprehensive representation of the persons mentioned in the court document and their relationships. Let me know if you have any further questions or need additional modifications!

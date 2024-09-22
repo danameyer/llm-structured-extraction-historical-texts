@@ -1,0 +1,307 @@
+Sure, let's work through the provided court document to generate the required JSON output step-by-step. 
+
+Input text: 
+```469.	( Derb') Ricardus de Vernun ponit loco suo Walterum de Wahull' vel Adam Maunadlet versus Hawisiam que fuit uxor Roberti de Vernon de placito custod ie.```
+
+### Step 1: Identify and list the persons and their attributes
+
+**Person 1: Ricardus de Vernun**
+- Name: Ricardus
+- Cognomen: de Vernun
+- Legal relationship: None explicitly stated in the text itself.
+- Place of origin: Vernun
+- Profession: None stated
+- Title: None stated
+
+**Person 2: Walterum de Wahull'**
+- Name: Walterum (Walter)
+- Cognomen: de Wahull
+- Legal relationship: Attornatus (attorney) for Ricardus de Vernun
+- Place of origin: Wahull
+- Profession: None stated
+- Title: None stated
+
+**Person 3: Adam Maunadlet**
+- Name: Adam
+- Cognomen: Maunadlet
+- Legal relationship: Attornatus (attorney) for Ricardus de Vernun
+- Place of origin: Not stated
+- Profession: None stated
+- Title: None stated
+
+**Person 4: Hawisiam**
+- Name: Hawisia
+- Cognomen: 
+- Family relationship: Uxor (wife) of Robertus de Vernon
+- Legal relationship: Reus (defendant) in relation to Ricardus de Vernun (Plaintiff)
+- Place of origin: Not stated
+- Profession: None stated
+- Title: None stated
+
+**Person 5: Robertus de Vernon**
+- Name: Robertus
+- Cognomen: de Vernon
+- Family relationship: Maritus (husband) of Hawisiam
+- Legal relationship: None stated
+- Place of origin: Vernon
+- Profession: None stated
+- Title: None stated
+
+### Step 2: Construct the JSON output according to the schema
+
+```json
+{
+  "person_list":
+  [
+    {
+      "id": 1,
+      "name": "Ricardus",
+      "cognomen": "de Vernun",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Vernun",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Walterus",
+      "cognomen": "de Wahull",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Wahull",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Adam",
+      "cognomen": "Maunadlet",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Hawisia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "de Vernon",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Vernon",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+- Entries are assigned unique IDs.
+- Names are kept in their nominative singular forms.
+- Cognomen, professions, titles, and other relationships are noted where applicable.
+- Legal roles are defined using the provided categories (e.g., Attornatus, Reus).
+
+This encapsulates the structured information from the unstructured original court document text!
+Alright, let's extract and detail the information about the persons mentioned in the document and their relations to each other.
+
+### Document Text:
+
+`469. (Derb') Ricardus de Vernun ponit loco suo Walterum de Wahull' vel Adam Maunadlet versus Hawisiam que fuit uxor Roberti de Vernon de placito custodiae.`
+
+### Extraction of Information:
+
+1. **Ricardus de Vernun**
+   - **Name**: Ricardus
+   - **Cognomen**: de Vernun
+   - **Place of Origin**: Vernun
+   - **Profession**: (none mentioned)
+   - **Title**: (none mentioned)
+   - **Relations**:
+     - **Attornatus** (Attorney): He appoints Walterus de Wahull' or Adam Maunadlet.
+     - **Petitor** (Plaintiff): Versus Hawisia.
+    
+2. **Walterus de Wahull'**
+   - **Name**: Walterus
+   - **Cognomen**: de Wahull
+   - **Place of Origin**: Wahull
+   - **Profession**: (none mentioned)
+   - **Title**: (none mentioned)
+   - **Relations**:
+     - **Attornatus** (Attorney): Appointed by Ricardus de Vernun.
+     
+3. **Adam Maunadlet**
+   - **Name**: Adam
+   - **Cognomen**: Maunadlet
+   - **Place of Origin**: (none mentioned)
+   - **Profession**: (none mentioned)
+   - **Title**: (none mentioned)
+   - **Relations**:
+     - **Attornatus** (Attorney): Appointed by Ricardus de Vernun.
+     
+4. **Hawisia**
+   - **Name**: Hawisia
+   - **Cognomen**: (none mentioned)
+   - **Place of Origin**: (none mentioned)
+   - **Profession**: (none mentioned)
+   - **Title**: (none mentioned)
+   - **Relations**:
+     - **Uxor** (Wife) of Robertus de Vernon.
+     - **Reus** (Defendant): In relation to Ricardus de Vernun (Plaintiff).
+     
+5. **Robertus de Vernon**
+   - **Name**: Robertus
+   - **Cognomen**: de Vernon
+   - **Place of Origin**: Vernon
+   - **Profession**: (none mentioned)
+   - **Title**: (none mentioned)
+   - **Relations**:
+     - **Maritus** (Husband): Of Hawisia.
+
+### Summary of Relations:
+- Ricardus de Vernun is the plaintiff and has appointed Walterus de Wahull' or Adam Maunadlet as his attorneys (Attornatus).
+- Hawisia was the wife of Robertus de Vernon and is the defendant in the case initiated by Ricardus de Vernun.
+- Robertus de Vernon has the family relation of being the husband (Maritus) of Hawisia.
+
+This detailed extraction forms the basis for constructing the structured JSON output necessary for your research.
+Here is the structured JSON output for the court document provided:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ricardus",
+      "cognomen": "de Vernun",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "Vernun",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Walterus",
+      "cognomen": "de Wahull",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Wahull",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Adam",
+      "cognomen": "Maunadlet",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Hawisia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "de Vernon",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Vernon",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation
+
+- **id**: Unique identifier for each person.
+- **name**: First name of the person.
+- **cognomen**: Additional surname or title, retaining 'de' if present.
+- **profession**: Occupation of the person if mentioned.
+- **family_relations**: List describing family connections.
+  - **relation_type**: Type of family relationship (e.g., Uxor, Maritus).
+  - **related_person**: The id of the person this relationship pertains to.
+- **legal_relationship**: List describing legal/social roles.
+  - **relation_type**: Type of legal relationship (e.g., Petitor, Attornatus, Reus).
+  - **related_person**: The id of the person this legal relationship pertains to.
+- **place_of_origin**: The place the person is from.
+- **title**: Official title within the Church or nobility.
+  
+This JSON structure adheres to the requirements specified and accurately represents the entities and relations extracted from the court document provided.

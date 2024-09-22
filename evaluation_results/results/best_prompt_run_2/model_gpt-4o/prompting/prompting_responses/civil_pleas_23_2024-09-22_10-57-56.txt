@@ -1,0 +1,229 @@
+Below is the structured JSON output based on the given "court document" and the provided instructions:
+
+#### Court Document
+```
+23. Robertus de Bello Campo ponit loco suo Willelmum de Pleseis versus Priorem de Saund leford de placito reddit us etc.
+```
+
+#### JSON Output
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Robertus",
+      "cognomen": "de Bello Campo",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "de Pleseis",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "",
+      "cognomen": "Prior",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Saundleford",
+      "title": ""
+    }
+  ]
+}
+```
+### Explanation
+
+1. **Robertus de Bello Campo**:
+   - **ID**: 1
+   - **Name**: Robertus
+   - **Cognomen**: de Bello Campo
+   - **Profession**: (not provided)
+   - **Family Relations**: (none mentioned)
+   - **Legal Relationship**: (none)
+   - **Place of Origin**: (not provided)
+   - **Title**: (not specified)
+
+2. **Willelmus de Pleseis**:
+   - **ID**: 2
+   - **Name**: Willelmus
+   - **Cognomen**: de Pleseis
+   - **Profession**: (not provided)
+   - **Family Relations**: (none mentioned)
+   - **Legal Relationship**:
+     - **Relation Type**: Attornatus (since Willelmus is acting on behalf of Robertus)
+     - **Related Person**: 1 (Robertus)
+   - **Place of Origin**: (not provided)
+   - **Title**: (not specified)
+
+3. **Prior of Saundleford**:
+   - **ID**: 3
+   - **Name**: (not provided)
+   - **Cognomen**: Prior (acting in the capacity of a Prior)
+   - **Profession**: (not provided)
+   - **Family Relations**: (none)
+   - **Legal Relationship**:
+     - **Relation Type**: Reus (since he is the defendant in the context)
+     - **Related Person**: 1 (Robertus)
+   - **Place of Origin**: Saundleford (extracted from de Saundleford)
+   - **Title**: (not specified)
+
+This structured representation ensures all relevant entities, relationships, and knowledge from the court document are clearly represented for historians' analysis.
+Based on the provided court document:
+
+```
+23.	Robertus de Bello Campo ponit loco suo Willelmum de Pleseis versus Priorem de Saundleford de placito reddit us etc.
+```
+
+Here is the extracted information:
+
+### Persons Mentioned
+
+1. **Robertus de Bello Campo**
+   - **Name**: Robertus
+   - **Cognomen**: de Bello Campo
+   - **Profession**: Not mentioned
+   - **Place of Origin**: Not mentioned
+   - **Title**: Not mentioned
+   - **Roles and Actions**:
+     - Robertus appoints Willelmus de Pleseis to act on his behalf in a legal matter against the Prior of Saundleford.
+
+2. **Willelmus de Pleseis**
+   - **Name**: Willelmus
+   - **Cognomen**: de Pleseis
+   - **Profession**: Not mentioned
+   - **Place of Origin**: Not mentioned
+   - **Title**: Not mentioned
+   - **Roles and Actions**:
+     - Willelmus is appointed as the attorney (attornatus) of Robertus to represent him in a legal matter.
+
+3. **Prior of Saundleford**
+   - **Name**: Not mentioned
+   - **Cognomen**: (Title) Prior
+   - **Profession**: Not mentioned
+   - **Place of Origin**: Saundleford
+   - **Title**: Prior
+   - **Roles and Actions**:
+     - The Prior is the defendant in the legal matter against Robertus.
+
+### Relations
+
+1. **Legal Representation**
+   - **Relation Type**: Attornatus (Attorney)
+   - **Actor**: Willelmus de Pleseis (attorney)
+   - **Principal**: Robertus de Bello Campo (on whose behalf Willelmus acts)
+
+2. **Legal Dispute**
+   - **Relation Type**: Reus (Defendant)
+   - **Defendant**: Prior of Saundleford
+   - **Plaintiff**: Robertus de Bello Campo (via his attorney Willelmus de Pleseis)
+
+### Summary
+- **Robertus de Bello Campo** is involved in a legal dispute over rent issues.
+- **Willelmus de Pleseis** is acting as the attorney for Robertus in this legal dispute.
+- The Prior of **Saundleford** is the defendant in this legal dispute.
+
+This extraction of information ensures that each person's roles, origins, and relationships are clearly identified for further analysis and structuring.
+Here's the structured JSON output for the given court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Robertus",
+      "cognomen": "de Bello Campo",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "de Pleseis",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Prior",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Saundleford",
+      "title": "Prior"
+    }
+  ]
+}
+```
+
+### Explanation
+1. **Robertus de Bello Campo**
+   - **ID**: 1
+   - **Name**: Robertus
+   - **Cognomen**: de Bello Campo
+   - **Profession**: (empty, as not mentioned in the document)
+   - **Family Relations**: (empty, as not mentioned)
+   - **Legal Relationship**: (empty, as not specifically mentioned)
+   - **Place of Origin**: (empty, as not mentioned)
+   - **Title**: (empty, as not specified)
+
+2. **Willelmus de Pleseis**
+   - **ID**: 2
+   - **Name**: Willelmus
+   - **Cognomen**: de Pleseis
+   - **Profession**: (empty, as not mentioned in the document)
+   - **Family Relations**: (empty, as not mentioned)
+   - **Legal Relationship**:
+     - **Relation Type**: Attornatus (attorney for Robertus)
+     - **Related Person**: 1 (Robertus de Bello Campo)
+   - **Place of Origin**: (empty, as not mentioned)
+   - **Title**: (empty, as not specified)
+
+3. **Prior of Saundleford**
+   - **ID**: 3
+   - **Name**: (unspecified, referred to by title)
+   - **Cognomen**: (title used)
+   - **Profession**: (empty, as not mentioned in the document)
+   - **Family Relations**: (empty, as not mentioned)
+   - **Legal Relationship**:
+     - **Relation Type**: Reus (defendant in the case)
+     - **Related Person**: 1 (Robertus de Bello Campo via Willelmus)
+   - **Place of Origin**: Saundleford
+   - **Title**: Prior (title mentioned)

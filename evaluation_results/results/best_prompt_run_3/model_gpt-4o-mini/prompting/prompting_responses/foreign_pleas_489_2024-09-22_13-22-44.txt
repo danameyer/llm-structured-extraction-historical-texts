@@ -1,0 +1,110 @@
+Here is the structured JSON output for the provided court document:
+
+Input Court Document:
+'''
+489. (Norht', Oxon', xx solidi ) Rad ulfus de Wylton' dat xx solidos pro licencia concorda ndi cum Ricardo de Hanred' de placito consuetudin um et servicioru m per plegium ipsi us Ricardi.
+'''
+
+JSON Output:
+'''
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Radulphus",
+      "cognomen": "de Wylton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Wylton",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Ricardus",
+      "cognomen": "de Hanred",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Hanred",
+      "title": ""
+    }
+  ]
+}
+'''
+
+Each individual mentioned in the document is encapsulated with their relevant details, strictly adhering to the instructions provided. If you have another court document to process or any further queries, please let me know!
+Based on the provided court document, the extraction of information about the persons mentioned and their relations is as follows:
+
+### Persons Extracted:
+1. **Radulphus**
+   - **Cognomen**: de Wylton
+   - **Legal Relationship**: 
+     - **Plegiarius** to **Ricardus**
+   - **Place of Origin**: Wylton
+   - **Profession**: (Not specified)
+
+2. **Ricardus**
+   - **Cognomen**: de Hanred
+   - **Legal Relationship**: 
+     - **Reus** to **Radulphus**
+   - **Place of Origin**: Hanred
+   - **Profession**: (Not specified)
+
+### Relations:
+- **Radulphus (de Wylton)** has a legal relationship as **Plegiarius** (the one who grants surety) to **Ricardus (de Hanred)**, indicating that Radulphus is providing surety for Ricardus in a legal context.
+- **Ricardus (de Hanred)** is a **Reus** (defendant) in relation to **Radulphus**, indicating that he is the party against whom a legal action has been brought.
+
+The above details reflect the relationships and the statuses of the individuals involved in the court case mentioned in the document.
+
+If you would like to continue with further instructions or any additional documents, please let me know!
+Here is the structured JSON output for the provided court document based on the extracted information about the persons and their relations:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Radulphus",
+      "cognomen": "de Wylton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Wylton",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Ricardus",
+      "cognomen": "de Hanred",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Hanred",
+      "title": ""
+    }
+  ]
+}
+```
+
+This output is structured according to the specified JSON schema, presenting each person with their relationships clearly defined. If you have further tasks or additional documents to process, please let me know!

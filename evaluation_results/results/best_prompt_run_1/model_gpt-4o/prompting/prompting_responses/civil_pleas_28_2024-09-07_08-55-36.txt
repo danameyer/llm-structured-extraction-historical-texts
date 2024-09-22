@@ -1,0 +1,129 @@
+Here is the structured output in JSON format for the provided court document:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Abbas",
+    "cognomen": "De Glastingbi",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": 2
+      }
+    ],
+    "place_of_origin": "Glastingbi",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Henricus",
+    "cognomen": "De Bathon",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Petitor",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "Bathon",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Walterus",
+    "cognomen": "Bernard",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Attornatus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  }
+]
+```
+
+This JSON output captures all the relevant information extracted from the court document while adhering to the provided schema and rules.
+Certainly! Here is the extracted information about the persons mentioned in the court document and their relations to each other:
+
+1. **Abbas de Glastingbi**:
+   - **Role**: Defendant (Reus)
+   - **Place of Origin**: Glastingbi
+   - **Legal Relationship**:
+     - Opposed by **Henricus de Bathon** (Plaintiff, Petitor)
+   - **Representation**:
+     - Represented by **Walterus Bernard** (Attorney, Attornatus)
+
+2. **Henricus de Bathon**:
+   - **Role**: Plaintiff (Petitor)
+   - **Place of Origin**: Bathon
+   - **Legal Relationship**:
+     - Opposed to **Abbas de Glastingbi** (Defendant, Reus)
+
+3. **Walterus Bernard**:
+   - **Role**: Attorney (Attornatus)
+   - **Represents**: **Abbas de Glastingbi**
+
+These details include the main persons involved in the court case, their roles, places of origin, and their various relations to one another within the context of this legal proceeding.
+Certainly! Here is the structured JSON output for the court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Abbas",
+      "cognomen": "De Glastingbi",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Glastingbi",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Henricus",
+      "cognomen": "De Bathon",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Bathon",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Walterus",
+      "cognomen": "Bernard",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON format includes the persons mentioned in the court document along with their relations, place of origin, and roles, formatted according to the schema provided.

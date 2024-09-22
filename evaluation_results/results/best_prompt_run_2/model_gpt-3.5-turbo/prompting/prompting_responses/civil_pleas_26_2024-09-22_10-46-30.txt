@@ -1,0 +1,103 @@
+Understood! Please provide me with the first task you'd like me to work on with the court document you have.
+I will start by analyzing the court document you provided to extract information about the persons mentioned and their relationships to each other. Let's begin the analysis:
+
+'''
+26.	(misericordia) Assisa venit recognitura si Matillis filia Ricardi Rycheman mater Matillidis fuit seisita in dominico suo etc. de duobus messuagis et (duobus•) shopis cum pertinenciis in Neubyr' die quo etc. et si etc. que messuagia et shopas Ricardus Peppard' et Agnes uxor ejus tenent, qui veniunt et dicunt quod assisa non debet inde fieri, quia dicunt [quod] ipsi nichil clamant in predictis messuagiis et shopis nisi racione custodie quam inde habent cum Willelmo filio Willelmi cujus hereditas predicta mesuagia et shope sunt et qui est infra etatem et in custodia ipsorum etc., et Matillis non potest hoc ded icere. Et ideo consideratum est quod predicti Ricardus et Agnes inde sine die et Matillis in misericordia per plegium Everardi de Wanetinge.
+'''
+
+Let's start extracting the information about the persons and their relationships. I will follow the rules provided and create a structured JSON output. Let's proceed with the analysis.
+The structured JSON output for the court document you provided, detailing the persons mentioned and their relationships to each other, is as follows:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Matillis",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Mater",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Ricardus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filia",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Ricardus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Tenens",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "Peppard'",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Agnes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Heres",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Custos",
+          "related_person": 6
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON output provides a structured representation of the persons mentioned in the court document and their relationships to each other. If you have any further questions or need additional analysis, feel free to let me know!

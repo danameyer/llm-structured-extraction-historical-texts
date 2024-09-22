@@ -1,0 +1,60 @@
+Understood! Please go ahead and provide me with the first court document so that I can start working on it.
+JSON output:
+'''
+[
+  {
+    "id": 1,
+    "name": "Ernulfus",
+    "cognomen": "de Maunes Norman ni",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "Suhtfalle",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Anketinus",
+    "cognomen": "Malore",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Tenens",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  }
+]
+'''
+The structured JSON output for the persons mentioned in the court document is as follows:
+
+'''
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ernulfus",
+      "cognomen": "de Maunes Norman ni",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Suhtfalle",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Anketinus",
+      "cognomen": "Malore",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [{"relation_type": "Tenens", "related_person": 1}],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+'''
+If you have another court document or further tasks, feel free to provide them!

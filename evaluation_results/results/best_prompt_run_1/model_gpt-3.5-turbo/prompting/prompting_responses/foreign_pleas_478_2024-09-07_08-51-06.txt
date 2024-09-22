@@ -1,0 +1,81 @@
+Understood! Please provide me with the first task, and I will start working on it immediately.
+Based on the provided "court document," I will extract information about the persons mentioned and their relations to each other. Let's start by analyzing the text:
+
+'''
+478.	(Buk' +) Ricardus Roswys essoniator Willelmi Beneheyt attornati Roesie que fuit uxor Arnaldi de Thurvill' optulit se iiij die versus And ream de Goyz de placito quod reddat ei quatuor libras quas ei debet et injuste detinet etc. Et Andreaas non venit etc. et preceptum fuit vicecomiti quod distringeret eum per omnes terras etc. ita etc. donec etc. et vicecomes mandavit quod districtus est. Et ideo sicut prius preceptum est vice­ comiti quod distringat eum per omnes terras etc. ita etc. donec etc. et quod respondeat de exitibus etc. et quod habeat corpus ejus apud Hereford' a die sancti Michaelis in tres septimanas.
+'''
+
+Now, I will extract the information about the persons and their relations to each other based on the provided text. Let's begin the analysis.
+Here is the structured JSON output for the persons mentioned in the provided "court document":
+
+'''
+[
+  {
+    "id": 1,
+    "name": "Ricardus",
+    "cognomen": "Roswys",
+    "profession": "essoniator",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 2
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Attornatus",
+        "related_person": 3
+      }
+    ],
+    "place_of_origin": "Thurvill",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Roesia",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 1
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Willelmus",
+    "cognomen": "Beneheyt",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Tenens",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "Andreas",
+    "cognomen": "de Goyz",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  }
+]
+'''
+
+Let me know if you need any further information or modifications.

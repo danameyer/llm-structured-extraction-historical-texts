@@ -1,0 +1,198 @@
+Here is the structured JSON output for the provided court document:
+
+Input text:
+'''
+470. (Bed ') Anestasia uxor Thome de Grauncurt ponit loco suo ipsum Thomam virum suum versus Julianam que fuit uxor Ricardi filii Radulfi de placito vasti.
+'''
+
+JSON output:
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Anestasia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Thoma",
+      "cognomen": "de Grauncurt",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Vir",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Juliana",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Ricardus",
+      "cognomen": "filis Radulfi",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+In this JSON output:
+- **Anestasia** is identified as **Uxor** of **Thoma**.
+- **Thoma** with his place of origin and profession left empty, named as **Vir** of **Anestasia**, is **Reus** concerning **Juliana**.
+- **Juliana** is identified as **Uxor** of **Ricardus**.
+- **Ricardus**, whose **cognomen** is formed from the phrase "filis Radulfi," has no additional information regarding profession, family relations, or place of origin provided in the text. 
+
+Please provide the next court document for processing.
+I've already extracted the information for the first court document provided, which contains details about the individuals and their relationships. Here’s a recap of the extracted information with personal and relational details:
+
+### Extracted Information:
+1. **Anestasia**
+   - **ID:** 1
+   - **Cognomen:** 
+   - **Profession:** 
+   - **Family Relations:** Uxor of Thoma
+   - **Legal Relationship:** 
+   - **Place of Origin:** 
+   - **Title:**
+  
+2. **Thoma**
+   - **ID:** 2
+   - **Cognomen:** de Grauncurt
+   - **Profession:** 
+   - **Family Relations:** Vir of Anestasia
+   - **Legal Relationship:** Reus (defendant) concerning Juliana
+   - **Place of Origin:** 
+   - **Title:**
+
+3. **Juliana**
+   - **ID:** 3
+   - **Cognomen:** 
+   - **Profession:** 
+   - **Family Relations:** Uxor of Ricardus
+   - **Legal Relationship:** 
+   - **Place of Origin:** 
+   - **Title:**
+
+4. **Ricardus**
+   - **ID:** 4
+   - **Cognomen:** filiis Radulfi
+   - **Profession:**
+   - **Family Relations:** 
+   - **Legal Relationship:** 
+   - **Place of Origin:**
+   - **Title:**
+
+### Relationships Summary:
+- **Anestasia** is the wife (Uxor) of **Thoma**.
+- **Thoma** is the husband (Vir) of **Anestasia** and is a defendant (Reus) in a matter concerning **Juliana**.
+- **Juliana** is the wife (Uxor) of **Ricardus**.
+- **Ricardus** is the individual connected by familial ties to **Thoma** through his son Radulph.
+
+If you have another document to analyze or need further clarification, please let me know!
+Here is the structured JSON output for the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Anestasia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Thoma",
+      "cognomen": "de Grauncurt",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Vir",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Juliana",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Ricardus",
+      "cognomen": "filiis Radulfi",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON reflects the extracted information about the individuals, their relationships, and legal contexts from the court document. If there is anything else you need or another document to analyze, feel free to provide that information!

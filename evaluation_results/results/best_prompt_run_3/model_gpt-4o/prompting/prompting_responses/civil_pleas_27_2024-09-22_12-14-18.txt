@@ -1,0 +1,709 @@
+Sure, I'll take a close look at the provided document to extract and structure the necessary information accurately. Let's work through the court document step by step:
+
+**Court document:**
+``` 
+27.	( v marce)  Cristiana  de Wytha ux or Eva fil ia  N ichola i   per  attornatum  suum petunt versus Abbati de Abendon ' duas carucatas terre cum pertinenci is exceptis una virgata decem  acris terre et pastura ad sex boves in Sun nyngwell ' et Keninton ' ut jus suum etc., et unde quidam Jordanus antecessor ipsarum fuit seisitus in dominico ut de feodo et jure tempore Johannis Regis patris domini Regis qui nunc est capiendo inde expleta ad valenciam etc., et de ipso Jordano qui obiit sine herede de se descendit jus predicte terre cuidam Alano ut fratri et heredi, et de ipso Alano qui obiit sine berede de se descenditjus predicte terre quibusdam Ali ne, Juliane et Cristiane ut sororibus et heredibu s et de ipsa Juliana que obiit sine berede de se descendit jus propartis sue eisdem Aline e Cristiane, et de eadem Alina descendit jus propartis sue cuidam Thome ut filio et heredi, et de ipso Thoma qui obiit sine herede de se cuidam Ricardo ut fratri et heredi, et de ipso Ricardo qui obiit sine herede de se descendit jus illius propartis quibusdam Eve, Leticie et Johanne ut sororibus et heredibus, et de ipsis Leticia et Johanna qui obierunt sine herede de se descendit jus proparturn suarum predicte Eve que nunc petit ut sorori et heredi, et quod tale sit jus ipsarum Cristiane et Eve, offerunt etc. Et Abbas per attornatum suum venit et deffendit jus ipsarum quando etc. et dicit quod non debet eis inde ad hoc breve respondere quia dicit quod . . . Postea concordati sunt, et Abbas dat v marcas pro licencia concordandi, et habeant cyrographum.
+```
+
+Task: Generate the corresponding JSON output.
+
+### Step 1: Identify the people mentioned in the text:
+
+1. Cristiana de Wytha (Cristiana)
+2. Eva filia Nicholai (Eva, daughter of Nicholai)
+3. Abbati de Abendon' (Abbot of Abingdon)
+4. Jordanus (ancestor, mentioned as once possessing the land)
+5. Alano (Alan, brother and heir of Jordanus)
+6. Aline (Alina, sister and heir of Alan)
+7. Juliane (Juliana, sister and heir of Alan)
+8. Thome (Thomas, son and heir of Alina)
+9. Ricardo (Richard, brother and heir of Thomas)
+10. Leticie (Leticia, sister and heir of Richard)
+11. Johanne (Johanna, sister and heir of Richard)
+
+### Step 2: Analyze relationships and extract attributes for each person:
+
+#### Analyzing relationships:
+
+- Cristiana and Eva are plaintiffs (Petitor) against the Abbot of Abingdon (Defendant).
+- Relationships of inheritance and ancestry are mentioned as well.
+
+### Step 3: Create JSON output based on the schema:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Cristiana",
+    "cognomen": "de Wytha",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Petitor",
+        "related_person": 2
+      }
+    ],
+    "place_of_origin": "Wytha",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Eva",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Filia",
+        "related_person": 3
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Petitor",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Nicholai",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Pater",
+        "related_person": 2
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "Abbas",
+    "cognomen": "de Abingdon",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Reus",
+        "related_person": 2
+      }
+    ],
+    "place_of_origin": "Abingdon",
+    "title": "Abbas"
+  },
+  {
+    "id": 5,
+    "name": "Jordanus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Progenitor",
+        "related_person": 6
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 6,
+    "name": "Alan",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Frater",
+        "related_person": 5
+      },
+      {
+        "relation_type": "Progenitor",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Progenitor",
+        "related_person": 8
+      },
+      {
+        "relation_type": "Progenitor",
+        "related_person": 9
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Heres",
+        "related_person": 5
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 7,
+    "name": "Alina",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Soror",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Progenies",
+        "related_person": 10
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Heres",
+        "related_person": 6
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 8,
+    "name": "Juliana",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Soror",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Soror",
+        "related_person": 6
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Heres",
+        "related_person": 6
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 9,
+    "name": "Thomas",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Filius",
+        "related_person": 7
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Heres",
+        "related_person": 7
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 10,
+    "name": "Richard",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Frater",
+        "related_person": 9
+      },
+      {
+        "relation_type": "Progenies",
+        "related_person": 11
+      },
+      {
+        "relation_type": "Progenies",
+        "related_person": 12
+      },
+      {
+        "relation_type": "Progenies",
+        "related_person": 13
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Heres",
+        "related_person": 9
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 11,
+    "name": "Leticia",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Soror",
+        "related_person": 10
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Heres",
+        "related_person": 10
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 12,
+    "name": "Johanna",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Soror",
+        "related_person": 10
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Heres",
+        "related_person": 10
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  }
+]
+```
+
+This crafted JSON file encapsulates the persons mentioned in the court document, their relationships, and other relevant information. Each individual is assigned a unique ID, and we have captured all specified relationships, professions, places of origin, and titles.
+Certainly! Let's extract the detailed information about each person mentioned in the court document and their relations to each other:
+
+1. **Cristiana de Wytha**
+   - **Profession**: Not mentioned
+   - **Place of Origin**: Wytha
+   - **Relationships**:
+     - Legal Relationship: Plaintiff (Petitor) against the Abbot of Abingdon
+     - Family Relationship: Not explicitly mentioned
+
+2. **Eva filia Nicholai**
+   - **Profession**: Not mentioned
+   - **Place of Origin**: Not explicitly stated
+   - **Relationships**: 
+     - Legal Relationship: Plaintiff (Petitor) against the Abbot of Abingdon
+     - Family Relationship: Daughter of Nicholai
+
+3. **Nicholai**
+   - **Profession**: Not mentioned
+   - **Place of Origin**: Not explicitly stated
+   - **Relationships**:
+     - Family Relationship: Father of Eva
+
+4. **Abbas de Abingdon' (Abbot of Abingdon)**
+   - **Profession**: Abbot (title)
+   - **Place of Origin**: Abingdon 
+   - **Relationships**:
+     - Legal Relationship: Defendant (Reus) against Cristiana and Eva
+
+5. **Jordanus**
+   - **Profession**: Not mentioned
+   - **Place of Origin**: Not mentioned
+   - **Relationships**:
+     - Family Relationship: Progenitor of Alan (ancestor)
+     - Legal Relationship: Not explicitly stated
+
+6. **Alano (Alan)**
+   - **Profession**: Not mentioned
+   - **Place of Origin**: Not mentioned
+   - **Relationships**:
+     - Family Relationship:
+       - Brother and heir of Jordanus
+       - Progenitor of Alina (ancestor)
+
+7. **Aline (Alina)**
+   - **Profession**: Not mentioned
+   - **Place of Origin**: Not mentioned
+   - **Relationships**:
+     - Family Relationship:
+       - Sister and heir of Alan
+       - Progenitor of Thomas
+       - Related by descent: Sister Juliana
+       - Related by descent: Sister Cristiana (from her part of inheritance after Juliana's death)
+
+8. **Juliane (Juliana)**
+   - **Profession**: Not mentioned
+   - **Place of Origin**: Not mentioned
+   - **Relationships**:
+     - Family Relationships:
+       - Sister and heir of Alan
+       - Related by descent: Sisters Alina and Cristiana
+       - Heir relationships are specified regarding parts if she dies without heir
+  
+9. **Thome (Thomas)**
+   - **Profession**: Not mentioned
+   - **Place of Origin**: Not mentioned
+   - **Relationships**:
+     - Family Relationships: 
+       - Son and heir of Alina
+       - Progenitor of Richard (his death without heirs leading to Richard's inheritance)
+
+10. **Ricardo (Richard)**
+    - **Profession**: Not mentioned
+    - **Place of Origin**: Not mentioned
+    - **Relationships**:
+      - Family Relationships: 
+        - Brother and heir of Thomas
+        - Progenitor of Eve, Leticia, and Johanna
+
+11. **Leticie (Leticia)**
+    - **Profession**: Not mentioned
+    - **Place of Origin**: Not mentioned
+    - **Relationships**:
+      - Family Relationships:
+        - Sister and heir of Richard
+        - Related: Sister Johanna (related by inheritance shares)
+
+12. **Johanne (Johanna)**
+    - **Profession**: Not mentioned
+    - **Place of Origin**: Not mentioned
+    - **Relationships**:
+      - Family Relationships: 
+        - Sister and heir of Richard
+        - Related: Sister Leticia (related by inheritance shares)
+
+13. **Eve**
+    - **Profession**: Not mentioned
+    - **Place of Origin**: Not mentioned
+    - **Relationships**:
+      - Family Relationships: 
+        - Sister and heir of Richard
+        - Related: Progenies receives final part of inheritance share when Leticia and Johanna die without heirs
+
+### Summary of extracted relationships:
+1. **Heir Relationships**:
+   - Jordanus -> Alan
+   - Alan -> Alina, Juliana, Cristiana
+   - Juliana -> Alina, Cristiana
+   - Alina -> Thomas
+   - Thomas -> Richard
+   - Richard -> Eve, Leticia, Johanna
+   - Leticia -> Eve (inherits after occurrence of others dying without heirs)
+   - Johanna -> Eve (inherits after occurrence of others dying without heirs)
+   
+2. **Legal Relationships**:
+   - Cristiana and Eva (Petitors) vs. Abbot of Abingdon (Defendant)
+   
+3. **Ancestor Relationships**:
+   - Jordanus (ancestor) -> Alan (descendant)
+   - Alan (ancestor) -> Alina, Juliana, Cristiana (descendants through inheritance)
+   - Alina (ancestor) -> Thomas (descendant)
+   - Thomas (ancestor) -> Richard (descendant)
+   - Richard (ancestor) -> Eve, Leticia, Johanna (descendants through inheritance)
+
+The family relationship types link sons to fathers as ‘Filius’, daughters to fathers as ‘Filia’, females as ‘Soror’, and males as ‘Frater’. 
+
+This comprehensive understanding will help create an accurate JSON representation of the persons and their relationships mentioned in the court document.
+Sure, here is the structured JSON output based on the extracted information from the medieval Latin court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Cristiana",
+      "cognomen": "de Wytha",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "Wytha",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Eva",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filia",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Nicholai",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Abbas",
+      "cognomen": "de Abingdon",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Abingdon",
+      "title": "Abbas"
+    },
+    {
+      "id": 5,
+      "name": "Jordanus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Progenitor",
+          "related_person": 6
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Alan",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Frater",
+          "related_person": 5
+        },
+        {
+          "relation_type": "Progenitor",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Progenitor",
+          "related_person": 8
+        },
+        {
+          "relation_type": "Progenitor",
+          "related_person": 9
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Heres",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Alina",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Soror",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Progenies",
+          "related_person": 9
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Heres",
+          "related_person": 6
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 8,
+      "name": "Juliana",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Soror",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Soror",
+          "related_person": 7
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Heres",
+          "related_person": 6
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 9,
+      "name": "Thomas",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 7
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Heres",
+          "related_person": 7
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 10,
+      "name": "Richard",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Frater",
+          "related_person": 9
+        },
+        {
+          "relation_type": "Progenies",
+          "related_person": 11
+        },
+        {
+          "relation_type": "Progenies",
+          "related_person": 12
+        },
+        {
+          "relation_type": "Progenies",
+          "related_person": 13
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Heres",
+          "related_person": 9
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 11,
+      "name": "Leticia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Soror",
+          "related_person": 10
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Heres",
+          "related_person": 10
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 12,
+      "name": "Johanna",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Soror",
+          "related_person": 10
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Heres",
+          "related_person": 10
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 13,
+      "name": "Eve",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Progenies",
+          "related_person": 10
+        },
+        {
+          "relation_type": "Heres",
+          "related_person": 11
+        },
+        {
+          "relation_type": "Heres",
+          "related_person": 12
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON output reflects the structured information for each individual, their relationships, and other relevant details as mentioned in the court document.

@@ -1,0 +1,158 @@
+Here is the JSON output for the provided court document:
+
+**Court Document:**
+'''
+34. Margeria uxor Vyelis de Sonni ng' ponit loco suo ipsu m Viellem versus Johan nem Ruffu m de Oxon' de placito terre.
+'''
+
+**JSON Output:**
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Margeria",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Vyelis",
+      "cognomen": "de Sonning",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Sonning",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "Ruffus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Oxon",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+- **Margeria** is identified as the wife of **Vyelis**, labeled under 'Uxor' in her legal relationship and no specific place of origin or profession is given.
+- **Vyelis** is the plaintiff in this case against **Johannes**, who is the defendant, thus labeled under 'Petitor'. The name **Vyelis** has a cognomen referencing his origin from "Sonning".
+- **Johannes** is mentioned with the cognomen "Ruffus," and his place of origin is identified as "Oxon," corresponding to the town of Oxford. He is the defendant represented as **Reus** against **Vyelis**. Since no profession is stated for him, it is left empty as well.
+- The relationships and places follow the specified rules regarding titles, origins, and relationships.
+
+If you need further adjustments or additional analysis, let me know!
+Here is the extracted information regarding the persons mentioned in the provided court document and their relations to each other:
+
+### Persons Extracted:
+1. **Margeria**
+   - **Cognomen:** (none)
+   - **Profession:** (none)
+   - **Family Relations:** 
+     - Uxor (Wife) of Vyelis
+   - **Legal Relationships:** (none)
+   - **Place of Origin:** (none)
+   - **Title:** (none)
+
+2. **Vyelis**
+   - **Cognomen:** de Sonning
+   - **Profession:** (none)
+   - **Family Relations:** (none)
+   - **Legal Relationships:** 
+     - Petitor (Plaintiff) against Johannes
+   - **Place of Origin:** Sonning
+   - **Title:** (none)
+
+3. **Johannes**
+   - **Cognomen:** Ruffus
+   - **Profession:** (none)
+   - **Family Relations:** (none)
+   - **Legal Relationships:** 
+     - Reus (Defendant) against Vyelis
+   - **Place of Origin:** Oxon
+   - **Title:** (none)
+
+### Relationships Summary:
+- **Margeria** is the wife (Uxor) of **Vyelis**.
+- **Vyelis** is the plaintiff (Petitor) in a legal matter against **Johannes**.
+- **Johannes** is the defendant (Reus) in the same legal matter initiated by **Vyelis**.
+
+This detailed extraction summarizes the identified relationships and attributes for each individual. If you need additional insights or a different format, please let me know!
+Below is the structured JSON output for the provided court document, as requested:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Margeria",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Vyelis",
+      "cognomen": "de Sonning",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Sonning",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "Ruffus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Oxon",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON structure conforms to the provided schema and accurately encapsulates the relevant information extracted from the court document about the persons involved and their relationships. If you have any further requests or need additional documents processed, feel free to ask!

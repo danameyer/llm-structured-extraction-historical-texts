@@ -1,0 +1,415 @@
+Here's the structured JSON output based on the provided "court document":
+
+'''
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Isolda",
+      "cognomen": "de Nodar",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Alexander",
+      "cognomen": "de Noda",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "de Dunheved",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Dunheved",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "de Harecurt",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Harecurt",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "Paynel",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Simon",
+      "cognomen": "de Whitacre",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Whitacre",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Robertus",
+      "cognomen": "de Walton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Walton",
+      "title": ""
+    },
+    {
+      "id": 8,
+      "name": "Thomas",
+      "cognomen": "de Bisshopesden",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Bisshopesden",
+      "title": ""
+    },
+    {
+      "id": 9,
+      "name": "Ricardus",
+      "cognomen": "filius Oliverii",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 10,
+      "name": "Willelmus",
+      "cognomen": "Preposi tum de Greneherk",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Greneherk",
+      "title": ""
+    },
+    {
+      "id": 11,
+      "name": "Simon",
+      "cognomen": "Blayz",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 12,
+      "name": "Johannes",
+      "cognomen": "de Knittecote",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Knittecote",
+      "title": ""
+    },
+    {
+      "id": 13,
+      "name": "Normanus",
+      "cognomen": "de Knicton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Knicton",
+      "title": ""
+    },
+    {
+      "id": 14,
+      "name": "Robertus",
+      "cognomen": "Wodeman de Wytacr",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Wytacr",
+      "title": ""
+    }
+  ]
+}
+'''
+
+### Breakdown of Decisions Made:
+1. I assigned unique IDs to each person based on the order they were mentioned.
+2. Names were taken in nominative singular form and values were capitalized.
+3. "de" place names were appropriately classified under place_of_origin while cognomen values that included "de" were assigned to the cognomen field.
+4. Each individual’s legal relationship to Isolda was analyzed, noting Alexander as the legal respondent (Reus) and Isolda as the petitioner.
+5. The professions and titles were parsed, although this document largely omitted explicit mention of professions or distinguishing titles aside from cognomens.
+
+If you have more court documents or specific changes, please provide further details!
+I'll extract the relevant information about the persons mentioned in the provided court document and their relationships to one another. Below is the structured information based on the content of the document:
+
+1. **Isolda de Nodar**
+   - **Role**: Petitor (Plaintiff)
+   - **Relations**: None mentioned.
+
+2. **Alexander de Noda**
+   - **Role**: Reus (Defendant)
+   - **Relations**: Isolda de Nodar (Petitor)
+
+3. **Johannes de Dunheved**
+   - **Role**: Witness (not specified as a legal party)
+   - **Relations**: None mentioned.
+
+4. **Robertus de Harecurt**
+   - **Role**: Witness (not specified as a legal party)
+   - **Relations**: None mentioned.
+
+5. **Robertus Paynel**
+   - **Role**: Witness (not specified as a legal party)
+   - **Relations**: None mentioned.
+
+6. **Simon de Whitacre**
+   - **Role**: Witness (not specified as a legal party)
+   - **Relations**: None mentioned.
+
+7. **Robertus de Walton**
+   - **Role**: Attornatus (Attorney)
+   - **Relations**: Isolda de Nodar (represents her)
+
+8. **Thomas de Bisshopesden**
+   - **Role**: Attornatus (Attorney)
+   - **Relations**: Isolda de Nodar (represents her)
+
+9. **Ricardus filius Oliverii de Wuscote**
+   - **Role**: Attornatus (Attorney)
+   - **Relations**: None mentioned.
+
+10. **Willelmus Preposi tum de Greneherk**
+    - **Role**: Attornatus (Attorney)
+    - **Relations**: None mentioned.
+
+11. **Simon Blayz**
+    - **Role**: Witness (not specified as a legal party)
+    - **Relations**: None mentioned.
+
+12. **Johannes de Knittecote**
+    - **Role**: Witness (not specified as a legal party)
+    - **Relations**: None mentioned.
+
+13. **Normanus de Knicton**
+    - **Role**: Witness (not specified as a legal party)
+    - **Relations**: None mentioned.
+
+14. **Robertus Wodeman de Wytacr**
+    - **Role**: Witness (not specified as a legal party)
+    - **Relations**: None mentioned.
+
+### Summary of Relations:
+- **Isolda de Nodar** is the plaintiff against **Alexander de Noda**, who is the defendant.
+- **Robertus de Walton** and **Thomas de Bisshopesden** are the attorneys representing **Isolda de Nodar**.
+- All other individuals mentioned are witnesses and do not have direct legal relationships defined in the document.
+
+This structured identification highlights the key participants in the case and their roles in the legal proceedings. If there's specific additional information you would like to extract or analyze further, please let me know.
+Here is the structured JSON output based on the extracted information from the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Isolda",
+      "cognomen": "de Nodar",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Alexander",
+      "cognomen": "de Noda",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "de Dunheved",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Dunheved",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "de Harecurt",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Harecurt",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "Paynel",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Simon",
+      "cognomen": "de Whitacre",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Whitacre",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Robertus",
+      "cognomen": "de Walton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Walton",
+      "title": ""
+    },
+    {
+      "id": 8,
+      "name": "Thomas",
+      "cognomen": "de Bisshopesden",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Bisshopesden",
+      "title": ""
+    },
+    {
+      "id": 9,
+      "name": "Ricardus",
+      "cognomen": "filius Oliverii",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 10,
+      "name": "Willelmus",
+      "cognomen": "Preposi tum de Greneherk",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Greneherk",
+      "title": ""
+    },
+    {
+      "id": 11,
+      "name": "Simon",
+      "cognomen": "Blayz",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 12,
+      "name": "Johannes",
+      "cognomen": "de Knittecote",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Knittecote",
+      "title": ""
+    },
+    {
+      "id": 13,
+      "name": "Normanus",
+      "cognomen": "de Knicton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Knicton",
+      "title": ""
+    },
+    {
+      "id": 14,
+      "name": "Robertus",
+      "cognomen": "Wodeman de Wytacr",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Wytacr",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Summary of JSON Structure:
+- Each listed person is organized within `"person_list"`, containing details such as `id`, `name`, `cognomen`, `profession`, `family_relations`, `legal_relationship`, `place_of_origin`, and `title`.
+- Legal relationships are represented under `"legal_relationship"` with relevant relation types, maintaining associations between individuals.
+
+If you need further modifications or additional details, please let me know!
