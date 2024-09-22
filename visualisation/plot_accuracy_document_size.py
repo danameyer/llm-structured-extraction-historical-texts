@@ -155,21 +155,21 @@ class ScatterPlot:
         prompt_name = data_point_set.prompt_name
         truncated_model_name = model_name.split('mini')[0] + 'mini' if 'mini' in model_name else model_name
 
-        title = f"Fuzzy Accuracy vs. Total Field Count for {truncated_model_name} {prompt_name}"
+        title = f"Fuzzy Accuracy vs. Total JSON Field Count for {truncated_model_name} {prompt_name}"
 
         # Create the figure first
         plt.figure(figsize=(10, 6))
 
         # Plot the data
         plt.scatter(x_values, y_values, color='blue', alpha=0.7)
-        plt.xlabel('Total Field Count')
+        plt.xlabel('Total JSON Field Count')
         plt.ylabel('Fuzzy Accuracy')
         plt.ylim(-0.1, 1.1)
         plt.xlim(-10, 370)
         plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
 
         # Set the title after plotting
-        plt.title(title, pad=20)
+        # plt.title(title, pad=20)
 
         # Save the figure
         output_dir = os.path.join('output_scatter_plots_json_size')
@@ -196,14 +196,14 @@ class ScatterPlot:
 
         # Plot the data
         plt.scatter(x_values, y_values, color='blue', alpha=0.7)
-        plt.xlabel('Total Text Length')
+        plt.xlabel('Word Count')
         plt.ylabel('Fuzzy Accuracy')
         plt.ylim(-0.1, 1.1)
         plt.xlim(-10, 370)
         plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
 
         # Set the title after plotting
-        plt.title(title, pad=20)
+        # plt.title(title, pad=20)
 
         # Save the figure
         output_dir = os.path.join('output_scatter_plots_text_length')
