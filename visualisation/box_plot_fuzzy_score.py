@@ -61,17 +61,18 @@ class BoxPlotFuzzyScore:
         """
         for prompt_type, models_scores in scores_by_prompt_and_model.items():
             for model_name, scores_by_exclude_paths in models_scores.items():
-                labels = [
-                    ', '.join([attr for path in paths for attr in re.findall(r"\['(.*?)'\]", path)])
-                    for paths in scores_by_exclude_paths.keys()
-                ]
+                # labels = [
+                #     ', '.join([attr for path in paths for attr in re.findall(r"\['(.*?)'\]", path)])
+                #     for paths in scores_by_exclude_paths.keys()
+                # ]
+                labels = ['no exclusions', 'cognomen', 'legal_relationship', 'place_of_origin', 'family_relations', 'title', 'profession']
                 data = list(scores_by_exclude_paths.values())
 
                 plt.figure(figsize=(10, 6))
                 plt.boxplot(data, patch_artist=True, medianprops=dict(color='black'))
                 plt.xticks(ticks=range(1, len(labels) + 1), labels=labels, rotation=45, ha='right')
-                truncated_model_name = model_name.split('mini')[0] + 'mini' if 'mini' in model_name else model_name
-                plt.title(f'Fuzzy Accuracy for {prompt_type} - {truncated_model_name}', pad=20)
+                # truncated_model_name = model_name.split('mini')[0] + 'mini' if 'mini' in model_name else model_name
+                # plt.title(f'Fuzzy Accuracy for {prompt_type} - {truncated_model_name}', pad=20)
                 plt.ylabel('Fuzzy Accuracy')
                 plt.ylim(-0.1, 1.1)
                 plt.grid(True, linestyle='--', alpha=0.7)

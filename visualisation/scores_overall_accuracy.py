@@ -18,7 +18,7 @@ class OverallAccuracy:
         fuzzy_scores = []
 
         for model_folder in os.listdir(models_directory):
-            if os.path.isdir(os.path.join(models_directory, model_folder)) and model_folder.startswith('model_'):
+            if os.path.isdir(os.path.join(models_directory, model_folder)) and model_folder in {'model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo'}:
                 # Adjust the path to look into the scores_json folder
                 scores_json_dir = os.path.join(models_directory, model_folder, 'scores_json')
 
@@ -57,11 +57,9 @@ class OverallAccuracy:
         ax.bar(x + bar_width / 2, fuzzy_scores, bar_width, label='Fuzzy Accuracy', zorder=3)
         ax.set_xlabel('Models')
         ax.set_ylabel('Accuracy')
-        ax.set_title(f'Exact vs Fuzzy Accuracy by Model for {prompt_name}', pad=20)
+        # ax.set_title(f'Exact vs Fuzzy Accuracy by Model for {prompt_name}', pad=20)
         ax.set_xticks(x)
-        truncated_model_names = [
-            name.split("-2024-07-18")[0] if "-2024-07-18" in name else name for name in
-            model_names]
+        truncated_model_names = [name.replace("model_", "") for name in model_names]
 
         ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1))

@@ -16,7 +16,7 @@ class RuntimePlot:
         model_names = []
         runtimes = []
         for model_folder in os.listdir(models_directory):
-            if os.path.isdir(os.path.join(models_directory, model_folder)) and model_folder.startswith('model_'):
+            if os.path.isdir(os.path.join(models_directory, model_folder)) and model_folder in {'model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo'}:
                 runtime_directory = os.path.join(models_directory, model_folder, 'runtime')
                 if os.path.exists(runtime_directory):
                     json_files = [file for file in os.listdir(runtime_directory) if file.endswith('.json')]
@@ -40,11 +40,9 @@ class RuntimePlot:
         ax.bar(x, runtimes, bar_width, zorder=3)
         ax.set_xlabel('Models')
         ax.set_ylabel('Runtime in seconds')
-        ax.set_title(f'Runtime per model for {prompt_name}', pad=20)
+        # ax.set_title(f'Runtime per model for {prompt_name}', pad=20)
         ax.set_xticks(x)
-        truncated_model_names = [
-            name.split("-2024-07-18")[0] if "-2024-07-18" in name else name for name in
-            model_names]
+        truncated_model_names = [name.replace("model_", "") for name in model_names]
         ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
 
         plt.tight_layout()

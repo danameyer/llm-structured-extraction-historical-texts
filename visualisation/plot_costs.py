@@ -16,7 +16,7 @@ class CostPlot:
         model_names = []
         costs = []
         for model_folder in os.listdir(models_directory):
-            if os.path.isdir(os.path.join(models_directory, model_folder)) and model_folder.startswith('model_'):
+            if os.path.isdir(os.path.join(models_directory, model_folder)) and model_folder in {'model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo'}:
                 costs_directory = os.path.join(models_directory, model_folder, 'costs')
                 if os.path.exists(costs_directory):
                     json_files = [file for file in os.listdir(costs_directory) if file.endswith('.json')]
@@ -40,11 +40,12 @@ class CostPlot:
         ax.bar(x, costs, bar_width, zorder=3)
         ax.set_xlabel('Models')
         ax.set_ylabel('Costs in dollar')
-        ax.set_title(f'Costs per model {prompt_name}', pad=20)
+        # ax.set_title(f'Costs per model {prompt_name}', pad=20)
         ax.set_xticks(x)
-        truncated_model_names = [
-            name.split("-2024-07-18")[0] if "-2024-07-18" in name else name for name in
-            model_names]
+        # truncated_model_names = [
+        #     name.split("-2024-07-18")[0] if "-2024-07-18" in name else name for name in
+        #     model_names]
+        truncated_model_names = [name.replace("model_", "") for name in model_names]
         ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
 
         plt.tight_layout()
