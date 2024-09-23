@@ -59,8 +59,8 @@ class PlotOpenAIMetrics:
         plt.figure(figsize=(14, 8))
 
         # Set a main title for all subplots
-        title_name = re.sub(r'result_file_|-\d{4}-\d{2}-\d{2}', '', os.path.splitext(file_name)[0])
-        plt.suptitle(f"Fine-Tuning Metrics for {title_name}", fontsize=16)
+        # title_name = re.sub(r'result_file_|-\d{4}-\d{2}-\d{2}', '', os.path.splitext(file_name)[0])
+        # plt.suptitle(f"Fine-Tuning Metrics for {title_name}", fontsize=16)
 
         # Plot Train Loss as a line plot (complete data)
         plt.subplot(2, 2, 1)

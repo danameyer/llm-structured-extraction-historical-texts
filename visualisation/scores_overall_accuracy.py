@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -12,13 +13,13 @@ class OverallAccuracy:
         pass
 
     @staticmethod
-    def extract_overall_accuracy(models_directory):
+    def extract_overall_accuracy(models_directory, models_list):
         model_names = []
         exact_scores = []
         fuzzy_scores = []
 
         for model_folder in os.listdir(models_directory):
-            if os.path.isdir(os.path.join(models_directory, model_folder)) and model_folder in {'model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo'}:
+            if os.path.isdir(os.path.join(models_directory, model_folder)) and model_folder in models_list:
                 # Adjust the path to look into the scores_json folder
                 scores_json_dir = os.path.join(models_directory, model_folder, 'scores_json')
 
@@ -59,7 +60,8 @@ class OverallAccuracy:
         ax.set_ylabel('Accuracy')
         # ax.set_title(f'Exact vs Fuzzy Accuracy by Model for {prompt_name}', pad=20)
         ax.set_xticks(x)
-        truncated_model_names = [name.replace("model_", "") for name in model_names]
+        truncated_model_names = [re.sub(r'(-\d{4}-\d{2}-\d{2}).*', '', name.replace("model_", "").replace(":", "_")) for
+                                 name in model_names]
 
         ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1))
@@ -79,10 +81,22 @@ if __name__ == '__main__':
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
 
     results_dir = os.path.join(base_dir, 'evaluation_results', 'results')
-    prompt_dirs = os.listdir(results_dir)
 
-    for prompt_dir_name in prompt_dirs:
+    # plots for standard models all prompt types
+    prompt_dirs_standard = ['no_principles_base_prompt', 'all_principles_zero_shot', 'all_principles_few_shot', 'chain_of_thought', 'best_prompt']
+    models_list_standard = ['model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo']
+
+    for prompt_dir_name in prompt_dirs_standard:
         models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
-        model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir)
+        model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir, models_list_standard)
         overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_dir_name)
 
+    # plots for fine-tuned gpt-4o-mini models and standard gpt-4o-mini model
+    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
+    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
+
+    for prompt_dir_name in prompt_dirs_ft:
+        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
+        model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir,
+                                                                                            models_list_ft)
+        overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_dir_name)

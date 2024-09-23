@@ -65,7 +65,7 @@ class ErrorTypePlot:
         return all_error_counts
 
     @staticmethod
-    def extract_and_count_total_errors_per_model_per_prompt_type(results_directory):
+    def extract_and_count_total_errors_per_model_per_prompt_type(results_directory, model_list):
         """
         Extracts and counts total errors per model for each prompt type.
 
@@ -88,7 +88,7 @@ class ErrorTypePlot:
                 for model_folder in os.listdir(prompt_type_path):
                     model_path = os.path.join(prompt_type_path, model_folder)
 
-                    if os.path.isdir(model_path) and model_folder.startswith('model_'):
+                    if os.path.isdir(model_path) and model_folder in model_list:
                         scores_json_dir = os.path.join(model_path, 'scores_json')
 
                         if os.path.exists(scores_json_dir):
@@ -190,12 +190,12 @@ class ErrorTypePlot:
 
             # Bar plot
             bar_positions = np.arange(len(models))
-            ax.bar(bar_positions, total_errors, color='#1f77b4')
+            ax.bar(bar_positions, total_errors, color='#1f77b4',  zorder=3)
 
             # Set labels and title
             ax.set_xlabel('Models', fontsize=14)
             ax.set_ylabel('Total Error Count', fontsize=14)
-            ax.set_title(f'Total Error Count per Model for {prompt_type}', fontsize=16, pad=20)
+            # ax.set_title(f'Total Error Count per Model for {prompt_type}', fontsize=16, pad=20)
 
             # Set x-ticks and rotate for better readability
             ax.set_xticks(bar_positions)
@@ -231,7 +231,8 @@ if __name__ == '__main__':
         errorTypePlot.plot_error_counts(prompt_type, model_name, error_counts)
 
     # Extract total error counts by model
-    all_error_counts_by_model = errorTypePlot.extract_and_count_total_errors_per_model_per_prompt_type(models_dir)
+    model_list = ['model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo']
+    all_error_counts_by_model = errorTypePlot.extract_and_count_total_errors_per_model_per_prompt_type(models_dir, model_list)
 
     # Plot total error counts for each model
     errorTypePlot.plot_total_error_counts_by_prompt_type(all_error_counts_by_model)

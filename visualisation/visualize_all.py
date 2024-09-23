@@ -9,6 +9,7 @@ from visualisation.plot_costs import CostPlot
 from visualisation.plot_mistral_metrics import PlotMistralMetrics
 from visualisation.plot_open_ai_metrics import PlotOpenAIMetrics
 from visualisation.plot_runtime import RuntimePlot
+from visualisation.plot_with_error_bars import PlotWithErrorBars
 from visualisation.scores_error_types import ErrorTypePlot
 from visualisation.scores_for_exclude_paths import ExcludePathsPlot
 from visualisation.scores_overall_accuracy import OverallAccuracy
@@ -20,11 +21,24 @@ def plot_overall_accuracy():
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
 
     results_dir = os.path.join(base_dir, 'evaluation_results', 'results')
-    prompt_dirs = os.listdir(results_dir)
 
-    for prompt_dir_name in prompt_dirs:
+    # plots for standard models all prompt types
+    prompt_dirs_standard = ['no_principles_base_prompt', 'all_principles_zero_shot', 'all_principles_few_shot', 'chain_of_thought', 'best_prompt']
+    models_list_standard = ['model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo']
+
+    for prompt_dir_name in prompt_dirs_standard:
         models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
-        model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir)
+        model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir, models_list_standard)
+        overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_dir_name)
+
+    # plots for fine-tuned gpt-4o-mini models and standard gpt-4o-mini model
+    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
+    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
+
+    for prompt_dir_name in prompt_dirs_ft:
+        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
+        model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir,
+                                                                                            models_list_ft)
         overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_dir_name)
 
 
@@ -51,20 +65,28 @@ def plot_exclude_paths():
     exclude_paths_plot.extract_and_plot_all(models_dir)
 
 
-def plot_json_size_vs_accuracy():
+def plot_size_vs_accuracy():
     load_dotenv()
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     models_dir = os.path.join(base_dir, 'evaluation_results', 'results')
 
-    jsonSizeScatterPlot = ScatterPlot()
+    scatterPlot = ScatterPlot()
 
     # Extract error counts
-    data_point_set_library = jsonSizeScatterPlot.extract_fuzzy_scores_and_field_counts(models_dir, ["root['id']"])
+    data_point_set_library = scatterPlot.extract_fuzzy_scores_and_field_counts(models_dir,
+                                                                               ["root['id']"])
 
     # Plot error counts for each model and prompt type
     for key in data_point_set_library.data_point_sets:
         data_points_for_model_and_prompt = data_point_set_library.data_point_sets[key]
-        jsonSizeScatterPlot.plot_fuzzy_accuracy_vs_field_count(data_points_for_model_and_prompt)
+        scatterPlot.plot_fuzzy_accuracy_vs_field_count(data_points_for_model_and_prompt)
+
+    data_point_set_library_text_length = scatterPlot.extract_fuzzy_accuracy_and_text_length(models_dir,
+                                                                                            ["root['id']"])
+
+    for key in data_point_set_library_text_length.data_point_sets:
+        data_points_for_model_and_prompt_text_length = data_point_set_library_text_length.data_point_sets[key]
+        scatterPlot.plot_fuzzy_accuracy_vs_text_length(data_points_for_model_and_prompt_text_length)
 
 
 def plot_box_plot():
@@ -132,13 +154,44 @@ def plot_mistral_results():
         plot_mistral_metrics.plot_metrics(model_name, checkpoints, plot_output_dir, file_name)
 
 
+def plot_with_error_bars():
+    overall_accuracy = PlotWithErrorBars
+    load_dotenv()
+    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+
+    results_dir = os.path.join(base_dir, 'evaluation_results', 'results')
+    prompt_dirs = ['best_prompt_run_1', 'best_prompt_run_2', 'best_prompt_run_3']
+    model_list = ['model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo']
+
+    # Create empty dictionaries to store scores across runs
+    all_exact_scores = {model: [] for model in model_list}
+    all_fuzzy_scores = {model: [] for model in model_list}
+
+    # Collect scores from each run
+    for prompt_dir_name in prompt_dirs:
+        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
+        exact_scores, fuzzy_scores = overall_accuracy.extract_accuracy(models_dir, model_list)
+
+        # Append the scores for this run to the cumulative lists
+        for model in model_list:
+            all_exact_scores[model].extend(exact_scores[model])
+            all_fuzzy_scores[model].extend(fuzzy_scores[model])
+
+    # Compute per-model mean and standard deviations for error bars
+    exact_mean, exact_std, fuzzy_mean, fuzzy_std = overall_accuracy.compute_mean_and_std(all_exact_scores, all_fuzzy_scores)
+
+    # Plot with error bars per model
+    overall_accuracy.plot_overall_accuracy(model_list, exact_mean, fuzzy_mean, exact_std, fuzzy_std, 'best_prompt')
+
+
 if __name__ == '__main__':
     plot_overall_accuracy()
     plot_error_types()
     plot_exclude_paths()
-    plot_json_size_vs_accuracy()
+    plot_size_vs_accuracy()
     plot_box_plot()
     plot_costs_per_model()
     plot_runtime()
     plot_openai_results()
     plot_mistral_results()
+    plot_with_error_bars()
