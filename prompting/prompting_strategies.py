@@ -41,6 +41,13 @@ class PromptBuilder:
         self.prompting_strategies.append(prompt)
         return self
 
+    def add_task_2_without_tool_calling(self):
+        prompt = (
+            "(2) Transfer your results to structured JSON output separately for each document. Only return the JSON in your response.\n"
+        )
+        self.prompting_strategies.append(prompt)
+        return self
+
     def add_task_3(self):
         prompt = (
             "(3) Answer questions on the basis of the structured JSON output. Wait for the user to prompt you for questions.\n"
@@ -178,6 +185,13 @@ class PromptBuilder:
             "Consider these examples only for orientation in your work on the \"court documents\":\n"
             "**Examples**\n" +
             self.concatenate_files(demonstrations)
+        )
+        self.prompting_strategies.append(prompt)
+        return self
+
+    def add_hint_for_json_mode(self):
+        prompt = (
+            "Respond using structured JSON output."
         )
         self.prompting_strategies.append(prompt)
         return self

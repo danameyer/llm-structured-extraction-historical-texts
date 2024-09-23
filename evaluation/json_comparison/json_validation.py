@@ -31,7 +31,7 @@ class JsonValidator:
                                     "type": "object",
                                     "properties": {
                                         "relation_type": {"type": "string"},
-                                        "type": ["number", "null"]
+                                        "related_person": {"type": ["number", "null"]}
                                     },
                                     "required": ["relation_type", "related_person"]
                                 }
@@ -42,7 +42,7 @@ class JsonValidator:
                                     "type": "object",
                                     "properties": {
                                         "relation_type": {"type": "string"},
-                                        "type": ["number", "null"]
+                                        "related_person": {"type": ["number", "null"]}
                                     },
                                     "required": ["relation_type", "related_person"]
                                 }

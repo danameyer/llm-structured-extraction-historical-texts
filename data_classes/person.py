@@ -99,6 +99,7 @@ class PersonSchema(Schema):
 
 
 def create_person_object(file_path: str) -> List[Person]:
+    # TODO: could crash here
     data = file_reader_util.read_json(file_path)
     if data and data.get('person_list') is not None:
         print(data['person_list'])
@@ -111,9 +112,11 @@ def create_person_object(file_path: str) -> List[Person]:
             persons = [person_schema.load(person) for person in data['person_list'] if person is not None]
         except marshmallow.exceptions.ValidationError as ex:
             logging.error(f"Could not load PersonSchema for file {file_path} because of exception: {ex.messages}")
+            persons = []  # This is hopefully the right thing to do here ...
     else:
         persons = []
 
+    # TODO: will crash here if persons list is not set
     person_dict: Dict[int, Person] = {person.id: person for person in persons}
 
     for person in persons:

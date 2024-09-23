@@ -12,6 +12,8 @@ from experiments.function_calling.function_calling_all_principles_few_shot impor
 from experiments.function_calling.function_calling_all_principles_zero_shot import ExperimentAllPrinciplesZeroShotPrompt
 from experiments.function_calling.function_calling_no_principles_base_prompt import \
     ExperimentFunctionCallingNoPrinciplesBasePrompt
+from experiments.function_calling.function_calling_optimised_no_function_calling import \
+    ExperimentOptimisedPromptNoFunctionCalling
 from experiments.function_calling.function_calling_with_optimised_prompt import \
     ExperimentFunctionCallingWithOptimisedPrompt
 from function_calling_components.chat_completion_blueprint import DialogueCompletion
@@ -83,6 +85,24 @@ class ExperimentFunctionCallingEvaluation:
                                                                 self.experiment_dir,
                                                                 pred_file_name)
 
+        elif self.prompt_experiment_name == "best_prompt_no_function_calling":
+            return ExperimentOptimisedPromptNoFunctionCalling(test_files,
+                                                              demonstrations_files,
+                                                              gpt_model,
+                                                              self.experiment_dir,
+                                                              pred_file_name)
+        elif self.prompt_experiment_name == "best_prompt_run_2":
+            return ExperimentFunctionCallingWithOptimisedPrompt(test_files,
+                                                                demonstrations_files,
+                                                                gpt_model,
+                                                                self.experiment_dir,
+                                                                pred_file_name)
+        elif self.prompt_experiment_name == "best_prompt_run_3":
+            return ExperimentFunctionCallingWithOptimisedPrompt(test_files,
+                                                                demonstrations_files,
+                                                                gpt_model,
+                                                                self.experiment_dir,
+                                                                pred_file_name)
         else:
             raise ValueError("Wrong prompt name: " + self.prompt_experiment_name)
 
@@ -246,30 +266,31 @@ def _prepare_and_run_experiment(model_name: str, prompt_name: str, sample_folder
 
 def _main():
     # experiment 1: prompt-selection
-    models_list = [
-                   # 'gpt-3.5-turbo',
-                   # 'gpt-4o',
-                   # 'gpt-4o-mini',
-                   'gpt-4o-2024-08-06']
+    # models_list = [
+    # 'gpt-3.5-turbo',
+    # 'gpt-4o',
+    # 'gpt-4o-mini',
+    # 'gpt-4o-2024-08-06']
 
-    prompt_list = ['chain_of_thought',
-                   'all_principles_zero_shot',
-                   'all_principles_few_shot',
-                   'no_principles_base_prompt'
-                   ]
-
-    sample_folder_name_prompt_selection = 'txt_files_prompt_selection'
-
-    for model in models_list:
-        for prompt in prompt_list:
-            _prepare_and_run_experiment(model_name=model, prompt_name=prompt, sample_folder_name=sample_folder_name_prompt_selection)
+    # prompt_list = ['chain_of_thought',
+    #                'all_principles_zero_shot',
+    #                'all_principles_few_shot',
+    #                'no_principles_base_prompt'
+    #                ]
+    #
+    # sample_folder_name_prompt_selection = 'txt_files_prompt_selection'
+    #
+    # for model in models_list:
+    #     for prompt in prompt_list:
+    #         _prepare_and_run_experiment(model_name=model, prompt_name=prompt,
+    #                                     sample_folder_name=sample_folder_name_prompt_selection)
 
     # experiment 2: function calling evaluation
     # models_list = [
-        # 'gpt-3.5-turbo',
-        # 'gpt-4o',
-        # 'gpt-4o-mini'
-        # 'gpt-4o-2024-08-06'
+    # 'gpt-3.5-turbo',
+    # 'gpt-4o',
+    # 'gpt-4o-mini'
+    # 'gpt-4o-2024-08-06'
     # ]
 
     # prompt = 'best_prompt'
@@ -314,6 +335,52 @@ def _main():
     #     _prepare_and_run_experiment(model_name=model,
     #                                 prompt_name=prompt,
     #                                 sample_folder_name=sample_folder_name_fold_2)
+
+    # experiment 4: prompt without function calling
+    models_list = [
+        'gpt-4o-2024-08-06'
+    ]
+
+    prompt = 'best_prompt_no_function_calling'
+
+    sample_folder_name_function_calling = 'text_files'
+
+    for model in models_list:
+        _prepare_and_run_experiment(model_name=model,
+                                    prompt_name=prompt,
+                                    sample_folder_name=sample_folder_name_function_calling)
+
+    # experiment 5: best prompt run 2
+    # models_list = [
+    #     'gpt-3.5-turbo',
+    #     'gpt-4o',
+    #     'gpt-4o-mini'
+    # ]
+    #
+    # prompt = 'best_prompt_run_2'
+    #
+    # sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
+    #
+    # for model in models_list:
+    #     _prepare_and_run_experiment(model_name=model,
+    #                                 prompt_name=prompt,
+    #                                 sample_folder_name=sample_folder_name_function_calling)
+
+    # experiment 6: best prompt run 3
+    # models_list = [
+    #     'gpt-3.5-turbo',
+    #     'gpt-4o',
+    #     'gpt-4o-mini'
+    # ]
+    #
+    # prompt = 'best_prompt_run_3'
+    #
+    # sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
+    #
+    # for model in models_list:
+    #     _prepare_and_run_experiment(model_name=model,
+    #                                 prompt_name=prompt,
+    #                                 sample_folder_name=sample_folder_name_function_calling)
 
 
 if __name__ == '__main__':
