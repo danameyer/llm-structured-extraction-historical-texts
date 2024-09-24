@@ -1,0 +1,255 @@
+Let's address the provided court document and create a structured JSON output.
+
+### Analyze the Given Court Document
+
+The document is:
+```
+469.	( Derb') Ricardus de Vernun ponit loco suo Walterum de Wahull' vel Adam Maunadlet versus Hawisiam que fuit uxor Roberti de Vernon de placito custod ie.
+```
+
+From the analysis, we identify the following people and relationships:
+
+1. **Ricardus de Vernun**: This is the plaintiff who appoints an attorney.
+   - **Legal Relationship**: He appoints Walterus de Wahull (or Adam Maunadlet) as his attorney, which suggests a legal relationship.
+
+2. **Walterus de Wahull**: Appointed as attorney by Ricardus de Vernun.
+   - **Legal Relationship**: Acts as "Attornatus" for Ricardus de Vernun.
+
+3. **Adam Maunadlet**: Alternatively appointed as attorney by Ricardus de Vernun.
+   - **Legal Relationship**: Acts as "Attornatus" for Ricardus de Vernun.
+
+4. **Hawisia**: Referred to as the widow of Robertus de Vernon. She is involved in a legal dispute regarding the plea of custody.
+   - **Family Relations**: "Uxor" of Robertus de Vernon.
+   - **Legal Relationship**: "Reus" in opposition to Ricardus de Vernun, who has appointed attorneys against her.
+
+5. **Robertus de Vernon**: Mentioned as the deceased husband of Hawisia.
+   - **Family Relations**: "Maritus" to Hawisia.
+
+### Construct the JSON Output
+
+Using the schema provided and based on the extracted information, we can build the JSON content:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ricardus",
+      "cognomen": "de Vernun",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Derb'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Walterus",
+      "cognomen": "de Wahull",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Adam",
+      "cognomen": "Maunadlet",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Hawisia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "de Vernon",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+In creating this JSON, I adhered closely to the document's details while following the provided instructions and schema. Each person is assigned an `id`, and relationships are thoroughly mapped. Let me know if you have any more documents to process or further questions!
+Let's extract the information from the provided court document, identifying all persons mentioned and their relationships:
+
+### Court Document Analysis
+
+The text:
+```
+469. (Derb') Ricardus de Vernun ponit loco suo Walterum de Wahull' vel Adam Maunadlet versus Hawisiam que fuit uxor Roberti de Vernon de placito custod ie.
+```
+
+### Persons and Their Relationships:
+
+1. **Ricardus de Vernun**
+   - **Role**: Plaintiff in the legal case.
+   - **Relationship**: Appoints Walterus de Wahull or Adam Maunadlet as his attorneys.
+   - **Legal Action**: Engaged in a case against Hawisia regarding a custody plea.
+   - **Place of Origin**: Derb'
+
+2. **Walterus de Wahull**
+   - **Role**: Attorney
+   - **Relationship**: Appointed as an attorney by Ricardus de Vernun.
+
+3. **Adam Maunadlet**
+   - **Role**: Attorney
+   - **Relationship**: Alternatively appointed as an attorney by Ricardus de Vernun.
+
+4. **Hawisia**
+   - **Role**: Defendant in the legal case.
+   - **Relationship**: Former wife ("que fuit uxor") of Robertus de Vernon.
+   - **Legal Context**: The case involves custody issues against the appointment made by Ricardus.
+
+5. **Robertus de Vernon**
+   - **Role**: Deceased husband of Hawisia.
+   - **Relationship**: Mentioned solely in family relation context as the husband of Hawisia.
+
+### Summary of Relations:
+
+- **Ricardus de Vernun**:
+  - **Legal Relationship**: He acts as the plaintiff against Hawisia.
+  - **Attorneys**:
+    - **Walterus de Wahull**: Appointed attorney.
+    - **Adam Maunadlet**: Alternatively appointed attorney.
+
+- **Hawisia**:
+  - **Family Relationship**: Widow of Robertus de Vernon.
+  - **Legal Relationship**: Defendant against Ricardus de Vernun.
+
+- **Robertus de Vernon**:
+  - **Family Relationship**: Married to Hawisia (historically, as he is now deceased).
+
+This extracted information offers a clear understanding of the individuals involved and their relationships within the context of the document. Let me know if you need further details or analysis!
+Here is the structured JSON output based on your requirements and the extracted information from the document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Ricardus",
+      "cognomen": "de Vernun",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Derb'",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Walterus",
+      "cognomen": "de Wahull",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Adam",
+      "cognomen": "Maunadlet",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Hawisia",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "de Vernon",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON accurately reflects the individuals mentioned in the document and their respective family and legal relationships. Let me know if you have any questions or need further assistance!

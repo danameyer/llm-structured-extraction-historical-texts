@@ -1,0 +1,215 @@
+Let's work through the court document you've provided and create structured JSON output.
+
+**Court Document:**
+
+```plaintext
+21. Willelmus de Berefeld' ponit loco suo Terricum de Sottebrok' versus Matillidem que fuit uxor Roberti de Sottebrok' de placito dotis.
+```
+
+Breaking down the document:
+- **Willelmus de Berefeld'**:
+  - Based on the wording "ponit loco suo," it implies that Willelmus has some sort of attorney or legal representative relationship with Terricus (modernized to Terricus as "Terricum" is the accusative form).
+  - **Place of Origin**: Berefeld
+
+- **Terricus de Sottebrok'**:
+  - This person is being appointed in the place of Willelmus.
+  - **Place of Origin**: Sottebrok
+  - **Legal Relationship**: Attornatus for Willelmus de Berefeld
+
+- **Matillis**:
+  - Described as the widow ("que fuit uxor") of Robertus (modernized from the accusative "Roberti").
+  - Has a legal issue regarding "placito dotis" (a dowry plea).
+  - **Family**: Uxor of Robertus de Sottebrok
+
+- **Robertus de Sottebrok'**:
+  - Referred to as the late husband of Matillis.
+  - **Place of Origin**: Sottebrok
+
+Mapping this to the JSON schema:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Willelmus",
+    "cognomen": "de Berefeld'",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Petitor",
+        "related_person": 3
+      }
+    ],
+    "place_of_origin": "Berefeld",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Terricus",
+    "cognomen": "de Sottebrok'",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Attornatus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "Sottebrok",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Matillis",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 4
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "Robertus",
+    "cognomen": "de Sottebrok'",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 3
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "Sottebrok",
+    "title": ""
+  }
+]
+```
+
+Explanation:
+- **Willelmus de Berefeld'** is the plaintiff and has appointed **Terricus de Sottebrok'** as his attorney. 
+- **Matillis** has a legal relationship as defendant against **Willelmus** and is the widow of **Robertus de Sottebrok'**.
+- **Robertus de Sottebrok'** is referenced as **Matillis**'s deceased husband. 
+
+Each element reflects the suggested entries in the JSON format as instructed by the criteria.
+Let's extract the information about each person mentioned in the document and their relations from the text:
+
+**Court Document:**
+
+```plaintext
+21. Willelmus de Berefeld' ponit loco suo Terricum de Sottebrok' versus Matillidem que fuit uxor Roberti de Sottebrok' de placito dotis.
+```
+
+**Persons and their relations:**
+
+1. **Willelmus de Berefeld'**
+   - **Role in Document**: He is appointing someone else to act in his place in a legal matter, implying he is the original party to the case.
+   - **Place of Origin**: Berefeld
+   - **Legal Relationship**: Likely the plaintiff (though not explicitly stated, he is initiating the legal process) against Matillis.
+   - **Relation to Terricus**: He appoints Terricus as an attorney.
+
+2. **Terricus de Sottebrok'**
+   - **Role in Document**: Appointed by Willelmus to act on his behalf in the case.
+   - **Place of Origin**: Sottebrok
+   - **Legal Relationship**: Attorney for Willelmus (Attornatus).
+
+3. **Matillis**
+   - **Role in Document**: Involved in a dowry case.
+   - **Family Relationships**: Described as the widow ("que fuit uxor") of Robertus.
+   - **Legal Relationship**: Likely the defendant (Reus) in the dowry plea brought by or through Willelmus.
+
+4. **Robertus de Sottebrok'**
+   - **Role in Document**: Mentioned as the late husband of Matillis.
+   - **Place of Origin**: Sottebrok
+   - **Family Relationships**: Maritus of Matillis.
+
+**Summary of Relations:**
+- Willelmus de Berefeld' and Matillis are the parties involved in a legal case concerning a dowry.
+- Willelmus appoints Terricus to act on his behalf; thus, Terricus is his attorney.
+- Matillis and Robertus are connected by marriage, with Matillis being the widow of Robertus, indicating that the case likely involves rights or properties related to her marriage with Robertus.
+Here's the structured JSON output for the document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Willelmus",
+      "cognomen": "de Berefeld'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Berefeld",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Terricus",
+      "cognomen": "de Sottebrok'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Sottebrok",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Matillis",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "de Sottebrok'",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Sottebrok",
+      "title": ""
+    }
+  ]
+}
+```
+
+This output accurately reflects the relationships and roles of the individuals involved as extracted from the document, organized according to the specified JSON schema.

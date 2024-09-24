@@ -1,0 +1,336 @@
+Certainly! Let's work through this "court document" step-by-step to generate a structured JSON output capturing all the relevant details about the persons involved. Here's the original document:
+
+**Court Document:**
+
+'''
+26. (misericordia) Assisa venit recognitura si Matillis filia Ricardi Rycheman mater Matillidis fuit seisita in dominico suo etc. de duobus mesuagiis et (duobus) shopis cum pertinenciis in Neubyr' die quo etc. et si etc. que mesuagia et shopas Ricardus Peppard' et Agnes uxor ejus tenent, qui veniunt et dicunt quod assisa non debet inde fieri, quia dicunt [quod] ipsi nichil clamant in predictis mesuagiis et shopis nisi racione custodiae quam inde habent cum Willelmo filio Willelmi cujus hereditas predicta mesuagia et shope sunt et qui est infra etatem et in custodia ipsorum etc., et Matillis non potest hoc deducere. Et ideo consideratum est quod predicti Ricardus et Agnes inde sine die et Matillis in misericordia per plegium Everardi de Wanetinge.
+'''
+
+Let's extract and list the involved people with the required structure:
+
+1. **Matillis filia Ricardi Rycheman:**
+   - Name: Matillis
+   - Cognomen: Rycheman
+   - She is the daughter (Filia) of Ricardus Rycheman.
+   - Legal Relationship: She is in the role of a petitioner since she is trying to prove her mother's seisin.
+
+2. **Ricardus Rycheman:**
+   - Name: Ricardus
+   - Cognomen: Rycheman
+   - Family Relation: He is the father (Pater) of Matillis filia Ricardi Rycheman.
+   - He has no other roles mentioned, and he is not a subject of this case directly.
+
+3. **Ricardus Peppard:**
+   - Name: Ricardus
+   - Cognomen: Peppard
+   - Maritus Agnes
+   - He holds the property with Agnes under the relation of being custodians (Custos) to Willelmus filius Willelmi.
+   - Legal Relationship: Reus (defendant) in this case against Matillis filia Ricardi Rycheman.
+
+4. **Agnes uxor ejus (Ricardus Peppard's wife):**
+   - Name: Agnes
+   - Marita Ricardus Peppard
+   - Cognomen: 
+   - She shares custodianship (Custos) with Ricardus Peppard over Willelmus's property.
+   - Legal Relationship: Reus (defendant) in this case against Matillis filia Ricardi Rycheman.
+
+5. **Willelmus filius Willelmi:**
+   - Name: Willelmus
+   - Cognomen: 
+   - Family Relation: Filius Willelmi
+   - He is involved indirectly as the heir (Heres), but is underage and under the custody of Ricardus Peppard and Agnes. 
+   - Legal Relationship: Pupillus under the custody (Custos) of Ricardus Peppard and Agnes.
+
+6. **Everardus de Wanetinge:**
+   - Name: Everardus
+   - Cognomen: de Wanetinge
+   - He serves as a surety (Plegiarius) for Matillis filia Ricardi Rycheman when she is amerced.
+
+Now, let's put these details into the JSON structure.
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Matillis",
+      "cognomen": "Rycheman",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filia",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Ricardus",
+      "cognomen": "Rycheman",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Ricardus",
+      "cognomen": "Peppard",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Custos",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Agnes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Custos",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": null
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Everardus",
+      "cognomen": "de Wanetinge",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Wanetinge",
+      "title": ""
+    }
+  ]
+}
+```
+This JSON output accurately represents the information extracted from the "court document" and follows the specified schema and instructions closely.
+Certainly! Let's carefully extract the information about the individuals mentioned in the court document and detail their relationships to each other. Here's the process:
+
+1. **Matillis filia Ricardi Rycheman**:
+   - **Name**: Matillis
+   - **Family Connection**: She is the daughter ("Filia") of Ricardus Rycheman.
+   - **Role in the Court Case**: She is seeking to prove her mother's seisin of properties, effectively acting as a plaintiff or petitioner in this case.
+
+2. **Ricardus Rycheman**:
+   - **Name**: Ricardus
+   - **Relation to Matillis**: He is the father ("Pater") of Matillis. Although Matillis's mother is not actively named, she is a key figure because Matillis is trying to establish her mother's seisin.
+
+3. **Ricardus Peppard**:
+   - **Name**: Ricardus
+   - **Cognomen**: Peppard
+   - **Marital Connection**: He is the husband ("Maritus") of Agnes.
+   - **Role in the Case**: He, along with Agnes, holds the properties in question as a custodian ("Custos") for Willelmus filius Willelmi because Willelmus is underage. Ricardus is serving as a defendant ("Reus") in the proceedings initiated by Matillis.
+
+4. **Agnes**:
+   - **Name**: Agnes
+   - **Marital Connection**: She is the wife ("Uxor") of Ricardus Peppard.
+   - **Role in the Case**: Like Ricardus Peppard, Agnes is acting as a custodian ("Custos") for the young Willelmus, who is presumably the heir to the properties. She is also a defendant ("Reus") alongside Ricardus in the case.
+
+5. **Willelmus filius Willelmi**:
+   - **Name**: Willelmus
+   - **Family Connection**: He is the son ("Filius") of Willelmus, who perhaps is referred to indirectly in the document. His father is not explicitly involved in the ongoing case.
+   - **Role in the Case**: Willelmus is the primary heir ("Heres") to the disputed properties and is underage. Hence, he is in the custody ("Pupillus") of Ricardus Peppard and Agnes.
+
+6. **Everardus de Wanetinge**:
+   - **Name**: Everardus
+   - **Place of Origin**: de Wanetinge
+   - **Role in the Case**: Everardus serves as a surety ("Plegiarius") for Matillis, which means he guarantees her appearance or actions in the court proceedings. This role typically entails providing some form of security for the payment of fines if Matillis is amerced.
+
+This breakdown identifies the various individuals involved in the document, what roles and relationships they have relative to each other, and their involvement in the legal proceedings described.
+Here is the structured JSON output for the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Matillis",
+      "cognomen": "Rycheman",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filia",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Ricardus",
+      "cognomen": "Rycheman",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Ricardus",
+      "cognomen": "Peppard",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Custos",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Agnes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Custos",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": null
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Pupillus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Everardus",
+      "cognomen": "de Wanetinge",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Wanetinge",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON format captures all the key persons and their relationships from the court document as described in the unstructured Latin text.

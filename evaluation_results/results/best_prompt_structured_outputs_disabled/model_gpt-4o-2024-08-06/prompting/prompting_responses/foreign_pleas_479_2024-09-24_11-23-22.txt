@@ -1,0 +1,278 @@
+Let's analyze the given court document and extract structured information according to the instructions and schema provided.
+
+**Court Document:**
+```
+479.	(Line' +) Johanna que fuit uxor Petri de Lekebu rn' per attornatum suu m petit versus Galfrid um filium Willel mi u n um mesuagiu m cum pertinenciis in Line' ut jus suum per breve de ingressu etc.
+Et Galfrid us per attornatu m suu m veni t et vocat inde ad warantu m Robertu m filium Petri de Lekebu rn'. Habeat eum apud Rad i ng' a die sancti Johannis Baptiste in tres septimanas per auxilium curie.
+```
+
+Let's proceed step-by-step through the document to capture all notable persons, their origins, relations, and legal roles:
+
+1. **Johanna** is presented as "que fuit uxor Petri de Lekeburn", indicating she is the wife of Petrus. She's acting through her attorney.
+2. **Petrus de Lekeburn** is linked to Johanna as her husband.
+3. **Galfridus filius Willelmi** is mentioned as a party involved in the case, acting through his attorney. He calls for warranty from another person during the case.
+4. **Robertus filius Petri de Lekeburn** is called upon by Galfridus for a warrant, and is possibly linked as Galfridus's Progenitor depending on the relation, but as per "filius Petri de Lekeburn," this suggests family relation with Petrus.
+
+Now, let's list these individuals using the JSON schema provided:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Johanna",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "Lekeburn",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Petrus",
+      "cognomen": "de Lekeburn",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Galfridus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Progenitor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "filius Petri de Lekeburn",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Progenitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+Key points in this JSON output:
+- Johanna acts as a plaintiff (Petitor) using an attorney against Galfridus.
+- Galfridus employs an attorney and invokes Robertus as a warrantor.
+- Petrus is linked to both Johanna and Robertus but is not an active legal participant in this section.
+- The places and names are retained as per the text, adhering to the rules provided.
+Let's extract and organize the relevant information about the individuals mentioned in the court document, including family relations and legal contexts:
+
+1. **Johanna**
+   - **Relation to Others**:
+     - She is the wife (Uxor) of Petrus (id: 2).
+   - **Legal Role**:
+     - Acts as the plaintiff (Petitor) in the case.
+     - She is represented by an attorney, indicating her legal representation role in the court procedure.
+
+2. **Petrus de Lekeburn**
+   - **Relation to Others**:
+     - He is the husband (Maritus) of Johanna (id: 1).
+     - He is also the father (Pater) of Robertus (id: 5).
+   - **Additional Information**:
+     - Associated with the location "Lekeburn".
+     - Not directly engaged in legal proceedings in the text provided.
+
+3. **Galfridus filius Willelmi**
+   - **Relation to Others**:
+     - He is the son (Filius) of Willelmus (id: 4).
+   - **Legal Role**:
+     - Acts as the defendant (Reus) in the case.
+     - Also uses an attorney for legal representation.
+     - Calls Robertus for warranty during proceedings, thereby involving him in the legal context.
+
+4. **Willelmus**
+   - **Relation to Others**:
+     - He is the father (Pater) and progenitor (Progenitor) of Galfridus (id: 3).
+   - **Additional Information**:
+     - No active legal role in the document context.
+
+5. **Robertus filius Petri de Lekeburn**
+   - **Relation to Others**:
+     - He is the son (Filius) of Petrus (id: 2).
+   - **Legal Role**:
+     - Invoked by Galfridus; potentially engaged in providing warranty or evidence, indicating involvement in legal proceedings.
+
+These extracted details outline the familial and legal interactions of the individuals within this specific court document. The roles and relationships have been presented in concise terms to clarify the interpersonal connections and legal standings as noted in the court records.
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Johanna",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "Lekeburn",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Petrus",
+      "cognomen": "de Lekeburn",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Pater",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Galfridus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Progenitor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "filius Petri de Lekeburn",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Progenitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+``` 
+
+In this structured JSON output:
+- Each person mentioned in the court document is represented with a unique ID.
+- The relationships are organized into categories of family and legal connections.
+- Importantly, each relationship is detailed with the IDs of related persons where applicable, capturing the document's familial and legal interconnections accurately.

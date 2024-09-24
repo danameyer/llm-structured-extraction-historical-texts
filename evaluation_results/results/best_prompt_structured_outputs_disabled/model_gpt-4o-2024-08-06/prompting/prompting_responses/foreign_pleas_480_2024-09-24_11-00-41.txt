@@ -1,0 +1,553 @@
+Let's proceed step by step to extract and structure the data into the required JSON format. Here's what we are going to do:
+
+1. **Identify all the persons and their details**: We need to extract names, potential cognomens, professions, titles, family relations, legal relationships, and places of origin for each person in the document.
+
+2. **Convert this extracted data into a JSON structure** following the given schema. 
+
+Below is the text from the court document, followed by the analysis and conversion into JSON.
+
+Court document:
+``` 
+480. (Leyc' + Heref') Isolda de Nodar' per attornatum suum optulit se iiij die versus Alexandrum de Noda r' qui se essoniat de malo lecti versus earn de placito terre etc. Et Alexander non venit nee milites qui feceru nt visu m de eo scilicet : Johannes de Dunheved, Robertus de Harecurt, Robertus Paynel et Simon de Whitacre, et Johannes fuit (atachiatus•) per Robertu m de Walton' et Thomam de Bisshopesden', et Robertus de Harecurt fuit attachiatus per Ricard um filiu m Oliverii de Wuscote et Willelmum Preposi tum de Greneherk', et Robertus Paynel fuit attachiatus per Simonem Blayz et Johannem de Knittecote, et Simon fuit attachiatus per Normanu m de Knicton' et Robertu m Wodeman de Wytacr'. Jdeo ponantur per meliores plegios quod sint apud Hereford in octabis sancti Michaelis et primi etc.
+```
+
+### Analysis:
+1. **Isolda de Nodar**: 
+   - Name: Isolda
+   - Place of Origin: Nodar
+   - Legal Relationship: She has an attorney (Attornatus) relationship, implying she is the plaintiff (Petitor) against Alexander.
+   
+2. **Alexander de Nodari** (spelling variation adjustment for 'Nodar'):
+   - Name: Alexander
+   - Place of Origin: Nodar
+   - Legal Relationship: Defendant (Reus) against Isolda.
+
+3. **Johannes de Dunheved**: 
+   - Name: Johannes
+   - Place of Origin: Dunheved
+   - Legal Relationship: Involved with Alexander’s case, attachiatus.
+
+4. **Robertus de Harecurt**: 
+   - Name: Robertus
+   - Place of Origin: Harecurt
+   - Legal Relationship: Involved with Alexander’s case, attachiatus.
+
+5. **Robertus Paynel**: 
+   - Name: Robertus
+   - Cognomen: Paynel
+   - Legal Relationship: Involved with Alexander’s case, attachiatus.
+
+6. **Simon de Whitacre**: 
+   - Name: Simon
+   - Place of Origin: Whitacre
+   - Legal Relationship: Involved with Alexander’s case, attachiatus.
+
+7. **Robertus de Walton**: 
+   - Name: Robertus
+   - Place of Origin: Walton
+   - Legal Relationship: Plediarius for Johannes
+
+8. **Thomas de Bisshopesden**: 
+   - Name: Thomas
+   - Place of Origin: Bisshopesden
+   - Legal Relationship: Plegiarius for Johannes
+
+9. **Ricardus filius Oliverii de Wuscote**:
+   - Name: Ricardus
+   - Cognomen: Filius Oliverii
+   - Place of Origin: Wuscote
+   - Legal Relationship: Plegiarius for Robertus de Harecurt
+
+10. **Willelmus Prepositus de Greneherk**:
+    - Name: Willelmus
+    - Cognomen: Prepositus
+    - Place of Origin: Greneherk
+    - Legal Relationship: Plegiarius for Robertus de Harecurt
+
+11. **Simon Blayz**:
+    - Name: Simon
+    - Cognomen: Blayz
+    - Legal Relationship: Plegiarius for Robertus Paynel
+
+12. **Johannes de Knittecote**:
+    - Name: Johannes
+    - Place of Origin: Knittecote
+    - Legal Relationship: Plegiarius for Robertus Paynel
+  
+13. **Norman de Knicton**:
+    - Name: Norman
+    - Place of Origin: Knicton
+    - Legal Relationship: Plegiarius for Simon
+
+14. **Robertus Wodeman de Wytacr'**:
+    - Name: Robertus
+    - Cognomen: Wodeman
+    - Place of Origin: Wytacr
+    - Legal Relationship: Plegiarius for Simon
+
+
+### JSON Output:
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Isolda",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 0
+        }
+      ],
+      "place_of_origin": "Nodar",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Alexander",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Nodar",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Dunheved",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Harecurt",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "Paynel",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Simon",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Whitacre",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Walton",
+      "title": ""
+    },
+    {
+      "id": 8,
+      "name": "Thomas",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Bisshopesden",
+      "title": ""
+    },
+    {
+      "id": 9,
+      "name": "Ricardus",
+      "cognomen": "Filius Oliverii",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "Wuscote",
+      "title": ""
+    },
+    {
+      "id": 10,
+      "name": "Willelmus",
+      "cognomen": "Prepositus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "Greneherk",
+      "title": ""
+    },
+    {
+      "id": 11,
+      "name": "Simon",
+      "cognomen": "Blayz",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 12,
+      "name": "Johannes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "Knittecote",
+      "title": ""
+    },
+    {
+      "id": 13,
+      "name": "Norman",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        }
+      ],
+      "place_of_origin": "Knicton",
+      "title": ""
+    },
+    {
+      "id": 14,
+      "name": "Robertus",
+      "cognomen": "Wodeman",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        }
+      ],
+      "place_of_origin": "Wytacr",
+      "title": ""
+    }
+  ]
+}
+```
+
+This structured output provides a clear, organized, and systematic representation of the data from the court document as requested.
+Let's extract and list the details about each person mentioned in the document, along with their relations to each other, both legal and personal. Here's a breakdown:
+
+1. **Isolda de Nodar**:
+   - **Place of Origin**: Nodar
+   - **Legal Role**: Appears as a litigator, representing herself through an attorney against Alexander. She is indicated as the **Petitor** (plaintiff) in the legal context with Alexander.
+   
+2. **Alexander de Nodari**:
+   - **Place of Origin**: Nodar
+   - **Legal Role**: Involved in a legal matter with Isolda; he is **Reus** (defendant) against her.
+
+3. **Johannes de Dunheved**:
+   - **Place of Origin**: Dunheved
+   - **Legal Context**: Part of the inspection team for Alexander; involved in the proceeding as one of the four named who should perform a legal action.
+   - **Legal Status**: **Attachiatus** (attached, or under obligation) by Robertus de Walton and Thomas de Bisshopesden.
+
+4. **Robertus de Harecurt**:
+   - **Place of Origin**: Harecurt
+   - **Legal Context**: Part of the inspection team for Alexander; also under obligation.
+   - **Legal Status**: **Attachiatus** by Ricardus filius Oliverii and Willelmus Prepositus.
+
+5. **Robertus Paynel**:
+   - **Cognomen**: Paynel
+   - **Legal Context**: Part of the inspection team for Alexander; also under obligation.
+   - **Legal Status**: **Attachiatus** by Simon Blayz and Johannes de Knittecote.
+
+6. **Simon de Whitacre**:
+   - **Place of Origin**: Whitacre
+   - **Legal Context**: Part of the inspection team for Alexander; also under obligation.
+   - **Legal Status**: **Attachiatus** by Norman de Knicton and Robertus Wodeman.
+
+7. **Robertus de Walton**:
+   - **Place of Origin**: Walton
+   - **Role**: Acts as a **Plegiarius** (surety) for Johannes de Dunheved.
+
+8. **Thomas de Bisshopesden**:
+   - **Place of Origin**: Bisshopesden
+   - **Role**: Acts as a **Plegiarius** (surety) for Johannes de Dunheved.
+
+9. **Ricardus filius Oliverii de Wuscote**:
+   - **Cognomen**: Filius Oliverii
+   - **Place of Origin**: Wuscote
+   - **Role**: Acts as a **Plegiarius** (surety) for Robertus de Harecurt.
+
+10. **Willelmus Prepositus de Greneherk**:
+    - **Cognomen**: Prepositus
+    - **Place of Origin**: Greneherk
+    - **Role**: Acts as a **Plegiarius** (surety) for Robertus de Harecurt.
+
+11. **Simon Blayz**:
+    - **Cognomen**: Blayz
+    - **Role**: Acts as a **Plegiarius** (surety) for Robertus Paynel.
+
+12. **Johannes de Knittecote**:
+    - **Place of Origin**: Knittecote
+    - **Role**: Acts as a **Plegiarius** (surety) for Robertus Paynel.
+
+13. **Norman de Knicton**:
+    - **Place of Origin**: Knicton
+    - **Role**: Acts as a **Plegiarius** (surety) for Simon de Whitacre.
+
+14. **Robertus Wodeman de Wytacr**:
+    - **Cognomen**: Wodeman
+    - **Place of Origin**: Wytacr
+    - **Role**: Acts as a **Plegiarius** (surety) for Simon de Whitacre.
+
+This analysis organizes each individual's role, their associations in terms of place and legal context, and their interactions with others within the framework of the court roll document.
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Isolda",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Nodar",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Alexander",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Nodar",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Dunheved",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Harecurt",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Robertus",
+      "cognomen": "Paynel",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Simon",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Whitacre",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Walton",
+      "title": ""
+    },
+    {
+      "id": 8,
+      "name": "Thomas",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Bisshopesden",
+      "title": ""
+    },
+    {
+      "id": 9,
+      "name": "Ricardus",
+      "cognomen": "Filius Oliverii",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "Wuscote",
+      "title": ""
+    },
+    {
+      "id": 10,
+      "name": "Willelmus",
+      "cognomen": "Prepositus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "Greneherk",
+      "title": ""
+    },
+    {
+      "id": 11,
+      "name": "Simon",
+      "cognomen": "Blayz",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 12,
+      "name": "Johannes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "Knittecote",
+      "title": ""
+    },
+    {
+      "id": 13,
+      "name": "Norman",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        }
+      ],
+      "place_of_origin": "Knicton",
+      "title": ""
+    },
+    {
+      "id": 14,
+      "name": "Robertus",
+      "cognomen": "Wodeman",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        }
+      ],
+      "place_of_origin": "Wytacr",
+      "title": ""
+    }
+  ]
+}
+```

@@ -1,0 +1,931 @@
+Let's analyze the provided court document and extract the necessary information to create the structured JSON.
+
+### Court Document Analysis:
+
+The document concerns a legal matter in Gloucestershire involving Matillis, the widow of Anselmus Marescallus, and her claim for a third part of thirteen librates of land in Aure as her dower. Francus de Bohun and Sybilla, his wife, are involved in the case. The land is part of the hereditament of the late Anselmus, of which Sybilla is one of the heirs. Sybilla and Francus argue that they should not respond to Matillis without the other co-participants in the inheritance, mentioning several nobles and their spouses.
+
+### Identified Persons:
+
+1. **Matillis** - Widow of Anselmus Marescallus, Petitor
+2. **Anselmus Marescallus** - Deceased husband of Matillis
+3. **Francus de Bohun** - Defendant, Husband of Sybilla
+4. **Sybilla** - Defendant, Wife of Francus and one of Anselmus's heirs
+5. **Rogerus le Bigot** - Co-heir
+6. **Ricardus de Clare** - Co-heir
+7. **Willelmus de Valene** - Co-heir
+8. **Johanna** - Wife of Willelmus de Valene
+9. **Willelmus de Vesey** - Co-heir
+10. **Agnes** - Wife of Willelmus de Vesey
+11. **Reginaldus de Moyhun** - Co-heir
+12. **Isabella** - Wife of Reginaldus de Moyhun
+13. **Johannes de Moyhun** - Co-heir
+14. **Johanna** - Wife of Johannes de Moyhun
+15. **Simon de Kyme** - Co-heir
+16. **Matillidis** - Wife of Simon de Kyme
+17. **Willelmus de Vallibus** - Co-heir
+18. **Elyenora** - Wife of Willelmus de Vallibus
+19. **Agatha de Fereres** - Co-heir
+20. **Willelmus de Kantilupo** - Co-heir
+21. **Eva** - Wife of Willelmus de Kantilupo
+22. **Rogerus de Mortimer** - Co-heir
+23. **Matillidis** - Wife of Rogerus de Mortimer
+24. **Hunfridus de Bohun** - Co-heir
+25. **Alienora** - Wife of Hunfridus de Bohun
+
+### JSON output:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Matillis",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 2
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Petitor",
+        "related_person": 3
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Anselmus",
+    "cognomen": "Marescallus",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 1
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": "Defunctus"
+  },
+  {
+    "id": 3,
+    "name": "Francus",
+    "cognomen": "de Bohun",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 4
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "Sybilla",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 3
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Heres",
+        "related_person": 2
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 5,
+    "name": "Rogerus",
+    "cognomen": "le Bigot",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": "Comes Norf k"
+  },
+  {
+    "id": 6,
+    "name": "Ricardus",
+    "cognomen": "de Clare",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": "Comes Glouc"
+  },
+  {
+    "id": 7,
+    "name": "Willelmus",
+    "cognomen": "de Valene",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 8
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 8,
+    "name": "Johanna",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 7
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 9,
+    "name": "Willelmus",
+    "cognomen": "de Vesey",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 10
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 10,
+    "name": "Agnes",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 9
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 11,
+    "name": "Reginaldus",
+    "cognomen": "de Moyhun",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 12
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 12,
+    "name": "Isabella",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 11
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 13,
+    "name": "Johannes",
+    "cognomen": "de Moyhun",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 14
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 14,
+    "name": "Johanna",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 13
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 15,
+    "name": "Simon",
+    "cognomen": "de Kyme",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 16
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 16,
+    "name": "Matillidis",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 15
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 17,
+    "name": "Willelmus",
+    "cognomen": "de Vallibus",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 18
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 18,
+    "name": "Elyenora",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 17
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 19,
+    "name": "Agatha",
+    "cognomen": "de Fereres",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 20,
+    "name": "Willelmus",
+    "cognomen": "de Kantilupo",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 21
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 21,
+    "name": "Eva",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 20
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 22,
+    "name": "Rogerus",
+    "cognomen": "de Mortimer",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 23
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 23,
+    "name": "Matillidis",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 22
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 24,
+    "name": "Hunfridus",
+    "cognomen": "de Bohun",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 25
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 25,
+    "name": "Alienora",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 24
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  }
+]
+```
+
+In this JSON output, I've assigned IDs to each person mentioned, categorized family relationships like "Uxor" (wife) and "Maritus" (husband), noted their legal roles such as "Petitor" and "Reus", and left other fields empty when not applicable. This representation adheres to the defined schema and rules, carefully capturing family and legal ties.
+Let's extract detailed information about the individuals mentioned in the document and their interrelationships.
+
+### Extracted Information and Relations:
+
+1. **Matillis**
+   - **Role:** Widow (Uxor) of Anselmus Marescallus
+   - **Legal Role:** Petitor, claiming dower
+   - **Relationships:**
+     - Uxor of Anselmus Marescallus (deceased)
+
+2. **Anselmus Marescallus**
+   - **Role:** Deceased husband of Matillis
+   - **Relationships:**
+     - Maritus of Matillis
+
+3. **Francus de Bohun**
+   - **Legal Role:** Reus, defending against Matillis's claim
+   - **Relationships:**
+     - Maritus of Sybilla
+
+4. **Sybilla**
+   - **Role:** Heir of Anselmus's estate
+   - **Legal Role:** Reus, defending against Matillis's claim
+   - **Relationships:**
+     - Uxor of Francus de Bohun
+     - Heres of Anselmus Marescallus
+
+5. **Rogerus le Bigot**
+   - **Role:** Co-heir
+   - **Title:** Comes Norfk 
+   - **Relationships:** None specified
+
+6. **Ricardus de Clare**
+   - **Role:** Co-heir
+   - **Title:** Comes Glouc
+   - **Relationships:** None specified
+
+7. **Willelmus de Valene**
+   - **Role:** Co-heir
+   - **Relationships:**
+     - Maritus of Johanna
+
+8. **Johanna**
+   - **Role:** Wife of Willelmus de Valene
+   - **Relationships:**
+     - Uxor of Willelmus de Valene
+
+9. **Willelmus de Vesey**
+   - **Role:** Co-heir
+   - **Relationships:**
+     - Maritus of Agnes
+
+10. **Agnes**
+    - **Role:** Wife of Willelmus de Vesey
+    - **Relationships:**
+      - Uxor of Willelmus de Vesey
+
+11. **Reginaldus de Moyhun**
+    - **Role:** Co-heir
+    - **Relationships:**
+      - Maritus of Isabella
+
+12. **Isabella**
+    - **Role:** Wife of Reginaldus de Moyhun
+    - **Relationships:**
+      - Uxor of Reginaldus de Moyhun
+
+13. **Johannes de Moyhun**
+    - **Role:** Co-heir
+    - **Relationships:**
+      - Maritus of Johanna
+
+14. **Johanna**
+    - **Role:** Wife of Johannes de Moyhun
+    - **Relationships:**
+      - Uxor of Johannes de Moyhun
+
+15. **Simon de Kyme**
+    - **Role:** Co-heir
+    - **Relationships:**
+      - Maritus of Matillidis
+
+16. **Matillidis**
+    - **Role:** Wife of Simon de Kyme
+    - **Relationships:**
+      - Uxor of Simon de Kyme
+
+17. **Willelmus de Vallibus**
+    - **Role:** Co-heir
+    - **Relationships:**
+      - Maritus of Elyenora
+
+18. **Elyenora**
+    - **Role:** Wife of Willelmus de Vallibus
+    - **Relationships:**
+      - Uxor of Willelmus de Vallibus
+
+19. **Agatha de Fereres**
+    - **Role:** Co-heir
+    - **Relationships:** None specified
+
+20. **Willelmus de Kantilupo**
+    - **Role:** Co-heir
+    - **Relationships:**
+      - Maritus of Eva
+
+21. **Eva**
+    - **Role:** Wife of Willelmus de Kantilupo
+    - **Relationships:**
+      - Uxor of Willelmus de Kantilupo
+
+22. **Rogerus de Mortimer**
+    - **Role:** Co-heir
+    - **Relationships:**
+      - Maritus of Matillidis
+
+23. **Matillidis**
+    - **Role:** Wife of Rogerus de Mortimer
+    - **Relationships:**
+      - Uxor of Rogerus de Mortimer
+
+24. **Hunfridus de Bohun**
+    - **Role:** Co-heir
+    - **Relationships:**
+      - Maritus of Alienora
+
+25. **Alienora**
+    - **Role:** Wife of Hunfridus de Bohun
+    - **Relationships:**
+      - Uxor of Hunfridus de Bohun
+
+### Summary of Relations:
+- The document describes a legal dispute over land inheritance involving Matillis's claim for dower from the estate of Anselmus Marescallus, with Francus de Bohun and his wife, Sybilla, acting as defendants. Sybilla is one of the heirs of Anselmus. Other persons listed, who are mostly couples, are co-heirs to the property in question, highlighting complex inheritance and familial connections among the English nobility.
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Matillis",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Anselmus",
+      "cognomen": "Marescallus",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 1
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Defunctus"
+    },
+    {
+      "id": 3,
+      "name": "Francus",
+      "cognomen": "de Bohun",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Sybilla",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Heres",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Rogerus",
+      "cognomen": "le Bigot",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Comes Norfk"
+    },
+    {
+      "id": 6,
+      "name": "Ricardus",
+      "cognomen": "de Clare",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Comes Glouc"
+    },
+    {
+      "id": 7,
+      "name": "Willelmus",
+      "cognomen": "de Valene",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 8
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 8,
+      "name": "Johanna",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 7
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 9,
+      "name": "Willelmus",
+      "cognomen": "de Vesey",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 10
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 10,
+      "name": "Agnes",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 9
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 11,
+      "name": "Reginaldus",
+      "cognomen": "de Moyhun",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 12
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 12,
+      "name": "Isabella",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 11
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 13,
+      "name": "Johannes",
+      "cognomen": "de Moyhun",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 14
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 14,
+      "name": "Johanna",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 13
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 15,
+      "name": "Simon",
+      "cognomen": "de Kyme",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 16
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 16,
+      "name": "Matillidis",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 15
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 17,
+      "name": "Willelmus",
+      "cognomen": "de Vallibus",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 18
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 18,
+      "name": "Elyenora",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 17
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 19,
+      "name": "Agatha",
+      "cognomen": "de Fereres",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 20,
+      "name": "Willelmus",
+      "cognomen": "de Kantilupo",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 21
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 21,
+      "name": "Eva",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 20
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 22,
+      "name": "Rogerus",
+      "cognomen": "de Mortimer",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 23
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 23,
+      "name": "Matillidis",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 22
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 24,
+      "name": "Hunfridus",
+      "cognomen": "de Bohun",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Maritus",
+          "related_person": 25
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 25,
+      "name": "Alienora",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Uxor",
+          "related_person": 24
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
