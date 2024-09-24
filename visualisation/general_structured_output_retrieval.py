@@ -33,6 +33,27 @@ class GeneralStructuredOutputRetrival:
                 comparable_scores[prompt][pred_file] = score
         return comparable_scores
 
+    def calc_mean_scores(self, comparable_scores: Dict[str, Dict]) -> Dict[str, Dict[str, float]]:
+        mean_scores = dict()
+        for prompt in comparable_scores:
+            number_of_pred_files = len(comparable_scores[prompt].keys())
+            sum_exact = 0
+            sum_fuzzy = 0
+            for pred_file in comparable_scores[prompt]:
+                exact_score = comparable_scores[prompt][pred_file]["exact_score"]
+                fuzzy_score = comparable_scores[prompt][pred_file]["fuzzy_score"]
+                sum_exact += exact_score
+                sum_fuzzy += fuzzy_score
+            mean_exact = sum_exact / number_of_pred_files
+            mean_fuzzy = sum_fuzzy / number_of_pred_files
+            mean_scores[prompt] = {
+                "mean_exact": mean_exact,
+                "mean_fuzzy": mean_fuzzy
+            }
+        return mean_scores
+
+
+
     def _get_comparable_prediction_files(self) -> List[str]:
         comparable_pred_file_sets = list()
         for prompt in self.prompts:
@@ -47,7 +68,17 @@ class GeneralStructuredOutputRetrival:
         scores_for_prompt = self._get_scores_for_prompt(prompt)
         individual_results = scores_for_prompt["individual_results"]
         filtered_scores = [result for result in individual_results if result["file_name2"] == pred_file and result["exclude_paths"] == ["root['id']"]]
-        return filtered_scores
+        filtered_score: Dict = filtered_scores[0]
+
+        filtered_score.pop("exclude_paths")
+        deep_diff_comparison_results_fuzzy = "deep_diff_comparison_results_fuzzy"
+        deepdiff_comparison_results = "deepdiff_comparison_results"
+        if deepdiff_comparison_results in filtered_score:
+            filtered_score.pop(deepdiff_comparison_results)
+        if deep_diff_comparison_results_fuzzy in filtered_score:
+            filtered_score.pop(deep_diff_comparison_results_fuzzy)
+
+        return filtered_score
 
     def _get_scores_for_prompt(self, prompt):
         file = os.path.join(self.evaluation_result_path, "results", prompt, self.model, "scores_json", "results.json")
@@ -73,8 +104,7 @@ class GeneralStructuredOutputRetrival:
                 return False
         json_content: Dict = read_json(pred_file_path)
         if json_content:
-            person_list: list = json_content.get("person_list")
-            if person_list:
+            if "person_list" in json_content:
                 return True
         return False
 
@@ -88,19 +118,25 @@ def main():
         evaluation_result_path=evaluation_results_dir,
         prompts=[
             "best_prompt_no_function_calling",
-
-            # nur zum spass, damit man was zum Vergleichen hat ...
-            "all_principles_few_shot"
+            "best_prompt_structured_outputs_disabled",
+            "best_prompt_structured_outputs_enabled"
         ])
 
     print("\n\nThese are the scores which can be plotted against one another:")
     comparable_scores = gsor.get_comparable_scores()
     print(json.dumps(comparable_scores, indent=4))
 
+    print("\n\nThese are the mean scores:")
+    mean_scores = gsor.calc_mean_scores(comparable_scores)
+    print(json.dumps(mean_scores, indent=4))
+
     print("\n\nThese are the number of valid json files per prompt:")
     valid_files_per_prompt = gsor.get_number_of_valid_files_per_prompt()
     print(json.dumps(valid_files_per_prompt, indent=4))
 
+    # TODO: all the plotting ...
+
 
 if __name__ == "__main__":
     main()
+    # TODO: all the plotting ...
