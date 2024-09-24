@@ -3,7 +3,9 @@ import os
 from pathlib import Path
 from typing import List, Dict
 
+import numpy as np
 from dotenv import load_dotenv
+from matplotlib import pyplot as plt
 
 from utils.file_reader_util import read_json
 
@@ -108,6 +110,58 @@ class GeneralStructuredOutputRetrival:
                 return True
         return False
 
+    @staticmethod
+    def plot_successful_json_processings(successes_dict: Dict[str, int], y_max_scale: int = None) -> None:
+        x = np.arange(len(successes_dict))
+        bar_width = 0.35
+        fig, ax = plt.subplots()
+        ax.bar(x, list(successes_dict.values()), bar_width, zorder=3)
+        ax.set_xlabel('JSON Generation Mode')
+        ax.set_ylabel('Successful JSON Processing Count')
+        # ax.set_title(f'Runtime per model for {prompt_name}', pad=20)
+        ax.set_xticks(x)
+
+        labels = ['json mode\nstructured\noutput', 'tool calling\nno structured\noutput', 'tool calling\nstructured\noutput' ]
+        ax.set_xticklabels(labels, rotation=45, ha='right')
+
+        plt.tight_layout()
+        if y_max_scale is not None:
+            plt.ylim(0, y_max_scale)
+        plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
+
+        output_dir = os.path.join('successful_json_processings')
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir, exist_ok=True)
+        plt.savefig(os.path.join(output_dir, f'successful_json_processings.png'), bbox_inches='tight')
+        plt.close()
+
+    @staticmethod
+    def plot_mean_accuracy_for_jsons(accuracy_dict: Dict[str, Dict[str, float]]):
+        x = np.arange(len(accuracy_dict.keys()))
+        bar_width = 0.35
+        fig, ax = plt.subplots()
+        mean_exact = [mean_accuracy["mean_exact"] for mean_accuracy in accuracy_dict.values()]
+        mean_fuzzy = [mean_accuracy["mean_fuzzy"] for mean_accuracy in accuracy_dict.values()]
+        ax.bar(x - bar_width / 2, mean_exact, bar_width, label='Exact Accuracy', zorder=3)
+        ax.bar(x + bar_width / 2, mean_fuzzy, bar_width, label='Fuzzy Accuracy', zorder=3)
+        ax.set_xlabel('Models')
+        ax.set_ylabel('Accuracy')
+        # ax.set_title(f'Exact vs Fuzzy Accuracy by Model for {prompt_name}', pad=20)
+        ax.set_xticks(x)
+        labels_x_axis = ['json mode\nstructured\noutput', 'tool calling\nno structured\noutput', 'tool calling\nstructured\noutput' ]
+
+        ax.set_xticklabels(labels_x_axis, rotation=45, ha='right')
+        ax.legend(loc='upper left', bbox_to_anchor=(1, 1))
+
+        plt.tight_layout()
+        plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
+        plt.ylim(0.0, 1.0)
+        output_dir_processing_methods = os.path.join('mean_accuracy_different_processing_methods')
+        if not os.path.exists(output_dir_processing_methods):
+            os.makedirs(output_dir_processing_methods, exist_ok=True)
+        plt.savefig(os.path.join(output_dir_processing_methods, f'overall_scores_different_processing_methods.png'),
+                    bbox_inches='tight')
+
 
 def main():
     load_dotenv()
@@ -134,9 +188,9 @@ def main():
     valid_files_per_prompt = gsor.get_number_of_valid_files_per_prompt()
     print(json.dumps(valid_files_per_prompt, indent=4))
 
-    # TODO: all the plotting ...
+    gsor.plot_successful_json_processings(valid_files_per_prompt)
+    gsor.plot_mean_accuracy_for_jsons(mean_scores)
 
 
 if __name__ == "__main__":
     main()
-    # TODO: all the plotting ...

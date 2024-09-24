@@ -1,9 +1,11 @@
+import json
 import os
 from pathlib import Path
 
 from dotenv import load_dotenv
 
 from visualisation.box_plot_fuzzy_score import BoxPlotFuzzyScore
+from visualisation.general_structured_output_retrieval import GeneralStructuredOutputRetrival
 from visualisation.plot_accuracy_document_size import ScatterPlot
 from visualisation.plot_costs import CostPlot
 from visualisation.plot_mistral_metrics import PlotMistralMetrics
@@ -184,6 +186,35 @@ def plot_with_error_bars():
     overall_accuracy.plot_overall_accuracy(model_list, exact_mean, fuzzy_mean, exact_std, fuzzy_std, 'best_prompt')
 
 
+def plot_structured_outputs_retrieval():
+    load_dotenv()
+    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
+    evaluation_results_dir = os.path.join(base_dir, "evaluation_results")
+    gsor = GeneralStructuredOutputRetrival(
+        model="model_gpt-4o-2024-08-06",
+        evaluation_result_path=evaluation_results_dir,
+        prompts=[
+            "best_prompt_no_function_calling",
+            "best_prompt_structured_outputs_disabled",
+            "best_prompt_structured_outputs_enabled"
+        ])
+
+    print("\n\nThese are the scores which can be plotted against one another:")
+    comparable_scores = gsor.get_comparable_scores()
+    print(json.dumps(comparable_scores, indent=4))
+
+    print("\n\nThese are the mean scores:")
+    mean_scores = gsor.calc_mean_scores(comparable_scores)
+    print(json.dumps(mean_scores, indent=4))
+
+    print("\n\nThese are the number of valid json files per prompt:")
+    valid_files_per_prompt = gsor.get_number_of_valid_files_per_prompt()
+    print(json.dumps(valid_files_per_prompt, indent=4))
+
+    gsor.plot_successful_json_processings(valid_files_per_prompt)
+    gsor.plot_mean_accuracy_for_jsons(mean_scores)
+
+
 if __name__ == '__main__':
     plot_overall_accuracy()
     plot_error_types()
@@ -195,3 +226,4 @@ if __name__ == '__main__':
     plot_openai_results()
     plot_mistral_results()
     plot_with_error_bars()
+    plot_structured_outputs_retrieval()
