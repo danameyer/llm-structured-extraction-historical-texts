@@ -1,0 +1,176 @@
+Sure, let's analyze the document and create the structured JSON output based on the provided schema:
+
+Court Document:
+'''7 I 8. Isti fuerunt vicecomites post ultimum iter justicia riorum scilicet: Simon de Leukenor' qui obiit, Alanus de Farnham, et Wydo filius Roberti qui nunc est.
+'''
+
+Now, let's parse the document and extract the relevant information for each person mentioned.
+
+1. Simon de Leukenor:
+   - Name: Simon
+   - Cognomen: De Leukenor
+   - Profession: Vicecomes (as implied, since he's mentioned in the context of sheriffs)
+   - Family relations: None mentioned
+   - Legal relationship: None mentioned
+   - Place of origin: (De Leukenor as the cognomen suggests a noble title linked to Leukenor)
+   - Title: None mentioned
+   - Status: Deceased (qui obiit)
+
+2. Alanus de Farnham:
+   - Name: Alanus
+   - Cognomen: De Farnham
+   - Profession: Vicecomes
+   - Family relations: None mentioned
+   - Legal relationship: None mentioned
+   - Place of origin: Farnham
+   - Title: None mentioned
+
+3. Wydo filius Roberti:
+   - Name: Wydo
+   - Cognomen: None
+   - Profession: Vicecomes (as implied)
+   - Family relations: 
+     - Relation type: Filius (Son) to Roberti
+   - Legal relationship: None mentioned
+   - Place of origin: None mentioned
+   - Title: None mentioned
+
+Let's compile this information into the specified JSON format:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Simon",
+      "cognomen": "De Leukenor",
+      "profession": "Vicecomes",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Alanus",
+      "cognomen": "De Farnham",
+      "profession": "Vicecomes",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Farnham",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Wydo",
+      "cognomen": "",
+      "profession": "Vicecomes",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This JSON output encapsulates the information derived from the text. It includes four individuals with one implied family relation (Wydo as the son of Robertus). Each person's profession is inferred from the context of their inclusion as "vicecomites" (sheriffs).
+Sure, let's extract the information from the provided court document.
+
+Court Document:
+'''7 I 8. Isti fuerunt vicecomites post ultimum iter justicia riorum scilicet: Simon de Leukenor' qui obiit, Alanus de Farnham, et Wydo filius Roberti qui nunc est.
+'''
+
+1. **Simon de Leukenor:**
+   - **Role/Profession:** Implied as "Vicecomes" (Sheriff), since the individuals mentioned are described as being in this role.
+   - **Cognomen:** "De Leukenor"
+   - **Status:** Deceased (indicated by "qui obiit")
+   - **Relations:** No family or legal relations explicitly mentioned in this brief text.
+
+2. **Alanus de Farnham:**
+   - **Role/Profession:** "Vicecomes" (Sheriff)
+   - **Cognomen:** "De Farnham"
+   - **Relations:** No family or legal relations explicitly mentioned.
+
+3. **Wydo filius Roberti:**
+   - **Role/Profession:** "Vicecomes" (Sheriff)
+   - **Cognomen:** None mentioned
+   - **Family Relation:** "Filius Roberti" (Son of Robertus)
+   - **Current Status:** Implied to be currently holding the position ("qui nunc est" indicates that he is currently serving).
+
+4. **Robertus:**
+   - **Relation to Wydo:** Father (Robertus is mentioned in relation to Wydo as his father)
+   - **Other Details:** Not much is detailed about Robertus within this document segment.
+
+**Summary of Relations:**
+- **Wydo** is identified as the son of **Robertus** ("filius Roberti").
+
+The given text is brief, focusing primarily on these individuals' roles as sheriffs (vicecomites) and indicating that Simon de Leukenor has passed away (qui obiit). There is a single explicit family relationship described between Wydo and Robertus.
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Simon",
+      "cognomen": "De Leukenor",
+      "profession": "Vicecomes",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Alanus",
+      "cognomen": "De Farnham",
+      "profession": "Vicecomes",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Farnham",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Wydo",
+      "cognomen": "",
+      "profession": "Vicecomes",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This structured JSON output captures the extracted information about the individuals mentioned in the court document. Each person is assigned a unique ID, and the specific details such as roles, cognomen, and family relationships are recorded as per the original document's content.

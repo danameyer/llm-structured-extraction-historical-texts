@@ -1,0 +1,164 @@
+Let's work through the provided "court document" step-by-step to generate the structured JSON output.
+
+**Court Document:**
+```
+18. (dimidia marca) Stephanus de Ja Grave dat dimidiam marcam pro licencia concordandi cum Waltero filio Henrici de Cumenor' de placito assise mortis antecessoris etc. per plegium ipsius Walteri.
+```
+
+### Step-by-Step Analysis:
+
+- **First Person: Stephanus de Ja Grave**
+  - **Name:** Stephanus
+  - **Cognomen:** De Ja Grave
+  - **Place of Origin:** None provided (Ja Grave likely refers to nobility rather than a location)
+  - **Profession:** Not specified
+  - **Family Relations:** Not mentioned
+  - **Legal Relationship:** Provides surety (plegium) to Walterus; thus, he is a 'Plegiarius.'
+  - **Title:** Not specified
+
+- **Second Person: Walterus filius Henrici de Cumenor'**
+  - **Name:** Walterus
+  - **Cognomen:** None
+  - **Place of Origin:** Cumenor
+  - **Profession:** Not specified
+  - **Family Relations:** Has a father, Henricus (relation type: Filius)
+  - **Legal Relationship:** Not explicitly listed as plaintiff or defendant, but involved in a legal agreement with Stephanus.
+  - **Title:** Not specified
+
+- **Third Person: Henricus**
+  - **Name:** Henricus
+  - **Cognomen:** None
+  - **Place of Origin:** Not specified
+  - **Profession:** Not specified
+  - **Family Relations:** Has a son, Walterus (relation type: Pater)
+  - **Legal Relationship:** Not mentioned
+  - **Title:** Not specified
+
+### JSON Output:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Stephanus",
+      "cognomen": "De Ja Grave",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Walterus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Cumenor",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Henricus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+This output incorporates all relevant details from the original text, following the given schema and rules.
+Here's a detailed extraction of information about the persons mentioned in the court document and their relations:
+
+1. **Person: Stephanus de Ja Grave**
+   - **Role in Document:** Stephanus is noted for providing financial surety ("dimidiam marcam") for a certain legal agreement or settlement with another person, Walterus.
+   - **Cognomen:** His cognomen "de Ja Grave" suggests he might belong to nobility or an important family, but there's no explicit location association in this context.
+   - **Relations to Others:**
+     - Acts as a **Plegiarius** for Walterus (grants surety for Walterus's action in the legal matter).
+
+2. **Person: Walterus filius Henrici de Cumenor'**
+   - **Role in Document:** Walterus is involved in a legal matter ("placito assise mortis antecessoris"), implying a dispute or claim related to the inheritance or rights due to the death of an ancestor.
+   - **Family Relation:**
+     - **Filius** of Henricus (he is identified as Henricus's son).
+   - **Place of Origin:** Cumenor, indicating his association with this location.
+   - **Relations to Others:**
+     - Receives surety (plegium) from Stephanus as part of the legal process.
+
+3. **Person: Henricus**
+   - **Role in Document:** Henricus is only mentioned as the father of Walterus. His involvement in the case is indirect, possibly as the predeceased whose estate or rights are under discussion.
+   - **Family Relation:**
+     - **Pater** of Walterus (he is identified as the father of Walterus).
+
+These details highlight the relationships and roles between Stephanus, Walterus, and Henricus, anchoring Stephanus in a supportive financial role, Walterus as the primary party in the legal case, and Henricus as the deceased whose legacy, contentions, or rights are central to the legal matter.
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Stephanus",
+      "cognomen": "De Ja Grave",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Walterus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Cumenor",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Henricus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
