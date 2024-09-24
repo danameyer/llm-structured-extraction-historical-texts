@@ -1,0 +1,171 @@
+Sure, I will help you with the task.
+
+Let's work through the document step-by-step.
+
+**Court Document:**
+```
+3.	(misericordie) Galfrid us Pek' de Westcu mton' qui tulit breve nove disseisine versus Celestriam que fuit uxor Roberti Breghe et q uosdam alios de tenemento in Westcumton' non est prosecutus . Ideo ipse et plegii sui de prosequendo in m isericordia
+scilicet : Johannes Faber de Estcu mton' et (Ricardus Ruffusc) (obiit de Westeuroton'.
+```
+
+### Entities and Their Attributes
+
+1. **Galfridus Pek'**
+   - **Name:** Galfridus
+   - **Cognomen:** Pek'
+   - **Place of Origin:** Westcumton
+   - **Legal Relationship:** Reus (since he did not continue prosecution)
+   - **Related Person:** None specified directly
+
+2. **Celestria** 
+   - **Name:** Celestria
+   - **Family Relations:** 
+     - **Relation Type:** Uxor
+     - **Related Person:** Robertus
+   - **Place of Origin:** Not specified
+   - **Legal Relationship:** None specified
+   - **Cognomen:** None
+
+3. **Robertus Breghe**
+   - **Name:** Robertus
+   - **Cognomen:** Breghe
+   - **Family Relations:** 
+     - **Relation Type:** Maritus
+     - **Related Person:** Celestria
+   - **Place of Origin:** Not specified
+   - **Legal Relationship:** None specified
+
+4. **Johannes Faber**
+   - **Name:** Johannes
+   - **Cognomen:** Faber
+   - **Place of Origin:** Estcumton
+   - **Legal Relationship:** Plegiarius (as he is a surety for Galfridus)
+
+5. **Ricardus Ruffus**
+   - **Name:** Ricardus
+   - **Cognomen:** Ruffus
+   - **Place of Origin:** Westeuroton
+   - **Legal Relationship:** Plegiarius (as he is a surety for Galfridus)
+
+### JSON Output
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Galfridus",
+    "cognomen": "Pek'",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus",
+        "related_person": null
+      }
+    ],
+    "place_of_origin": "Westcumton",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Celestria",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Uxor",
+        "related_person": 3
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Robertus",
+    "cognomen": "Breghe",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Maritus",
+        "related_person": 2
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "Johannes",
+    "cognomen": "Faber",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "Estcumton",
+    "title": ""
+  },
+  {
+    "id": 5,
+    "name": "Ricardus",
+    "cognomen": "Ruffus",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "Westeuroton",
+    "title": ""
+  }
+]
+```
+
+**Explanation:**
+- Galfridus Pek' wasn't able to continue with his case, which places him more in a defendant-like position as he did not prosecute.
+- Celestria is defined by her relation to Robertus Breghe.
+- Johannes Faber and Ricardus Ruffus both serve as sureties (plegii) for Galfridus, reflecting their legal relationships.
+
+If anything is unclear or if you want to modify the output, please let me know!
+Let's extract the information about the individuals mentioned in the provided court document and their relationships:
+
+1. **Galfridus Pek'**
+   - **Role in the Document:** He brought a writ of novel disseisin but did not prosecute, resulting in his penalty.
+   - **Place of Origin:** Westcumton
+   - **Legal Context:** He is subject to a penalty for failing to prosecute his legal action ("misericordia").
+   - **Relations:** He has sureties (plegii).
+
+2. **Celestria**
+   - **Role in the Document:** She was the widow of Robertus Breghe.
+   - **Relations:**
+     - She is the widow ("Uxor") of Robertus Breghe.
+
+3. **Robertus Breghe**
+   - **Role in the Document:** Mentioned indirectly as the deceased husband of Celestria.
+   - **Relations:**
+     - He was the husband ("Maritus") of Celestria.
+
+4. **Johannes Faber**
+   - **Role in the Document:** One of the sureties for Galfridus Pek'.
+   - **Place of Origin:** Estcumton
+   - **Relations:** Acts as a surety ("Plegiarius") for Galfridus Pek'.
+
+5. **Ricardus Ruffus**
+   - **Role in the Document:** Another surety for Galfridus Pek'.
+   - **Place of Origin?:** (Assuming from context) Westeuroton
+   - **Status:** Deceased ("obiit")
+   - **Relations:** Acts as a surety ("Plegiarius") for Galfridus Pek'.
+
+**Relationships:**
+- **Galfridus Pek'** has sureties in **Johannes Faber** and **Ricardus Ruffus**.
+- **Celestria** has a familial relationship as the widow of **Robertus Breghe**.
+
+The document primarily details the legal failings of Galfridus Pek' and his association with his sureties, while noting Celestria's status as a widow. If you need further insights or another extraction related to this document, feel free to ask!

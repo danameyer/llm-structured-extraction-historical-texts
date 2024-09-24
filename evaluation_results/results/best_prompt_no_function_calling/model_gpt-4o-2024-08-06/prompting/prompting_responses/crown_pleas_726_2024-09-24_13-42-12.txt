@@ -1,0 +1,83 @@
+To properly analyze the court document and construct the JSON output, let's break down the given text. 
+
+**Document:**
+```
+726. De serjanciis dicunt quod Raerus de Bochamton' tenet unam hidam terre in villa de Brochamton' per serjanciam custodiendi unam moetam de canibus domini Regis ad custum ipsius domini Regis et valet per annum xl solidorum.
+```
+
+**Analysis:**
+
+1. **Identifying Individuals:**
+   - The text references *Raerus de Bochamton'*. The name is Raerus with a place of origin Bochamton.
+   - There is a mention of the King, *domini Regis*, but as it is in a more general context without a personal name, we won't list him as a separate individual in the JSON.
+
+2. **Understanding Roles and Relations:**
+   - Raerus is described as holding land (`tenet unam hidam terre`) by the service of keeping a kennel of the King's dogs (`per serjanciam custodiendi unam moetam de canibus domini Regis`).
+   - In this context, Raerus has a legal relationship in his role as a *Tenens* (tenant). However, there isn't a specific feudal lord mentioned by name here.
+
+3. **Locations:**
+   - *Bochamton*: The place associated with Raerus as his place of origin.
+   - *Brochamton*: The location of the land he holds.
+
+4. **Land and Value:**
+   - The land is assessed at the value of xl solidorum (40 shillings) per annum.
+
+**JSON Construction:**
+
+Now, constructing the JSON following the rules and schema given:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Raerus",
+    "cognomen": "de Bochamton",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Tenens",
+        "related_person": null
+      }
+    ],
+    "place_of_origin": "Bochamton",
+    "title": ""
+  }
+]
+```
+
+**Explanation:**
+
+- **Raerus** is the only individual extracted from the text with the specified id of "1".
+- **Name**: His name is "Raerus" with no additional names.
+- **Cognomen**: "de Bochamton" corresponds to a geographical indicator within a noble context that acts as a cognomen.
+- **Profession**: Left empty as there is no profession directly given in the text.
+- **Family Relations**: None provided in the text.
+- **Legal Relationship**: Marked as "Tenens" due to his role as a tenant. There is no specified lord ('Dominus feodi'), hence 'related_person' is set to null.
+- **Place of Origin**: "Bochamton". Extracted and placed here.
+- **Title**: No title assigned beyond his role as a tenant.
+
+This output accurately reflects the given document within the structured JSON format. If you have further questions or need additional analysis, please let me know!
+Let's extract the information regarding the individuals mentioned in the document and their relationships:
+
+**Document Analysis:**
+
+1. **Individuals:**
+   - **Raerus**: The primary individual mentioned in the document. Further denoted as "Raerus de Bochamton".
+   
+2. **Place of Origin:**
+   - **Bochamton**: Raerus is identified with this place, suggesting it's either his residence or associated location.
+   
+3. **Role and Relationships:**
+   - **Tenure**: Raerus holds a hide of land in the village of *Brochamton*.
+   - **Service**: He holds this land through a service (serjantia) of maintaining a kennel of the King’s dogs, indicating a specific obligation in return for the tenure.
+   - **Relationship with the King**: This document implies a feudal relationship between Raerus and the King. While Raerus is a **Tenens** (tenant), the King could be inferred as his **Dominus feodi** (feudal lord), though not explicitly named in traditional person-name form.
+
+4. **Land and Value:**
+   - The value of the service and land is given as *xl solidorum* (40 shillings) per year, which states the economic value of the land Raerus holds.
+
+**Relations:**
+
+- **Raerus** is linked to the King through the service of serjanciam, denoting a relationship based on legal and economic obligations (tenant to feudal lord).
+  
+In summary, Raerus is the only principal individual, and there is an implied relationship with the King as his overlord, based on the feudal system of tenure discussed in the document. Therefore, his role as a tenant forms the core of the power relation mentioned here.

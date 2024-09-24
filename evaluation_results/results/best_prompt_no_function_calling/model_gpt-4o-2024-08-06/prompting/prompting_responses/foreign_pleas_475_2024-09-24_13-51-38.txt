@@ -1,0 +1,207 @@
+To accurately derive the structured JSON output from the given court document in Middle Latin, we'll break down the document step-by-step to identify the relevant details for each person involved. 
+
+Court Document Analysis:
+'''475.	( Buk' ) Abbas de Messenden' poni t loco suo Thomam de Coventr' vel And ream Crok versus Ingeramum de Fenes de placito terre et de placito secte etc.
+'''
+
+### Step-by-step Entity Breakdown:
+
+1. **Abbas de Messenden'**:
+   - **Name**: Not explicitly given but likely to be "Abbas" as the title is "Abbas".
+   - **Cognomen**: "De Messenden'" indicating that he is the Abbot from Messenden.
+   - **Title**: "Abbas".
+   - **Place of Origin**: "Messenden".
+   - **Legal Relationship**: Assigns a representative in the court case, indicating power relations.
+
+2. **Thomam de Coventr'**:
+   - **Name**: "Thomas"
+   - **Cognomen**: "De Coventr'" indicating relation to Coventry.
+   - **Legal Relationship**: Assigned as an attorney ("Attornatus") by "Abbas de Messenden'" for a legal case.
+
+3. **Andream Crok**:
+   - **Name**: "Andreas"
+   - **Cognomen**: "Crok".
+   - **Legal Relationship**: Alternative attorney ("Attornatus") alongside Thomas for the same case as per the legal instruction of "Abbas de Messenden'".
+
+4. **Ingeramum de Fenes**:
+   - **Name**: "Ingeramus"
+   - **Cognomen**: "De Fenes" indicating possibly a noble title or location-based surname.
+   - **Legal Relationship**: Defendant in this case ("Reus"), facing legal action brought by "Abbas de Messenden'" in the lawsuit (De placito terre et de placito secte).
+
+### Structured JSON Output:
+
+Let's translate this information into the required JSON format:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Abbas",
+      "cognomen": "De Messenden'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        }
+      ],
+      "place_of_origin": "Messenden",
+      "title": "Abbas"
+    },
+    {
+      "id": 2,
+      "name": "Thomas",
+      "cognomen": "De Coventr'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Coventr'",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Andreas",
+      "cognomen": "Crok",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Ingeramus",
+      "cognomen": "De Fenes",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Notes:
+- All names and place names are left in their original Latinized form as found in the document.
+- Cognomens are treated as such due to their possessional or locative indications.
+- Legal roles and relationships are determined based on the roles described in the legal setting.
+- Due care was given to ensure that connections and legal roles were correctly categorized based on the document structure and the historical context presented.
+From the provided court document, we can extract the following information about the individuals involved and their relations to each other:
+
+1. **Abbas de Messenden'**:
+   - **Role & Title**: He is the Abbot, as indicated by "Abbas", from Messenden.
+   - **Actions**: He appoints Thomas of Coventry and Andreas Crok as his representatives or attorneys ("Attornatus") in a legal matter against Ingeramus de Fenes.
+   - **Relations**: 
+     - Legal Relationship with Thomas and Andreas as their client who has appointed them to represent him.
+     - Legal Relationship with Ingeramus de Fenes, whom he is opposing in court.
+
+2. **Thomas de Coventr'**:
+   - **Role**: Appointed as an attorney by the Abbot of Messenden'.
+   - **Relations**: 
+     - Legal Relationship with the Abbot (as his attorney, he acts on behalf of the Abbot in the legal matters specified).
+     - Whether he or Andreas represents the abbot is conditional ("vel"), suggesting they both may not serve simultaneously.
+
+3. **Andreas Crok**:
+   - **Role**: Like Thomas, appointed as an alternative attorney for the Abbot of Messenden'.
+   - **Relations**: 
+     - Legal Relationship with the Abbot (similar to Thomas, he is chosen to represent the Abbot in legal matters).
+     - The conditional relationship suggests a potential substitution role with Thomas.
+
+4. **Ingeramus de Fenes**:
+   - **Role**: The defendant ("Reus") in the case brought by the Abbot of Messenden'.
+   - **Relations**: 
+     - Legal Relationship with the Abbot, as the opposing party in the lawsuit.
+
+In summary, this court roll snippet outlines a legal proceeding involving an abbot instigating a case, where he assigns two individuals the role of legal representatives, with a third party as the defendant. The relationships center around the legal roles and responsibilities each person holds in connection with the case.
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Abbas",
+      "cognomen": "De Messenden'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Messenden",
+      "title": "Abbas"
+    },
+    {
+      "id": 2,
+      "name": "Thomas",
+      "cognomen": "De Coventr'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Coventr'",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Andreas",
+      "cognomen": "Crok",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Ingeramus",
+      "cognomen": "De Fenes",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```

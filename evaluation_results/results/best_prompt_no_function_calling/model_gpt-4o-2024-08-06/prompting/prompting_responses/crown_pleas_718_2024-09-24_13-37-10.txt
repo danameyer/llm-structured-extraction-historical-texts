@@ -1,0 +1,173 @@
+Let's work step-by-step to read and analyze the court document you provided. We'll convert the unstructured data into the JSON format using the schema and explanations provided.
+
+Court document:
+```
+7 I 8. Isti fuerunt vicecomites post ultimum iter justicia riorum scilicet: Simon de Leukenor' qui obi it, Alanus de Farnham, et Wydo fili us Roberti qui nu nc est.
+```
+
+**Analysis**:
+
+1. Identify all the relevant persons and extract the necessary information about them:
+   
+   - **Simon de Leukenor**: The document mentions Simon as one of the "vicecomites post ultimum iter justiciarorum" (sheriffs after the last eyre of the justices). He died ("qui obiit"). The name includes a cognomen linked to a place name "Leukenor" which fits the pattern of a surname of noble origin.
+
+   - **Alanus de Farnham**: Similarly, Alanus is listed as one of the "vicecomites." His name includes a cognomen linked to another place name "Farnham."
+
+   - **Wydo filius Roberti**: Wydo is described as the "filius" (son) of "Roberti" (Robert), indicating a family relationship. He is also listed among the "vicecomites," and he is still living ("qui nunc est").
+
+2. Arrange these individuals into the JSON structure according to the schema provided. 
+
+3. Track relationships, titles, and place names as described in the rules.
+
+Here's the structured JSON output based on this information:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Simon",
+      "cognomen": "de Leukenor",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Vicecomes"
+    },
+    {
+      "id": 2,
+      "name": "Alanus",
+      "cognomen": "de Farnham",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Vicecomes"
+    },
+    {
+      "id": 3,
+      "name": "Wydo",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Vicecomes"
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+- Titles such as "Vicecomes" are used to indicate their status as sheriffs.
+- Family relationships have been highlighted between Wydo and Robertus.
+- Placenames linked to their noble status are listed under the "cognomen" category.
+- Since the document doesn't mention jobs or origins for each of them (aside from their titles or noble names), those fields remain empty.
+  
+This structured JSON captures all the details extracted from the court document, consistently adhering to the provided guidelines.
+To extract information about the persons mentioned in the document and their relations to each other, let's break down the provided text and examine each person and their relationships.
+
+**Court document**:
+```
+7 I 8. Isti fuerunt vicecomites post ultimum iter justicia riorum scilicet: Simon de Leukenor' qui obiit, Alanus de Farnham, et Wydo filius Roberti qui nunc est.
+```
+
+**Extracted Information**:
+
+1. **Simon de Leukenor**:
+   - Title: "Vicecomes" (Sheriff)
+   - Status: Deceased ("qui obiit")
+   - Relationship: No direct family relationships mentioned.
+   - Cognomen: "de Leukenor," indicating a noble or locative surname.
+
+2. **Alanus de Farnham**:
+   - Title: "Vicecomes" (Sheriff)
+   - Status: Currently living but no further details in this document.
+   - Relationship: No direct family relationships mentioned.
+   - Cognomen: "de Farnham," indicating a noble or locative surname.
+
+3. **Wydo filius Roberti**:
+   - Title: "Vicecomes" (Sheriff)
+   - Status: Currently living ("qui nunc est")
+   - Relationship: Son of Robertus
+   - Family: "Filius Roberti" (son of Robertus)
+   - Cognomen: Not explicitly mentioned but relation to the father (Robertus).
+
+4. **Robertus**:
+   - Relationship: Father of Wydo
+   - Family: "Pater" (father) to Wydo
+   - Status: Not explicitly mentioned in terms of current status (alive/deceased); relationship context is provided through Wydo.
+
+**Relations**:
+- Wydo has a family relationship as the "Filius" of Robertus.
+- Simon and Alanus do not have detailed relationships stated in the document, aside from their titles and noble locative cognomina.
+
+We'll use this information to form relationships and note any titles or roles explicitly mentioned. No other legal or social relationships are specified. 
+
+The extraction is comprehensive as the document primarily focuses on the roles (Vicecomites) and a brief genealogical note regarding Wydo and his father Robertus.
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Simon",
+      "cognomen": "de Leukenor",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Vicecomes"
+    },
+    {
+      "id": 2,
+      "name": "Alanus",
+      "cognomen": "de Farnham",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Vicecomes"
+    },
+    {
+      "id": 3,
+      "name": "Wydo",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Vicecomes"
+    },
+    {
+      "id": 4,
+      "name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
