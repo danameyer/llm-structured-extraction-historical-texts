@@ -1,0 +1,1106 @@
+Let's break down the provided court document and then structure it into the JSON format in accordance with the rules and schema:
+
+### **Court Document Analysis:**
+The document involves several individuals who were arrested on suspicion of theft but were released with sureties. Here are the steps to extract relevant data:
+
+1. **Persons involved:**
+   - Willelmus filius Philippi
+   - Philippus filius Raunulfi
+   - Hugo filius Walteri
+   - Lewelinus Goffe
+   - Traerus le Duk'
+   - Grifinus Wych'
+   
+2. **Sureties (Pledges):**
+   - Johannes de Stabelford de Crokham
+   - Ricardus Darche de Crokham
+   - Hamo de Quercu de Crokham
+   - Thomas Seman de Crokham
+   - Willelmus Drus de Crokham
+   - Alanus Drache de Crokham
+   - Walterus Pernaunt de Crokham
+   - Radulfus Molendinarius de Crokham
+   - Willelmus Brokestane
+   - Rogerus de Ponte de Crokham
+   - Willelmus Walle de Crokham
+   - Willelmus de Porneford de Crokham
+
+3. **Create JSON based on the analysis:**
+
+### **JSON Output:**
+```json
+[
+  {
+    "id": 1,
+    "name": "Willelmus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Filius",
+        "related_person": 2
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Suspectus",
+        "related_person": ""
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Philippus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Filius",
+        "related_person": 3
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Raunulfus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Progenitor",
+        "related_person": 2
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "Hugo",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Filius",
+        "related_person": 5
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Suspectus",
+        "related_person": ""
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 5,
+    "name": "Walterus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Progenitor",
+        "related_person": 4
+      }
+    ],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 6,
+    "name": "Lewelinus",
+    "cognomen": "Goffe",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Suspectus",
+        "related_person": ""
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 7,
+    "name": "Traerus",
+    "cognomen": "le Duk'",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Suspectus",
+        "related_person": ""
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 8,
+    "name": "Grifinus",
+    "cognomen": "Wych'",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Suspectus",
+        "related_person": ""
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 9,
+    "name": "Johannes",
+    "cognomen": "de Stabelford",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "Crokham",
+    "title": ""
+  },
+  {
+    "id": 10,
+    "name": "Ricardus",
+    "cognomen": "Darche",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "Crokham",
+    "title": ""
+  },
+  {
+    "id": 11,
+    "name": "Hamo",
+    "cognomen": "de Quercu",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "Crokham",
+    "title": ""
+  },
+  {
+    "id": 12,
+    "name": "Thomas",
+    "cognomen": "Seman",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "Crokham",
+    "title": ""
+  },
+  {
+    "id": 13,
+    "name": "Willelmus",
+    "cognomen": "Drus",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "Crokham",
+    "title": ""
+  },
+  {
+    "id": 14,
+    "name": "Alanus",
+    "cognomen": "Drache",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "Crokham",
+    "title": ""
+  },
+  {
+    "id": 15,
+    "name": "Walterus",
+    "cognomen": "Pernaunt",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "Crokham",
+    "title": ""
+  },
+  {
+    "id": 16,
+    "name": "Radulfus",
+    "cognomen": "Molendinarius",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "Crokham",
+    "title": ""
+  },
+  {
+    "id": 17,
+    "name": "Willelmus",
+    "cognomen": "Brokestane",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 18,
+    "name": "Rogerus",
+    "cognomen": "de Ponte",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "Crokham",
+    "title": ""
+  },
+  {
+    "id": 19,
+    "name": "Willelmus",
+    "cognomen": "Walle",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "Crokham",
+    "title": ""
+  },
+  {
+    "id": 20,
+    "name": "Willelmus",
+    "cognomen": "de Porneford",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 1
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 4
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 6
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 7
+      },
+      {
+        "relation_type": "Plegiarius",
+        "related_person": 8
+      }
+    ],
+    "place_of_origin": "Crokham",
+    "title": ""
+  }
+]
+```
+
+### **Explanation:**
+- The persons suspected of theft are identified by name and, where applicable, family relations as Filius. The relationship to sureties is expressed by listing the latter as Plegiarius.
+- The sureties also list legal relationships involving Plegiarius, where each is associated with the suspects they are vouching for.
+- The place of origin for many of the individuals is designated as "Crokham," while names, professions (if any were included), and cognomina follow the structure outlined in the rules.
+To extract information about the persons mentioned in the given court document, let's identify each individual and their relationships:
+
+### **Persons and Family Relations:**
+1. **Willelmus filius Philippi**
+   - Relation: Son of Philippus.
+
+2. **Philippus filius Raunulfi**
+   - Relation: Son of Raunulfus.
+
+3. **Raunulfus**
+   - Relation: Father of Philippus.
+
+4. **Hugo filius Walteri**
+   - Relation: Son of Walterus.
+
+5. **Walterus**
+   - Relation: Father of Hugo.
+
+6. **Lewelinus Goffe**
+   - No familial relations explicitly stated.
+
+7. **Traerus le Duk'**
+   - No familial relations explicitly stated.
+
+8. **Grifinus Wych'**
+   - No familial relations explicitly stated.
+
+### **Legal Relationships:**
+- The following individuals are indicated to have been suspects (suspected of theft) and were taken into custody but released with sureties:
+  - Willelmus filius Philippi
+  - Philippus filius Raunulfi
+  - Hugo filius Walteri
+  - Lewelinus Goffe
+  - Traerus le Duk'
+  - Grifinus Wych'
+
+**Sureties (Pledges) for the suspected individuals:**
+
+- **Johannes de Stabelford de Crokham**
+- **Ricardus Darche de Crokham**
+- **Hamo de Quercu de Crokham**
+- **Thomas Seman de Crokham**
+- **Willelmus Drus de Crokham**
+- **Alanus Drache de Crokham**
+- **Walterus Pernaunt de Crokham**
+- **Radulfus Molendinarius de Crokham**
+- **Willelmus Brokestane**
+- **Rogerus de Ponte de Crokham**
+- **Willelmus Walle de Crokham**
+- **Willelmus de Porneford de Crokham**
+
+Each of these individuals acted as a surety, essentially vouching for or guaranteeing the good behavior or court appearance of the suspected individuals.
+
+The relationships and roles can thus be summarized:
+- **Family Relations:** Described mainly through the Father-Son relationships.
+- **Legal Role:** All pledged sureties are Plegiarius for the suspects.
+- **Suspect Role:** Individuals taken on suspicion of theft and later released with sureties.
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Suspectus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Philippus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 3
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Raunulfus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Progenitor",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Hugo",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 5
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Suspectus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Walterus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Progenitor",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "name": "Lewelinus",
+      "cognomen": "Goffe",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Suspectus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 7,
+      "name": "Traerus",
+      "cognomen": "le Duk'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Suspectus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 8,
+      "name": "Grifinus",
+      "cognomen": "Wych'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Suspectus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 9,
+      "name": "Johannes",
+      "cognomen": "de Stabelford",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "Crokham",
+      "title": ""
+    },
+    {
+      "id": 10,
+      "name": "Ricardus",
+      "cognomen": "Darche",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "Crokham",
+      "title": ""
+    },
+    {
+      "id": 11,
+      "name": "Hamo",
+      "cognomen": "de Quercu",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "Crokham",
+      "title": ""
+    },
+    {
+      "id": 12,
+      "name": "Thomas",
+      "cognomen": "Seman",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "Crokham",
+      "title": ""
+    },
+    {
+      "id": 13,
+      "name": "Willelmus",
+      "cognomen": "Drus",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "Crokham",
+      "title": ""
+    },
+    {
+      "id": 14,
+      "name": "Alanus",
+      "cognomen": "Drache",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "Crokham",
+      "title": ""
+    },
+    {
+      "id": 15,
+      "name": "Walterus",
+      "cognomen": "Pernaunt",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "Crokham",
+      "title": ""
+    },
+    {
+      "id": 16,
+      "name": "Radulfus",
+      "cognomen": "Molendinarius",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "Crokham",
+      "title": ""
+    },
+    {
+      "id": 17,
+      "name": "Willelmus",
+      "cognomen": "Brokestane",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 18,
+      "name": "Rogerus",
+      "cognomen": "de Ponte",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "Crokham",
+      "title": ""
+    },
+    {
+      "id": 19,
+      "name": "Willelmus",
+      "cognomen": "Walle",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "Crokham",
+      "title": ""
+    },
+    {
+      "id": 20,
+      "name": "Willelmus",
+      "cognomen": "de Porneford",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 4
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 6
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 7
+        },
+        {
+          "relation_type": "Plegiarius",
+          "related_person": 8
+        }
+      ],
+      "place_of_origin": "Crokham",
+      "title": ""
+    }
+  ]
+}
+```

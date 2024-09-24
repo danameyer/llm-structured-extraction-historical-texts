@@ -1,0 +1,94 @@
+Let's proceed with the provided court document, examining the individuals involved and relevant details. We will then create the necessary structured JSON output based on this analysis.
+
+### Document Analysis:
+
+The text provided is as follows:
+
+```
+23.	Robertus de Bello Campo ponit loco suo Willelmum de Pleseis versus Priorem de Saund leford de placito redditus etc.
+```
+
+From this, we identify the individuals involved in the court case:
+
+1. **Robertus de Bello Campo**: He is the one making a legal appointment.
+2. **Willelmus de Pleseis**: He is being appointed to take the place of Robertus, which implies a legal relationship as an "Attornatus".
+3. **Prior de Saundleford**: The case is against this individual, who holds the title of "Prior".
+
+### JSON Construction:
+
+Based on the above details, we'll structure the JSON output as follows:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Robertus",
+      "cognomen": "de Bello Campo",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Willelmus",
+      "cognomen": "de Pleseis",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Prior",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": ""
+        }
+      ],
+      "place_of_origin": "Saundleford",
+      "title": "Prior"
+    }
+  ]
+}
+```
+
+### Explanation:
+
+- **Robertus de Bello Campo**: Acts as an "Attornatus", the legal representative (or attorney), indicating his role in appointing Willelmus for the case against the Prior.
+- **Willelmus de Pleseis**: Appointed to represent Robertus in the court case. No specific additional legal relationships are mentioned within the document excerpt.
+- **Prior de Saundleford**: Listed as the "Reus" (defendant), with the religious title of "Prior". The place of origin is identified as "Saundleford".
+
+This JSON structure systematically represents the relationships and roles as provided in the text. If there are any clarifications needed, please feel free to ask!
+Sure, let's extract and summarize the information regarding the individuals mentioned in the document, focusing on their roles, relationships, and other pertinent details.
+
+### Persons and Their Relationships:
+
+1. **Robertus de Bello Campo**:
+   - **Role**: He is making a legal appointment.
+   - **Action**: Appoints Willelmus de Pleseis to act in his place.
+   - **Relationship**: Acts as an "Attornatus" with respect to Willelmus, who takes on the legal role in the court case against the Prior.
+
+2. **Willelmus de Pleseis**:
+   - **Role**: The appointed attorney or representative.
+   - **Action**: Is appointed to stand in for Robertus in the legal case.
+   - **Relationship**: Appointed by Robertus de Bello Campo to represent him, indicating a relationship of legal representation.
+
+3. **Prior de Saundleford**:
+   - **Role**: The defendant in the legal case.
+   - **Title**: Holds the ecclesiastical title of "Prior".
+   - **Relationship**: Is opposed by the representation of Willelmus de Pleseis (appointed by Robertus), making him the "Reus" in this legal situation.
+
+The relationships outlined reflect the procedural format of medieval legal transactions, where prominent figures could appoint others to legally represent them. In this document, Robertus delegates such a role to Willelmus in a case concerning an issue (possibly concerning dues or income) involving the Prior of Saundleford. The designation of roles and legal relationships is crucial for understanding the dynamics of medieval court proceedings and power hierarchies.

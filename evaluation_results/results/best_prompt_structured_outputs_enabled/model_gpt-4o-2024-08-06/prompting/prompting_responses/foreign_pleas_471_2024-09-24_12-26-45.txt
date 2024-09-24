@@ -1,0 +1,288 @@
+Let's proceed with analyzing the given "court document" to extract relevant information and represent it in a structured JSON format. I will follow the provided JSON schema and rules to ensure the output is accurate and complete. Here is the analysis:
+
+### Court Document
+```latin
+471.	(Buk' ) Rogerus de Wymbervill' ponit loco suo Thomam le Mareschal vel Johannem Clericum versus Willelmum Cerneis' et Petru m filium Capellani de placito terre etc.
+```
+
+### Analysis
+
+1. **Rogerus de Wymbervill'**:
+   - Name: Rogerus
+   - Cognomen: de Wymbervill'
+   - Profession: Not explicitly mentioned
+   - Legal Relationship: He acts as an 'Attornatus' since he appoints someone in his place, typically signifying legal representation.
+   - Place of Origin: Wymbervill (treated as a location due to the prefix 'de')
+   - Title: None
+
+2. **Thomam le Mareschal**:
+   - Name: Thomas
+   - Cognomen: le Mareschal
+   - Profession: Mareschal
+   - Legal Relationship: 'Attornatus' because he is an appointed attorney by Rogerus de Wymbervill'.
+   - Place of Origin: Not provided
+   - Title: None
+
+3. **Johannem Clericum**:
+   - Name: Johannes
+   - Cognomen: Not explicitly mentioned
+   - Profession: Clericus
+   - Legal Relationship: 'Attornatus' as he is another potential attorney for Rogerus de Wymbervill'.
+   - Place of Origin: Not provided
+   - Title: None
+
+4. **Willelmum Cerneis'**:
+   - Name: Willelmus
+   - Cognomen: Cerneis'
+   - Profession: Not explicitly mentioned
+   - Legal Relationship: 'Reus' because the case is against him.
+   - Place of Origin: Not provided
+   - Title: None
+
+5. **Petrum filium Capellani**:
+   - Name: Petrus
+   - Cognomen: Not explicitly mentioned
+   - Profession: The phrase "filium Capellani" suggests a relationship rather than a profession for Petrus specifically.
+   - Family Relations: Filius (son) of a "Capellanus".
+   - Legal Relationship: 'Reus' because he is listed alongside Willelmus Cerneis' in the case.
+   - Place of Origin: Not provided
+   - Title: None
+
+### JSON Output
+Here is the structured JSON reflecting the analysis:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Rogerus",
+    "cognomen": "de Wymbervill'",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Attornatus",
+        "related_person": 2
+      },
+      {
+        "relation_type": "Attornatus",
+        "related_person": 3
+      }
+    ],
+    "place_of_origin": "Wymbervill",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "Thomas",
+    "cognomen": "le Mareschal",
+    "profession": "Mareschal",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Attornatus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 3,
+    "name": "Johannes",
+    "cognomen": "",
+    "profession": "Clericus",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Attornatus",
+        "related_person": 1
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 4,
+    "name": "Willelmus",
+    "cognomen": "Cerneis'",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus"
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  },
+  {
+    "id": 5,
+    "name": "Petrus",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [
+      {
+        "relation_type": "Filius",
+        "related_person": null
+      }
+    ],
+    "legal_relationship": [
+      {
+        "relation_type": "Reus"
+      }
+    ],
+    "place_of_origin": "",
+    "title": ""
+  }
+]
+```
+
+### Explanation:
+- **Attorneys and Relationship**: The document refers to appointing representatives in legal matters, hence the 'Attornatus' legal relationship.
+- **Family Relations**: For Petrus, we infer a father-son relationship from "filium Capellani".
+- **Reus**: Willelmus and Petrus are defendants in the document.
+- **Empty Values**: Fields with no information are left empty following the given rules.
+
+This output aims to be thorough and precise based on the provided textual information in Latin. Please let me know if further adjustments or clarifications are needed!
+Let us carefully extract and articulate the information regarding the individuals and their relationships mentioned in the court document.
+
+### Court Document Analysis
+
+1. **Rogerus de Wymbervill'**:
+   - **Name**: Rogerus
+   - **Cognomen**: de Wymbervill'
+   - **Role in Document**: He is initiating a legal action and appoints attorneys, acting implicitly as a representative or stakeholder in the case.
+   - **Relationships**: He appoints two possible attorneys to represent him in the legal matter against:
+     - **Thomam le Mareschal** (attorney candidate)
+     - **Johannem Clericum** (attorney candidate)
+
+2. **Thomam le Mareschal**:
+   - **Name**: Thomas
+   - **Cognomen**: le Mareschal
+   - **Profession**: Mareschal (implied)
+   - **Role in Document**: Potential attorney for Rogerus de Wymbervill'.
+   - **Relationships**: Appointed by Rogerus, indicating a professional or legal representation relationship.
+
+3. **Johannem Clericum**:
+   - **Name**: Johannes
+   - **Profession**: Clericus (explicitly stated)
+   - **Role in Document**: Alternative potential attorney for Rogerus de Wymbervill'.
+   - **Relationships**: Appointed by Rogerus, suggesting a role as legal counsel.
+
+4. **Willelmum Cerneis'**:
+   - **Name**: Willelmus
+   - **Cognomen**: Cerneis'
+   - **Role in Document**: Defendant in a legal dispute involving land ("de placito terre" suggests a land dispute).
+   - **Relationships**: Listed as a defendant alongside Petrus, indicating co-defendantship.
+
+5. **Petrum filium Capellani**:
+   - **Name**: Petrus
+   - **Family Relation**: Son of an unnamed "Capellanus" (chaplain)
+   - **Role in Document**: Co-defendant with Willelmus Cerneis' in the land dispute.
+   - **Relationships**: Identified as a son (Filius) of the chaplain, legally bound in the dispute with Willelmus.
+
+### Summary of Relationships
+
+- **Rogerus de Wymbervill'** acts through his attorneys, **Thomam le Mareschal** or **Johannem Clericum**, against **Willelmus Cerneis'** and **Petrum filium Capellani**. The relationships primarily revolve around legal representation (Rogerus to Thomas and Johannes) and adversarial roles (Rogerus against Willelmus and Petrus).
+
+This information provides an insight into the legal and representative dynamics among the individuals mentioned in the document. The relationships identified are mainly professional and legal in nature, with a familial aspect noted in Petrus being a son of the chaplain.
+Here's the structured JSON output based on the analysis of the provided court document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Rogerus",
+      "cognomen": "de Wymbervill'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Attornatus",
+          "related_person": 3
+        }
+      ],
+      "place_of_origin": "Wymbervill",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "Thomas",
+      "cognomen": "le Mareschal",
+      "profession": "Mareschal",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "name": "Johannes",
+      "cognomen": "",
+      "profession": "Clericus",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Attornatus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 4,
+      "name": "Willelmus",
+      "cognomen": "Cerneis'",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    },
+    {
+      "id": 5,
+      "name": "Petrus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": null
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": null
+        }
+      ],
+      "place_of_origin": "",
+      "title": ""
+    }
+  ]
+}
+```
+
+### Explanation:
+
+- Each individual from the document is represented as a separate object in the "person_list" array.
+- Relationships indicate who is legally representing whom, and who is a defendant in the legal proceedings.
+- Empty values are provided where the information is not available as per the document's content.
+- All person entries are assigned unique IDs to help differentiate them within the JSON array, respecting the information available in the document.

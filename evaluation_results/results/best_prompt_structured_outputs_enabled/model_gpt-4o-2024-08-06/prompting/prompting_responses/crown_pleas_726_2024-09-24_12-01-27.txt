@@ -1,0 +1,116 @@
+Let's analyze the provided court document and extract the necessary data to construct the JSON output.
+
+**Court Document:**
+
+```
+726. De serjanciis dicunt quod Raerus de Bocham ton ' tenet unam hidam terre in villa de Brochamton ' per serjanciam custodiendi unam moetam de canibus dominii Regis ad custum ipsius domini Regis et valet per annum xl solidorum.
+```
+
+**Analysis:**
+- We have only one person mentioned: **Raerus de Bochamton**.
+- No additional cognomen is provided.
+- His profession involves holding land, indicated by the term "tenet unam hidam terre" and "serjanciam custodiendi unam moetam de canibus" related to the service (serjeanty).
+- The legal relationship indicates he holds his land in fealty to the **Rex (King)**, as implied by "custodiendi unam moetam de canibus dominii Regis".
+- "De Bochamton" is his place of origin.
+
+With this information, we can create the JSON output:
+
+**JSON Output:**
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Raerus",
+    "cognomen": "de Bochamton",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [
+      {
+        "relation_type": "Tenens",
+        "related_person": 2
+      }
+    ],
+    "place_of_origin": "Brochamton",
+    "title": ""
+  },
+  {
+    "id": 2,
+    "name": "",
+    "cognomen": "",
+    "profession": "",
+    "family_relations": [],
+    "legal_relationship": [],
+    "place_of_origin": "",
+    "title": "Rex"
+  }
+]
+```
+
+**Explanation:**
+- Raerus is identified as holding a hidam of land as a tenant, with a duty to maintain the king's hunting dogs, reflecting a form of military tenure known as serjeanty.
+- The Rex is included in the output to establish the feudal relationship that Raerus holds the land from.
+Sure, let's extract all the relevant information from the document concerning the individuals mentioned and their relationships.
+
+**Court Document Breakdown:**
+
+- **Person Identified:**
+  - **Name:** Raerus
+  - **Cognomen:** de Bochamton
+  - **Place of Origin:** Brochamton (note that Brochamton is slightly different; it might be a scribal or OCR error)
+  - **Legal Relationship:** 
+    - Holds land ("tenet unam hidam terre") in the town of Brochamton.
+    - Has a service role involving maintaining ("custodiendi unam moetam de canibus") hunting dogs for the King's domain.
+    - This indicates a feudal relationship where Raerus is a "Tenens" (tenant) to the "Rex" (King).
+
+- **Feudal Lord / King:**
+  - The document references the "dominii Regis" (King's domain).
+  - Raerus is performing a duty/service related to the King's needs, thereby establishing a feudal relationship with the King.
+  
+**Relations:**
+- Raerus functions as a tenant (Tenens) within the feudal hierarchy.
+- The King is the feudal lord from whom Raerus holds his land, marking the King as "Dominus feodi".
+
+The key relationship is between Raerus and the King, where Raerus owes a specific service related to dogs, implying a feudal tenure obligation.
+
+To summarize:
+
+1. **Raerus de Bochamton** is a tenant holding lands and providing a specific service to the crown, indicating a relationship of "Tenens" to the "Rex" (King).
+2. The King's presence as the "Dominus feodi" is implicit in this relationship due to the nature of Raerus's service obligations.
+
+There are no mentions of family relations or other personal relationships in the document. The focus is on the feudal and service obligations tied to land tenure.
+Here's the structured JSON output based on the extraction from the document:
+
+```json
+{
+  "person_list": [
+    {
+      "id": 1,
+      "name": "Raerus",
+      "cognomen": "de Bochamton",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Tenens",
+          "related_person": 2
+        }
+      ],
+      "place_of_origin": "Brochamton",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "name": "",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Rex"
+    }
+  ]
+}
+```
+
+This JSON representation includes each individual mentioned in the document and outlines their relationships, place of origin, and any feudal roles they occupy. "Raerus de Bochamton" is identified with his legal relationship as a tenant, while the "Rex" is inferred as the overlord in this context.
