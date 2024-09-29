@@ -1,3 +1,4 @@
+import json
 import os
 from pathlib import Path
 
@@ -78,6 +79,7 @@ class PersonFinder(BaseFunction):
                             )
                         )
                     },
+                    additionalProperties=json.loads(json.dumps(False)),
                     required=["name"]
                 )
             )

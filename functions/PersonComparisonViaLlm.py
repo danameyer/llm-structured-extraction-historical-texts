@@ -1,3 +1,4 @@
+import json
 from function_calling_components.function_calling import FunctionBuilder, Parameter, Property, Function
 from functions.BaseFunction import BaseFunction
 
@@ -55,6 +56,7 @@ class ComparePersonsViaLlm(BaseFunction):
                             }
                         )
                     },
+                    additionalProperties=json.loads(json.dumps(False)),
                     required=["name", "reasoning", "similarities", "differences"]
                 )
             )

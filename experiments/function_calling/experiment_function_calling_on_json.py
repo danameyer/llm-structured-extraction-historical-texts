@@ -2,7 +2,7 @@ from function_calling_components.chat_completion_blueprint import DialogueComple
 from functions.ExtractPersonInfo import ExtractPersonInfo
 
 
-class Experiment_Function_Calling_on_JSON:
+class ExperimentFunctionCallingOnJSON:
     def __init__(self, experiment_dir):
         self.experiment_dir = experiment_dir
         self.dialogue = DialogueCompletion(model='gpt-3.5-turbo', experiment_dir=experiment_dir)
@@ -20,6 +20,6 @@ class Experiment_Function_Calling_on_JSON:
 
 
 if __name__ == '__main__':
-    experiment_1 = Experiment_Function_Calling_on_JSON("/tmp/experiments/function_calling_on_json")
+    experiment_1 = ExperimentFunctionCallingOnJSON("/tmp/experiments/function_calling_on_json")
     experiment_1.run()
     

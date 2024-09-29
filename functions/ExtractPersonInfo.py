@@ -22,6 +22,7 @@ class ExtractPersonInfo(BaseFunction):
                         "name": Property(property_type="string",
                                          description="name of the person for whom info should be extracted"),
                     },
+                    additionalProperties=json.loads(json.dumps(False)),
                     required=["name"]
                 )
             )

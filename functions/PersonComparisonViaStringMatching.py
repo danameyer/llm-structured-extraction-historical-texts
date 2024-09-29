@@ -19,6 +19,7 @@ class DecideIfSamePerson(BaseFunction):
                         "name": Property(property_type="string",
                                          description="name of the person for whom attributes should be compared")
                     },
+                    additionalProperties=json.loads(json.dumps(False)),
                     required=["name"]
                 )
             )
