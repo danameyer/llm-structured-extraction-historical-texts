@@ -60,8 +60,13 @@ class OverallAccuracy:
         ax.set_ylabel('Accuracy')
         # ax.set_title(f'Exact vs Fuzzy Accuracy by Model for {prompt_name}', pad=20)
         ax.set_xticks(x)
-        truncated_model_names = [re.sub(r'(-\d{4}-\d{2}-\d{2}).*', '', name.replace("model_", "").replace(":", "_")) for
-                                 name in model_names]
+
+        truncated_model_names = [
+            re.sub(r'^model_(\w+):([a-zA-Z0-9\-\.]+)-\d{4}-\d{2}-\d{2}.*', r'\2_\1', name) 
+            if ':' in name else
+            re.sub(r'^model_([a-zA-Z0-9\-\.]+).*', r'\1', name)
+            for name in model_names
+        ]
 
         ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1))
