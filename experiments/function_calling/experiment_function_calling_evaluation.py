@@ -103,6 +103,18 @@ class ExperimentFunctionCallingEvaluation:
                                                                 gpt_model,
                                                                 self.experiment_dir,
                                                                 pred_file_name)
+        elif self.prompt_experiment_name == "best_prompt_structured_outputs_disabled":
+            return ExperimentFunctionCallingWithOptimisedPrompt(test_files,
+                                                                demonstrations_files,
+                                                                gpt_model,
+                                                                self.experiment_dir,
+                                                                pred_file_name)
+        elif self.prompt_experiment_name == "best_prompt_structured_outputs_enabled":
+            return ExperimentFunctionCallingWithOptimisedPrompt(test_files,
+                                                                demonstrations_files,
+                                                                gpt_model,
+                                                                self.experiment_dir,
+                                                                pred_file_name)
         else:
             raise ValueError("Wrong prompt name: " + self.prompt_experiment_name)
 
@@ -240,8 +252,6 @@ class ExperimentFunctionCallingEvaluation:
 
 
 def _prepare_and_run_experiment(model_name: str, prompt_name: str, sample_folder_name: str):
-    # model_name = 'gpt-3.5-turbo'
-    # prompt_name = 'chain_of_thought'
     regenerate_predictions = False
     exclusions = [["root['id']"],
                   ["root['id']", "root['cognomen']"],
@@ -266,75 +276,75 @@ def _prepare_and_run_experiment(model_name: str, prompt_name: str, sample_folder
 
 def _main():
     # experiment 1: prompt-selection
-    # models_list = [
-    # 'gpt-3.5-turbo',
-    # 'gpt-4o',
-    # 'gpt-4o-mini',
-    # 'gpt-4o-2024-08-06']
+    models_list = [
+        'gpt-3.5-turbo',
+        'gpt-4o',
+        'gpt-4o-mini',
+        'gpt-4o-2024-08-06']
 
-    # prompt_list = ['chain_of_thought',
-    #                'all_principles_zero_shot',
-    #                'all_principles_few_shot',
-    #                'no_principles_base_prompt'
-    #                ]
-    #
-    # sample_folder_name_prompt_selection = 'txt_files_prompt_selection'
-    #
-    # for model in models_list:
-    #     for prompt in prompt_list:
-    #         _prepare_and_run_experiment(model_name=model, prompt_name=prompt,
-    #                                     sample_folder_name=sample_folder_name_prompt_selection)
+    prompt_list = ['chain_of_thought',
+                   'all_principles_zero_shot',
+                   'all_principles_few_shot',
+                   'no_principles_base_prompt'
+                   ]
+
+    sample_folder_name_prompt_selection = 'txt_files_prompt_selection'
+
+    for model in models_list:
+        for prompt in prompt_list:
+            _prepare_and_run_experiment(model_name=model, prompt_name=prompt,
+                                        sample_folder_name=sample_folder_name_prompt_selection)
 
     # experiment 2: function calling evaluation
-    # models_list = [
-    # 'gpt-3.5-turbo',
-    # 'gpt-4o',
-    # 'gpt-4o-mini'
-    # 'gpt-4o-2024-08-06'
-    # ]
+    models_list = [
+        'gpt-3.5-turbo',
+        'gpt-4o',
+        'gpt-4o-mini'
+        'gpt-4o-2024-08-06'
+    ]
 
-    # prompt = 'best_prompt'
-    #
-    # sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
-    #
-    # for model in models_list:
-    #     _prepare_and_run_experiment(model_name=model,
-    #                                 prompt_name=prompt,
-    #                                 sample_folder_name=sample_folder_name_function_calling)
+    prompt = 'best_prompt'
+
+    sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
+
+    for model in models_list:
+        _prepare_and_run_experiment(model_name=model,
+                                    prompt_name=prompt,
+                                    sample_folder_name=sample_folder_name_function_calling)
 
     # experiment 3: fine-tuning evaluation
 
     # model for fold_0
-    # models_list_fold_0 = ['gpt-4o-mini',
-    #                       'ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5py4rfZ']
-    # prompt = "fine_tuning_best_prompt_fold_0"
-    # sample_folder_name_fold_0 = 'txt_files_fine_tuning_evaluation_data/fold_0/validation_text_files'
-    #
-    # for model in models_list_fold_0:
-    #     _prepare_and_run_experiment(model_name=model,
-    #                                 prompt_name=prompt,
-    #                                 sample_folder_name=sample_folder_name_fold_0)
-    #
-    # # model for fold_1
-    # models_list_fold_1 = ['gpt-4o-mini',
-    #                       'ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5qPhnwe']
-    # prompt = "fine_tuning_best_prompt_fold_1"
-    # sample_folder_name_fold_1 = 'txt_files_fine_tuning_evaluation_data/fold_1/validation_text_files'
-    # for model in models_list_fold_1:
-    #     _prepare_and_run_experiment(model_name=model,
-    #                                 prompt_name=prompt,
-    #                                 sample_folder_name=sample_folder_name_fold_1)
-    #
-    # # model for fold_2
-    # models_list_fold_2 = ['gpt-4o-mini',
-    #                       'ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
-    # prompt = "fine_tuning_best_prompt_fold_2"
-    # sample_folder_name_fold_2 = 'txt_files_fine_tuning_evaluation_data/fold_2/validation_text_files'
-    #
-    # for model in models_list_fold_2:
-    #     _prepare_and_run_experiment(model_name=model,
-    #                                 prompt_name=prompt,
-    #                                 sample_folder_name=sample_folder_name_fold_2)
+    models_list_fold_0 = ['gpt-4o-mini',
+                          'ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5py4rfZ']
+    prompt = "fine_tuning_best_prompt_fold_0"
+    sample_folder_name_fold_0 = 'txt_files_fine_tuning_evaluation_data/fold_0/validation_text_files'
+
+    for model in models_list_fold_0:
+        _prepare_and_run_experiment(model_name=model,
+                                    prompt_name=prompt,
+                                    sample_folder_name=sample_folder_name_fold_0)
+
+    # model for fold_1
+    models_list_fold_1 = ['gpt-4o-mini',
+                          'ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5qPhnwe']
+    prompt = "fine_tuning_best_prompt_fold_1"
+    sample_folder_name_fold_1 = 'txt_files_fine_tuning_evaluation_data/fold_1/validation_text_files'
+    for model in models_list_fold_1:
+        _prepare_and_run_experiment(model_name=model,
+                                    prompt_name=prompt,
+                                    sample_folder_name=sample_folder_name_fold_1)
+
+    # model for fold_2
+    models_list_fold_2 = ['gpt-4o-mini',
+                          'ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
+    prompt = "fine_tuning_best_prompt_fold_2"
+    sample_folder_name_fold_2 = 'txt_files_fine_tuning_evaluation_data/fold_2/validation_text_files'
+
+    for model in models_list_fold_2:
+        _prepare_and_run_experiment(model_name=model,
+                                    prompt_name=prompt,
+                                    sample_folder_name=sample_folder_name_fold_2)
 
     # experiment 4: prompt without function calling
     models_list = [
@@ -343,7 +353,7 @@ def _main():
 
     prompt = 'best_prompt_no_function_calling'
 
-    sample_folder_name_function_calling = 'text_files'
+    sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
 
     for model in models_list:
         _prepare_and_run_experiment(model_name=model,
@@ -351,36 +361,64 @@ def _main():
                                     sample_folder_name=sample_folder_name_function_calling)
 
     # experiment 5: best prompt run 2
-    # models_list = [
-    #     'gpt-3.5-turbo',
-    #     'gpt-4o',
-    #     'gpt-4o-mini'
-    # ]
-    #
-    # prompt = 'best_prompt_run_2'
-    #
-    # sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
-    #
-    # for model in models_list:
-    #     _prepare_and_run_experiment(model_name=model,
-    #                                 prompt_name=prompt,
-    #                                 sample_folder_name=sample_folder_name_function_calling)
+    models_list = [
+        'gpt-3.5-turbo',
+        'gpt-4o',
+        'gpt-4o-mini'
+    ]
+
+    prompt = 'best_prompt_run_2'
+
+    sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
+
+    for model in models_list:
+        _prepare_and_run_experiment(model_name=model,
+                                    prompt_name=prompt,
+                                    sample_folder_name=sample_folder_name_function_calling)
 
     # experiment 6: best prompt run 3
-    # models_list = [
-    #     'gpt-3.5-turbo',
-    #     'gpt-4o',
-    #     'gpt-4o-mini'
-    # ]
-    #
-    # prompt = 'best_prompt_run_3'
-    #
-    # sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
-    #
-    # for model in models_list:
-    #     _prepare_and_run_experiment(model_name=model,
-    #                                 prompt_name=prompt,
-    #                                 sample_folder_name=sample_folder_name_function_calling)
+    models_list = [
+        'gpt-3.5-turbo',
+        'gpt-4o',
+        'gpt-4o-mini'
+    ]
+
+    prompt = 'best_prompt_run_3'
+
+    sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
+
+    for model in models_list:
+        _prepare_and_run_experiment(model_name=model,
+                                    prompt_name=prompt,
+                                    sample_folder_name=sample_folder_name_function_calling)
+
+    # experiment 7: best prompt structured outputs disabled
+    models_list = [
+        'gpt-4o-2024-08-06'
+    ]
+
+    prompt = 'best_prompt_structured_outputs_disabled'
+
+    sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
+
+    for model in models_list:
+        _prepare_and_run_experiment(model_name=model,
+                                    prompt_name=prompt,
+                                    sample_folder_name=sample_folder_name_function_calling)
+
+    # experiment 8: best prompt structured outputs enabled
+    models_list = [
+        'gpt-4o-2024-08-06'
+    ]
+
+    prompt = 'best_prompt_structured_outputs_enabled'
+
+    sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
+
+    for model in models_list:
+        _prepare_and_run_experiment(model_name=model,
+                                    prompt_name=prompt,
+                                    sample_folder_name=sample_folder_name_function_calling)
 
 
 if __name__ == '__main__':
