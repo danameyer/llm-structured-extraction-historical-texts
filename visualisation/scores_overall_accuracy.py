@@ -62,7 +62,7 @@ class OverallAccuracy:
         ax.set_xticks(x)
 
         truncated_model_names = [
-            re.sub(r'^model_(\w+):([a-zA-Z0-9\-\.]+)-\d{4}-\d{2}-\d{2}.*', r'\2_\1', name) 
+            re.sub(r'^model_(\w+):([a-zA-Z0-9\-\.]+)-\d{4}-\d{2}-\d{2}.*', r'\2_\1', name)
             if ':' in name else
             re.sub(r'^model_([a-zA-Z0-9\-\.]+).*', r'\1', name)
             for name in model_names
