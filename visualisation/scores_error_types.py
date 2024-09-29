@@ -65,7 +65,7 @@ class ErrorTypePlot:
         return all_error_counts
 
     @staticmethod
-    def extract_and_count_total_errors_per_model_per_prompt_type(results_directory, model_list):
+    def extract_and_count_total_errors_per_model_per_prompt_type(results_directory, model_list, prompt_list):
         """
         Extracts and counts total errors per model for each prompt type.
 
@@ -80,7 +80,7 @@ class ErrorTypePlot:
         error_counts_by_prompt_type = defaultdict(lambda: defaultdict(int))
 
         # Iterate through each prompt type directory in the results directory
-        for prompt_type_folder in os.listdir(results_directory):
+        for prompt_type_folder in prompt_list:
             prompt_type_path = os.path.join(results_directory, prompt_type_folder)
 
             if os.path.isdir(prompt_type_path):
@@ -190,7 +190,8 @@ class ErrorTypePlot:
 
             # Bar plot
             bar_positions = np.arange(len(models))
-            ax.bar(bar_positions, total_errors, color='#1f77b4',  zorder=3)
+            bar_width = 0.35
+            ax.bar(bar_positions, total_errors, bar_width, color='#1f77b4', zorder=3)
 
             # Set labels and title
             ax.set_xlabel('Models', fontsize=14)
@@ -199,7 +200,13 @@ class ErrorTypePlot:
 
             # Set x-ticks and rotate for better readability
             ax.set_xticks(bar_positions)
-            ax.set_xticklabels(models, rotation=45, ha='right', fontsize=12)
+            truncated_model_names = [
+                re.sub(r'^model_(\w+):([a-zA-Z0-9\-\.]+)-\d{4}-\d{2}-\d{2}.*', r'\2-\1', name)
+                if ':' in name else
+                re.sub(r'^model_([a-zA-Z0-9\-\.]+).*', r'\1', name)
+                for name in models
+            ]
+            ax.set_xticklabels(truncated_model_names, rotation=45, ha='right', fontsize=12)
 
             # Grid and layout adjustments
             plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
@@ -232,7 +239,20 @@ if __name__ == '__main__':
 
     # Extract total error counts by model
     model_list = ['model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo']
-    all_error_counts_by_model = errorTypePlot.extract_and_count_total_errors_per_model_per_prompt_type(models_dir, model_list)
+    prompt_dirs_standard = ['no_principles_base_prompt', 'all_principles_zero_shot', 'all_principles_few_shot',
+                            'chain_of_thought', 'best_prompt']
+    all_error_counts_by_model = errorTypePlot.extract_and_count_total_errors_per_model_per_prompt_type(models_dir,
+                                                                                                       model_list,
+                                                                                                       prompt_dirs_standard)
 
     # Plot total error counts for each model
     errorTypePlot.plot_total_error_counts_by_prompt_type(all_error_counts_by_model)
+
+    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
+    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
+    all_error_counts_by_model_ft = errorTypePlot.extract_and_count_total_errors_per_model_per_prompt_type(models_dir,
+                                                                                                          models_list_ft,
+                                                                                                          prompt_dirs_ft)
+
+    # Plot total error counts for each model
+    errorTypePlot.plot_total_error_counts_by_prompt_type(all_error_counts_by_model_ft)

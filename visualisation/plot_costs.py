@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from pathlib import Path
 
 import numpy as np
@@ -12,11 +13,11 @@ class CostPlot:
         pass
 
     @staticmethod
-    def calculate_costs(models_directory):
+    def calculate_costs(models_directory, model_list):
         model_names = []
         costs = []
         for model_folder in os.listdir(models_directory):
-            if os.path.isdir(os.path.join(models_directory, model_folder)) and model_folder in {'model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo'}:
+            if os.path.isdir(os.path.join(models_directory, model_folder)) and model_folder in model_list:
                 costs_directory = os.path.join(models_directory, model_folder, 'costs')
                 if os.path.exists(costs_directory):
                     json_files = [file for file in os.listdir(costs_directory) if file.endswith('.json')]
@@ -42,10 +43,12 @@ class CostPlot:
         ax.set_ylabel('Costs in dollar')
         # ax.set_title(f'Costs per model {prompt_name}', pad=20)
         ax.set_xticks(x)
-        # truncated_model_names = [
-        #     name.split("-2024-07-18")[0] if "-2024-07-18" in name else name for name in
-        #     model_names]
-        truncated_model_names = [name.replace("model_", "") for name in model_names]
+        truncated_model_names = [
+            re.sub(r'^model_(\w+):([a-zA-Z0-9\-\.]+)-\d{4}-\d{2}-\d{2}.*', r'\2-\1', name)
+            if ':' in name else
+            re.sub(r'^model_([a-zA-Z0-9\-\.]+).*', r'\1', name)
+            for name in model_names
+        ]
         ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
 
         plt.tight_layout()
@@ -65,10 +68,17 @@ if __name__ == '__main__':
     load_dotenv()
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
 
-    results_dir = os.path.join(base_dir, 'evaluation_results', 'results')
-    prompt_dirs = os.listdir(results_dir)
-
-    for prompt_dir_name in prompt_dirs:
+    prompt_dirs_standard = ['no_principles_base_prompt', 'all_principles_zero_shot', 'all_principles_few_shot',
+                            'chain_of_thought', 'best_prompt']
+    models_list_standard = ['model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo']
+    for prompt_dir_name in prompt_dirs_standard:
         models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
-        model_names, costs = cost_plot.calculate_costs(models_dir)
+        model_names, costs = cost_plot.calculate_costs(models_dir, models_list_standard)
+        cost_plot.plot_costs(model_names, costs, prompt_dir_name)
+
+    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
+    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
+    for prompt_dir_name in prompt_dirs_ft:
+        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
+        model_names, costs = cost_plot.calculate_costs(models_dir, models_list_ft)
         cost_plot.plot_costs(model_names, costs, prompt_dir_name)

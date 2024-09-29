@@ -49,14 +49,34 @@ def plot_error_types():
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
     models_dir = os.path.join(base_dir, 'evaluation_results', 'results')
 
-    error_type_plot = ErrorTypePlot()
+    errorTypePlot = ErrorTypePlot()
 
     # Extract error counts
-    all_error_counts = error_type_plot.extract_and_count_errors(models_dir)
+    all_error_counts = errorTypePlot.extract_and_count_errors(models_dir)
 
     # Plot error counts for each model and prompt type
     for (prompt_type, model_name), error_counts in all_error_counts.items():
-        error_type_plot.plot_error_counts(prompt_type, model_name, error_counts)
+        errorTypePlot.plot_error_counts(prompt_type, model_name, error_counts)
+
+    # Extract total error counts by model
+    model_list = ['model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo']
+    prompt_dirs_standard = ['no_principles_base_prompt', 'all_principles_zero_shot', 'all_principles_few_shot',
+                            'chain_of_thought', 'best_prompt']
+    all_error_counts_by_model = errorTypePlot.extract_and_count_total_errors_per_model_per_prompt_type(models_dir,
+                                                                                                       model_list,
+                                                                                                       prompt_dirs_standard)
+
+    # Plot total error counts for each model
+    errorTypePlot.plot_total_error_counts_by_prompt_type(all_error_counts_by_model)
+
+    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
+    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
+    all_error_counts_by_model_ft = errorTypePlot.extract_and_count_total_errors_per_model_per_prompt_type(models_dir,
+                                                                                                          models_list_ft,
+                                                                                                          prompt_dirs_ft)
+
+    # Plot total error counts for each model
+    errorTypePlot.plot_total_error_counts_by_prompt_type(all_error_counts_by_model_ft)
 
 
 def plot_exclude_paths():
@@ -105,12 +125,18 @@ def plot_runtime():
     load_dotenv()
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
 
-    results_dir = os.path.join(base_dir, 'evaluation_results', 'results')
-    prompt_dirs = os.listdir(results_dir)
-
-    for prompt_dir_name in prompt_dirs:
+    prompt_dirs_standard = ['no_principles_base_prompt', 'all_principles_zero_shot', 'all_principles_few_shot', 'chain_of_thought', 'best_prompt']
+    models_list_standard = ['model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo']
+    for prompt_dir_name in prompt_dirs_standard:
         models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
-        model_names, runtimes = runtime_plot.calculate_runtime(models_dir)
+        model_names, runtimes = runtime_plot.calculate_runtime(models_dir, models_list_standard)
+        runtime_plot.plot_runtime(model_names, runtimes, prompt_dir_name)
+
+    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
+    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
+    for prompt_dir_name in prompt_dirs_ft:
+        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
+        model_names, runtimes = runtime_plot.calculate_runtime(models_dir, models_list_ft)
         runtime_plot.plot_runtime(model_names, runtimes, prompt_dir_name)
 
 
@@ -119,12 +145,19 @@ def plot_costs_per_model():
     load_dotenv()
     base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
 
-    results_dir = os.path.join(base_dir, 'evaluation_results', 'results')
-    prompt_dirs = os.listdir(results_dir)
-
-    for prompt_dir_name in prompt_dirs:
+    prompt_dirs_standard = ['no_principles_base_prompt', 'all_principles_zero_shot', 'all_principles_few_shot',
+                            'chain_of_thought', 'best_prompt']
+    models_list_standard = ['model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo']
+    for prompt_dir_name in prompt_dirs_standard:
         models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
-        model_names, costs = cost_plot.calculate_costs(models_dir)
+        model_names, costs = cost_plot.calculate_costs(models_dir, models_list_standard)
+        cost_plot.plot_costs(model_names, costs, prompt_dir_name)
+
+    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
+    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
+    for prompt_dir_name in prompt_dirs_ft:
+        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
+        model_names, costs = cost_plot.calculate_costs(models_dir, models_list_ft)
         cost_plot.plot_costs(model_names, costs, prompt_dir_name)
 
 
