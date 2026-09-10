@@ -54,13 +54,7 @@ class TokenCounter:
     def _calculate_costs(self, input_token_count: int, output_token_count: int) -> float:
 
         model_pricing = ModelPricing()
-        is_finetune_model = self.model.lower().startswith("ft:")
-
-        if is_finetune_model:
-            truncated_model_name = str(self.model).split(":")[1]
-            pricing_per_token = model_pricing.get_price_per_token(model_name=truncated_model_name, is_finetune=True)
-        else:
-            pricing_per_token = model_pricing.get_price_per_token(model_name=self.model, is_finetune=False)
+        pricing_per_token = model_pricing.get_price_per_token(model_name=self.model)
 
         input_cost = pricing_per_token["input"] * input_token_count
         output_cost = pricing_per_token["output"] * output_token_count

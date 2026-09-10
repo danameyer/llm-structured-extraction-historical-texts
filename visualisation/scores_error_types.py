@@ -247,12 +247,3 @@ if __name__ == '__main__':
 
     # Plot total error counts for each model
     errorTypePlot.plot_total_error_counts_by_prompt_type(all_error_counts_by_model)
-
-    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
-    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
-    all_error_counts_by_model_ft = errorTypePlot.extract_and_count_total_errors_per_model_per_prompt_type(models_dir,
-                                                                                                          models_list_ft,
-                                                                                                          prompt_dirs_ft)
-
-    # Plot total error counts for each model
-    errorTypePlot.plot_total_error_counts_by_prompt_type(all_error_counts_by_model_ft)

@@ -8,8 +8,6 @@ from visualisation.box_plot_fuzzy_score import BoxPlotFuzzyScore
 from visualisation.general_structured_output_retrieval import GeneralStructuredOutputRetrival
 from visualisation.plot_accuracy_document_size import ScatterPlot
 from visualisation.plot_costs import CostPlot
-from visualisation.plot_mistral_metrics import PlotMistralMetrics
-from visualisation.plot_open_ai_metrics import PlotOpenAIMetrics
 from visualisation.plot_runtime import RuntimePlot
 from visualisation.plot_with_error_bars import PlotWithErrorBars
 from visualisation.scores_error_types import ErrorTypePlot
@@ -31,16 +29,6 @@ def plot_overall_accuracy():
     for prompt_dir_name in prompt_dirs_standard:
         models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
         model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir, models_list_standard)
-        overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_dir_name)
-
-    # plots for fine-tuned gpt-4o-mini models and standard gpt-4o-mini model
-    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
-    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
-
-    for prompt_dir_name in prompt_dirs_ft:
-        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
-        model_names, exact_scores, fuzzy_scores = overall_accuracy.extract_overall_accuracy(models_dir,
-                                                                                            models_list_ft)
         overall_accuracy.plot_overall_accuracy(model_names, exact_scores, fuzzy_scores, prompt_dir_name)
 
 
@@ -68,16 +56,6 @@ def plot_error_types():
 
     # Plot total error counts for each model
     errorTypePlot.plot_total_error_counts_by_prompt_type(all_error_counts_by_model)
-
-    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
-    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
-    all_error_counts_by_model_ft = errorTypePlot.extract_and_count_total_errors_per_model_per_prompt_type(models_dir,
-                                                                                                          models_list_ft,
-                                                                                                          prompt_dirs_ft)
-
-    # Plot total error counts for each model
-    errorTypePlot.plot_total_error_counts_by_prompt_type(all_error_counts_by_model_ft)
-
 
 def plot_exclude_paths():
     exclude_paths_plot = ExcludePathsPlot()
@@ -132,14 +110,6 @@ def plot_runtime():
         model_names, runtimes = runtime_plot.calculate_runtime(models_dir, models_list_standard)
         runtime_plot.plot_runtime(model_names, runtimes, prompt_dir_name)
 
-    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
-    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
-    for prompt_dir_name in prompt_dirs_ft:
-        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
-        model_names, runtimes = runtime_plot.calculate_runtime(models_dir, models_list_ft)
-        runtime_plot.plot_runtime(model_names, runtimes, prompt_dir_name)
-
-
 def plot_costs_per_model():
     cost_plot = CostPlot()
     load_dotenv()
@@ -159,34 +129,6 @@ def plot_costs_per_model():
         models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
         model_names, costs = cost_plot.calculate_costs(models_dir, models_list_ft)
         cost_plot.plot_costs(model_names, costs, prompt_dir_name)
-
-
-def plot_openai_results():
-    load_dotenv()
-    base_dir = os.getenv('PROJECT_BASE_DIR')
-    relative_path = 'fine_tuning_files/openai/fine_tuning_evaluation'
-    root_path = os.path.join(base_dir, relative_path)
-    plot_openai_metrics = PlotOpenAIMetrics()
-
-    extracted_data = plot_openai_metrics.extract_metrics_data(root_path)
-
-    for model_name, df, file_name in extracted_data:
-        plot_output_dir = os.path.join(base_dir, 'visualisation', 'openai_ft_plots')
-        plot_openai_metrics.plot_metrics(model_name, df, plot_output_dir, file_name)
-
-
-def plot_mistral_results():
-    load_dotenv()
-    base_dir = os.getenv('PROJECT_BASE_DIR')
-    relative_path = 'fine_tuning_files/mistral/fine_tuning_evaluation'
-    root_path = os.path.join(base_dir, relative_path)
-    plot_mistral_metrics = PlotMistralMetrics()
-
-    extracted_data = plot_mistral_metrics.extract_metrics_data(root_path)
-
-    for model_name, checkpoints, file_name in extracted_data:
-        plot_output_dir = os.path.join(base_dir, 'visualisation', 'mistral_ft_plots')
-        plot_mistral_metrics.plot_metrics(model_name, checkpoints, plot_output_dir, file_name)
 
 
 def plot_with_error_bars():
@@ -256,7 +198,5 @@ if __name__ == '__main__':
     plot_box_plot()
     plot_costs_per_model()
     plot_runtime()
-    plot_openai_results()
-    plot_mistral_results()
     plot_with_error_bars()
     plot_structured_outputs_retrieval()

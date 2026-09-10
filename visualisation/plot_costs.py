@@ -75,10 +75,3 @@ if __name__ == '__main__':
         models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
         model_names, costs = cost_plot.calculate_costs(models_dir, models_list_standard)
         cost_plot.plot_costs(model_names, costs, prompt_dir_name)
-
-    models_list_ft = ['model_gpt-4o-mini', 'model_ft:gpt-4o-mini-2024-07-18:university-of-bielefeld::A5quE69s']
-    prompt_dirs_ft = ['fine_tuning_best_prompt_fold_2']
-    for prompt_dir_name in prompt_dirs_ft:
-        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
-        model_names, costs = cost_plot.calculate_costs(models_dir, models_list_ft)
-        cost_plot.plot_costs(model_names, costs, prompt_dir_name)
