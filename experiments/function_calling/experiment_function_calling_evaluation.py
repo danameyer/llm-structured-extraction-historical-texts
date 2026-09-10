@@ -25,7 +25,7 @@ class ExperimentFunctionCallingEvaluation:
     def __init__(self,
                  prompt_experiment_name: str,
                  experiment_dir,
-                 gpt_model_name='gpt-3.5-turbo',
+                 gpt_model_name=str,
                  regenerate_predictions=False):
         self.experiment_dir = experiment_dir
         self.prompt_experiment_name = prompt_experiment_name
@@ -280,7 +280,7 @@ def _main():
     models_list = [
         'gpt-3.5-turbo',
         'gpt-4o',
-        'gpt-4o-mini'
+        'gpt-4o-mini',
         'gpt-4o-2024-08-06'
     ]
 

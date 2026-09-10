@@ -12,7 +12,7 @@ class BaseExperimentFunctionCalling:
         load_dotenv()
         self.experiment_dir = experiment_dir
         self.prompt_builder = PromptBuilder()
-        self.dialogue = DialogueCompletion(model='gpt-3.5-turbo', experiment_dir=experiment_dir)
+        self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir)
         self.test_files = test_files
         self.demonstrations = demonstrations
         self.pred_file_name = pred_file_name
