@@ -64,7 +64,8 @@ class ExperimentFunctionCallingEvaluation:
                                                                 demonstrations_files,
                                                                 gpt_model,
                                                                 self.experiment_dir,
-                                                                pred_file_name)
+                                                                pred_file_name,
+                                                                strict=False)
 
         elif self.prompt_experiment_name == "best_prompt_no_function_calling":
             return ExperimentOptimisedPromptNoFunctionCalling(test_files,
@@ -77,25 +78,29 @@ class ExperimentFunctionCallingEvaluation:
                                                                 demonstrations_files,
                                                                 gpt_model,
                                                                 self.experiment_dir,
-                                                                pred_file_name)
+                                                                pred_file_name,
+                                                                strict=False)
         elif self.prompt_experiment_name == "best_prompt_run_3":
             return ExperimentFunctionCallingWithOptimisedPrompt(test_files,
                                                                 demonstrations_files,
                                                                 gpt_model,
                                                                 self.experiment_dir,
-                                                                pred_file_name)
+                                                                pred_file_name,
+                                                                strict=False)
         elif self.prompt_experiment_name == "best_prompt_structured_outputs_disabled":
             return ExperimentFunctionCallingWithOptimisedPrompt(test_files,
                                                                 demonstrations_files,
                                                                 gpt_model,
                                                                 self.experiment_dir,
-                                                                pred_file_name)
+                                                                pred_file_name,
+                                                                strict=False)
         elif self.prompt_experiment_name == "best_prompt_structured_outputs_enabled":
             return ExperimentFunctionCallingWithOptimisedPrompt(test_files,
                                                                 demonstrations_files,
                                                                 gpt_model,
                                                                 self.experiment_dir,
-                                                                pred_file_name)
+                                                                pred_file_name,
+                                                                strict=True)
         else:
             raise ValueError("Wrong prompt name: " + self.prompt_experiment_name)
 

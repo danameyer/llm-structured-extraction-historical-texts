@@ -10,10 +10,10 @@ from prompting.prompting_strategies import PromptBuilder
 
 
 class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling):
-    def __init__(self, test_files, demonstrations, gpt_model, experiment_dir, pred_file_name):
+    def __init__(self, test_files, demonstrations, gpt_model, experiment_dir, pred_file_name, strict=False):
         super().__init__(test_files, demonstrations, experiment_dir, pred_file_name, gpt_model)
         self.gpt_model = gpt_model
-        self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir)
+        self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir, strict=strict)
         self.pred_file_name = pred_file_name
 
     def generate_system_message(self):

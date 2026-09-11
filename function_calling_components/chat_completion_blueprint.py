@@ -23,22 +23,16 @@ load_dotenv()
 
 class DialogueCompletion:
 
-    def __init__(self, model: str, experiment_dir):
+    def __init__(self, model: str, experiment_dir, strict: bool = False):
         load_dotenv()
-        self.client = OpenAI(
-            api_key=os.environ.get("OPENAI_API_KEY"),
-        )
+        self.client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
         self.model: str = model
         self.message_history: List[Message] = []
-        # base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-        # self.prompt_save_dir = os.path.join(base_dir, "prompting", "generated_prompts")
-        # self.response_save_dir = os.path.join(base_dir, "prompting", "prompting_responses")
-        # os.makedirs(self.prompt_save_dir, exist_ok=True)
-        # os.makedirs(self.response_save_dir, exist_ok=True)
         self.chat_file_writer = ChatFileWriter(experiment_dir)
         self.function_call_result = None
         self.token_counter = TokenCounter(self.model)
         self.runtime_calculator = RuntimeCalculation()
+        self.strict = strict
 
     def _request_response(
             self,
@@ -328,6 +322,5 @@ class DialogueCompletion:
             if message.role in {"system", "user", "assistant"}
         ]
 
-    @staticmethod
-    def _get_responses_tool_definition(function: BaseFunction) -> Dict:
-        return function.get_responses_tool_definition(strict=False)
+    def _get_responses_tool_definition(self, function: BaseFunction) -> Dict:
+        return function.get_responses_tool_definition(strict=self.strict)
