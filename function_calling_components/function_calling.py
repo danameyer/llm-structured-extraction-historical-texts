@@ -1,4 +1,5 @@
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Union
+JsonSchemaType = Union[str, List[str]]
 
 
 class Message:
@@ -48,50 +49,76 @@ class Function:
 
 
 class Property:
-    def __init__(self,
-                 property_type: str,
-                 description: str,
-                 items: 'Property' = None,
-                 properties: dict[str, 'Property'] = None,
-                 default_value=None,
-                 enum: List[str] = None
-                 ):
+    def __init__(
+        self,
+        property_type: JsonSchemaType,
+        description: str,
+        items: Optional["Property"] = None,
+        properties: Optional[Dict[str, "Property"]] = None,
+        default_value=None,
+        enum: Optional[List[str]] = None,
+        required: Optional[List[str]] = None,
+        additional_properties: Optional[bool] = None,
+    ):
+        self.type = property_type
+        self.description = description
+        self.items = items
+        self.properties = properties or {}
         self.default_value = default_value
-        self.type: str = property_type
-        self.enum: List[str] = enum if enum is not None else []
-        self.description: str = description
-        if items:
-            self.items: 'Property' = items
-        else:
-            self.items: Optional["Property"] = None
-        if properties:
-            self.properties: dict[str, 'Property'] = properties
-        else:
-            self.properties: Dict[str, Property] = dict()
+        self.enum = enum
+        self.required = required
+        self.additional_properties = additional_properties
+
+    def to_schema(self) -> Dict:
+        schema = {"type": self.type, "description": self.description}
+
+        if self.enum is not None:
+            schema["enum"] = self.enum
+
+        if self.items is not None:
+            schema["items"] = self.items.to_schema()
+
+        if self.properties:
+            schema["properties"] = {name: prop.to_schema() for name, prop in self.properties.items()}
+
+        if self.required is not None:
+            schema["required"] = self.required
+
+        if self.additional_properties is not None:
+            schema["additionalProperties"] = self.additional_properties
+
+        return schema
 
 
 class Parameter:
-    def __init__(self, parameter_type: str,
-                 additionalProperties: bool,
-                 properties: Optional[Dict[str, Property]] = None,
-                 required: Optional[List[str]] = None):
+    def __init__(
+        self,
+        parameter_type: JsonSchemaType,
+        additionalProperties: bool,
+        properties: Optional[Dict[str, Property]] = None,
+        required: Optional[List[str]] = None,
+    ):
+        self.type = parameter_type
+        self.properties = properties or {}
+        self.required = required or []
+        self.additionalProperties = additionalProperties
 
-        self.type: str = parameter_type
+    def to_schema(self) -> Dict:
+        return {
+            "type": self.type,
+            "properties": {name: prop.to_schema() for name, prop in self.properties.items()},
+            "required": self.required,
+            "additionalProperties": self.additionalProperties,
+        }
 
-        if properties:
-            self.properties: Dict[str, Property] = properties
-        else:
-            self.properties: Dict[str, Property] = dict()
-
-        if required:
-            self.required: List[str] = required
-        else:
-            self.required: List[str] = list()
-
-        self.additionalProperties: bool = additionalProperties
-
-    def add_property(self, name: str, property_type: str, description: str, required: List[str]):
+    def add_property(
+        self,
+        name: str,
+        property_type: str,
+        description: str,
+        required: bool,
+    ):
         if required:
             self.required.append(name)
 
-        self.properties[name] = Property(property_type, description)
+        self.properties[name] = Property(property_type=property_type, description=description)

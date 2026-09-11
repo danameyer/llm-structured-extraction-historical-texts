@@ -1,9 +1,5 @@
-import json
 from typing import Any, Dict
-
-import jsons
 from dotenv import load_dotenv
-
 from function_calling_components.function_calling import FunctionBuilder
 
 
@@ -20,10 +16,30 @@ class BaseFunction:
         pass
 
     def get_definition_dict(self) -> Dict:
+        definition = self.get_definition()
+
         if self.use_short_definition:
-            return {"name": self.get_definition().function.name}
-        else:
-            return json.loads(jsons.dumps(self.get_definition()))
+            return {"name": definition.function.name}
+
+        return {
+            "type": definition.type,
+            "function": {
+                "name": definition.function.name,
+                "description": definition.function.description,
+                "parameters": definition.function.parameters.to_schema()
+            }
+        }
+
+    def get_responses_tool_definition(self, strict: bool = False) -> Dict:
+        definition = self.get_definition()
+
+        return {
+            "type": "function",
+            "name": definition.function.name,
+            "description": definition.function.description,
+            "parameters": definition.function.parameters.to_schema(),
+            "strict": strict,
+        }
 
     def del_none(self, d):
         """

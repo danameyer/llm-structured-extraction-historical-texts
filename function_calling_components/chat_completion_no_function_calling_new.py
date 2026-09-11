@@ -100,7 +100,7 @@ class DialogueCompletionNoFunctionCallingNew(DialogueCompletion):
             self.runtime_calculator.start()
 
             if require_json_output:
-                function = ExtractJsonFromPlainText(self.model)
+                function = ExtractJsonFromPlainText()
                 function_dict = function.get_definition_dict()
                 schema = function_dict["function"]["parameters"]
                 response_format = {
@@ -167,7 +167,7 @@ class DialogueCompletionNoFunctionCallingNew(DialogueCompletion):
 
         # function_object = next((x for x in tools if x.get_definition().function.name == function_name), None)
 
-        function_object = ExtractJsonFromPlainText(self.model)
+        function_object = ExtractJsonFromPlainText()
         if function_object:
             try:
                 self.json_result = function_object.run(**json_output_as_dict)

@@ -1,10 +1,5 @@
-import json
-import os
-from pathlib import Path
-
 from experiments.function_calling.super_function_calling_experiment import BaseExperimentFunctionCalling
 from function_calling_components.chat_completion_blueprint import DialogueCompletion
-from function_calling_components.chat_file_writer import ChatFileWriter
 from functions.ExtractJsonFromPlainText import ExtractJsonFromPlainText
 from prompting.prompting_strategies import PromptBuilder
 
@@ -16,7 +11,8 @@ class ExperimentAllPrinciplesZeroShotPrompt(BaseExperimentFunctionCalling):
         self.pred_file_name = pred_file_name
         self.gpt_model = gpt_model
 
-    def generate_system_message(self):
+    @staticmethod
+    def generate_system_message():
         prompt_builder = PromptBuilder()
         prompt = (prompt_builder.add_persona_modelling()
                   .add_context()
@@ -35,7 +31,8 @@ class ExperimentAllPrinciplesZeroShotPrompt(BaseExperimentFunctionCalling):
                   .build_prompt())
         return prompt
 
-    def add_task_2(self):
+    @staticmethod
+    def add_task_2():
         prompt_builder = PromptBuilder()
         prompt = (prompt_builder.add_task_2()
                   .build_prompt())
@@ -49,7 +46,7 @@ class ExperimentAllPrinciplesZeroShotPrompt(BaseExperimentFunctionCalling):
 
         prompt = self.experiment_all_principles_zero_shot()
 
-        extract_json_from_plaintext = ExtractJsonFromPlainText(self.gpt_model)
+        extract_json_from_plaintext = ExtractJsonFromPlainText()
         function_list = [extract_json_from_plaintext]
         self.dialogue.prompt_assistant_response(prompt,
                                                 self.pred_file_name,

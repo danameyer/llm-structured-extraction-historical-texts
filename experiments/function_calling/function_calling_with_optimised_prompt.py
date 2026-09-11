@@ -60,7 +60,7 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
         self.dialogue.prompt_assistant_response(prompt, self.pred_file_name, print_conversation=False)
 
         prompt = self.add_task_2()
-        extract_json_from_plaintext = ExtractJsonFromPlainText(self.gpt_model)
+        extract_json_from_plaintext = ExtractJsonFromPlainText()
         function_list = [extract_json_from_plaintext]
         self.dialogue.prompt_assistant_response(prompt, self.pred_file_name, function_list, print_conversation=False)
         function_call_result = self.dialogue.function_call_result

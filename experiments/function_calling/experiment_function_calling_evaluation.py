@@ -152,20 +152,35 @@ class ExperimentFunctionCallingEvaluation:
             for failed_file in self.failed_files:
                 log_file.write(f"{failed_file}\n")
 
-    def process_files(self, text_files_folder, demonstrations_folder, predictions_folder, gpt_model):
-        for file_name in os.listdir(text_files_folder):
+    def process_files(
+            self,
+            text_files_folder,
+            demonstrations_folder,
+            predictions_folder,
+            gpt_model,
+            max_files=None,
+    ):
+        file_names = sorted(os.listdir(text_files_folder))
 
+        if max_files is not None:
+            file_names = file_names[:max_files]
+
+        for file_name in file_names:
             path_to_text_file = os.path.join(text_files_folder, file_name)
+
             if os.path.isfile(path_to_text_file):
                 try:
-                    self.process_single_file(path_to_text_file, demonstrations_folder, predictions_folder, gpt_model)
+                    self.process_single_file(
+                        path_to_text_file,
+                        demonstrations_folder,
+                        predictions_folder,
+                        gpt_model,
+                    )
                 except ValidationError as e:
-                    print(f"""
-                    Could not complete file {path_to_text_file} because of error: 
-                    {e.message}
-                    
-                    Will continue with next file.
-                    """, file=sys.stderr)
+                    print(
+                        f"""Could not complete file {path_to_text_file} because of error: {e.message}. Will continue with next file.""",
+                        file=sys.stderr,
+                    )
                     self.failed_files.append(path_to_text_file)
 
         if self.failed_files:
@@ -215,7 +230,7 @@ class ExperimentFunctionCallingEvaluation:
         with open(file_path, 'w') as f:
             f.write(runtime_as_string)
 
-    def run(self, gpt_model, exclusions: List[List[str]], sample_folder_name):
+    def run(self, gpt_model, exclusions: List[List[str]], sample_folder_name, max_files=None):
         base_dir = self.get_base_directory()
         sample_folder = self.get_sample_folder(base_dir, sample_folder_name)
         ground_truth_folder = self.get_ground_truth_folder(base_dir)
@@ -223,7 +238,13 @@ class ExperimentFunctionCallingEvaluation:
         predictions_folder = self.create_predictions_folder(self.experiment_dir)
         scores_txt_folder = self.create_scores_txt_folder(self.experiment_dir)
         scores_json_folder = self.create_scores_json_folder(self.experiment_dir)
-        self.process_files(sample_folder, demonstrations_folder, predictions_folder, gpt_model=gpt_model)
+        self.process_files(
+            sample_folder,
+            demonstrations_folder,
+            predictions_folder,
+            gpt_model=gpt_model,
+            max_files=max_files
+        )
         json_comparison = JsonComparison()
         json_comparison.perform_json_comparison(ground_truth_folder,
                                                 predictions_folder,
@@ -232,7 +253,7 @@ class ExperimentFunctionCallingEvaluation:
                                                 exclusions)
 
 
-def _prepare_and_run_experiment(model_name: str, prompt_name: str, sample_folder_name: str):
+def _prepare_and_run_experiment(model_name: str, prompt_name: str, sample_folder_name: str, max_files=None):
     regenerate_predictions = False
     exclusions = [["root['id']"],
                   ["root['id']", "root['cognomen']"],
@@ -252,7 +273,7 @@ def _prepare_and_run_experiment(model_name: str, prompt_name: str, sample_folder
                                                      gpt_model_name=model_name,
                                                      regenerate_predictions=regenerate_predictions,
                                                      experiment_dir=experiment_folder)
-    experiment.run(model_name, exclusions=exclusions, sample_folder_name=sample_folder_name)
+    experiment.run(model_name, exclusions=exclusions, sample_folder_name=sample_folder_name, max_files=max_files)
 
 
 def _main():
@@ -367,6 +388,14 @@ def _main():
                                     prompt_name=prompt,
                                     sample_folder_name=sample_folder_name_function_calling)
 
+def _smoke_test():
+    _prepare_and_run_experiment(
+        model_name="gpt-4o-2024-08-06",
+        prompt_name="best_prompt",
+        sample_folder_name="txt_files_function_calling_evaluation",
+        max_files=2,
+    )
 
 if __name__ == '__main__':
-    _main()
+    # _main()
+    _smoke_test()

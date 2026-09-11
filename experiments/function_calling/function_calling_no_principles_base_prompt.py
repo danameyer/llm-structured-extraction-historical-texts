@@ -1,10 +1,5 @@
-import json
-import os
-from pathlib import Path
-
 from experiments.function_calling.super_function_calling_experiment import BaseExperimentFunctionCalling
 from function_calling_components.chat_completion_blueprint import DialogueCompletion
-from function_calling_components.chat_file_writer import ChatFileWriter
 from functions.ExtractJsonFromPlainText import ExtractJsonFromPlainText
 from prompting.prompting_strategies import PromptBuilder
 
@@ -25,7 +20,7 @@ class ExperimentFunctionCallingNoPrinciplesBasePrompt(BaseExperimentFunctionCall
         # filename = "function_calling_no_principles_base_prompt"
 
         prompt = self.experiment_base_prompt()
-        extract_json_from_plaintext = ExtractJsonFromPlainText(self.gpt_model)
+        extract_json_from_plaintext = ExtractJsonFromPlainText()
         function_list = [extract_json_from_plaintext]
         self.dialogue.prompt_assistant_response(prompt,
                                                 self.pred_file_name,

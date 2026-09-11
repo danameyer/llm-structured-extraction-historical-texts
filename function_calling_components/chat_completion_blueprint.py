@@ -95,19 +95,23 @@ class DialogueCompletion:
         except openai.APIConnectionError as e:
             print("The server could not be reached")
             print(e.__cause__)
+            raise
 
         except openai.RateLimitError as e:
             print("Rate limit has been exceeded.")
             print(f"Exception: {e}")
+            raise
 
         except openai.APIStatusError as e:
             print("Another non-200-range status code was received")
             print(e.status_code)
             print(e.response)
+            raise
 
         except openai.OpenAIError as e:
             print("An unexpected API error occurred.")
             print(f"Exception: {e}")
+            raise
 
     def _append_message(self, message: Message):
         self.message_history.append(message)
@@ -326,17 +330,4 @@ class DialogueCompletion:
 
     @staticmethod
     def _get_responses_tool_definition(function: BaseFunction) -> Dict:
-        definition = function.get_definition_dict()
-        function_definition = definition["function"]
-
-        tool_definition = {
-            "type": "function",
-            "name": function_definition["name"],
-            "description": function_definition["description"],
-            "parameters": function_definition["parameters"],
-        }
-
-        if definition.get("strict") is not None:
-            tool_definition["strict"] = definition["strict"]
-
-        return tool_definition
+        return function.get_responses_tool_definition(strict=False)
