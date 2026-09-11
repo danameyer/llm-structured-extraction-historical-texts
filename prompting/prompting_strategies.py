@@ -160,7 +160,7 @@ class PromptBuilder:
             "* Titles like Rex or Prior are listed only as 'title'.\n"
             "* Spell all the values you write into the JSON file with a capital letter at the beginning of a word.\n"
             "* For power relations, the following relations exist:\n"
-            "  ** 'Tenens' (tenant) vs. 'Dominus feodi' (feudal lord)\n"
+            "  ** 'Tenens' (tenant) vs. 'Dominus Feodi' (feudal lord)\n"
             "  ** 'Testator' (person inherited from) vs. 'Heres' (heir)\n"
             "  ** 'Plegiarius' (person who grants surety), one-sided relationship assigned to the person who is the subject of the relationship.\n"
             "  ** 'Attornatus' (attorney), one-sided relationship assigned to the attorney in a legal context.\n"

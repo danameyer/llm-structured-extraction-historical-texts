@@ -37,7 +37,7 @@ class ExtractJsonFromPlainText(BaseFunction):
 
     LEGAL_RELATION_TYPES = [
         "Tenens",
-        "Dominus feodi",
+        "Dominus Feodi",
         "Testator",
         "Heres",
         "Plegiarius",
