@@ -1,210 +1,135 @@
 import json
-from typing import List, Union
-
-import jsons
+from typing import List, Literal
 import openai
 from jsons import ValidationError
-from openai.types.chat import ChatCompletion
-from tenacity import stop_after_attempt, wait_random_exponential, retry
-
+from openai.types.responses import Response
+from tenacity import retry, stop_after_attempt, wait_random_exponential
 from evaluation.json_comparison.json_validation import JsonValidator
 from function_calling_components.chat_completion_blueprint import DialogueCompletion
-from function_calling_components.function_calling import Message, SimpleChatGptMessage
-from functions.BaseFunction import BaseFunction
+from function_calling_components.function_calling import Message
 from functions.ExtractJsonFromPlainText import ExtractJsonFromPlainText
+
+
+ResponseMode = Literal["text", "prompted_json", "json_schema"]
 
 
 class DialogueCompletionNoFunctionCallingNew(DialogueCompletion):
 
-    def __init__(self, model, experiment_dir):
-        super().__init__(model, experiment_dir)
+    def __init__(self, model: str, experiment_dir):
+        super().__init__(model=model, experiment_dir=experiment_dir)
         self.json_result = None
 
-    def prompt_assistant_response(self,
-                                  prompt,
-                                  filename,
-                                  function_list=None,
-                                  print_conversation=True,
-                                  validate=True,
-                                  require_json_output=False):
+    def prompt_assistant_response(
+            self,
+            prompt,
+            filename,
+            print_conversation=True,
+            validate=True,
+            response_mode: ResponseMode = "text",
+    ):
         self._append_message(Message("user", prompt))
-
         self.chat_file_writer.save_prompt(prompt, filename)
+        response = self._request_direct_response(messages=self.message_history, response_mode=response_mode)
+        assistant_message = response.output_text
 
-        try:
-            chat_response = self._execute_chat_completion_query(
-                messages=self.message_history,
-                tools=function_list,
-                validate=validate,
-                require_json_output=require_json_output
-            )
-            assistant_message = chat_response.choices[0].message.content
+        if response_mode in {"prompted_json", "json_schema"}:
+            self.json_result = self._parse_json_result(content=assistant_message, validate=validate)
 
-            self._append_message(Message("assistant", assistant_message))
-            self.chat_file_writer.save_response(assistant_message, filename)
+        self._append_message(Message("assistant", assistant_message))
+        self.chat_file_writer.save_response(assistant_message, filename)
 
-            if print_conversation:
-                self._print_conversation()
+        if print_conversation:
+            self._print_conversation()
 
-            return assistant_message
+        return assistant_message
 
-        except Exception as ex:
-            if require_json_output:
-                print(f"Error while requesting JSON output: {ex}")
+    @retry(
+        stop=stop_after_attempt(6),
+        wait=wait_random_exponential(multiplier=1, max=10),
+        reraise=True,
+    )
+    def _request_direct_response(
+            self,
+            messages: List[Message],
+            response_mode: ResponseMode,
+    ) -> Response:
 
-    @retry(stop=stop_after_attempt(6), wait=wait_random_exponential(multiplier=1, max=10), reraise=True, )
-    def _execute_chat_completion_query(self,
-                                       messages: List[Message],
-                                       tools: List[BaseFunction] = None,
-                                       validate=True,
-                                       require_json_output=False) -> Union[ChatCompletion, None]:
+        input_messages = self._messages_to_input(messages)
+        print(f"Input response content: {input_messages}")
 
-        completion = self._request_response(messages=messages,
-                                            functions=tools,
-                                            require_json_output=require_json_output)
+        request = {
+            "model": self.model,
+            "input": input_messages,
+        }
 
-        if require_json_output:
-            print("JSON output required - clean it up ...")
-            function_call_result = self._clean_up_json_output(completion, messages, tools, validate)
-            return function_call_result
-        else:
-            print("No function called.")
-            return completion
-
-    def _request_response(self,
-                          messages: List[Message],
-                          functions: List[BaseFunction] = None,
-                          function_call="auto",
-                          require_json_output: bool = False) -> Union[ChatCompletion, None]:
-        """
-        Generate response using OpenAI Chat Completion API.
-
-        Args:
-            self: self parameter
-            messages (list): List of message objects.
-            functions (list, optional): List of function dictionaries. Defaults to None.
-            function_call (str, optional): Type of function call to use. Defaults to "auto".
-
-        Returns:
-            Completion: Generated response.
-        """
-        return self._request_response_without_function_call(messages)
-
-    def _request_response_without_function_call(self, messages: List[Message], require_json_output: bool = False):
-        try:
-            simple_chat_gpt_messages = [SimpleChatGptMessage(role=x.role, content=x.content, name=x.name) for x in messages]
-            messages_as_dict = json.loads(jsons.dumps(simple_chat_gpt_messages))
-            print(f"Input response content: {messages_as_dict}")
-            # functions_as_dict_list = [x.get_definition_dict() for x in functions] if functions else None
-
-            self.runtime_calculator.start()
-
-            if require_json_output:
-                function = ExtractJsonFromPlainText()
-                function_dict = function.get_definition_dict()
-                schema = function_dict["function"]["parameters"]
-                response_format = {
+        if response_mode == "json_schema":
+            schema = ExtractJsonFromPlainText().get_definition().function.parameters.to_schema()
+            request["text"] = {
+                "format": {
                     "type": "json_schema",
-                    "json_schema": {
-                        "name": "person_list_schema",
-                        "strict": json.loads(json.dumps(True)),
-                        "schema": schema
-                    }
+                    "name": "person_list_schema",
+                    "schema": schema,
+                    "strict": True,
                 }
-                completion: Union[ChatCompletion, None] = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=messages_as_dict,
-                    response_format=response_format
-                )
+            }
 
-            else:
-                completion: Union[ChatCompletion, None] = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=messages_as_dict,
-                )
+        elif response_mode not in {"text", "prompted_json"}:
+            raise ValueError(f"Unknown response mode: {response_mode}")
 
+        try:
+            self.runtime_calculator.start()
+            response = self.client.responses.create(**request)
             self.runtime_calculator.end()
-
-            # Print the runtime
             print(f"API call duration: {self.runtime_calculator.calculate_runtime():.2f} seconds")
+            print(f"Output response content: {response.output_text}")
 
-            output_response = completion.choices[0].message.content
-            print(f"Output response content: {output_response}")
+            if response.usage:
+                self.token_counter.add_number_of_input_tokens(response.usage.input_tokens)
+                self.token_counter.add_number_of_output_tokens(response.usage.output_tokens)
 
-            self.token_counter.add_number_of_input_tokens(completion.usage.prompt_tokens)
-            self.token_counter.add_number_of_output_tokens(completion.usage.completion_tokens)
+            return response
 
-            # function definitions have been sent to chatGPT - now only use the short description in order to
-            # save tokens ...
-            # self.flag_function_calls_for_short_description(functions)
-            return completion
         except openai.APIConnectionError as e:
             print("The server could not be reached")
             print(e.__cause__)
+            raise
+
         except openai.RateLimitError as e:
             print("Rate limit has been exceeded.")
             print(f"Exception: {e}")
+            raise
+
         except openai.APIStatusError as e:
             print("Another non-200-range status code was received")
             print(e.status_code)
             print(e.response)
+            raise
+
         except openai.OpenAIError as e:
             print("An unexpected API error occurred.")
             print(f"Exception: {e}")
+            raise
 
-    def _clean_up_json_output(self,
-                              completion: Union[ChatCompletion, None],
-                              messages: List[Message],
-                              tools: List[BaseFunction],
-                              validate=True) -> Union[ChatCompletion, None]:
-        # function_name = completion.choices[0].message.tool_calls[0].function.name
-        content = completion.choices[0].message.content
-        print(f"This content will be cleaned up: {content}")
-        content_without_delimiters = content.replace("```json", "").replace("```", "")  # remove leading and trailing delimiter
+    @staticmethod
+    def _remove_json_delimiters(content: str) -> str:
+        return content.replace("```json", "").replace("```", "").strip()
 
-        json_output_as_dict = json.loads(content_without_delimiters)
-        print("This is the json_output as dict (it should look like function call arguments):", json_output_as_dict)
+    def _parse_json_result(self, content: str, validate=True):
+        cleaned_content = self._remove_json_delimiters(content)
+        print("This content will be parsed:", cleaned_content)
 
-        # function_object = next((x for x in tools if x.get_definition().function.name == function_name), None)
+        json_output_as_dict = json.loads(cleaned_content)
+        print("This is the JSON output as dict:", json_output_as_dict)
 
         function_object = ExtractJsonFromPlainText()
-        if function_object:
-            try:
-                self.json_result = function_object.run(**json_output_as_dict)
-                print("This is the function call result", self.json_result)
-            except Exception as ex:
-                print("Could not execute function object: ", ex)
-                raise ex
+        json_result = function_object.run( **json_output_as_dict)
+        print("This is the JSON result:", json_result)
 
-            try:
-                json_validator = JsonValidator()
-                if validate:
-                    validation = json_validator.validate_json(self.json_result)
-                    if not validation[0]:
-                        message = "JSON validation failed: " + validation[1]
-                        raise ValidationError(message)
-            except Exception as ex:
-                print("Could not validate json output.", ex)
-                raise ex
+        if validate:
+            json_validator = JsonValidator()
+            validation = json_validator.validate_json(json_result)
 
-            try:
-                messages.append(
-                    Message(role="function",
-                            content=str(self.json_result),
-                            name=function_object.get_definition().function.name,
-                            # function_call_id=completion.choices[0].message.tool_calls[0].id,
-                            # function_call_arguments=completion.choices[0].message.tool_calls[0].function.arguments
-                            function_call_arguments=function_object.get_definition().function.parameters
-                            )
-                )
-            except Exception as ex:
-                print("Could not append message object: ", ex)
-                raise ex
+            if not validation[0]:
+                raise ValidationError("JSON validation failed: " + validation[1])
 
-            try:
-                response = self._request_response(messages)
-                return response
-            except Exception as e:
-                print(type(e))
-                raise Exception("Chat response could not be generated.")
-
+        return json_result

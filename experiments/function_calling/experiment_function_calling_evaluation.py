@@ -67,12 +67,22 @@ class ExperimentFunctionCallingEvaluation:
                                                                 pred_file_name,
                                                                 strict=False)
 
-        elif self.prompt_experiment_name == "best_prompt_no_function_calling":
+        elif self.prompt_experiment_name == "best_prompt_prompt_only_json":
             return ExperimentOptimisedPromptNoFunctionCalling(test_files,
                                                               demonstrations_files,
                                                               gpt_model,
                                                               self.experiment_dir,
-                                                              pred_file_name)
+                                                              pred_file_name,
+                                                              final_response_mode="prompted_json")
+        elif self.prompt_experiment_name == "best_prompt_json_mode":
+            return ExperimentOptimisedPromptNoFunctionCalling(
+                test_files,
+                demonstrations_files,
+                gpt_model,
+                self.experiment_dir,
+                pred_file_name,
+                final_response_mode="json_schema",
+            )
         elif self.prompt_experiment_name == "best_prompt_run_2":
             return ExperimentFunctionCallingWithOptimisedPrompt(test_files,
                                                                 demonstrations_files,
