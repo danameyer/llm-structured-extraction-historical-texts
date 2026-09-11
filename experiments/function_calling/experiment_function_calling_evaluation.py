@@ -19,6 +19,15 @@ from experiments.function_calling.function_calling_with_optimised_prompt import 
 from function_calling_components.chat_completion_blueprint import DialogueCompletion
 from function_calling_components.chat_file_writer import ChatFileWriter
 
+MODERN_MODELS = [
+    "gpt-5.6-luna",
+    "gpt-5.6-terra",
+    "gpt-5.6-sol",
+]
+
+ABLATION_MODEL = "gpt-5.6-sol"
+
+SMOKE_TEST_MODEL = "gpt-4o-2024-08-06"
 
 class ExperimentFunctionCallingEvaluation:
 
@@ -74,7 +83,7 @@ class ExperimentFunctionCallingEvaluation:
                                                               self.experiment_dir,
                                                               pred_file_name,
                                                               final_response_mode="prompted_json")
-        elif self.prompt_experiment_name == "best_prompt_json_mode":
+        elif self.prompt_experiment_name == "best_prompt_direct_structured_outputs":
             return ExperimentOptimisedPromptNoFunctionCalling(
                 test_files,
                 demonstrations_files,
@@ -293,11 +302,7 @@ def _prepare_and_run_experiment(model_name: str, prompt_name: str, sample_folder
 
 def _main():
     # experiment 1: prompt-selection
-    models_list = [
-        'gpt-3.5-turbo',
-        'gpt-4o',
-        'gpt-4o-mini',
-        'gpt-4o-2024-08-06']
+    models_list = MODERN_MODELS
 
     prompt_list = ['chain_of_thought',
                    'all_principles_zero_shot',
@@ -313,12 +318,7 @@ def _main():
                                         sample_folder_name=sample_folder_name_prompt_selection)
 
     # experiment 2: function calling evaluation
-    models_list = [
-        'gpt-3.5-turbo',
-        'gpt-4o',
-        'gpt-4o-mini',
-        'gpt-4o-2024-08-06'
-    ]
+    models_list = MODERN_MODELS
 
     prompt = 'best_prompt'
 
@@ -329,12 +329,10 @@ def _main():
                                     prompt_name=prompt,
                                     sample_folder_name=sample_folder_name_function_calling)
 
-    # experiment 3: prompt without function calling
-    models_list = [
-        'gpt-4o-2024-08-06'
-    ]
+    # experiment 3: prompt only without function calling
+    models_list = [ABLATION_MODEL]
 
-    prompt = 'best_prompt_no_function_calling'
+    prompt = 'best_prompt_prompt_only_json'
 
     sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
 
@@ -343,12 +341,20 @@ def _main():
                                     prompt_name=prompt,
                                     sample_folder_name=sample_folder_name_function_calling)
 
-    # experiment 4: best prompt run 2
-    models_list = [
-        'gpt-3.5-turbo',
-        'gpt-4o',
-        'gpt-4o-mini'
-    ]
+    # experiment 4: direct structured output without function calling
+    models_list = [ABLATION_MODEL]
+
+    prompt = 'best_prompt_direct_structured_outputs'
+
+    sample_folder_name_function_calling = 'txt_files_function_calling_evaluation'
+
+    for model in models_list:
+        _prepare_and_run_experiment(model_name=model,
+                                    prompt_name=prompt,
+                                    sample_folder_name=sample_folder_name_function_calling)
+
+    # experiment 5: best prompt run 2
+    models_list = MODERN_MODELS
 
     prompt = 'best_prompt_run_2'
 
@@ -359,12 +365,8 @@ def _main():
                                     prompt_name=prompt,
                                     sample_folder_name=sample_folder_name_function_calling)
 
-    # experiment 5: best prompt run 3
-    models_list = [
-        'gpt-3.5-turbo',
-        'gpt-4o',
-        'gpt-4o-mini'
-    ]
+    # experiment 6: best prompt run 3
+    models_list = MODERN_MODELS
 
     prompt = 'best_prompt_run_3'
 
@@ -375,10 +377,8 @@ def _main():
                                     prompt_name=prompt,
                                     sample_folder_name=sample_folder_name_function_calling)
 
-    # experiment 6: best prompt structured outputs disabled
-    models_list = [
-        'gpt-4o-2024-08-06'
-    ]
+    # experiment 7: best prompt structured outputs disabled
+    models_list = [ABLATION_MODEL]
 
     prompt = 'best_prompt_structured_outputs_disabled'
 
@@ -390,9 +390,7 @@ def _main():
                                     sample_folder_name=sample_folder_name_function_calling)
 
     # experiment 7: best prompt structured outputs enabled
-    models_list = [
-        'gpt-4o-2024-08-06'
-    ]
+    models_list = [ABLATION_MODEL]
 
     prompt = 'best_prompt_structured_outputs_enabled'
 

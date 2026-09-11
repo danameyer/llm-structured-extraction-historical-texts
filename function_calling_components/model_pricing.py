@@ -1,60 +1,32 @@
 class ModelPricing:
+
     def __init__(self):
+        # Prices in USD per 1 million tokens.
+        self.price_per_million_tokens = {
+            "gpt-5.6-luna": {
+                "input": 0.20,
+                "output": 1.20,
+            },
+            "gpt-5.6-terra": {
+                "input": 2.00,
+                "output": 12.00,
+            },
+            "gpt-5.6-sol": {
+                "input": 4.00,
+                "output": 20.00,
+            },
 
-        self.regular_divisor = 1000
-        self.ft_divisor = 1000000
-
-        # Price is per 1000 tokens
-        self.regular_model_pricing = {
-            "gpt-3.5-turbo": {
-                "input": 0.0005,
-                "output": 0.0015
-            },
-            "gpt-3.5-turbo-0125": {
-                "input": 0.0005,
-                "output": 0.0015
-            },
-            "gpt-4o": {
-                "input": 0.005,
-                "output": 0.015
-            },
+            # Keep temporarily for smoke tests.
             "gpt-4o-2024-08-06": {
-                "input": 0.0025,
-                "output": 0.01
+                "input": 2.50,
+                "output": 10.00,
             },
-            "gpt-4o-mini": {
-                "input": 0.00015,
-                "output": 0.0006
-            },
-            "gpt-4-turbo": {
-                "input": 0.01,
-                "output": 0.03
-            }
-        }
-
-        # Price is per 1M tokens
-        self.ft_model_pricing = {
-            "gpt-3.5-turbo-0125": {
-                "input": 3.000,
-                "output": 6.000,
-                "training": 8.000
-            },
-            "gpt-4o-2024-08-06": {
-                "input": 3.750,
-                "output": 15.000,
-                "training": 25.000
-            },
-            "gpt-4o-mini-2024-07-18": {
-                "input": 0.300,
-                "output": 1.200,
-                "training": 3.000
-            }
         }
 
     def get_price_per_token(self, model_name):
-        pricing = self.regular_model_pricing[model_name]
-        pricing_per_token = {
-            "input": pricing["input"] / self.regular_divisor,
-            "output": pricing["output"] / self.regular_divisor
+        pricing = self.price_per_million_tokens[model_name]
+
+        return {
+            "input": pricing["input"] / 1_000_000,
+            "output": pricing["output"] / 1_000_000,
         }
-        return pricing_per_token
