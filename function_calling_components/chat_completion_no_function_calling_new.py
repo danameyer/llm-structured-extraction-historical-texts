@@ -29,12 +29,16 @@ class DialogueCompletionNoFunctionCallingNew(DialogueCompletion):
     ):
         self._append_message(Message("user", prompt))
         self.chat_file_writer.save_prompt(prompt, filename)
-        response = self._request_direct_response(messages=self.message_history, response_mode=response_mode)
-        assistant_message = response.output_text
-
         if response_mode in {"prompted_json", "json_schema"}:
-            self.json_result = self._parse_json_result(content=assistant_message, validate=validate)
+            self.json_result = None
 
+        response = self._execute_response_query(
+            messages=self.message_history,
+            response_mode=response_mode,
+            validate=validate,
+        )
+
+        assistant_message = response.output_text
         self._append_message(Message("assistant", assistant_message))
         self.chat_file_writer.save_response(assistant_message, filename)
 
@@ -48,6 +52,23 @@ class DialogueCompletionNoFunctionCallingNew(DialogueCompletion):
         wait=wait_random_exponential(multiplier=1, max=10),
         reraise=True,
     )
+    def _execute_response_query(
+            self,
+            messages: List[Message],
+            response_mode: ResponseMode,
+            validate=True,
+    ) -> Response:
+
+        response = self._request_direct_response(messages=messages, response_mode=response_mode)
+
+        if response_mode in {"prompted_json", "json_schema"}:
+            self.json_result = self._parse_json_result(
+                content=response.output_text,
+                validate=validate,
+            )
+
+        return response
+
     def _request_direct_response(
             self,
             messages: List[Message],
