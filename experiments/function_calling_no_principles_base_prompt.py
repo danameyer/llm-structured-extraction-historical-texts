@@ -17,8 +17,6 @@ class ExperimentFunctionCallingNoPrinciplesBasePrompt(BaseExperimentFunctionCall
         return prompt
 
     def run(self):
-        # filename = "function_calling_no_principles_base_prompt"
-
         prompt = self.experiment_base_prompt()
         extract_json_from_plaintext = ExtractJsonFromPlainText()
         function_list = [extract_json_from_plaintext]

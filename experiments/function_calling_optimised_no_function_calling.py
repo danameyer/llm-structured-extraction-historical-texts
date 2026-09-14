@@ -11,7 +11,7 @@ class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
             gpt_model,
             experiment_dir,
             pred_file_name,
-            final_response_mode: ResponseMode ="json_schema",
+            final_response_mode: ResponseMode
     ):
         super().__init__(
             test_files,
@@ -36,7 +36,6 @@ class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
         prompt = (prompt_builder.add_persona_modelling()
                   .add_context()
                   .add_iterative_approach()
-                  .add_q_and_a_prompting()
                   .build_prompt())
         return prompt
 
@@ -65,8 +64,6 @@ class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
         return prompt
 
     def run(self):
-        # filename = "function_calling_with_optimised_prompt"
-
         prompt = self.generate_system_message()
         self.dialogue.add_system_prompt(prompt, self.pred_file_name, print_conversation=False)
 

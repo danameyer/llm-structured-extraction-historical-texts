@@ -20,7 +20,6 @@ class ExperimentAllPrinciplesFewShotPrompt(BaseExperimentFunctionCalling):
         prompt = (prompt_builder.add_persona_modelling()
                   .add_context()
                   .add_iterative_approach()
-                  .add_q_and_a_prompting()
                   .build_prompt())
         return prompt
 
@@ -36,8 +35,6 @@ class ExperimentAllPrinciplesFewShotPrompt(BaseExperimentFunctionCalling):
         return prompt
 
     def run(self):
-        # filename = "function_calling_all_principles_few_shot"
-
         prompt = self.generate_system_message()
         self.dialogue.add_system_prompt(prompt, self.pred_file_name, print_conversation=False)
 

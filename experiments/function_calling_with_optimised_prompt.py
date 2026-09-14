@@ -17,7 +17,6 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
         prompt = (prompt_builder.add_persona_modelling()
                   .add_context()
                   .add_iterative_approach()
-                  .add_q_and_a_prompting()
                   .build_prompt())
         return prompt
 
