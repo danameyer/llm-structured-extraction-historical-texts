@@ -4,9 +4,6 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from typing import List
-
-from jsons import ValidationError
-
 from evaluation.json_comparison.json_comparison import JsonComparison
 from experiments.function_calling.function_calling_all_principles_few_shot import ExperimentAllPrinciplesFewShotPrompt
 from experiments.function_calling.function_calling_all_principles_zero_shot import ExperimentAllPrinciplesZeroShotPrompt
@@ -19,14 +16,8 @@ from experiments.function_calling.function_calling_with_optimised_prompt import 
 from function_calling_components.chat_completion_blueprint import DialogueCompletion
 from function_calling_components.chat_file_writer import ChatFileWriter
 
-MODERN_MODELS = [
-    "gpt-5.6-luna",
-    "gpt-5.6-terra",
-    "gpt-5.6-sol",
-]
-
+MODERN_MODELS = ["gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"]
 ABLATION_MODEL = "gpt-5.6-sol"
-
 SMOKE_TEST_MODEL = "gpt-4o-2024-08-06"
 
 class ExperimentFunctionCallingEvaluation:
@@ -34,7 +25,7 @@ class ExperimentFunctionCallingEvaluation:
     def __init__(self,
                  prompt_experiment_name: str,
                  experiment_dir,
-                 gpt_model_name=str,
+                 gpt_model_name: str,
                  regenerate_predictions=False):
         self.experiment_dir = experiment_dir
         self.prompt_experiment_name = prompt_experiment_name
@@ -123,44 +114,54 @@ class ExperimentFunctionCallingEvaluation:
         else:
             raise ValueError("Wrong prompt name: " + self.prompt_experiment_name)
 
-    def get_base_directory(self):
+    @staticmethod
+    def get_base_directory():
         return Path(os.getenv('PROJECT_BASE_DIR'))
 
-    def get_ground_truth_folder(self, base_dir):
+    @staticmethod
+    def get_ground_truth_folder(base_dir):
         return os.path.join(base_dir, "evaluation_results", "ground_truth")
 
-    def get_demonstrations_folder(self, base_dir):
+    @staticmethod
+    def get_demonstrations_folder(base_dir):
         return os.path.join(base_dir, "test_data", "demonstrations")
 
-    def get_sample_folder(self, base_dir, sample_folder_name):
+    @staticmethod
+    def get_sample_folder(base_dir, sample_folder_name):
         return os.path.join(base_dir, "evaluation_results", sample_folder_name)
 
-    def create_predictions_folder(self, base_dir):
+    @staticmethod
+    def create_predictions_folder(base_dir):
         predictions_folder = os.path.join(base_dir, "predictions")
         os.makedirs(predictions_folder, exist_ok=True)
         return predictions_folder
 
-    def create_scores_txt_folder(self, base_dir):
+    @staticmethod
+    def create_scores_txt_folder(base_dir):
         output_folder = os.path.join(base_dir, "scores_txt")
         os.makedirs(output_folder, exist_ok=True)
         return output_folder
 
-    def create_scores_json_folder(self, base_dir):
+    @staticmethod
+    def create_scores_json_folder(base_dir):
         output_folder = os.path.join(base_dir, "scores_json")
         os.makedirs(output_folder, exist_ok=True)
         return output_folder
 
-    def create_costs_folder(self, experiment_dir):
+    @staticmethod
+    def create_costs_folder(experiment_dir):
         costs_folder = os.path.join(experiment_dir, "costs")
         os.makedirs(costs_folder, exist_ok=True)
         return costs_folder
 
-    def create_runtime_folder(self, experiment_dir):
+    @staticmethod
+    def create_runtime_folder(experiment_dir):
         runtime_folder = os.path.join(experiment_dir, "runtime")
         os.makedirs(runtime_folder, exist_ok=True)
         return runtime_folder
 
-    def create_logs_folder(self, experiment_dir):
+    @staticmethod
+    def create_logs_folder(experiment_dir):
         logs_folder = os.path.join(experiment_dir, "logs_failed_files")
         os.makedirs(logs_folder, exist_ok=True)
         return logs_folder
@@ -189,10 +190,15 @@ class ExperimentFunctionCallingEvaluation:
         if max_files is not None:
             file_names = file_names[:max_files]
 
+        expected_base_names = []
+
         for file_name in file_names:
             path_to_text_file = os.path.join(text_files_folder, file_name)
 
             if os.path.isfile(path_to_text_file):
+                base_name = os.path.splitext(file_name)[0]
+                expected_base_names.append(base_name)
+
                 try:
                     self.process_single_file(
                         path_to_text_file,
@@ -200,24 +206,29 @@ class ExperimentFunctionCallingEvaluation:
                         predictions_folder,
                         gpt_model,
                     )
-                except ValidationError as e:
-                    print(
-                        f"""Could not complete file {path_to_text_file} because of error: {e.message}. Will continue with next file.""",
-                        file=sys.stderr,
-                    )
+
+                except Exception as e:
+                    print(f"Could not complete file {path_to_text_file} because of {type(e).__name__}: {e}. Will continue with next file.", file=sys.stderr)
+
                     self.failed_files.append(path_to_text_file)
 
         if self.failed_files:
             self.log_failed_files(self.experiment_dir)
+
+        return expected_base_names
 
     def process_single_file(self, path_to_text_file, demonstrations_folder, predictions_folder, gpt_model):
         base_name = os.path.splitext(os.path.basename(path_to_text_file))[0]
         pred_filename = f'pred_{base_name}.json'
         output_path_response = os.path.join(predictions_folder, pred_filename)
 
-        if not self.regenerate_predictions and os.path.exists(output_path_response):
-            print(f"Prediction for {base_name} already exists. Skipping regeneration.")
-            return
+        if os.path.exists(output_path_response):
+            if self.regenerate_predictions:
+                os.remove(output_path_response)
+                print(f"Removed old prediction for {base_name} before regeneration.")
+            else:
+                print(f"Prediction for {base_name} already exists. Skipping regeneration.")
+                return
 
         test_files = [path_to_text_file]
         demonstrations = [os.path.join(demonstrations_folder, "demonstration_1.txt")]
@@ -232,7 +243,6 @@ class ExperimentFunctionCallingEvaluation:
         base_file_name = os.path.splitext(os.path.basename(pred_filename))[0]
 
         cost_summary = experiment_function_calling.dialogue.token_counter.get_cost_summary(pred_filename)
-        # timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = "cost_summary_" + base_file_name + ".json"
         costs_directory = self.create_costs_folder(self.experiment_dir)
         self.save_costs_to_file(cost_summary, costs_directory, filename)
@@ -242,13 +252,15 @@ class ExperimentFunctionCallingEvaluation:
         runtime_directory = self.create_runtime_folder(self.experiment_dir)
         self.save_runtime_to_file(runtime_summary, runtime_directory, filename_runtime)
 
-    def save_costs_to_file(self, costs, directory: str, filename):
+    @staticmethod
+    def save_costs_to_file(costs, directory: str, filename):
         costs_as_string = json.dumps(costs)
         file_path = os.path.join(directory, filename)
         with open(file_path, 'w') as f:
             f.write(costs_as_string)
 
-    def save_runtime_to_file(self, runtime, directory: str, filename_runtime):
+    @staticmethod
+    def save_runtime_to_file(runtime, directory: str, filename_runtime):
         runtime_as_string = json.dumps(runtime)
         file_path = os.path.join(directory, filename_runtime)
         with open(file_path, 'w') as f:
@@ -262,19 +274,21 @@ class ExperimentFunctionCallingEvaluation:
         predictions_folder = self.create_predictions_folder(self.experiment_dir)
         scores_txt_folder = self.create_scores_txt_folder(self.experiment_dir)
         scores_json_folder = self.create_scores_json_folder(self.experiment_dir)
-        self.process_files(
+        expected_base_names = self.process_files(
             sample_folder,
             demonstrations_folder,
             predictions_folder,
             gpt_model=gpt_model,
-            max_files=max_files
+            max_files=max_files,
         )
         json_comparison = JsonComparison()
-        json_comparison.perform_json_comparison(ground_truth_folder,
-                                                predictions_folder,
-                                                scores_txt_folder,
-                                                scores_json_folder,
-                                                exclusions)
+        json_comparison.perform_json_comparison(gt_folder=ground_truth_folder,
+                                                prediction_folder=predictions_folder,
+                                                output_folder=scores_txt_folder,
+                                                json_output_folder=scores_json_folder,
+                                                exclusions_list=exclusions,
+                                                expected_base_names=expected_base_names,
+                                                )
 
 
 def _prepare_and_run_experiment(model_name: str, prompt_name: str, sample_folder_name: str, max_files=None):

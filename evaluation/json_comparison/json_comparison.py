@@ -380,7 +380,13 @@ class JsonComparison:
                 fuzzy_diffs_counter += 1
         return deep_diff_formated_fuzzy_changes, fuzzy_diffs_counter
 
-    def perform_json_comparison(self, gt_folder, prediction_folder, output_folder, json_output_folder, exclusions_list: List[List[str]]):
+    def perform_json_comparison(self,
+                                gt_folder,
+                                prediction_folder,
+                                output_folder,
+                                json_output_folder,
+                                exclusions_list: List[List[str]],
+                                expected_base_names=None):
         output_file = os.path.join(output_folder, f'results.txt')
         json_output_file = os.path.join(json_output_folder, f'results.json')
         gt_documents = create_documents(gt_folder)
@@ -389,12 +395,18 @@ class JsonComparison:
         pred_dict = {doc.document_name: doc for doc in pred_documents}
         overall_results_list = OverallResultList(exclusions_list)
         comparison_results = {'individual_results': [], 'overall_results': []}
+        successful_predictions = 0
+        failed_predictions = 0
 
         for gt_filename, gt_document in gt_dict.items():
             base_name = os.path.splitext(gt_filename)[0]
+            if expected_base_names is not None and base_name not in expected_base_names:
+                continue
+
             pred_filename = f'pred_{base_name}.json'
 
             if pred_filename in pred_dict:
+                successful_predictions += 1
                 pred_document = pred_dict[pred_filename]
                 matching_person_object = self.find_matching_person(gt_document.persons, pred_document.persons)
                 self.normalize_prediction_relation_targets(matching_person_object)
@@ -457,7 +469,49 @@ class JsonComparison:
                                                     all_fields_count=total_field_count)
 
             else:
-                continue
+                failed_predictions += 1
+
+                for exclude_paths in exclusions_list:
+                    total_field_count = sum(self.count_person_fields(person, exclude_paths) for person in gt_document.persons)
+
+                    comparison_results["individual_results"].append(
+                        {
+                            "file_name1": gt_filename,
+                            "file_name2": None,
+                            "exclude_paths": exclude_paths,
+                            "error": "Prediction could not be generated.",
+                            "exact_score": 0.0,
+                            "exact_matches": 0,
+                            "exact_differences": total_field_count,
+                            "fuzzy_score": 0.0,
+                            "fuzzy_matches": 0,
+                            "fuzzy_differences": total_field_count,
+                            "total_field_count": total_field_count,
+                            "number_of_missing_persons": len(gt_document.persons),
+                            "number_of_extra_persons": 0,
+                            "number_of_fields_of_missing_persons": total_field_count,
+                            "number_of_fields_of_extra_persons": 0,
+                        }
+                    )
+
+                    overall_results_list.add_counts(
+                        exclusion_path=exclude_paths,
+                        fuzzy_count_matches=0,
+                        exact_count_matches=0,
+                        all_fields_count=total_field_count,
+                    )
+
+        number_expected = (
+                successful_predictions
+                + failed_predictions
+        )
+
+        comparison_results["generation_summary"] = {
+            "expected_predictions": number_expected,
+            "successful_predictions": successful_predictions,
+            "failed_predictions": failed_predictions,
+            "success_rate": successful_predictions / number_expected if number_expected > 0 else 0.0
+        }
 
         comparison_results['overall_results'] = overall_results_list.get_overall_results()
 
