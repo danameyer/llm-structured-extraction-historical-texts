@@ -19,87 +19,135 @@ class JsonComparison:
     def __init__(self):
         load_dotenv()
 
-    def sort_list_of_dicts_by_keys(self, lst: List[Dict]) -> List[Dict]:
+    @staticmethod
+    def _person_dict_for_matching(person: Person) -> Dict:
         """
-        Sorts a list of dictionaries by their keys, where each dictionary's keys are sorted alphabetically.
-
-        Parameters:
-        lst (List[Dict]): The list of dictionaries to be sorted.
-
-        Returns:
-        List[Dict]: A new list of dictionaries with keys sorted alphabetically in each dictionary.
+        Representation used for deciding which predicted person corresponds to which GT person.
         """
-        sorted_list = []
-        for d in lst:
-            sorted_dict = {key: d[key] for key in sorted(d)}
-            sorted_list.append(sorted_dict)
+        person_dict = person.to_dict()
+        person_dict.pop("id", None)
 
-        sorted_list.sort(key=lambda d: list(d.keys()))
+        for relation_field in ["family_relations", "legal_relationship"]:
+            person_dict[relation_field] = sorted(
+                [{"relation_type": relation["relation_type"]}for relation in person_dict[relation_field]],
+                key=lambda relation: (relation["relation_type"]),
+            )
 
-        return sorted_list
+        return person_dict
 
-    def find_matching_person(self,
-                             person_list_1: List[Person],
-                             person_list_2: List[Person],
-                             distance_threshold: float = 0.2) -> PersonMatching:
+    def _person_distance(self, evaluator, person_a: Person, person_b: Person) -> float:
+        person_a_string = json.dumps(self._person_dict_for_matching(person_a), sort_keys=True)
+        person_b_string = json.dumps(self._person_dict_for_matching(person_b), sort_keys=True)
+        result = evaluator.evaluate_strings(prediction=person_a_string, reference=person_b_string)
+
+        return result["score"]
+
+    def find_matching_person(
+            self,
+            person_list_1: List[Person],
+            person_list_2: List[Person],
+            distance_threshold: float = 0.2,
+    ) -> PersonMatching:
         evaluator = JsonEditDistanceEvaluator()
         matches = []
-        not_found = []
+        used_gt_indices = set()
+        used_prediction_indices = set()
 
-        for person_a in person_list_1:
-            name_a = person_a.name
-            matching_person = None
-            last_matching_score = 1.0
-            for person_b in person_list_2:
-                name_b = person_b.name
-                name_a_simplified = self.simplify_name(name_a)
-                name_b_simplified = self.simplify_name(name_b)
-                if self.fuzzy_compare(name_a_simplified, name_b_simplified):
-                    person_a_as_dict = person_a.to_dict()
-                    person_b_as_dict = person_b.to_dict()
-                    person_a_as_string = json.dumps(person_a_as_dict)
-                    person_b_as_string = json.dumps(person_b_as_dict)
-                    result = evaluator.evaluate_strings(prediction=person_a_as_string, reference=person_b_as_string)
-                    score = result['score']
-                    if score < last_matching_score:
-                        matching_person = person_b
-                        last_matching_score = score
+        # Stage 1: Match people whose names correspond.
+        name_candidates = []
 
-            if matching_person is None:
-                not_found.append(person_a)
-            else:
-                matches.append((person_a, matching_person))
+        for gt_index, person_a in enumerate(person_list_1):
+            for pred_index, person_b in enumerate(person_list_2):
+                name_a = self.simplify_name(person_a.name)
+                name_b = self.simplify_name(person_b.name)
 
-        # # Handle persons not matched by name
-        unmatched_persons = not_found.copy()
-        not_found = []
-        for person_a in unmatched_persons:
-            person_a_as_dict = person_a.to_dict()
-            person_a_as_string = json.dumps(person_a_as_dict)
-            matching_person = None
-            last_matching_score = distance_threshold
-            for person_b in person_list_2:
-                if person_b not in [match[1] for match in matches]:
-                    person_b_as_dict = person_b.to_dict()
-                    person_b_as_string = json.dumps(person_b_as_dict)
-                    result = evaluator.evaluate_strings(prediction=person_a_as_string, reference=person_b_as_string)
-                    score = result['score']
-                    if score < last_matching_score:
-                        matching_person = person_b
-                        last_matching_score = score
+                if self.fuzzy_compare(name_a, name_b):
+                    score = self._person_distance(evaluator, person_a, person_b)
+                    name_candidates.append((score, gt_index, pred_index))
 
-            if matching_person is None:
-                not_found.append(person_a)
-            else:
-                matches.append((person_a, matching_person))
+        # Best matches first.
+        name_candidates.sort(key=lambda candidate: candidate[0])
 
-        return PersonMatching(matches=matches, not_found=not_found)
+        for (score, gt_index, pred_index) in name_candidates:
+            if gt_index in used_gt_indices:
+                continue
 
-    def simplify_name(self, name_a):
-        return (name_a.replace('.', '')
-                .replace('\'', ''))
+            if pred_index in used_prediction_indices:
+                continue
 
-    def get_deep_diff(self, person_1: Person, person_2: Person, exclude_paths: List[str] = None):
+            matches.append((person_list_1[gt_index], person_list_2[pred_index]))
+            used_gt_indices.add(gt_index)
+            used_prediction_indices.add(pred_index)
+
+
+        # Fallback matching for people whose names did not  correspond but whose overall records are close.
+        fallback_candidates = []
+
+        for gt_index, person_a in enumerate(person_list_1):
+            if gt_index in used_gt_indices:
+                continue
+
+            for pred_index, person_b in enumerate(person_list_2):
+                if pred_index in used_prediction_indices:
+                    continue
+
+                score = self._person_distance(evaluator, person_a, person_b)
+
+                if score < distance_threshold:
+                    fallback_candidates.append((score, gt_index, pred_index))
+
+        fallback_candidates.sort(key=lambda candidate: candidate[0])
+
+        for (score, gt_index, pred_index) in fallback_candidates:
+
+            if gt_index in used_gt_indices:
+                continue
+
+            if pred_index in used_prediction_indices:
+                continue
+
+            matches.append((person_list_1[gt_index], person_list_2[pred_index]))
+            used_gt_indices.add(gt_index)
+            used_prediction_indices.add(pred_index)
+
+        not_found = [person for index, person in enumerate(person_list_1) if index not in used_gt_indices]
+        unmatched_predictions = [person for index, person in enumerate(person_list_2) if index not in used_prediction_indices]
+
+        return PersonMatching(
+            matches=matches,
+            not_found=not_found,
+            unmatched_predictions=unmatched_predictions
+        )
+
+    @staticmethod
+    def normalize_prediction_relation_targets(person_matching: PersonMatching):
+        prediction_id_to_gt_id = {predicted_person.id: gt_person.id for (gt_person, predicted_person) in person_matching.matches}
+        all_predicted_people = [predicted_person for _, predicted_person in person_matching.matches]
+        all_predicted_people.extend(person_matching.unmatched_predictions)
+
+        for person in all_predicted_people:
+            relations = person.family_relations + person.legal_relationship
+
+            for relation in relations:
+                related_person = relation.related_person
+
+                if related_person is None:
+                    continue
+
+                if not isinstance(related_person, int):
+                    continue
+
+                if related_person in prediction_id_to_gt_id:
+                    relation.related_person = prediction_id_to_gt_id[related_person]
+                else:
+                    relation.related_person = f"unmatched_prediction_{related_person}"
+
+    @staticmethod
+    def simplify_name(name_a):
+        return name_a.replace('.', '').replace('\'', '')
+
+    @staticmethod
+    def get_deep_diff(person_1: Person, person_2: Person, exclude_paths: List[str] = None):
         if exclude_paths is None:
             exclude_paths = []
 
@@ -133,28 +181,30 @@ class JsonComparison:
                 person_matching, exclude_paths=exclude_paths)
         else:
             metric_values_changed, metric_items_change_count, number_fields_total, metric_type_changes, deep_diff_results = (
-                self.calculate_diff_metrics(
-                    person_matching,
-                    apply_fuzzy=True,
-                    exclude_paths=exclude_paths))
-        number_of_fields_of_missing_persons = self.calculate_not_found_metric(person_matching)
+                self.calculate_diff_metrics(person_matching, apply_fuzzy=True, exclude_paths=exclude_paths))
 
-        number_fields_total += number_of_fields_of_missing_persons
-
-        # Calculate total differences
-        all_diffs = (metric_values_changed
-                     + number_of_fields_of_missing_persons
-                     + metric_items_change_count
-                     + metric_type_changes)
+        number_of_fields_of_missing_persons = self.calculate_not_found_metric(person_matching, exclude_paths)
+        number_of_fields_of_extra_persons = self.calculate_unmatched_prediction_metric(person_matching, exclude_paths)
+        number_fields_total += (number_of_fields_of_missing_persons + number_of_fields_of_extra_persons)
+        all_diffs = (
+                metric_values_changed
+                + metric_items_change_count
+                + metric_type_changes
+                + number_of_fields_of_missing_persons
+                + number_of_fields_of_extra_persons
+        )
         matches = number_fields_total - all_diffs
-
         accuracy_score = self.calculate_accuracy_score(matches, number_fields_total, all_diffs)
 
-        print("Number of fields:", number_fields_total)
-        print("Number of matches:", matches)
-        print("Number of differences:", all_diffs)
-
-        return accuracy_score, matches, all_diffs, deep_diff_results, number_fields_total, number_of_fields_of_missing_persons
+        return (
+            accuracy_score,
+            matches,
+            all_diffs,
+            deep_diff_results,
+            number_fields_total,
+            number_of_fields_of_missing_persons,
+            number_of_fields_of_extra_persons,
+        )
 
     def calculate_diff_metrics(self,
                                person_matching: PersonMatching,
@@ -170,7 +220,12 @@ class JsonComparison:
             person_1, person_2 = match
             exact_ddiff_as_json = self.get_deep_diff(person_1, person_2, exclude_paths)
             exact_ddiff_as_dict = json.loads(exact_ddiff_as_json)
-            number_fields_total += self.count_fields(person_1.__dict__)
+            number_fields_total += (
+                self.count_person_fields(
+                    person_1,
+                    exclude_paths,
+                )
+            )
 
             # Values changed:
             exact_values_changed: Dict = exact_ddiff_as_dict.get("values_changed", {})
@@ -213,22 +268,85 @@ class JsonComparison:
 
         return metric_values_changed, metric_items_change_count, number_fields_total, metric_type_changes, deepdiff_results
 
-    def count_internal_items(self, iterable_item_added: Dict[str, Dict]):
+    @staticmethod
+    def count_internal_items(iterable_item_added: Dict[str, Dict]):
         count = 0
         for key in iterable_item_added:
             count += len(iterable_item_added[key])
         return count
 
-    def calculate_not_found_metric(self, person_matching: PersonMatching) -> int:
-        not_found_counts = [self.count_fields(person.__dict__) for person in person_matching.not_found]
+    def calculate_not_found_metric(
+            self,
+            person_matching: PersonMatching,
+            exclude_paths=None,
+    ) -> int:
+
+        not_found_counts = [
+            self.count_person_fields(
+                person,
+                exclude_paths,
+            )
+            for person
+            in person_matching.not_found
+        ]
+
         return sum(not_found_counts)
 
-    def calculate_accuracy_score(self, matches: int, number_fields_total: int, all_diffs: int) -> float:
+    def calculate_unmatched_prediction_metric(
+            self,
+            person_matching: PersonMatching,
+            exclude_paths=None,
+    ) -> int:
+
+        extra_counts = [
+            self.count_person_fields(
+                person,
+                exclude_paths,
+            )
+            for person
+            in person_matching.unmatched_predictions
+        ]
+
+        return sum(extra_counts)
+
+    def count_person_fields(
+            self,
+            person: Person,
+            exclude_paths=None,
+    ) -> int:
+
+        person_dict = person.to_dict()
+
+        if exclude_paths is None:
+            exclude_paths = []
+
+        for path in exclude_paths:
+            prefix = "root['"
+            suffix = "']"
+
+            if (
+                    path.startswith(prefix)
+                    and path.endswith(suffix)
+            ):
+                field_name = path[
+                             len(prefix):-len(suffix)
+                             ]
+
+                person_dict.pop(
+                    field_name,
+                    None,
+                )
+
+        return self.count_fields(person_dict)
+
+    @staticmethod
+    def calculate_accuracy_score(matches: int, number_fields_total: int, all_diffs: int) -> float:
         if number_fields_total == 0:
             return 1.0 if not all_diffs else 0.0
         return matches / number_fields_total
 
-    def fuzzy_compare(self, old_value, new_value, threshold=80):
+    @staticmethod
+    def fuzzy_compare(old_value, new_value, threshold=80):
         if isinstance(old_value, str) and isinstance(new_value, str):
             score = fuzz.ratio(old_value, new_value)
             if score > threshold:
@@ -236,48 +354,41 @@ class JsonComparison:
         return False
 
     def apply_fuzzy_compare(self, values_changed: Dict, threshold=80) -> Tuple[Dict[str, Dict], int]:
-        fuzzy_diffs = []
         fuzzy_diffs_counter = 0
         deep_diff_formated_fuzzy_changes = dict()
         for key, change in values_changed.items():
-            old_value = change['old_value']
-            new_value = change['new_value']
-            if isinstance(old_value, str) and isinstance(new_value, str):
-                if not self.fuzzy_compare(old_value, new_value, threshold):
-                    # deep_diff_formated_fuzzy_changes['root[\'' + key + '\']'] = {
-                    deep_diff_formated_fuzzy_changes[key] = {
-                        'old_value': old_value,
-                        'new_value': new_value
-                    }
-                    # fuzzy_diffs.append({
-                    #     'key': key,
-                    #     'old_value': old_value,
-                    #     'new_value': new_value,
-                    #     'similarity': fuzz.ratio(old_value, new_value)
-                    # })
+            old_value = change["old_value"]
+            new_value = change["new_value"]
+
+            if (
+                    isinstance(old_value, str)
+                    and isinstance(new_value, str)
+            ):
+                if not self.fuzzy_compare(
+                        old_value,
+                        new_value,
+                        threshold,
+                ):
+                    deep_diff_formated_fuzzy_changes[
+                        key
+                    ] = {"old_value": old_value, "new_value": new_value}
+
                     fuzzy_diffs_counter += 1
+
+            else:
+                deep_diff_formated_fuzzy_changes[key] = {"old_value": old_value, "new_value": new_value}
+                fuzzy_diffs_counter += 1
         return deep_diff_formated_fuzzy_changes, fuzzy_diffs_counter
 
-    def perform_json_comparison(self, gt_folder, prediction_folder, output_folder, json_output_folder, exclusions: List[List[str]]):
-        # timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    def perform_json_comparison(self, gt_folder, prediction_folder, output_folder, json_output_folder, exclusions_list: List[List[str]]):
         output_file = os.path.join(output_folder, f'results.txt')
         json_output_file = os.path.join(json_output_folder, f'results.json')
-
         gt_documents = create_documents(gt_folder)
         pred_documents = create_documents(prediction_folder)
-
         gt_dict = {doc.document_name: doc for doc in gt_documents}
         pred_dict = {doc.document_name: doc for doc in pred_documents}
-
-        fuzzy_count_matches = 0
-        exact_count_matches = 0
-        all_fields_count = 0
-
-        overall_results_list = OverallResultList(exclusions)
-        comparison_results = {
-            'individual_results': [],
-            'overall_results': []
-        }
+        overall_results_list = OverallResultList(exclusions_list)
+        comparison_results = {'individual_results': [], 'overall_results': []}
 
         for gt_filename, gt_document in gt_dict.items():
             base_name = os.path.splitext(gt_filename)[0]
@@ -285,13 +396,28 @@ class JsonComparison:
 
             if pred_filename in pred_dict:
                 pred_document = pred_dict[pred_filename]
+                matching_person_object = self.find_matching_person(gt_document.persons, pred_document.persons)
+                self.normalize_prediction_relation_targets(matching_person_object)
 
-                for exclude_paths in exclusions:
-                    matching_person_object = self.find_matching_person(gt_document.persons, pred_document.persons)
-                    exact_score, exact_matches, exact_diffs, deep_diff_results, total_field_count, number_of_fields_of_missing_persons = self.calculate_metric(
-                        matching_person_object, exclude_paths=exclude_paths)
-                    fuzzy_score, fuzzy_matches, fuzzy_diffs, deep_diff_results_fuzzy, total_field_count, number_of_fields_of_missing_persons = self.calculate_metric(
-                        matching_person_object, apply_fuzzy=True, exclude_paths=exclude_paths)
+                for exclude_paths in exclusions_list:
+                    (
+                        exact_score,
+                        exact_matches,
+                        exact_diffs,
+                        deep_diff_results,
+                        total_field_count,
+                        number_of_fields_of_missing_persons,
+                        number_of_fields_of_extra_persons,
+                    ) = self.calculate_metric(matching_person_object, exclude_paths=exclude_paths)
+                    (
+                        fuzzy_score,
+                        fuzzy_matches,
+                        fuzzy_diffs,
+                        deep_diff_results_fuzzy,
+                        fuzzy_total_field_count,
+                        _,
+                        _,
+                    ) = self.calculate_metric(matching_person_object, apply_fuzzy=True, exclude_paths=exclude_paths)
 
                     individual_result = {
                         'file_name1': gt_filename,
@@ -304,17 +430,27 @@ class JsonComparison:
                         'fuzzy_matches': fuzzy_matches,
                         'fuzzy_differences': fuzzy_diffs,
                         'total_field_count': total_field_count,
-                        'number_of_missing_persons': len(matching_person_object.not_found),
-                        'number_of_fields_of_missing_persons': number_of_fields_of_missing_persons,
                         'deepdiff_comparison_results': deep_diff_results,
-                        'deep_diff_comparison_results_fuzzy': deep_diff_results_fuzzy
+                        'deep_diff_comparison_results_fuzzy': deep_diff_results_fuzzy,
+                        "number_of_missing_persons":
+                            len(
+                                matching_person_object.not_found
+                            ),
+
+                        "number_of_extra_persons":
+                            len(
+                                matching_person_object
+                                .unmatched_predictions
+                            ),
+
+                        "number_of_fields_of_missing_persons":
+                            number_of_fields_of_missing_persons,
+
+                        "number_of_fields_of_extra_persons":
+                            number_of_fields_of_extra_persons,
                     }
 
                     comparison_results['individual_results'].append(individual_result)
-
-                    # fuzzy_count_matches += fuzzy_matches
-                    # exact_count_matches += exact_matches
-                    # all_fields_count += total_field_count
                     overall_results_list.add_counts(exclusion_path=exclude_paths,
                                                     fuzzy_count_matches=fuzzy_matches,
                                                     exact_count_matches=exact_matches,
@@ -322,36 +458,21 @@ class JsonComparison:
 
             else:
                 continue
-                # comparison_results['individual_results'].append({
-                #     'file_name1': gt_filename,
-                #     'error': 'JSON file with predicted results not found.'
-                # })
 
-        # overall_score_exact = exact_count_matches / all_fields_count if all_fields_count > 0 else 0
-        # overall_score_fuzzy = fuzzy_count_matches / all_fields_count if all_fields_count > 0 else 0
-
-        # comparison_results['overall_results'].append({
-        #     'overall_exact_score': overall_score_exact,
-        #     'overall_fuzzy_score': overall_score_fuzzy,
-        #     'total_exact_matches': exact_count_matches,
-        #     'total_fuzzy_matches': fuzzy_count_matches,
-        #     'total_exact_misses': all_fields_count - exact_count_matches,
-        #     'total_fuzzy_misses': all_fields_count - fuzzy_count_matches,
-        #     'total_fields_count': all_fields_count
-        # })
         comparison_results['overall_results'] = overall_results_list.get_overall_results()
 
         # Write all results to the file in one go
-        with open(output_file, 'a') as result_file:
+        with open(output_file, "a", encoding="utf-8") as result_file:
             result_file.write(f"\nResults generated on: {datetime.now()}\n\n")
             formatted_result = self.format_comparison(comparison_results)
             result_file.write(formatted_result)
 
         # Save the comparison results as a JSON file
-        with open(json_output_file, 'w') as json_file:
-            json.dump(comparison_results, json_file, indent=4)
+        with open(json_output_file, "w", encoding="utf-8") as json_file:
+            json_file.write(json.dumps(comparison_results, indent=4, ensure_ascii=False))
 
-    def format_comparison(self, comparison_results):
+    @staticmethod
+    def format_comparison(comparison_results):
         """
         Formats the comparison results into a structured string.
         """
@@ -438,8 +559,18 @@ if __name__ == '__main__':
     pred_path = os.path.join(base_dir, "test_data", "test_json_diff", "predictions")
     output_path = os.path.join(base_dir, "test_data", "test_json_diff", "scores")
     json_output_path = os.path.join(base_dir, "test_data", "test_json_diff", "scores_as_json")
+    exclusions = [
+        ["root['id']"],
+        ["root['id']", "root['cognomen']"],
+        ["root['id']", "root['legal_relationship']"],
+        ["root['id']", "root['place_of_origin']"],
+        ["root['id']", "root['family_relations']"],
+        ["root['id']", "root['title']"],
+        ["root['id']", "root['profession']"],
+    ]
+
     if not os.path.exists(output_path):
         os.makedirs(output_path)
     if not os.path.exists(json_output_path):
         os.makedirs(json_output_path)
-    json_comparison.perform_json_comparison(gt_path, pred_path, output_path, json_output_path)
+    json_comparison.perform_json_comparison(gt_path, pred_path, output_path, json_output_path, exclusions)

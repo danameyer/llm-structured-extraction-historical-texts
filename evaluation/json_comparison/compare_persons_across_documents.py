@@ -53,7 +53,7 @@ if __name__ == '__main__':
     person_comparator = PersonComparison()
 
     sample_person = Person(
-        id=1,
+        person_id=1,
         name="Simon",
         cognomen="De Leukenor",
         profession="",

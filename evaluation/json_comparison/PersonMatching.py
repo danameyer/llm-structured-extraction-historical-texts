@@ -1,23 +1,17 @@
-import json
-from typing import List, Tuple, Dict
-
-from langchain.evaluation import JsonEditDistanceEvaluator
-
+from typing import List, Tuple
 from data_classes.person import Person
 
 
 class PersonMatching:
 
-    def __init__(self, matches: List[Tuple[Person, Person]] = None, not_found: List[Person] = None):
-
-        if matches is None:
-            self.matches = list()
-        else:
-            self.matches: List[Tuple[Person, Person]] = matches
-
-        if not_found is None:
-            self.not_found = list()
-        else:
-            self.not_found: List[Person] = not_found
+    def __init__(
+            self,
+            matches: List[Tuple[Person, Person]] = None,
+            not_found: List[Person] = None,
+            unmatched_predictions: List[Person] = None,
+    ):
+        self.matches = matches if matches is not None else []
+        self.not_found = not_found if not_found is not None else []
+        self.unmatched_predictions = unmatched_predictions if unmatched_predictions is not None else []
 
 
