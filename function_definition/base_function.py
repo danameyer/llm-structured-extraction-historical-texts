@@ -1,6 +1,6 @@
 from typing import Any, Dict
 from dotenv import load_dotenv
-from function_calling_components.function_calling import FunctionBuilder
+from function_calling_setup.function_calling import FunctionBuilder
 
 
 class BaseFunction:

@@ -1,0 +1,1 @@
+"""Functionality for evaluating JSON files (i.e. validation and evaluation of comparison results)."""

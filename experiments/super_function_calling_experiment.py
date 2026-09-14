@@ -1,9 +1,5 @@
-import os
-from pathlib import Path
-
 from dotenv import load_dotenv
-
-from function_calling_components.chat_completion_blueprint import DialogueCompletion
+from function_calling_setup.chat_completion_blueprint import DialogueCompletion
 from prompting.prompting_strategies import PromptBuilder
 
 

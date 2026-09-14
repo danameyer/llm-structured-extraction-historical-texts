@@ -4,17 +4,13 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from typing import List
-from evaluation.json_comparison.json_comparison import JsonComparison
-from experiments.function_calling.function_calling_all_principles_few_shot import ExperimentAllPrinciplesFewShotPrompt
-from experiments.function_calling.function_calling_all_principles_zero_shot import ExperimentAllPrinciplesZeroShotPrompt
-from experiments.function_calling.function_calling_no_principles_base_prompt import \
-    ExperimentFunctionCallingNoPrinciplesBasePrompt
-from experiments.function_calling.function_calling_optimised_no_function_calling import \
-    ExperimentOptimisedPromptNoFunctionCalling
-from experiments.function_calling.function_calling_with_optimised_prompt import \
-    ExperimentFunctionCallingWithOptimisedPrompt
-from function_calling_components.chat_completion_blueprint import DialogueCompletion
-from function_calling_components.chat_file_writer import ChatFileWriter
+from evaluation.json_comparison import JsonComparison
+from experiments.function_calling_all_principles_few_shot import ExperimentAllPrinciplesFewShotPrompt
+from experiments.function_calling_all_principles_zero_shot import ExperimentAllPrinciplesZeroShotPrompt
+from experiments.function_calling_no_principles_base_prompt import ExperimentFunctionCallingNoPrinciplesBasePrompt
+from experiments.function_calling_optimised_no_function_calling import ExperimentOptimisedPromptNoFunctionCalling
+from experiments.function_calling_with_optimised_prompt import ExperimentFunctionCallingWithOptimisedPrompt
+from function_calling_setup.chat_file_writer import ChatFileWriter
 
 MODERN_MODELS = ["gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"]
 ABLATION_MODEL = "gpt-5.6-sol"
@@ -31,7 +27,6 @@ class ExperimentFunctionCallingEvaluation:
         self.prompt_experiment_name = prompt_experiment_name
         self.model_name = gpt_model_name
         self.regenerate_predictions = regenerate_predictions
-        self.dialogue = DialogueCompletion(model=gpt_model_name, experiment_dir=experiment_dir)
         self.failed_files = []
 
     def init_prompt_experiment(self, demonstrations_files, test_files, gpt_model, pred_file_name):
@@ -417,7 +412,7 @@ def _main():
 
 def _smoke_test():
     _prepare_and_run_experiment(
-        model_name="gpt-4o-2024-08-06",
+        model_name=SMOKE_TEST_MODEL,
         prompt_name="best_prompt",
         sample_folder_name="txt_files_function_calling_evaluation",
         max_files=2,

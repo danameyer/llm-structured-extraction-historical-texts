@@ -1,7 +1,6 @@
 import json
 import os
 from pathlib import Path
-
 import jsonschema
 from dotenv import load_dotenv
 from jsonschema.validators import Draft202012Validator
@@ -82,16 +81,3 @@ class JsonValidator:
             print(f"Invalid JSON data: {e}")
         except jsonschema.exceptions.ValidationError as e:
             print(f"JSON does not match schema: {e}")
-
-
-if __name__ == "__main__":
-    validator = JsonValidator()
-    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    path_json1 = os.path.join(base_dir, "test_data", "test_json_diff", "sample_json_original.json")
-    json1 = file_reader_util.read_json(path_json1)
-    path_json2 = os.path.join(base_dir, "test_data", "test_json_diff", "sample_json_modified.json")
-    json2 = file_reader_util.read_json(path_json2)
-    validator.validate_json(json1)
-    validator.validate_json(json2)
-
-

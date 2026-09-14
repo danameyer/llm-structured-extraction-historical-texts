@@ -1,0 +1,1 @@
+"""Defining a function for tool calling."""

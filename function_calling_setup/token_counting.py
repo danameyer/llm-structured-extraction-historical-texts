@@ -1,7 +1,6 @@
 import tiktoken
 from typing import List
-
-from function_calling_components.model_pricing import ModelPricing
+from function_calling_setup.model_pricing import ModelPricing
 
 
 class TokenCounter:

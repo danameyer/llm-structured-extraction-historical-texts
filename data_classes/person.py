@@ -1,10 +1,7 @@
 import logging
-import os
 from dataclasses import dataclass
-from pathlib import Path
 from typing import List, Dict
 import marshmallow
-from dotenv import load_dotenv
 from marshmallow import Schema, fields, post_load
 from utils import file_reader_util
 
@@ -105,15 +102,3 @@ def create_person_object(file_path: str) -> List[Person]:
         persons = []
 
     return persons
-
-
-if __name__ == "__main__":
-    load_dotenv()
-    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    path_json = os.path.join(base_dir, "test_data", "test_json_diff", "sample_json_original.json")
-    persons_in_json = create_person_object(path_json)
-
-    for person_in_json in persons_in_json:
-        print(person_in_json)
-        for rel in person_in_json.family_relations + person_in_json.legal_relationship:
-            print(f"  - {rel.relation_type} -> {rel.related_person}")

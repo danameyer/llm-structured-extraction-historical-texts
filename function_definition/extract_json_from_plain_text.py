@@ -1,10 +1,10 @@
-from function_calling_components.function_calling import (
+from function_calling_setup.function_calling import (
     Function,
     FunctionBuilder,
     Parameter,
-    Property,
+    Property
 )
-from functions.BaseFunction import BaseFunction
+from function_definition.base_function import BaseFunction
 
 
 class ExtractJsonFromPlainText(BaseFunction):

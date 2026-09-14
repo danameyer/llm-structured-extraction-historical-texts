@@ -4,10 +4,10 @@ import openai
 from jsons import ValidationError
 from openai.types.responses import Response
 from tenacity import retry, stop_after_attempt, wait_random_exponential
-from evaluation.json_comparison.json_validation import JsonValidator
-from function_calling_components.chat_completion_blueprint import DialogueCompletion
-from function_calling_components.function_calling import Message
-from functions.ExtractJsonFromPlainText import ExtractJsonFromPlainText
+from evaluation.json_validation import JsonValidator
+from function_calling_setup.chat_completion_blueprint import DialogueCompletion
+from function_calling_setup.function_calling import Message
+from function_definition.extract_json_from_plain_text import ExtractJsonFromPlainText
 
 
 ResponseMode = Literal["text", "prompted_json", "json_schema"]

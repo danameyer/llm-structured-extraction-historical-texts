@@ -2,15 +2,14 @@ import json
 import os
 from dataclasses import is_dataclass, asdict
 from datetime import datetime
-from pathlib import Path
 from typing import List, Dict, Tuple, Any
 from deepdiff import DeepDiff
 from dotenv import load_dotenv
 from thefuzz import fuzz
 from data_classes.document import create_documents
 from data_classes.person import Person
-from evaluation.json_comparison.OverallResult import OverallResultList
-from evaluation.json_comparison.PersonMatching import PersonMatching
+from evaluation.overall_result import OverallResultList
+from evaluation.person_matching import PersonMatching
 from langchain.evaluation import JsonEditDistanceEvaluator
 
 
@@ -604,27 +603,3 @@ class JsonComparison:
             output.append(f"{'-' * 60}\n\n")
 
         return "\n".join(output)
-
-
-if __name__ == '__main__':
-    json_comparison = JsonComparison()
-    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    gt_path = os.path.join(base_dir, "test_data", "test_json_diff", "ground_truth")
-    pred_path = os.path.join(base_dir, "test_data", "test_json_diff", "predictions")
-    output_path = os.path.join(base_dir, "test_data", "test_json_diff", "scores")
-    json_output_path = os.path.join(base_dir, "test_data", "test_json_diff", "scores_as_json")
-    exclusions = [
-        ["root['id']"],
-        ["root['id']", "root['cognomen']"],
-        ["root['id']", "root['legal_relationship']"],
-        ["root['id']", "root['place_of_origin']"],
-        ["root['id']", "root['family_relations']"],
-        ["root['id']", "root['title']"],
-        ["root['id']", "root['profession']"],
-    ]
-
-    if not os.path.exists(output_path):
-        os.makedirs(output_path)
-    if not os.path.exists(json_output_path):
-        os.makedirs(json_output_path)
-    json_comparison.perform_json_comparison(gt_path, pred_path, output_path, json_output_path, exclusions)

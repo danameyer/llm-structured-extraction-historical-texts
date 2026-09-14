@@ -2,7 +2,8 @@ class PromptBuilder:
     def __init__(self):
         self.prompting_strategies = []
 
-    def concatenate_files(self, file_paths):
+    @staticmethod
+    def concatenate_files(file_paths):
         concatenated_content = ""
         for file_path in file_paths:
             try:

@@ -1,6 +1,6 @@
-from experiments.function_calling.super_function_calling_experiment import BaseExperimentFunctionCalling
-from function_calling_components.chat_completion_no_function_calling_new import DialogueCompletionNoFunctionCallingNew
+from experiments.super_function_calling_experiment import BaseExperimentFunctionCalling
 from prompting.prompting_strategies import PromptBuilder
+from function_calling_setup.chat_completion_no_function_calling_new import DialogueCompletionNoFunctionCallingNew, ResponseMode
 
 
 class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
@@ -11,7 +11,7 @@ class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
             gpt_model,
             experiment_dir,
             pred_file_name,
-            final_response_mode="json_schema",
+            final_response_mode: ResponseMode ="json_schema",
     ):
         super().__init__(
             test_files,
@@ -30,7 +30,8 @@ class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
         self.pred_file_name = pred_file_name
         self.final_response_mode = final_response_mode
 
-    def generate_system_message(self):
+    @staticmethod
+    def generate_system_message():
         prompt_builder = PromptBuilder()
         prompt = (prompt_builder.add_persona_modelling()
                   .add_context()
@@ -49,13 +50,15 @@ class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
                   .build_prompt())
         return prompt
 
-    def add_task_1(self):
+    @staticmethod
+    def add_task_1():
         prompt_builder = PromptBuilder()
         prompt = (prompt_builder.add_task_1()
                   .build_prompt())
         return prompt
 
-    def add_task_2(self):
+    @staticmethod
+    def add_task_2():
         prompt_builder = PromptBuilder()
         prompt = (prompt_builder.add_task_2_without_tool_calling()
                   .build_prompt())

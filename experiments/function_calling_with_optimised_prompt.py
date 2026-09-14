@@ -1,11 +1,6 @@
-import json
-import os
-from pathlib import Path
-
-from experiments.function_calling.super_function_calling_experiment import BaseExperimentFunctionCalling
-from function_calling_components.chat_completion_blueprint import DialogueCompletion
-from function_calling_components.chat_file_writer import ChatFileWriter
-from functions.ExtractJsonFromPlainText import ExtractJsonFromPlainText
+from experiments.super_function_calling_experiment import BaseExperimentFunctionCalling
+from function_calling_setup.chat_completion_blueprint import DialogueCompletion
+from function_definition.extract_json_from_plain_text import ExtractJsonFromPlainText
 from prompting.prompting_strategies import PromptBuilder
 
 
@@ -16,7 +11,8 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
         self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir, strict=strict)
         self.pred_file_name = pred_file_name
 
-    def generate_system_message(self):
+    @staticmethod
+    def generate_system_message():
         prompt_builder = PromptBuilder()
         prompt = (prompt_builder.add_persona_modelling()
                   .add_context()
@@ -35,21 +31,21 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
                   .build_prompt())
         return prompt
 
-    def add_task_1(self):
+    @staticmethod
+    def add_task_1():
         prompt_builder = PromptBuilder()
         prompt = (prompt_builder.add_task_1()
                   .build_prompt())
         return prompt
 
-    def add_task_2(self):
+    @staticmethod
+    def add_task_2():
         prompt_builder = PromptBuilder()
         prompt = (prompt_builder.add_task_2()
                   .build_prompt())
         return prompt
 
     def run(self):
-        # filename = "function_calling_with_optimised_prompt"
-
         prompt = self.generate_system_message()
         self.dialogue.add_system_prompt(prompt, self.pred_file_name, print_conversation=False)
 
@@ -66,21 +62,3 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
         function_call_result = self.dialogue.function_call_result
 
         return function_call_result
-
-
-if __name__ == '__main__':
-    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    file_path_test_data = os.path.join(base_dir, "test_data", "test_txt", "sample_text.txt")
-    file_path_demonstrations = os.path.join(base_dir, "test_data", "demonstrations", "demonstration_1.txt")
-    experiment = ExperimentFunctionCallingWithOptimisedPrompt(file_path_test_data,
-                                                              file_path_demonstrations,
-                                                              'gpt-3.5-turbo',
-                                                              "/tmp/experiments/function_calling_with_optimised_prompt")
-    response_json = experiment.run()
-    response_json_str = json.dumps(response_json, indent=4)
-    base_name = os.path.splitext("sample_text.json")[0]
-    pred_filename = f'pred_{base_name}.json'
-    output_path_response = os.path.join(base_dir, "test_data", "test_json_diff", "predictions", pred_filename)
-    chat_file_writer = ChatFileWriter("/tmp/experiments/function_calling_with_optimised_prompt")
-    chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False)
-    print(response_json)

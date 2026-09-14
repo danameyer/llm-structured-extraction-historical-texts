@@ -10,7 +10,8 @@ class OverallResultList:
             key = self.get_exclusion_path_key(exclusion)
             self.overall_results_dict[key] = overall_result
 
-    def get_exclusion_path_key(self, exclusion_path: List[str]):
+    @staticmethod
+    def get_exclusion_path_key(exclusion_path: List[str]):
         return ",".join(exclusion_path)
 
     def add_counts(self,

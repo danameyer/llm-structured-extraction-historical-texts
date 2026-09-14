@@ -1,17 +1,16 @@
 import json
 import os
 from typing import TypedDict, Literal, List, Optional, cast, Dict
-
 import openai
 from dotenv import load_dotenv
 from jsons import ValidationError
 from openai import OpenAI
-from evaluation.json_comparison.json_validation import JsonValidator
-from function_calling_components.chat_file_writer import ChatFileWriter
-from function_calling_components.function_calling import Message
-from function_calling_components.runtime_calculation import RuntimeCalculation
-from function_calling_components.token_counting import TokenCounter
-from functions.BaseFunction import BaseFunction
+from evaluation.json_validation import JsonValidator
+from function_calling_setup.chat_file_writer import ChatFileWriter
+from function_calling_setup.function_calling import Message
+from function_calling_setup.runtime_calculation import RuntimeCalculation
+from function_calling_setup.token_counting import TokenCounter
+from function_definition.base_function import BaseFunction
 from tenacity import retry, stop_after_attempt, wait_random_exponential
 from openai.types.responses import EasyInputMessageParam, FunctionToolParam, Response
 from openai.types.shared_params.reasoning import Reasoning
