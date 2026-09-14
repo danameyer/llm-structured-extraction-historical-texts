@@ -1,77 +1,77 @@
 import json
-import os
 import re
 from pathlib import Path
-
+import matplotlib.pyplot as plt
 import numpy as np
-from dotenv import load_dotenv
-from matplotlib import pyplot as plt
 
 
 class CostPlot:
-    def __init__(self):
-        pass
 
     @staticmethod
-    def calculate_costs(models_directory, model_list):
+    def calculate_costs(
+            models_directory: str | Path,
+            model_list: list[str],
+    ) -> tuple[list[str], list[float]]:
+        models_directory = Path(models_directory)
         model_names = []
         costs = []
-        for model_folder in os.listdir(models_directory):
-            if os.path.isdir(os.path.join(models_directory, model_folder)) and model_folder in model_list:
-                costs_directory = os.path.join(models_directory, model_folder, 'costs')
-                if os.path.exists(costs_directory):
-                    json_files = [file for file in os.listdir(costs_directory) if file.endswith('.json')]
-                    cost_list = list()
-                    for json_file in json_files:
-                        json_file_path = os.path.join(costs_directory, json_file)
-                        with open(json_file_path, 'r') as file:
-                            data = json.load(file)
-                            cost = data['costs']
-                            cost_list.append(cost)
-                    total_cost = sum(cost_list)
-                    model_names.append(model_folder)
-                    costs.append(total_cost)
+
+        for model_folder in model_list:
+            costs_directory = models_directory / model_folder / 'costs'
+
+            if not costs_directory.is_dir():
+                print(f"No costs directory found for {model_folder}")
+                continue
+
+            json_files = sorted(costs_directory.glob('*.json'))
+
+            if not json_files:
+                print(f"No cost files found for {model_folder}")
+                continue
+
+            cost_list = []
+
+            for json_file_path in json_files:
+                with open(json_file_path, 'r', encoding='utf-8') as file:
+                    data = json.load(file)
+
+                cost_list.append(data['costs'])
+
+            model_names.append(model_folder)
+            costs.append(sum(cost_list))
+
         return model_names, costs
 
     @staticmethod
-    def plot_costs(model_names, costs, prompt_name, y_max_scale: int = None):
+    def plot_costs(
+            model_names,
+            costs,
+            prompt_name,
+            y_max_scale: float | None = None,
+    ):
         x = np.arange(len(model_names))
         bar_width = 0.35
         fig, ax = plt.subplots()
         ax.bar(x, costs, bar_width, zorder=3)
         ax.set_xlabel('Models')
-        ax.set_ylabel('Costs in dollar')
-        # ax.set_title(f'Costs per model {prompt_name}', pad=20)
+        ax.set_ylabel('Cost (USD)')
         ax.set_xticks(x)
+
         truncated_model_names = [
-            re.sub(r'^model_(\w+):([a-zA-Z0-9\-\.]+)-\d{4}-\d{2}-\d{2}.*', r'\2-\1', name)
+            re.sub(r'^model_(\w+):([a-zA-Z0-9\-.]+)-\d{4}-\d{2}-\d{2}.*', r'\2-\1', name)
             if ':' in name else
-            re.sub(r'^model_([a-zA-Z0-9\-\.]+).*', r'\1', name)
+            re.sub(r'^model_([a-zA-Z0-9\-.]+).*', r'\1', name)
             for name in model_names
         ]
+
         ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
 
-        plt.tight_layout()
         if y_max_scale is not None:
-            plt.ylim(0, y_max_scale)
-        plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
+            ax.set_ylim(0, y_max_scale)
 
-        output_dir = os.path.join('cost_plots')
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir, exist_ok=True)
-        plt.savefig(os.path.join(output_dir, f'cost_{prompt_name}.png'), bbox_inches='tight')
-        plt.close()
-
-
-if __name__ == '__main__':
-    cost_plot = CostPlot()
-    load_dotenv()
-    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-
-    prompt_dirs_standard = ['no_principles_base_prompt', 'all_principles_zero_shot', 'all_principles_few_shot',
-                            'chain_of_thought', 'best_prompt']
-    models_list_standard = ['model_gpt-4o', 'model_gpt-4o-mini', 'model_gpt-3.5-turbo']
-    for prompt_dir_name in prompt_dirs_standard:
-        models_dir = os.path.join(base_dir, 'evaluation_results', 'results', prompt_dir_name)
-        model_names, costs = cost_plot.calculate_costs(models_dir, models_list_standard)
-        cost_plot.plot_costs(model_names, costs, prompt_dir_name)
+        ax.grid(True, linestyle='--', alpha=0.7, zorder=0)
+        plt.tight_layout()
+        output_dir = Path('cost_plots')
+        output_dir.mkdir(parents=True, exist_ok=True)
+        plt.savefig(output_dir / f'cost_{prompt_name}.png', bbox_inches='tight')
+        plt.close(fig)

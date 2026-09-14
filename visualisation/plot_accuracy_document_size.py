@@ -1,18 +1,13 @@
-import os
 import json
 from pathlib import Path
-from typing import List, Tuple, Dict
-
+from typing import Dict, List
 import matplotlib.pyplot as plt
-from collections import defaultdict
-
-from dotenv import load_dotenv
 
 
 class DataPoint:
-    def __init__(self, document_name, total_field_count, fuzzy_score):
+    def __init__(self, document_name, document_size, fuzzy_score):
         self.document_name = document_name
-        self.total_field_count = total_field_count
+        self.document_size = document_size
         self.fuzzy_score = fuzzy_score
 
 
@@ -35,19 +30,22 @@ class DataPointSetLibrary:
         return f"{llm_model}_{prompt_name}"
 
     def _find_data_point_set(self, llm_model: str, prompt_name: str):
-        _key = self._create_key(llm_model, prompt_name)
-        if _key in self.data_point_sets.keys():
-            return self.data_point_sets[_key]
-        else:
-            return None
+        key = self._create_key(llm_model, prompt_name)
+
+        if key in self.data_point_sets:
+            return self.data_point_sets[key]
+
+        return None
 
     def add_data_point(self, data_point: DataPoint, llm_model: str, prompt_name: str):
-        data_point_set: DataPointSet = self._find_data_point_set(llm_model, prompt_name)
+        data_point_set = self._find_data_point_set(llm_model, prompt_name)
+
         if data_point_set:
             data_point_set.add_data_point(data_point)
         else:
             data_point_set = DataPointSet(llm_model, prompt_name)
             data_point_set.add_data_point(data_point)
+
             key = self._create_key(llm_model, prompt_name)
             self.data_point_sets[key] = data_point_set
 
@@ -55,185 +53,153 @@ class DataPointSetLibrary:
 class ScatterPlot:
 
     @staticmethod
-    def extract_fuzzy_scores_and_field_counts(results_directory, desired_exclusion_path: List[str]):
-        # Dictionary to store data for each path exclusion
-        path_exclusion_data = defaultdict(lambda: {"fuzzy_scores": [], "total_field_counts": []})
+    def extract_fuzzy_scores_and_field_counts(results_directory: str | Path, desired_exclusion_path: List[str]):
+        results_directory = Path(results_directory)
+        data_point_library = DataPointSetLibrary()
 
-        data_point_library: DataPointSetLibrary = DataPointSetLibrary()
+        for prompt_type_path in sorted(results_directory.iterdir()):
+            if not prompt_type_path.is_dir():
+                continue
 
-        for prompt_type_folder in os.listdir(results_directory):
-            prompt_type_path = os.path.join(results_directory, prompt_type_folder)
-            if os.path.isdir(prompt_type_path):
-                # Iterate through each model directory in the prompt type directory
-                for model_folder in os.listdir(prompt_type_path):
-                    model_path = os.path.join(prompt_type_path, model_folder)
-                    if os.path.isdir(model_path) and model_folder.startswith('model_'):
-                        scores_json_dir = os.path.join(model_path, 'scores_json')
-                        if os.path.exists(scores_json_dir):
-                            json_files = [file for file in os.listdir(scores_json_dir) if file.endswith('.json')]
-                            json_files.sort()
+            for model_path in sorted(prompt_type_path.iterdir()):
+                if not model_path.is_dir() or not model_path.name.startswith('model_'):
+                    continue
 
-                            if json_files:
-                                json_file_path = os.path.join(scores_json_dir, json_files[-1])
-                                with open(json_file_path, 'r') as file:
-                                    data = json.load(file)
+                json_file_path = model_path/ 'scores_json' / 'results.json'
 
-                        # Check if "individual_results" is a list
-                        if isinstance(data.get('individual_results'), list):
-                            for document in data['individual_results']:
-                                document_name = document.get('file_name1', 'Unnamed Document')
-                                fuzzy_score = document.get('fuzzy_score')
-                                if fuzzy_score is not None:
-                                    total_field_count = document['total_field_count']
-                                    exclude_path = document.get('exclude_paths')
+                if not json_file_path.exists():
+                    print(f"No results.json found for {model_path.name}")
+                    continue
 
-                                    if exclude_path == desired_exclusion_path:
-                                        data_point = DataPoint(document_name, total_field_count, fuzzy_score)
-                                        data_point_library.add_data_point(data_point=data_point,
-                                                                          llm_model=model_folder,
-                                                                          prompt_name=prompt_type_folder)
+                with open(json_file_path, 'r', encoding='utf-8') as file:
+                    data = json.load(file)
+
+                if not isinstance(data.get('individual_results'), list):
+                    continue
+
+                for document in data['individual_results']:
+                    document_name = document.get('file_name1')
+                    fuzzy_score = document.get('fuzzy_score')
+                    total_field_count = document.get('total_field_count')
+                    exclude_path = document.get('exclude_paths')
+
+                    if (
+                            document_name is not None
+                            and fuzzy_score is not None
+                            and total_field_count is not None
+                            and exclude_path == desired_exclusion_path
+                    ):
+                        data_point = DataPoint(document_name, total_field_count, fuzzy_score)
+                        data_point_library.add_data_point(
+                            data_point=data_point,
+                            llm_model=model_path.name,
+                            prompt_name=prompt_type_path.name,
+                        )
 
         return data_point_library
 
     @staticmethod
-    def extract_fuzzy_accuracy_and_text_length(results_directory, desired_exclusion_path: List[str]):
-        load_dotenv()
-        base_folder = os.getenv("PROJECT_BASE_DIR")
-        txt_dir = os.path.join(base_folder, "data", "test_txt")
-        data_point_library: DataPointSetLibrary = DataPointSetLibrary()
+    def extract_fuzzy_accuracy_and_text_length(
+            results_directory: str | Path,
+            text_directory: str | Path,
+            desired_exclusion_path: List[str],
+    ):
+        results_directory = Path(results_directory)
+        text_directory = Path(text_directory)
+        data_point_library = DataPointSetLibrary()
 
-        for prompt_type_folder in os.listdir(results_directory):
-            prompt_type_path = os.path.join(results_directory, prompt_type_folder)
-            if os.path.isdir(prompt_type_path):
-                # Iterate through each model directory in the prompt type directory
-                for model_folder in os.listdir(prompt_type_path):
-                    model_path = os.path.join(prompt_type_path, model_folder)
-                    if os.path.isdir(model_path) and model_folder.startswith('model_'):
-                        scores_json_dir = os.path.join(model_path, 'scores_json')
-                        if os.path.exists(scores_json_dir):
-                            json_files = [file for file in os.listdir(scores_json_dir) if file.endswith('.json')]
-                            json_files.sort()
+        for prompt_type_path in sorted(results_directory.iterdir()):
+            if not prompt_type_path.is_dir():
+                continue
 
-                            if json_files:
-                                json_file_path = os.path.join(scores_json_dir, json_files[-1])
-                                with open(json_file_path, 'r') as file:
-                                    data = json.load(file)
+            for model_path in sorted(prompt_type_path.iterdir()):
+                if not model_path.is_dir() or not model_path.name.startswith('model_'):
+                    continue
 
-                        # Check if "individual_results" is a list
-                        if isinstance(data.get('individual_results'), list):
-                            for document in data['individual_results']:
-                                document_name = document.get('file_name1', 'Unnamed Document')
-                                fuzzy_score = document.get('fuzzy_score')
-                                if fuzzy_score is not None:
+                json_file_path = model_path / 'scores_json' / 'results.json'
 
-                                    exclude_path = document.get('exclude_paths')
+                if not json_file_path.exists():
+                    print(f"No results.json found for {model_path.name}")
+                    continue
 
-                                    if exclude_path == desired_exclusion_path:
-                                        base_document_name = os.path.splitext(document_name)[0]
+                with open(json_file_path, 'r', encoding='utf-8') as file:
+                    data = json.load(file)
 
-                                        txt_file_path = os.path.join(txt_dir, f"{base_document_name}.txt")
+                if not isinstance(data.get('individual_results'), list):
+                    continue
 
-                                        total_text_length = 0
+                for document in data['individual_results']:
+                    document_name = document.get('file_name1')
+                    fuzzy_score = document.get('fuzzy_score')
+                    exclude_path = document.get('exclude_paths')
 
-                                        if os.path.exists(txt_file_path):
-                                            with open(txt_file_path, 'r') as txt_file:
-                                                txt_content = txt_file.read()
-                                                total_text_length = len(txt_content.split())
-                                        data_point = DataPoint(document_name, total_text_length, fuzzy_score)
-                                        data_point_library.add_data_point(data_point=data_point,
-                                                                          llm_model=model_folder,
-                                                                          prompt_name=prompt_type_folder)
+                    if (
+                            document_name is None
+                            or fuzzy_score is None
+                            or exclude_path != desired_exclusion_path
+                    ):
+                        continue
+
+                    base_document_name = Path(document_name).stem
+                    txt_file_path = text_directory / f'{base_document_name}.txt'
+
+                    if not txt_file_path.exists():
+                        print(f"No source text found for {document_name}")
+                        continue
+
+                    with open(txt_file_path, 'r', encoding='utf-8') as file:
+                        txt_content = file.read()
+
+                    total_text_length = len(txt_content.split())
+                    data_point = DataPoint(document_name, total_text_length, fuzzy_score)
+
+                    data_point_library.add_data_point(
+                        data_point=data_point,
+                        llm_model=model_path.name,
+                        prompt_name=prompt_type_path.name,
+                    )
 
         return data_point_library
 
     @staticmethod
     def plot_fuzzy_accuracy_vs_field_count(data_point_set):
-        x_values = [x.total_field_count for x in data_point_set.data_points]
-        y_values = [y.fuzzy_score for y in data_point_set.data_points]
-
+        x_values = [data_point.document_size for data_point in data_point_set.data_points]
+        y_values = [data_point.fuzzy_score for data_point in data_point_set.data_points]
         model_name = data_point_set.llm_model
         prompt_name = data_point_set.prompt_name
-        truncated_model_name = model_name.split('mini')[0] + 'mini' if 'mini' in model_name else model_name
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.scatter(x_values, y_values, alpha=0.7)
+        ax.set_xlabel('Total JSON Field Count')
+        ax.set_ylabel('Fuzzy Accuracy')
+        ax.set_ylim(-0.1, 1.1)
+        ax.grid(True, linestyle='--', alpha=0.7, zorder=0)
+        plt.tight_layout()
+        output_dir = Path('output_scatter_plots_json_size')
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-        title = f"Fuzzy Accuracy vs. Total JSON Field Count for {truncated_model_name} {prompt_name}"
-
-        # Create the figure first
-        plt.figure(figsize=(10, 6))
-
-        # Plot the data
-        plt.scatter(x_values, y_values, color='blue', alpha=0.7)
-        plt.xlabel('Total JSON Field Count')
-        plt.ylabel('Fuzzy Accuracy')
-        plt.ylim(-0.1, 1.1)
-        plt.xlim(-10, 370)
-        plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
-
-        # Set the title after plotting
-        # plt.title(title, pad=20)
-
-        # Save the figure
-        output_dir = os.path.join('output_scatter_plots_json_size')
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir, exist_ok=True)
-        plt.savefig(os.path.join(output_dir, f'accuracy_vs_json_size_{model_name}_{prompt_name}.png'))
-
-        # Close the figure
-        plt.close()
+        plt.savefig(
+            output_dir / f'accuracy_vs_json_size_{model_name}_{prompt_name}.png',
+            bbox_inches='tight'
+        )
+        plt.close(fig)
 
     @staticmethod
     def plot_fuzzy_accuracy_vs_text_length(data_point_set):
-        x_values = [x.total_field_count for x in data_point_set.data_points]
-        y_values = [y.fuzzy_score for y in data_point_set.data_points]
-
+        x_values = [data_point.document_size for data_point in data_point_set.data_points]
+        y_values = [data_point.fuzzy_score for data_point in data_point_set.data_points]
         model_name = data_point_set.llm_model
         prompt_name = data_point_set.prompt_name
-        truncated_model_name = model_name.split('mini')[0] + 'mini' if 'mini' in model_name else model_name
-
-        title = f"Fuzzy Accuracy vs. Total Text Length for {truncated_model_name} {prompt_name}"
-
-        # Create the figure first
-        plt.figure(figsize=(10, 6))
-
-        # Plot the data
-        plt.scatter(x_values, y_values, color='blue', alpha=0.7)
-        plt.xlabel('Word Count')
-        plt.ylabel('Fuzzy Accuracy')
-        plt.ylim(-0.1, 1.1)
-        plt.xlim(-10, 370)
-        plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
-
-        # Set the title after plotting
-        # plt.title(title, pad=20)
-
-        # Save the figure
-        output_dir = os.path.join('output_scatter_plots_text_length')
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir, exist_ok=True)
-        plt.savefig(os.path.join(output_dir, f'accuracy_vs_text_length_{model_name}_{prompt_name}.png'))
-
-        # Close the figure
-        plt.close()
-
-
-if __name__ == '__main__':
-    load_dotenv()
-    base_dir = Path(os.getenv('PROJECT_BASE_DIR'))
-    models_dir = os.path.join(base_dir, 'evaluation_results', 'results')
-
-    scatterPlot = ScatterPlot()
-
-    # Extract error counts
-    data_point_set_library = scatterPlot.extract_fuzzy_scores_and_field_counts(models_dir,
-                                                                               ["root['id']"])
-
-    # Plot error counts for each model and prompt type
-    for key in data_point_set_library.data_point_sets:
-        data_points_for_model_and_prompt = data_point_set_library.data_point_sets[key]
-        scatterPlot.plot_fuzzy_accuracy_vs_field_count(data_points_for_model_and_prompt)
-
-    data_point_set_library_text_length = scatterPlot.extract_fuzzy_accuracy_and_text_length(models_dir,
-                                                                                            ["root['id']"])
-
-    for key in data_point_set_library_text_length.data_point_sets:
-        data_points_for_model_and_prompt_text_length = data_point_set_library_text_length.data_point_sets[key]
-        scatterPlot.plot_fuzzy_accuracy_vs_text_length(data_points_for_model_and_prompt_text_length)
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.scatter(x_values, y_values, alpha=0.7)
+        ax.set_xlabel('Word Count')
+        ax.set_ylabel('Fuzzy Accuracy')
+        ax.set_ylim(-0.1, 1.1)
+        ax.grid(True, linestyle='--', alpha=0.7, zorder=0)
+        plt.tight_layout()
+        output_dir = Path('output_scatter_plots_text_length')
+        output_dir.mkdir(parents=True, exist_ok=True)
+        plt.savefig(
+            output_dir / f'accuracy_vs_text_length_{model_name}_{prompt_name}.png',
+            bbox_inches='tight'
+        )
+        plt.close(fig)
