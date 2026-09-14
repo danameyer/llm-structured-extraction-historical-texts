@@ -81,6 +81,7 @@ class DialogueCompletionNoFunctionCallingNew(DialogueCompletion):
         request = {
             "model": self.model,
             "input": input_messages,
+            **self._get_reasoning_kwargs(),
         }
 
         if response_mode == "json_schema":

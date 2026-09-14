@@ -1,25 +1,33 @@
 import json
 import os
-from typing import Dict, List, Union, Optional
+from typing import TypedDict, Literal, List, Optional, cast, Dict
+
 import openai
 from dotenv import load_dotenv
 from jsons import ValidationError
 from openai import OpenAI
-from openai.types.responses import Response
 from evaluation.json_comparison.json_validation import JsonValidator
 from function_calling_components.chat_file_writer import ChatFileWriter
 from function_calling_components.function_calling import Message
 from function_calling_components.runtime_calculation import RuntimeCalculation
 from function_calling_components.token_counting import TokenCounter
 from functions.BaseFunction import BaseFunction
-from tenacity import (
-    retry,
-    stop_after_attempt,
-    wait_random_exponential,
-)
+from tenacity import retry, stop_after_attempt, wait_random_exponential
+from openai.types.responses import EasyInputMessageParam, FunctionToolParam, Response
+from openai.types.shared_params.reasoning import Reasoning
 
 load_dotenv()
 
+MODERN_REASONING_MODELS = {
+    "gpt-5.6-luna",
+    "gpt-5.6-terra",
+    "gpt-5.6-sol",
+}
+
+class ReasoningKwargs(TypedDict, total=False):
+    reasoning: Reasoning
+
+ToolChoiceMode = Literal["none", "auto", "required"]
 
 class DialogueCompletion:
 
@@ -34,12 +42,18 @@ class DialogueCompletion:
         self.runtime_calculator = RuntimeCalculation()
         self.strict = strict
 
+    def _get_reasoning_kwargs(self) -> ReasoningKwargs:
+        if self.model in MODERN_REASONING_MODELS:
+            return {"reasoning": {"effort": "none"}}
+
+        return {}
+
     def _request_response(
             self,
             messages: List[Message],
             functions: Optional[List[BaseFunction]] = None,
-            function_call="auto",
-    ) -> Union[Response, None]:
+            function_call: ToolChoiceMode = "auto",
+    ) -> Response:
 
         try:
             input_messages = self._messages_to_input(messages)
@@ -49,9 +63,8 @@ class DialogueCompletion:
             self.runtime_calculator.start()
 
             if functions:
-                tools = [
-                    self._get_responses_tool_definition(function)
-                    for function in functions
+                tools: List[FunctionToolParam] = [
+                    self._get_responses_tool_definition(function) for function in functions
                 ]
 
                 response = self.client.responses.create(
@@ -60,11 +73,13 @@ class DialogueCompletion:
                     tools=tools,
                     tool_choice=function_call,
                     parallel_tool_calls=False,
+                    **self._get_reasoning_kwargs(),
                 )
             else:
                 response = self.client.responses.create(
                     model=self.model,
                     input=input_messages,
+                    **self._get_reasoning_kwargs(),
                 )
 
             self.runtime_calculator.end()
@@ -133,9 +148,9 @@ class DialogueCompletion:
     def _execute_chat_completion_query(
             self,
             messages: List[Message],
-            tools: Optional[List[BaseFunction]]= None,
+            tools: Optional[List[BaseFunction]] = None,
             validate=True,
-    ) -> Union[Response, None]:
+    ) -> Response:
 
         response = self._request_response(
             messages=messages,
@@ -167,7 +182,7 @@ class DialogueCompletion:
             function_call,
             tools: List[BaseFunction],
             validate=True,
-    ) -> Union[Response, None]:
+    ) -> Response:
 
         function_name = function_call.name
         function_parameters = json.loads(function_call.arguments)
@@ -228,6 +243,7 @@ class DialogueCompletion:
                         ),
                     }
                 ],
+                **self._get_reasoning_kwargs(),
             )
 
             self.runtime_calculator.end()
@@ -306,21 +322,19 @@ class DialogueCompletion:
         if print_conversation:
             self._print_conversation()
 
-    def flag_function_calls_for_short_description(self, functions: Union[List[BaseFunction], None]):
+    @staticmethod
+    def flag_function_calls_for_short_description(functions: List[BaseFunction] | None) -> None:
         if functions:
-            for f in functions:
-                f.flag_use_short_definition_true()
+            for function in functions:
+                function.flag_use_short_definition_true()
 
     @staticmethod
-    def _messages_to_input(messages: List[Message]) -> List[Dict]:
+    def _messages_to_input(messages: List[Message]) -> List[EasyInputMessageParam]:
         return [
-            {
-                "role": message.role,
-                "content": message.content,
-            }
+            cast(EasyInputMessageParam, {"role": message.role, "content": message.content})
             for message in messages
             if message.role in {"system", "user", "assistant"}
         ]
 
-    def _get_responses_tool_definition(self, function: BaseFunction) -> Dict:
+    def _get_responses_tool_definition(self, function: BaseFunction) -> FunctionToolParam:
         return function.get_responses_tool_definition(strict=self.strict)
