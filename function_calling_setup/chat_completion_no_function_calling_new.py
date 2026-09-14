@@ -11,7 +11,7 @@ from function_definition.extract_json_from_plain_text import ExtractJsonFromPlai
 
 
 ResponseMode = Literal["text", "prompted_json", "json_schema"]
-
+from function_calling_setup.retry_tracking import MAX_ATTEMPTS
 
 class DialogueCompletionNoFunctionCallingNew(DialogueCompletion):
 
@@ -29,8 +29,10 @@ class DialogueCompletionNoFunctionCallingNew(DialogueCompletion):
     ):
         self._append_message(Message("user", prompt))
         self.chat_file_writer.save_prompt(prompt, filename)
+
         if response_mode in {"prompted_json", "json_schema"}:
             self.json_result = None
+            self.retry_tracker.reset()
 
         response = self._execute_response_query(
             messages=self.message_history,
@@ -48,7 +50,7 @@ class DialogueCompletionNoFunctionCallingNew(DialogueCompletion):
         return assistant_message
 
     @retry(
-        stop=stop_after_attempt(6),
+        stop=stop_after_attempt(MAX_ATTEMPTS),
         wait=wait_random_exponential(multiplier=1, max=10),
         reraise=True,
     )
@@ -59,13 +61,16 @@ class DialogueCompletionNoFunctionCallingNew(DialogueCompletion):
             validate=True,
     ) -> Response:
 
+        is_extraction_request = response_mode in {"prompted_json", "json_schema",}
+
+        if is_extraction_request:
+            self.retry_tracker.record_attempt()
+
         response = self._request_direct_response(messages=messages, response_mode=response_mode)
 
-        if response_mode in {"prompted_json", "json_schema"}:
-            self.json_result = self._parse_json_result(
-                content=response.output_text,
-                validate=validate,
-            )
+        if is_extraction_request:
+            self.json_result = self._parse_json_result(content=response.output_text, validate=validate)
+            self.retry_tracker.mark_success()
 
         return response
 

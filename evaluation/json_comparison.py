@@ -385,7 +385,8 @@ class JsonComparison:
                                 output_folder,
                                 json_output_folder,
                                 exclusions_list: List[List[str]],
-                                expected_base_names=None):
+                                expected_base_names=None,
+                                retry_summary=None):
         output_file = os.path.join(output_folder, f'results.txt')
         json_output_file = os.path.join(json_output_folder, f'results.json')
         gt_documents = create_documents(gt_folder)
@@ -511,6 +512,8 @@ class JsonComparison:
             "failed_predictions": failed_predictions,
             "success_rate": successful_predictions / number_expected if number_expected > 0 else 0.0
         }
+        if retry_summary is not None:
+            comparison_results["retry_summary"] = retry_summary
 
         comparison_results['overall_results'] = overall_results_list.get_overall_results()
 

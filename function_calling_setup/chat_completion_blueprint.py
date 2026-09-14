@@ -14,6 +14,7 @@ from function_definition.base_function import BaseFunction
 from tenacity import retry, stop_after_attempt, wait_random_exponential
 from openai.types.responses import EasyInputMessageParam, FunctionToolParam, Response
 from openai.types.shared_params.reasoning import Reasoning
+from function_calling_setup.retry_tracking import MAX_ATTEMPTS, RetryTracker
 
 load_dotenv()
 
@@ -40,6 +41,7 @@ class DialogueCompletion:
         self.token_counter = TokenCounter(self.model)
         self.runtime_calculator = RuntimeCalculation()
         self.strict = strict
+        self.retry_tracker = RetryTracker()
 
     def _get_reasoning_kwargs(self) -> ReasoningKwargs:
         if self.model in MODERN_REASONING_MODELS:
@@ -140,9 +142,9 @@ class DialogueCompletion:
             print(f"{role}: {colored_content}\n\n")
 
     @retry(
-        stop=stop_after_attempt(6),
+        stop=stop_after_attempt(MAX_ATTEMPTS),
         wait=wait_random_exponential(multiplier=1, max=10),
-        reraise=True,
+        reraise=True
     )
     def _execute_chat_completion_query(
             self,
@@ -151,26 +153,28 @@ class DialogueCompletion:
             validate=True,
     ) -> Response:
 
-        response = self._request_response(
-            messages=messages,
-            functions=tools,
-        )
+        if tools:
+            self.retry_tracker.record_attempt()
 
-        function_calls = [
-            item
-            for item in response.output
-            if item.type == "function_call"
-        ]
+        response = self._request_response(messages=messages, functions=tools)
+        function_calls = [item for item in response.output if item.type == "function_call"]
 
         if function_calls:
             print("Function will be called.")
 
-            return self._perform_function_call(
+            result = self._perform_function_call(
                 response=response,
                 function_call=function_calls[0],
                 tools=tools,
                 validate=validate,
             )
+
+            self.retry_tracker.mark_success()
+
+            return result
+
+        if tools:
+            raise ValueError("Expected a function call, but the model did not return one.")
 
         print("No function called.")
         return response
@@ -281,32 +285,31 @@ class DialogueCompletion:
             self.chat_file_writer.save_response(f"User: {user_input}", filename)
             self.chat_file_writer.save_response(f"Assistant: {assistant_message}", filename)
 
-    def prompt_assistant_response(self,
-                                  prompt,
-                                  filename,
-                                  function_list=None,
-                                  print_conversation=True,
-                                  validate=True):
+    def prompt_assistant_response(
+            self,
+            prompt,
+            filename,
+            function_list=None,
+            print_conversation=True,
+            validate=True,
+    ):
         self._append_message(Message("user", prompt))
-
         self.chat_file_writer.save_prompt(prompt, filename)
+
+        if function_list:
+            self.function_call_result = None
+            self.retry_tracker.reset()
 
         chat_response = self._execute_chat_completion_query(
             messages=self.message_history,
             tools=function_list,
-            validate=validate,
+            validate=validate
         )
 
         assistant_message = chat_response.output_text
 
-        self._append_message(
-            Message("assistant", assistant_message)
-        )
-
-        self.chat_file_writer.save_response(
-            assistant_message,
-            filename
-        )
+        self._append_message(Message("assistant", assistant_message))
+        self.chat_file_writer.save_response(assistant_message, filename)
 
         if print_conversation:
             self._print_conversation()

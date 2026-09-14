@@ -161,6 +161,12 @@ class ExperimentFunctionCallingEvaluation:
         os.makedirs(logs_folder, exist_ok=True)
         return logs_folder
 
+    @staticmethod
+    def create_retry_stats_folder(experiment_dir):
+        retry_stats_folder = os.path.join(experiment_dir, "retry_stats")
+        os.makedirs(retry_stats_folder, exist_ok=True)
+        return retry_stats_folder
+
     def log_failed_files(self, experiment_dir):
         timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
         log_filename = f'failed_files_{timestamp}.txt'
@@ -171,6 +177,44 @@ class ExperimentFunctionCallingEvaluation:
             log_file.write(f"Failed files count: {len(self.failed_files)}\n\n")
             for failed_file in self.failed_files:
                 log_file.write(f"{failed_file}\n")
+
+    def aggregate_retry_stats(self, experiment_dir, expected_base_names):
+        retry_directory = self.create_retry_stats_folder(experiment_dir)
+        retry_summaries = []
+
+        for base_name in expected_base_names:
+            retry_file = os.path.join(retry_directory, f"retry_summary_pred_{base_name}.json")
+
+            if not os.path.exists(retry_file):
+                continue
+
+            with open(retry_file, "r", encoding="utf-8") as file:
+                retry_summaries.append(json.load(file))
+
+        if not retry_summaries:
+            return None
+
+        attempts = [summary["attempts"] for summary in retry_summaries]
+        successful_summaries = [summary for summary in retry_summaries if summary["success"]]
+        first_attempt_successes = sum(1 for summary in retry_summaries if summary["success"] and summary["attempts"] == 1)
+        total_retries = sum(summary["retries"] for summary in retry_summaries)
+
+        return {
+            "documents": len(retry_summaries),
+            "total_attempts": sum(attempts),
+            "total_retries": total_retries,
+            "first_attempt_successes": first_attempt_successes,
+            "first_attempt_success_rate": first_attempt_successes / len(retry_summaries),
+            "eventual_successes": len(successful_summaries),
+            "failed_documents": len(retry_summaries) - len(successful_summaries),
+            "mean_attempts": sum(attempts) / len(attempts),
+            "mean_attempts_successful": (
+                sum(summary["attempts"] for summary in successful_summaries) / len(successful_summaries)
+                if successful_summaries
+                else 0.0
+            ),
+            "max_attempts_used": max(attempts),
+        }
 
     def process_files(
             self,
@@ -216,6 +260,7 @@ class ExperimentFunctionCallingEvaluation:
         base_name = os.path.splitext(os.path.basename(path_to_text_file))[0]
         pred_filename = f'pred_{base_name}.json'
         output_path_response = os.path.join(predictions_folder, pred_filename)
+        base_file_name = os.path.splitext(os.path.basename(pred_filename))[0]
 
         if os.path.exists(output_path_response):
             if self.regenerate_predictions:
@@ -229,23 +274,30 @@ class ExperimentFunctionCallingEvaluation:
         demonstrations = [os.path.join(demonstrations_folder, "demonstration_1.txt")]
         experiment_function_calling = self.init_prompt_experiment(demonstrations, test_files, gpt_model=gpt_model,
                                                                   pred_file_name=base_name)
-        response_json = experiment_function_calling.run()
-        response_json_str = json.dumps(response_json, indent=4)
 
-        chat_file_writer = ChatFileWriter(self.experiment_dir)
-        chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False, append=False)
-        print(f"Processed {os.path.basename(path_to_text_file)}: Saved predictions to {pred_filename}")
-        base_file_name = os.path.splitext(os.path.basename(pred_filename))[0]
+        try:
+            response_json = experiment_function_calling.run()
+            response_json_str = json.dumps(response_json, indent=4)
 
-        cost_summary = experiment_function_calling.dialogue.token_counter.get_cost_summary(pred_filename)
-        filename = "cost_summary_" + base_file_name + ".json"
-        costs_directory = self.create_costs_folder(self.experiment_dir)
-        self.save_costs_to_file(cost_summary, costs_directory, filename)
+            chat_file_writer = ChatFileWriter(self.experiment_dir)
+            chat_file_writer.save_response(response_json_str, output_path_response, timestamp=False, append=False)
+            print(f"Processed {os.path.basename(path_to_text_file)}: Saved predictions to {pred_filename}")
 
-        runtime_summary = experiment_function_calling.dialogue.runtime_calculator.get_runtime_summary(pred_filename)
-        filename_runtime = "runtime_summary_" + base_file_name + "_" + ".json"
-        runtime_directory = self.create_runtime_folder(self.experiment_dir)
-        self.save_runtime_to_file(runtime_summary, runtime_directory, filename_runtime)
+            cost_summary = experiment_function_calling.dialogue.token_counter.get_cost_summary(pred_filename)
+            filename = "cost_summary_" + base_file_name + ".json"
+            costs_directory = self.create_costs_folder(self.experiment_dir)
+            self.save_costs_to_file(cost_summary, costs_directory, filename)
+
+            runtime_summary = experiment_function_calling.dialogue.runtime_calculator.get_runtime_summary(pred_filename)
+            filename_runtime = "runtime_summary_" + base_file_name + "_" + ".json"
+            runtime_directory = self.create_runtime_folder(self.experiment_dir)
+            self.save_runtime_to_file(runtime_summary, runtime_directory, filename_runtime)
+
+        finally:
+            retry_summary = experiment_function_calling.dialogue.retry_tracker.get_summary(pred_filename)
+            filename_retry = "retry_summary_" + base_file_name + ".json"
+            retry_directory = self.create_retry_stats_folder(self.experiment_dir)
+            self.save_retry_summary(retry_summary, retry_directory, filename_retry)
 
     @staticmethod
     def save_costs_to_file(costs, directory: str, filename):
@@ -260,6 +312,13 @@ class ExperimentFunctionCallingEvaluation:
         file_path = os.path.join(directory, filename_runtime)
         with open(file_path, 'w') as f:
             f.write(runtime_as_string)
+
+    @staticmethod
+    def save_retry_summary(retry_summary, directory, filename):
+        file_path = os.path.join(directory, filename)
+
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write(json.dumps(retry_summary, indent=4))
 
     def run(self, gpt_model, exclusions: List[List[str]], sample_folder_name, max_files=None):
         base_dir = self.get_base_directory()
@@ -276,14 +335,18 @@ class ExperimentFunctionCallingEvaluation:
             gpt_model=gpt_model,
             max_files=max_files,
         )
+
+        retry_summary = self.aggregate_retry_stats(self.experiment_dir, expected_base_names)
         json_comparison = JsonComparison()
-        json_comparison.perform_json_comparison(gt_folder=ground_truth_folder,
-                                                prediction_folder=predictions_folder,
-                                                output_folder=scores_txt_folder,
-                                                json_output_folder=scores_json_folder,
-                                                exclusions_list=exclusions,
-                                                expected_base_names=expected_base_names,
-                                                )
+        json_comparison.perform_json_comparison(
+            ground_truth_folder,
+            predictions_folder,
+            scores_txt_folder,
+            scores_json_folder,
+            exclusions,
+            expected_base_names=expected_base_names,
+            retry_summary=retry_summary
+        )
 
 
 def _prepare_and_run_experiment(model_name: str, prompt_name: str, sample_folder_name: str, max_files=None):
@@ -398,7 +461,7 @@ def _main():
                                     prompt_name=prompt,
                                     sample_folder_name=sample_folder_name_function_calling)
 
-    # experiment 7: best prompt structured outputs enabled
+    # experiment 8: best prompt structured outputs enabled
     models_list = [ABLATION_MODEL]
 
     prompt = 'best_prompt_structured_outputs_enabled'
