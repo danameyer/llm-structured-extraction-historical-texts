@@ -30,13 +30,6 @@ class ExperimentAllPrinciplesZeroShotPrompt(BaseExperimentFunctionCalling):
                   .build_prompt())
         return prompt
 
-    @staticmethod
-    def add_task_2():
-        prompt_builder = PromptBuilder()
-        prompt = (prompt_builder.add_task_2()
-                  .build_prompt())
-        return prompt
-
     def run(self):
         prompt = self.generate_system_message()
         self.dialogue.add_system_prompt(prompt, self.pred_file_name, print_conversation=False)

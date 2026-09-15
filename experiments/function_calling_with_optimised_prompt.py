@@ -31,16 +31,9 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
         return prompt
 
     @staticmethod
-    def add_task_1():
+    def add_task():
         prompt_builder = PromptBuilder()
-        prompt = (prompt_builder.add_task_1()
-                  .build_prompt())
-        return prompt
-
-    @staticmethod
-    def add_task_2():
-        prompt_builder = PromptBuilder()
-        prompt = (prompt_builder.add_task_2()
+        prompt = (prompt_builder.add_task()
                   .build_prompt())
         return prompt
 
@@ -48,16 +41,20 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
         prompt = self.generate_system_message()
         self.dialogue.add_system_prompt(prompt, self.pred_file_name, print_conversation=False)
 
-        prompt = self.add_input()
-        self.dialogue.prompt_assistant_response(prompt, self.pred_file_name, print_conversation=False)
+        prompt = (
+                self.add_input()
+                + "\n\n"
+                + self.add_task()
+        )
 
-        prompt = self.add_task_1()
-        self.dialogue.prompt_assistant_response(prompt, self.pred_file_name, print_conversation=False)
-
-        prompt = self.add_task_2()
         extract_json_from_plaintext = ExtractJsonFromPlainText()
         function_list = [extract_json_from_plaintext]
-        self.dialogue.prompt_assistant_response(prompt, self.pred_file_name, function_list, print_conversation=False)
-        function_call_result = self.dialogue.function_call_result
 
-        return function_call_result
+        self.dialogue.prompt_assistant_response(
+            prompt,
+            self.pred_file_name,
+            function_list,
+            print_conversation=False
+        )
+
+        return self.dialogue.function_call_result

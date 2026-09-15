@@ -27,33 +27,27 @@ class PromptBuilder:
 
     def add_base_prompt(self, file_paths):
         prompt = (
-                "Work on the following two tasks consecutively for each court document individually:\n"
-                "(1) Extract information about the persons mentioned in the document and their relations to each other.\n"
-                "(2) Transfer the extracted information to the required structured output by calling the provided tool.\n"
-                "Each court document is enclosed in <court_document> tags:\n" +
-                self.concatenate_files(file_paths, 'court_document')
-        )
-        self.prompting_strategies.append(prompt)
-        self.prompting_strategies.append(prompt)
-        return self
-
-    def add_task_1(self):
-        prompt = (
-            "(1) Extract information about the persons mentioned in the documents and their relations to each other.\n"
+                "Extract the persons and their relationships from the court document "
+                "and transfer the result to the required structured output by calling the provided tool.\n"
+                "The court document is enclosed in <court_document> tags:\n"
+                + self.concatenate_files(file_paths, 'court_document')
         )
         self.prompting_strategies.append(prompt)
         return self
 
-    def add_task_2(self):
+    def add_task(self):
         prompt = (
-            "(2) Transfer the extracted information to the required structured output by calling the provided tool.\n"
+            "Extract the persons and their relationships from the court document "
+            "and transfer the result to the required structured output by calling the provided tool.\n"
         )
         self.prompting_strategies.append(prompt)
         return self
 
-    def add_task_2_without_tool_calling(self):
+    def add_task_without_tool_calling(self):
         prompt = (
-            "(2) Transfer the extracted information to a JSON object matching the provided schema. Return only the JSON object, without Markdown or additional text.\n"
+            "Extract the persons and their relationships from the court document "
+            "and transfer the result to a JSON object matching the provided output structure. "
+            "Return only the JSON object, without Markdown or additional text.\n"
         )
         self.prompting_strategies.append(prompt)
         return self
@@ -84,7 +78,7 @@ class PromptBuilder:
 
     def add_iterative_approach(self):
         prompt = (
-            "Read the instructions carefully and work through the tasks step by step.\n"
+            "Read the instructions carefully and work through the extraction step by step.\n"
         )
         self.prompting_strategies.append(prompt)
         return self
@@ -133,7 +127,7 @@ class PromptBuilder:
 
     def add_constraints(self):
         prompt = (
-            "While working on the tasks, follow these rules:\n"
+            "While performing the extraction, follow these rules:\n"
             "* Extract only information supported by the source text. Do not infer missing information.\n"
             "* Assign every person a unique integer 'id' within the document.\n"
             "* Use \"\" for missing string values and [] when no family or legal relations are given.\n"
