@@ -11,11 +11,6 @@ class ModelPricing:
                 "input": 2.00,
                 "output": 12.00,
             },
-            "gpt-5.6-sol": {
-                "input": 4.00,
-                "output": 20.00,
-            },
-
             # Keep temporarily for smoke tests.
             "gpt-4o-2024-08-06": {
                 "input": 2.50,
@@ -24,7 +19,10 @@ class ModelPricing:
         }
 
     def get_price_per_token(self, model_name):
-        pricing = self.price_per_million_tokens[model_name]
+        pricing = self.price_per_million_tokens.get(model_name)
+
+        if pricing is None:
+            return None
 
         return {
             "input": pricing["input"] / 1_000_000,

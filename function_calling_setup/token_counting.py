@@ -50,14 +50,16 @@ class TokenCounter:
         tokens = encoding.encode(response)
         return len(tokens)
 
-    def _calculate_costs(self, input_token_count: int, output_token_count: int) -> float:
+    def _calculate_costs(self, input_token_count: int, output_token_count: int) -> float | None:
 
         model_pricing = ModelPricing()
         pricing_per_token = model_pricing.get_price_per_token(model_name=self.model)
 
+        if pricing_per_token is None:
+            return None
+
         input_cost = pricing_per_token["input"] * input_token_count
         output_cost = pricing_per_token["output"] * output_token_count
 
-        total_cost = input_cost + output_cost
-        return total_cost
+        return input_cost + output_cost
 
