@@ -4,19 +4,15 @@ from dataclasses import is_dataclass, asdict
 from datetime import datetime
 from typing import List, Dict, Tuple, Any
 from deepdiff import DeepDiff
-from dotenv import load_dotenv
 from thefuzz import fuzz
 from data_classes.document import create_documents
 from data_classes.person import Person
 from evaluation.overall_result import OverallResultList
 from evaluation.person_matching import PersonMatching
-from langchain.evaluation import JsonEditDistanceEvaluator
+from langchain_classic.evaluation.parsing.json_distance import JsonEditDistanceEvaluator
 
 
 class JsonComparison:
-
-    def __init__(self):
-        load_dotenv()
 
     @staticmethod
     def _person_dict_for_matching(person: Person) -> Dict:
@@ -518,7 +514,7 @@ class JsonComparison:
         comparison_results['overall_results'] = overall_results_list.get_overall_results()
 
         # Write all results to the file in one go
-        with open(output_file, "a", encoding="utf-8") as result_file:
+        with open(output_file, "w", encoding="utf-8") as result_file:
             result_file.write(f"\nResults generated on: {datetime.now()}\n\n")
             formatted_result = self.format_comparison(comparison_results)
             result_file.write(formatted_result)
