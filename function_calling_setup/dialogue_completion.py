@@ -1,36 +1,24 @@
-import json
-import os
-from typing import TypedDict, Literal, List, Optional, cast, Dict
-import openai
-from dotenv import load_dotenv
+from typing import Dict, List, Optional
 from jsons import ValidationError
-from openai import OpenAI
+from tenacity import retry, stop_after_attempt, wait_random_exponential
 from evaluation.json_validation import JsonValidator
 from function_calling_setup.chat_file_writer import ChatFileWriter
 from function_calling_setup.function_calling import Message
-from function_calling_setup.providers.openai_provider import _get_reasoning_kwargs, OpenAIProvider
 from function_calling_setup.providers.provider_response import ProviderResponse, ToolCall
+from function_calling_setup.retry_tracking import MAX_ATTEMPTS, RetryTracker
 from function_calling_setup.runtime_calculation import RuntimeCalculation
 from function_calling_setup.token_counting import TokenCounter
 from function_definition.base_function import BaseFunction
-from tenacity import retry, stop_after_attempt, wait_random_exponential
-from openai.types.responses import EasyInputMessageParam, FunctionToolParam, Response
-from openai.types.shared_params.reasoning import Reasoning
-from function_calling_setup.retry_tracking import MAX_ATTEMPTS, RetryTracker
-
-load_dotenv()
-
-ToolChoiceMode = Literal["none", "auto", "required"]
+from function_calling_setup.providers.base_provider import LLMProvider
 
 class DialogueCompletion:
 
-    def __init__(self, model: str, experiment_dir, strict: bool = False):
-        load_dotenv()
-        self.provider = OpenAIProvider(model=model, strict=strict)
+    def __init__(self, provider: LLMProvider, experiment_dir):
+        self.provider = provider
         self.message_history: list[Message] = []
         self.chat_file_writer = ChatFileWriter(experiment_dir)
         self.function_call_result = None
-        self.token_counter = TokenCounter(model)
+        self.token_counter = TokenCounter(provider.model)
         self.runtime_calculator = RuntimeCalculation()
         self.retry_tracker = RetryTracker()
 
@@ -38,34 +26,28 @@ class DialogueCompletion:
             self,
             messages: list[Message],
             functions: list[BaseFunction] | None = None,
+            schema: dict | None = None,
     ) -> ProviderResponse:
 
-        print(f"Input response content: {messages}")
+        input_messages = [{"role": message.role, "content": message.content} for message in messages]
+        print(f"Input response content: {input_messages}")
 
         self.runtime_calculator.start()
 
-        response = self.provider.request(
-            messages=messages,
-            tools=functions,
-        )
+        try:
+            response = self.provider.request(
+                messages=messages,
+                tools=functions,
+                schema=schema,
+            )
+        finally:
+            self.runtime_calculator.end()
 
-        self.runtime_calculator.end()
+        print(f"API call duration: {self.runtime_calculator.calculate_runtime():.2f} seconds")
+        print(f"Output response content: {response.text}")
 
-        print(
-            f"API call duration: "
-            f"{self.runtime_calculator.calculate_runtime():.2f} seconds"
-        )
-
-        print(
-            f"Output response content: {response.text}"
-        )
-
-        self.token_counter.add_number_of_input_tokens(
-            response.input_tokens
-        )
-        self.token_counter.add_number_of_output_tokens(
-            response.output_tokens
-        )
+        self.token_counter.add_number_of_input_tokens(response.input_tokens)
+        self.token_counter.add_number_of_output_tokens(response.output_tokens)
 
         return response
 
@@ -102,30 +84,26 @@ class DialogueCompletion:
         if tools:
             self.retry_tracker.record_attempt()
 
-        response = self._request_response(
-            messages=messages,
-            functions=tools,
-        )
+        response = self._request_response(messages=messages, functions=tools)
 
         if response.tool_calls:
             print("Function will be called.")
+
+            if not tools:
+                raise ValueError("Model returned a tool call although no tools were provided.")
 
             result = self._perform_function_call(
                 response=response,
                 function_call=response.tool_calls[0],
                 tools=tools,
-                validate=validate,
+                validate=validate
             )
 
             self.retry_tracker.mark_success()
-
             return result
 
         if tools:
-            raise ValueError(
-                "Expected a function call, "
-                "but the model did not return one."
-            )
+            raise ValueError("Expected a function call, but the model did not return one.")
 
         print("No function called.")
         return response
@@ -141,81 +119,50 @@ class DialogueCompletion:
         function_name = function_call.name
         function_parameters = function_call.arguments
 
-        print(
-            "These are the function call arguments:",
-            function_parameters,
-        )
+        print(f"These are the function call arguments:", function_parameters)
 
         function_object = next(
             (
-                function
-                for function in tools
+                function for function in tools
                 if function.get_definition().function.name == function_name
             ),
-            None,
+            None
         )
 
         if function_object is None:
-            raise ValueError(
-                f"Unknown function requested: {function_name}"
-            )
+            raise ValueError(f"Unknown function requested: {function_name}")
 
-        self.function_call_result = function_object.run(
-            **function_parameters
-        )
+        self.function_call_result = function_object.run(**function_parameters)
 
-        print(
-            "This is the function call result",
-            self.function_call_result,
-        )
+        print("This is the function call result", self.function_call_result)
 
         if validate:
             json_validator = JsonValidator()
-            validation = json_validator.validate_json(
-                self.function_call_result
-            )
+            validation = json_validator.validate_json(self.function_call_result)
 
             if not validation[0]:
-                raise ValidationError(
-                    "JSON validation failed: " + validation[1]
-                )
+                raise ValidationError("JSON validation failed: " + validation[1])
 
         self.runtime_calculator.start()
 
-        final_response = self.provider.submit_tool_result(
-            previous_response=response,
-            tool_call=function_call,
-            tool_result=self.function_call_result,
-        )
+        try:
+            final_response = self.provider.submit_tool_result(
+                messages=self.message_history,
+                previous_response=response,
+                tool_call=function_call,
+                tool_result=self.function_call_result,
+                tools=tools
+            )
+        finally:
+            self.runtime_calculator.end()
 
-        self.runtime_calculator.end()
+        print(f"API call duration: {self.runtime_calculator.calculate_runtime():.2f} seconds")
+        print(f"Output response content after tool call: {final_response.text}")
 
-        print(
-            f"API call duration: "
-            f"{self.runtime_calculator.calculate_runtime():.2f} seconds"
-        )
-
-        self.token_counter.add_number_of_input_tokens(
-            final_response.input_tokens
-        )
-        self.token_counter.add_number_of_output_tokens(
-            final_response.output_tokens
-        )
+        self.token_counter.add_number_of_input_tokens(final_response.input_tokens)
+        self.token_counter.add_number_of_output_tokens(final_response.output_tokens)
 
         return final_response
-
-    def add_dynamic_prompting(self, filename, print_conversation=True):
-        user_input = input("You: ")
-        self._append_message(Message(role="user", content=user_input))
-        response = self._execute_chat_completion_query(self.message_history)
-        if response:
-            assistant_message = response.text
-            self._append_message(Message(role="assistant", content=assistant_message))
-            if print_conversation:
-                self._print_conversation()
-
-            self.chat_file_writer.save_response(f"User: {user_input}", filename)
-            self.chat_file_writer.save_response(f"Assistant: {assistant_message}", filename)
 
     def prompt_assistant_response(
             self,
@@ -239,7 +186,6 @@ class DialogueCompletion:
         )
 
         assistant_message = chat_response.text
-
         self._append_message(Message("assistant", assistant_message))
         self.chat_file_writer.save_response(assistant_message, filename)
 
@@ -250,15 +196,7 @@ class DialogueCompletion:
 
     def add_system_prompt(self, prompt, filename, print_conversation=True):
         self._append_message(Message("system", prompt))
-
         self.chat_file_writer.save_prompt(prompt, filename)
 
         if print_conversation:
             self._print_conversation()
-
-    @staticmethod
-    def flag_function_calls_for_short_description(functions: List[BaseFunction] | None) -> None:
-        if functions:
-            for function in functions:
-                function.flag_use_short_definition_true()
-
