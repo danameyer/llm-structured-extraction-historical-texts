@@ -1,15 +1,25 @@
 from experiments.super_function_calling_experiment import BaseExperimentFunctionCalling
-from function_calling_setup.chat_completion_blueprint import DialogueCompletion
+from function_calling_setup.providers.base_provider import LLMProvider
 from function_definition.extract_json_from_plain_text import ExtractJsonFromPlainText
 from prompting.prompting_strategies import PromptBuilder
 
 
 class ExperimentFunctionCallingNoPrinciplesBasePrompt(BaseExperimentFunctionCalling):
-    def __init__(self, test_files, demonstrations, gpt_model, experiment_dir, pred_file_name):
-        super().__init__(test_files, demonstrations, experiment_dir, pred_file_name, gpt_model)
-        self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir)
-        self.pred_file_name = pred_file_name
-        self.gpt_model = gpt_model
+    def __init__(
+            self,
+            test_files,
+            demonstrations,
+            provider: LLMProvider,
+            experiment_dir,
+            pred_file_name,
+    ):
+        super().__init__(
+            test_files,
+            demonstrations,
+            experiment_dir,
+            pred_file_name,
+            provider,
+        )
 
     def experiment_base_prompt(self):
         prompt_builder = PromptBuilder()

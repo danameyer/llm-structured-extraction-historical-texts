@@ -1,15 +1,25 @@
 from experiments.super_function_calling_experiment import BaseExperimentFunctionCalling
-from function_calling_setup.chat_completion_blueprint import DialogueCompletion
+from function_calling_setup.providers.base_provider import LLMProvider
 from function_definition.extract_json_from_plain_text import ExtractJsonFromPlainText
 from prompting.prompting_strategies import PromptBuilder
 
 
 class ExperimentAllPrinciplesZeroShotPrompt(BaseExperimentFunctionCalling):
-    def __init__(self, test_files, demonstrations, gpt_model, experiment_dir, pred_file_name):
-        super().__init__(test_files, demonstrations, experiment_dir, pred_file_name, gpt_model)
-        self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir)
-        self.pred_file_name = pred_file_name
-        self.gpt_model = gpt_model
+    def __init__(
+            self,
+            test_files,
+            demonstrations,
+            provider: LLMProvider,
+            experiment_dir,
+            pred_file_name,
+    ):
+        super().__init__(
+            test_files,
+            demonstrations,
+            experiment_dir,
+            pred_file_name,
+            provider,
+        )
 
     @staticmethod
     def generate_system_message():
@@ -33,9 +43,7 @@ class ExperimentAllPrinciplesZeroShotPrompt(BaseExperimentFunctionCalling):
     def run(self):
         prompt = self.generate_system_message()
         self.dialogue.add_system_prompt(prompt, self.pred_file_name, print_conversation=False)
-
         prompt = self.experiment_all_principles_zero_shot()
-
         extract_json_from_plaintext = ExtractJsonFromPlainText()
         function_list = [extract_json_from_plaintext]
         self.dialogue.prompt_assistant_response(prompt,

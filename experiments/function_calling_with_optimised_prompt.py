@@ -1,15 +1,25 @@
 from experiments.super_function_calling_experiment import BaseExperimentFunctionCalling
-from function_calling_setup.chat_completion_blueprint import DialogueCompletion
+from function_calling_setup.providers.base_provider import LLMProvider
 from function_definition.extract_json_from_plain_text import ExtractJsonFromPlainText
 from prompting.prompting_strategies import PromptBuilder
 
 
 class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling):
-    def __init__(self, test_files, demonstrations, gpt_model, experiment_dir, pred_file_name, strict=False):
-        super().__init__(test_files, demonstrations, experiment_dir, pred_file_name, gpt_model)
-        self.gpt_model = gpt_model
-        self.dialogue = DialogueCompletion(model=gpt_model, experiment_dir=experiment_dir, strict=strict)
-        self.pred_file_name = pred_file_name
+    def __init__(
+            self,
+            test_files,
+            demonstrations,
+            provider: LLMProvider,
+            experiment_dir,
+            pred_file_name,
+    ):
+        super().__init__(
+            test_files,
+            demonstrations,
+            experiment_dir,
+            pred_file_name,
+            provider,
+        )
 
     @staticmethod
     def generate_system_message():
@@ -33,20 +43,13 @@ class ExperimentFunctionCallingWithOptimisedPrompt(BaseExperimentFunctionCalling
     @staticmethod
     def add_task():
         prompt_builder = PromptBuilder()
-        prompt = (prompt_builder.add_task()
-                  .build_prompt())
+        prompt = prompt_builder.add_task().build_prompt()
         return prompt
 
     def run(self):
         prompt = self.generate_system_message()
         self.dialogue.add_system_prompt(prompt, self.pred_file_name, print_conversation=False)
-
-        prompt = (
-                self.add_input()
-                + "\n\n"
-                + self.add_task()
-        )
-
+        prompt = self.add_input() + "\n\n" + self.add_task()
         extract_json_from_plaintext = ExtractJsonFromPlainText()
         function_list = [extract_json_from_plaintext]
 

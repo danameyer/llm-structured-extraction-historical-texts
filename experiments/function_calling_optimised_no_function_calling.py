@@ -1,6 +1,7 @@
 from experiments.super_function_calling_experiment import BaseExperimentFunctionCalling
+from function_calling_setup.providers.base_provider import LLMProvider
 from prompting.prompting_strategies import PromptBuilder
-from function_calling_setup.chat_completion_no_function_calling_new import DialogueCompletionNoFunctionCallingNew, ResponseMode
+from function_calling_setup.dialogue_completion_no_function_calling import DialogueCompletionNoFunctionCalling, ResponseMode
 
 
 class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
@@ -8,26 +9,20 @@ class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
             self,
             test_files,
             demonstrations,
-            gpt_model,
+            provider: LLMProvider,
             experiment_dir,
             pred_file_name,
-            final_response_mode: ResponseMode
+            final_response_mode: ResponseMode,
     ):
         super().__init__(
             test_files,
             demonstrations,
             experiment_dir,
             pred_file_name,
-            gpt_model
+            provider,
+            dialogue_cls=DialogueCompletionNoFunctionCalling,
         )
 
-        self.gpt_model = gpt_model
-
-        self.dialogue = (
-            DialogueCompletionNoFunctionCallingNew(model=gpt_model, experiment_dir=experiment_dir)
-        )
-
-        self.pred_file_name = pred_file_name
         self.final_response_mode = final_response_mode
 
     @staticmethod
@@ -52,19 +47,13 @@ class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
     @staticmethod
     def add_task():
         prompt_builder = PromptBuilder()
-        prompt = (prompt_builder.add_task_without_tool_calling()
-                  .build_prompt())
+        prompt = prompt_builder.add_task_without_tool_calling().build_prompt()
         return prompt
 
     def run(self):
         prompt = self.generate_system_message()
         self.dialogue.add_system_prompt(prompt, self.pred_file_name, print_conversation=False)
-
-        prompt = (
-                self.add_input()
-                + "\n\n"
-                + self.add_task()
-        )
+        prompt = self.add_input() + "\n\n" + self.add_task()
 
         self.dialogue.prompt_assistant_response(
             prompt,
