@@ -8,6 +8,8 @@ from openai import OpenAI
 from evaluation.json_validation import JsonValidator
 from function_calling_setup.chat_file_writer import ChatFileWriter
 from function_calling_setup.function_calling import Message
+from function_calling_setup.providers.openai_provider import _get_reasoning_kwargs, OpenAIProvider
+from function_calling_setup.providers.provider_response import ProviderResponse, ToolCall
 from function_calling_setup.runtime_calculation import RuntimeCalculation
 from function_calling_setup.token_counting import TokenCounter
 from function_definition.base_function import BaseFunction
@@ -18,110 +20,54 @@ from function_calling_setup.retry_tracking import MAX_ATTEMPTS, RetryTracker
 
 load_dotenv()
 
-MODERN_REASONING_MODELS = {
-    "gpt-5.6-luna",
-    "gpt-5.6-terra",
-    "gpt-5.6-sol",
-}
-
-class ReasoningKwargs(TypedDict, total=False):
-    reasoning: Reasoning
-
 ToolChoiceMode = Literal["none", "auto", "required"]
 
 class DialogueCompletion:
 
     def __init__(self, model: str, experiment_dir, strict: bool = False):
         load_dotenv()
-        self.client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
-        self.model: str = model
-        self.message_history: List[Message] = []
+        self.provider = OpenAIProvider(model=model, strict=strict)
+        self.message_history: list[Message] = []
         self.chat_file_writer = ChatFileWriter(experiment_dir)
         self.function_call_result = None
-        self.token_counter = TokenCounter(self.model)
+        self.token_counter = TokenCounter(model)
         self.runtime_calculator = RuntimeCalculation()
-        self.strict = strict
         self.retry_tracker = RetryTracker()
-
-    def _get_reasoning_kwargs(self) -> ReasoningKwargs:
-        if self.model in MODERN_REASONING_MODELS:
-            return {"reasoning": {"effort": "none"}}
-
-        return {}
 
     def _request_response(
             self,
-            messages: List[Message],
-            functions: Optional[List[BaseFunction]] = None,
-            function_call: ToolChoiceMode = "auto",
-    ) -> Response:
+            messages: list[Message],
+            functions: list[BaseFunction] | None = None,
+    ) -> ProviderResponse:
 
-        try:
-            input_messages = self._messages_to_input(messages)
+        print(f"Input response content: {messages}")
 
-            print(f"Input response content: {input_messages}")
+        self.runtime_calculator.start()
 
-            self.runtime_calculator.start()
+        response = self.provider.request(
+            messages=messages,
+            tools=functions,
+        )
 
-            if functions:
-                tools: List[FunctionToolParam] = [
-                    self._get_responses_tool_definition(function) for function in functions
-                ]
+        self.runtime_calculator.end()
 
-                response = self.client.responses.create(
-                    model=self.model,
-                    input=input_messages,
-                    tools=tools,
-                    tool_choice=function_call,
-                    parallel_tool_calls=False,
-                    **self._get_reasoning_kwargs(),
-                )
-            else:
-                response = self.client.responses.create(
-                    model=self.model,
-                    input=input_messages,
-                    **self._get_reasoning_kwargs(),
-                )
+        print(
+            f"API call duration: "
+            f"{self.runtime_calculator.calculate_runtime():.2f} seconds"
+        )
 
-            self.runtime_calculator.end()
+        print(
+            f"Output response content: {response.text}"
+        )
 
-            print(
-                f"API call duration: "
-                f"{self.runtime_calculator.calculate_runtime():.2f} seconds"
-            )
+        self.token_counter.add_number_of_input_tokens(
+            response.input_tokens
+        )
+        self.token_counter.add_number_of_output_tokens(
+            response.output_tokens
+        )
 
-            print(f"Output response content: {response.output_text}")
-
-            if response.usage:
-                self.token_counter.add_number_of_input_tokens(
-                    response.usage.input_tokens
-                )
-                self.token_counter.add_number_of_output_tokens(
-                    response.usage.output_tokens
-                )
-
-            return response
-
-        except openai.APIConnectionError as e:
-            print("The server could not be reached")
-            print(e.__cause__)
-            raise
-
-        except openai.RateLimitError as e:
-            print("Rate limit has been exceeded.")
-            print(f"Exception: {e}")
-            raise
-
-        except openai.APIStatusError as e:
-            print("Another non-200-range status code was received")
-            print(e.status_code)
-            print(e.response)
-            raise
-
-        except openai.OpenAIError as e:
-            print("An unexpected API error occurred.")
-            print(f"Exception: {e}")
-            raise
+        return response
 
     def _append_message(self, message: Message):
         self.message_history.append(message)
@@ -151,20 +97,22 @@ class DialogueCompletion:
             messages: List[Message],
             tools: Optional[List[BaseFunction]] = None,
             validate=True,
-    ) -> Response:
+    ) -> ProviderResponse:
 
         if tools:
             self.retry_tracker.record_attempt()
 
-        response = self._request_response(messages=messages, functions=tools)
-        function_calls = [item for item in response.output if item.type == "function_call"]
+        response = self._request_response(
+            messages=messages,
+            functions=tools,
+        )
 
-        if function_calls:
+        if response.tool_calls:
             print("Function will be called.")
 
             result = self._perform_function_call(
                 response=response,
-                function_call=function_calls[0],
+                function_call=response.tool_calls[0],
                 tools=tools,
                 validate=validate,
             )
@@ -174,25 +122,28 @@ class DialogueCompletion:
             return result
 
         if tools:
-            raise ValueError("Expected a function call, but the model did not return one.")
+            raise ValueError(
+                "Expected a function call, "
+                "but the model did not return one."
+            )
 
         print("No function called.")
         return response
 
     def _perform_function_call(
             self,
-            response: Response,
-            function_call,
-            tools: List[BaseFunction],
-            validate=True,
-    ) -> Response:
+            response: ProviderResponse,
+            function_call: ToolCall,
+            tools: list[BaseFunction],
+            validate: bool = True,
+    ) -> ProviderResponse:
 
         function_name = function_call.name
-        function_parameters = json.loads(function_call.arguments)
+        function_parameters = function_call.arguments
 
         print(
             "These are the function call arguments:",
-            function_parameters
+            function_parameters,
         )
 
         function_object = next(
@@ -204,7 +155,7 @@ class DialogueCompletion:
             None,
         )
 
-        if not function_object:
+        if function_object is None:
             raise ValueError(
                 f"Unknown function requested: {function_name}"
             )
@@ -215,7 +166,7 @@ class DialogueCompletion:
 
         print(
             "This is the function call result",
-            self.function_call_result
+            self.function_call_result,
         )
 
         if validate:
@@ -225,59 +176,40 @@ class DialogueCompletion:
             )
 
             if not validation[0]:
-                message = (
-                        "JSON validation failed: "
-                        + validation[1]
-                )
-                raise ValidationError(message)
-
-        try:
-            self.runtime_calculator.start()
-
-            final_response = self.client.responses.create(
-                model=self.model,
-                previous_response_id=response.id,
-                input=[
-                    {
-                        "type": "function_call_output",
-                        "call_id": function_call.call_id,
-                        "output": json.dumps(
-                            self.function_call_result
-                        ),
-                    }
-                ],
-                **self._get_reasoning_kwargs(),
-            )
-
-            self.runtime_calculator.end()
-
-            print(
-                f"API call duration: "
-                f"{self.runtime_calculator.calculate_runtime():.2f} seconds"
-            )
-
-            if final_response.usage:
-                self.token_counter.add_number_of_input_tokens(
-                    final_response.usage.input_tokens
-                )
-                self.token_counter.add_number_of_output_tokens(
-                    final_response.usage.output_tokens
+                raise ValidationError(
+                    "JSON validation failed: " + validation[1]
                 )
 
-            return final_response
+        self.runtime_calculator.start()
 
-        except Exception as e:
-            print(type(e))
-            raise Exception(
-                "Chat response could not be generated."
-            ) from e
+        final_response = self.provider.submit_tool_result(
+            previous_response=response,
+            tool_call=function_call,
+            tool_result=self.function_call_result,
+        )
+
+        self.runtime_calculator.end()
+
+        print(
+            f"API call duration: "
+            f"{self.runtime_calculator.calculate_runtime():.2f} seconds"
+        )
+
+        self.token_counter.add_number_of_input_tokens(
+            final_response.input_tokens
+        )
+        self.token_counter.add_number_of_output_tokens(
+            final_response.output_tokens
+        )
+
+        return final_response
 
     def add_dynamic_prompting(self, filename, print_conversation=True):
         user_input = input("You: ")
         self._append_message(Message(role="user", content=user_input))
         response = self._execute_chat_completion_query(self.message_history)
         if response:
-            assistant_message = response.output_text
+            assistant_message = response.text
             self._append_message(Message(role="assistant", content=assistant_message))
             if print_conversation:
                 self._print_conversation()
@@ -306,7 +238,7 @@ class DialogueCompletion:
             validate=validate
         )
 
-        assistant_message = chat_response.output_text
+        assistant_message = chat_response.text
 
         self._append_message(Message("assistant", assistant_message))
         self.chat_file_writer.save_response(assistant_message, filename)
@@ -330,13 +262,3 @@ class DialogueCompletion:
             for function in functions:
                 function.flag_use_short_definition_true()
 
-    @staticmethod
-    def _messages_to_input(messages: List[Message]) -> List[EasyInputMessageParam]:
-        return [
-            cast(EasyInputMessageParam, {"role": message.role, "content": message.content})
-            for message in messages
-            if message.role in {"system", "user", "assistant"}
-        ]
-
-    def _get_responses_tool_definition(self, function: BaseFunction) -> FunctionToolParam:
-        return function.get_responses_tool_definition(strict=self.strict)
