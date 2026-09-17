@@ -4,6 +4,7 @@ from collections import defaultdict
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
+from visualisation.utils import format_model_name
 
 
 class ErrorTypePlot:
@@ -174,23 +175,8 @@ class ErrorTypePlot:
             ax.set_xlabel('Models')
             ax.set_ylabel('Total Fuzzy Error Count')
             ax.set_xticks(bar_positions)
-
-            truncated_model_names = [
-                re.sub(
-                    r'^model_(\w+):([a-zA-Z0-9\-.]+)-\d{4}-\d{2}-\d{2}.*',
-                    r'\2-\1',
-                    name
-                )
-                if ':' in name
-                else re.sub(
-                    r'^model_([a-zA-Z0-9\-.]+).*',
-                    r'\1',
-                    name,
-                )
-                for name in models
-            ]
-
-            ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
+            display_model_names = [format_model_name(model) for model in models]
+            ax.set_xticklabels(display_model_names, rotation=45, ha='right')
             ax.grid(True, linestyle='--', alpha=0.7, zorder=0)
             plt.tight_layout()
             output_dir = Path('output_plots_total_errors')

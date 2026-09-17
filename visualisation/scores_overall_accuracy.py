@@ -1,9 +1,9 @@
 import json
 import os
-import re
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
+from visualisation.utils import format_model_name
 
 
 class OverallAccuracy:
@@ -51,15 +51,8 @@ class OverallAccuracy:
         ax.set_xlabel('Models')
         ax.set_ylabel('Accuracy')
         ax.set_xticks(x)
-
-        truncated_model_names = [
-            re.sub(r'^model_(\w+):([a-zA-Z0-9\-.]+)-\d{4}-\d{2}-\d{2}.*', r'\2-\1', name)
-            if ':' in name else
-            re.sub(r'^model_([a-zA-Z0-9\-.]+).*', r'\1', name)
-            for name in model_names
-        ]
-
-        ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
+        display_model_names = [format_model_name(model) for model in model_names]
+        ax.set_xticklabels(display_model_names, rotation=45, ha='right')
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1))
         plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
         plt.ylim(0.0, 1.0)
@@ -72,3 +65,54 @@ class OverallAccuracy:
         )
 
         plt.close(fig)
+
+    @staticmethod
+    def plot_prompt_selection_comparison(scores_by_prompt, model_dirs):
+        prompt_names = list(scores_by_prompt.keys())
+
+        display_prompt_names = [
+            prompt_name
+            .replace("_", " ")
+            .replace("chain of thought", "Chain of thought")
+            .replace("all principles zero shot", "Zero-shot")
+            .replace("all principles few shot", "Few-shot")
+            .replace("no principles base prompt", "Base prompt")
+            for prompt_name in prompt_names
+        ]
+
+        display_model_names = [format_model_name(model) for model in model_dirs]
+
+        for score_type, ylabel in [("exact", "Exact Accuracy"), ("fuzzy", "Fuzzy Accuracy")]:
+            x = np.arange(len(prompt_names))
+            bar_width = 0.8 / len(model_dirs)
+            fig, ax = plt.subplots()
+
+            for model_index, model_dir in enumerate(model_dirs):
+                scores = [
+                    scores_by_prompt[prompt_name]
+                    .get(model_dir, {})
+                    .get(score_type, np.nan)
+                    for prompt_name in prompt_names
+                ]
+
+                offset = (model_index - (len(model_dirs) - 1) / 2) * bar_width
+                ax.bar(
+                    x + offset,
+                    scores,
+                    bar_width,
+                    label=display_model_names[model_index],
+                    zorder=3,
+                )
+
+            ax.set_xlabel("Prompt")
+            ax.set_ylabel(ylabel)
+            ax.set_xticks(x)
+            ax.set_xticklabels(display_prompt_names, rotation=25, ha="right")
+            ax.set_ylim(0.0, 1.0)
+            ax.legend()
+            ax.grid(True, axis="y", linestyle="--", alpha=0.7, zorder=0)
+            plt.tight_layout()
+            output_dir = Path("output_overall_plots")
+            output_dir.mkdir(parents=True, exist_ok=True)
+            plt.savefig(output_dir / f"prompt_selection_{score_type}_accuracy.png", bbox_inches="tight")
+            plt.close(fig)

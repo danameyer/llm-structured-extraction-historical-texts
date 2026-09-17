@@ -1,8 +1,8 @@
 import json
-import re
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
+from visualisation.utils import format_model_name
 
 
 class RuntimePlot:
@@ -57,14 +57,8 @@ class RuntimePlot:
         ax.set_ylabel('Runtime (seconds)')
         ax.set_xticks(x)
 
-        truncated_model_names = [
-            re.sub(r'^model_(\w+):([a-zA-Z0-9\-.]+)-\d{4}-\d{2}-\d{2}.*', r'\2-\1', name)
-            if ':' in name else
-            re.sub(r'^model_([a-zA-Z0-9\-.]+).*', r'\1', name)
-            for name in model_names
-        ]
-
-        ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
+        display_model_names = [format_model_name(model) for model in model_names]
+        ax.set_xticklabels(display_model_names, rotation=45, ha='right')
 
         if y_max_scale is not None:
             ax.set_ylim(0, y_max_scale)

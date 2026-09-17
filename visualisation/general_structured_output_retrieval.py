@@ -73,8 +73,11 @@ class GeneralStructuredOutputRetrieval:
 
         return labels.get(prompt, prompt.replace('_', ' '))
 
-    @staticmethod
-    def plot_successful_json_processings(successes_dict: Dict[str, int], y_max_scale: int | None = None) -> None:
+    def plot_successful_json_processings(
+            self,
+            successes_dict: Dict[str, int],
+            y_max_scale: int | None = None,
+    ) -> None:
         x = np.arange(len(successes_dict))
         bar_width = 0.35
         fig, ax = plt.subplots()
@@ -82,8 +85,7 @@ class GeneralStructuredOutputRetrieval:
         ax.set_xlabel('Structured Output Method')
         ax.set_ylabel('Successful Predictions')
         ax.set_xticks(x)
-
-        labels = [GeneralStructuredOutputRetrieval.format_prompt_label(prompt) for prompt in successes_dict]
+        labels = [self.format_prompt_label(prompt) for prompt in successes_dict]
         ax.set_xticklabels(labels, rotation=45, ha='right')
 
         if y_max_scale is not None:
@@ -91,18 +93,18 @@ class GeneralStructuredOutputRetrieval:
 
         ax.grid(True, linestyle='--', alpha=0.7, zorder=0)
         plt.tight_layout()
-        output_dir = Path('successful_json_processings')
+        output_dir = Path('successful_json_processings') / self.model
         output_dir.mkdir(parents=True, exist_ok=True)
         plt.savefig(output_dir / 'successful_json_processings.png', bbox_inches='tight')
         plt.close(fig)
 
-    @staticmethod
-    def plot_accuracy(accuracy_dict: Dict[str, Dict[str, float]]):
+    def plot_accuracy(self, accuracy_dict: Dict[str, Dict[str, float]]):
         x = np.arange(len(accuracy_dict))
         bar_width = 0.35
         exact_scores = [accuracy['exact_score'] for accuracy in accuracy_dict.values()]
         fuzzy_scores = [accuracy['fuzzy_score'] for accuracy in accuracy_dict.values()]
         fig, ax = plt.subplots()
+
         ax.bar(
             x - bar_width / 2,
             exact_scores,
@@ -110,6 +112,7 @@ class GeneralStructuredOutputRetrieval:
             label='Exact Accuracy',
             zorder=3,
         )
+
         ax.bar(
             x + bar_width / 2,
             fuzzy_scores,
@@ -117,20 +120,17 @@ class GeneralStructuredOutputRetrieval:
             label='Fuzzy Accuracy',
             zorder=3,
         )
+
         ax.set_xlabel('Structured Output Method')
         ax.set_ylabel('Accuracy')
         ax.set_xticks(x)
-
-        labels = [
-            GeneralStructuredOutputRetrieval.format_prompt_label(prompt) for prompt in accuracy_dict
-        ]
-
+        labels = [self.format_prompt_label(prompt) for prompt in accuracy_dict]
         ax.set_xticklabels(labels, rotation=45, ha='right')
-        ax.legend(loc='upper left', bbox_to_anchor=(1, 1))
+        ax.legend( loc='upper left', bbox_to_anchor=(1, 1))
         ax.grid(True, linestyle='--', alpha=0.7, zorder=0)
         ax.set_ylim(0.0, 1.0)
         plt.tight_layout()
-        output_dir = Path('mean_accuracy_different_processing_methods')
+        output_dir = Path('mean_accuracy_different_processing_methods') / self.model
         output_dir.mkdir(parents=True, exist_ok=True)
         plt.savefig(output_dir / 'overall_scores_different_processing_methods.png', bbox_inches='tight')
         plt.close(fig)

@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
+from visualisation.utils import format_model_name
 
 
 class PlotWithErrorBars:
@@ -71,8 +72,8 @@ class PlotWithErrorBars:
         ax.set_xlabel('Models')
         ax.set_ylabel('Accuracy')
         ax.set_xticks(x)
-        truncated_model_names = [name.replace("model_", "") for name in model_names]
-        ax.set_xticklabels(truncated_model_names, rotation=45, ha='right')
+        display_model_names = [format_model_name(model) for model in model_names]
+        ax.set_xticklabels(display_model_names, rotation=45, ha='right')
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1))
         plt.tight_layout()
         plt.grid(True, linestyle='--', alpha=0.7, zorder=0)
