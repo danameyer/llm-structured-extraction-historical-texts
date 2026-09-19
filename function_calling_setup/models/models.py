@@ -1,5 +1,5 @@
 from dataclasses import replace
-from function_calling_setup.model_config import ModelConfig
+from function_calling_setup.models.model_config import ModelConfig
 
 
 OPENAI_LUNA = ModelConfig(
@@ -32,7 +32,8 @@ QWEN_36_35B = ModelConfig(
 GPT_OSS_20B = ModelConfig(
     provider="ollama",
     model="gpt-oss:20b",
-    result_name="ollama_gpt-oss-20b"
+    result_name="ollama_gpt-oss-20b",
+    think="low"
 )
 
 GEMMA4_26B = ModelConfig(
@@ -55,21 +56,21 @@ OPENAI_MODELS = [
 
 PROMPT_SELECTION_MODELS = [
     OPENAI_LUNA,
-    # QWEN_36_35B  # add once OllamaProvider exists
+    QWEN_36_35B
 ]
 
 MAIN_COMPARISON_MODELS = [
     OPENAI_LUNA,
     OPENAI_TERRA,
-    # QWEN_36_35B,
-    # GPT_OSS_20B,
-    # GEMMA4_26B,
-    # MISTRAL_SMALL_32_24B
+    QWEN_36_35B,
+    GPT_OSS_20B,
+    GEMMA4_26B,
+    MISTRAL_SMALL_32_24B
 ]
 
 REPEATABILITY_MODELS = [
     OPENAI_LUNA,
-    # QWEN_36_35B
+    QWEN_36_35B
 ]
 
 OPENAI_LUNA_REASONING_BASELINE = replace(
@@ -90,7 +91,7 @@ QWEN_36_35B_REASONING_BASELINE = replace(
 
 QWEN_36_35B_REASONING_ENABLED = replace(
     QWEN_36_35B,
-    think=True
+    think="medium"
 )
 
 
@@ -107,31 +108,29 @@ GPT_OSS_20B_REASONING_ENABLED = replace(
 
 GEMMA4_26B_REASONING_BASELINE = replace(
     GEMMA4_26B,
-    think=False,
+    think=False
 )
 
 GEMMA4_26B_REASONING_ENABLED = replace(
     GEMMA4_26B,
-    think=True
+    think="medium"
 )
-
 
 REASONING_MODEL_PAIRS = [
     (
         OPENAI_LUNA_REASONING_BASELINE,
-        OPENAI_LUNA_REASONING_ENABLED,
+        OPENAI_LUNA_REASONING_ENABLED
     ),
-    # Uncomment once OllamaProvider is implemented:
-    # (
-    #     QWEN_36_35B_REASONING_BASELINE,
-    #     QWEN_36_35B_REASONING_ENABLED,
-    # ),
-    # (
-    #     GPT_OSS_20B_REASONING_BASELINE,
-    #     GPT_OSS_20B_REASONING_ENABLED,
-    # ),
-    # (
-    #     GEMMA4_26B_REASONING_BASELINE,
-    #     GEMMA4_26B_REASONING_ENABLED,
-    # ),
+    (
+        QWEN_36_35B_REASONING_BASELINE,
+        QWEN_36_35B_REASONING_ENABLED
+    ),
+    (
+        GPT_OSS_20B_REASONING_BASELINE,
+        GPT_OSS_20B_REASONING_ENABLED
+    ),
+    (
+        GEMMA4_26B_REASONING_BASELINE,
+        GEMMA4_26B_REASONING_ENABLED
+    )
 ]
