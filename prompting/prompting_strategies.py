@@ -27,8 +27,10 @@ class PromptBuilder:
 
     def add_base_prompt(self, file_paths):
         prompt = (
-                "Extract the persons and their relationships from the court document "
-                "and transfer the result to the required structured output by calling the provided tool.\n"
+                "Extract the persons and their relationships from the court "
+                "document and transfer the result to the required structured output "
+                "by calling the provided tool. Call the tool directly without producing "
+                "explanatory text before or after the tool call.\n"
                 "The court document is enclosed in <court_document> tags:\n"
                 + self.concatenate_files(file_paths, 'court_document')
         )
@@ -36,10 +38,10 @@ class PromptBuilder:
         return self
 
     def add_task(self):
-        prompt = (
-            "Extract the persons and their relationships from the court document "
-            "and transfer the result to the required structured output by calling the provided tool.\n"
-        )
+        prompt = ("Extract the persons and their relationships from the court document "
+        "and transfer the result to the required structured output by calling the provided tool. "
+        "Call the tool directly without producing explanatory text, analysis, or JSON "
+        "before or after the tool call.\n")
         self.prompting_strategies.append(prompt)
         return self
 
@@ -78,7 +80,7 @@ class PromptBuilder:
 
     def add_iterative_approach(self):
         prompt = (
-            "Read the instructions carefully and work through the extraction step by step.\n"
+            "Read the instructions carefully and perform the extraction according to them.\n"
         )
         self.prompting_strategies.append(prompt)
         return self
@@ -90,7 +92,7 @@ class PromptBuilder:
             "  \"person_list\": [\n"
             "    {\n"
             "      \"id\": ...,\n"
-            "      \"name\": \"...\",\n"
+            "      \"person_name\": \"...\",\n"
             "      \"cognomen\": \"...\",\n"
             "      \"profession\": \"...\",\n"
             "      \"family_relations\": [\n"
@@ -112,7 +114,7 @@ class PromptBuilder:
             "}\n\n"
             "Field definitions:\n"
             "* 'id': unique integer identifier for the person within the document.\n"
-            "* 'name': first name of the person.\n"
+            "* 'person_name': first name of the person.\n"
             "* 'cognomen': additional identifying name or byname.\n"
             "* 'profession': profession or occupation.\n"
             "* 'family_relations': family relationships of the person.\n"
@@ -130,6 +132,7 @@ class PromptBuilder:
             "While performing the extraction, follow these rules:\n"
             "* Extract only information supported by the source text. Do not infer missing information.\n"
             "* Assign every person a unique integer 'id' within the document.\n"
+            "* Use these IDs consistently in every 'related_person' field. Every non-null 'related_person' must refer to the 'id' of the intended person in the same 'person_list'.\n"
             "* Use \"\" for missing string values and [] when no family or legal relations are given.\n"
             "* Use null for 'related_person' only when a relation is explicit but the other person cannot be linked to an extracted person.\n"
             "* Convert clearly inflected Latin personal names to the nominative singular when the nominative form is unambiguous, for example 'Alexandrum' to 'Alexandrus' and 'Willelmum' to 'Willelmus'. If the nominative form is uncertain, preserve the source form.\n"
@@ -138,7 +141,7 @@ class PromptBuilder:
             "* Otherwise preserve the spelling used in the source apart from required nominative conversion and unambiguous OCR correction.\n"
             "* Correct obvious OCR errors, including truncated, split or misrecognized characters, only when the intended form is unambiguous; otherwise preserve the source form.\n"
             "* Do not translate names, cognomina, places, professions or titles. Use the specified Latin labels for 'relation_type'.\n"
-            "* Use only the first name in 'name'.\n"
+            "* Use only the first name in 'person_name'.\n"
             "* Use 'cognomen' for an additional identifying name or byname following the first name. "
             "Keep 'Le' or 'De' when they are part of the cognomen. "
             "A cognomen may also provide information represented separately as a profession or place of origin.\n"
