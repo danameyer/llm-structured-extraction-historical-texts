@@ -1,3 +1,4 @@
+import json
 from typing import Dict, List, Optional
 from jsons import ValidationError
 from tenacity import retry, stop_after_attempt, wait_random_exponential
@@ -7,7 +8,7 @@ from function_calling_setup.function_calling import Message
 from function_calling_setup.providers.provider_response import ProviderResponse, ToolCall
 from function_calling_setup.retry_tracking import MAX_ATTEMPTS, RetryTracker
 from function_calling_setup.runtime_calculation import RuntimeCalculation
-from function_calling_setup.token_counting import TokenCounter
+from function_calling_setup.models.token_counting import TokenCounter
 from function_definition.base_function import BaseFunction
 from function_calling_setup.providers.base_provider import LLMProvider
 
@@ -118,8 +119,7 @@ class DialogueCompletion:
 
         function_name = function_call.name
         function_parameters = function_call.arguments
-
-        print(f"These are the function call arguments:", function_parameters)
+        print("These are the function call arguments:", function_parameters)
 
         function_object = next(
             (
@@ -143,26 +143,7 @@ class DialogueCompletion:
             if not validation[0]:
                 raise ValidationError("JSON validation failed: " + validation[1])
 
-        self.runtime_calculator.start()
-
-        try:
-            final_response = self.provider.submit_tool_result(
-                messages=self.message_history,
-                previous_response=response,
-                tool_call=function_call,
-                tool_result=self.function_call_result,
-                tools=tools
-            )
-        finally:
-            self.runtime_calculator.end()
-
-        print(f"API call duration: {self.runtime_calculator.calculate_runtime():.2f} seconds")
-        print(f"Output response content after tool call: {final_response.text}")
-
-        self.token_counter.add_number_of_input_tokens(final_response.input_tokens)
-        self.token_counter.add_number_of_output_tokens(final_response.output_tokens)
-
-        return final_response
+        return response
 
     def prompt_assistant_response(
             self,
@@ -185,7 +166,11 @@ class DialogueCompletion:
             validate=validate
         )
 
-        assistant_message = chat_response.text
+        if function_list:
+            assistant_message = json.dumps(self.function_call_result, ensure_ascii=False, indent=2)
+        else:
+            assistant_message = chat_response.text
+
         self._append_message(Message("assistant", assistant_message))
         self.chat_file_writer.save_response(assistant_message, filename)
 
