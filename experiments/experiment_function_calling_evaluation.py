@@ -489,7 +489,7 @@ def _run_prompt_selection():
 
 
 def _run_structured_output_comparison():
-    sample_folder_name = "txt_files_main_evaluation"
+    sample_folder_name = "txt_files_prompt_selection"
 
     for prompt_name in COMMON_STRUCTURED_OUTPUT_PROMPTS:
         _run_models_for_prompt(
@@ -510,7 +510,7 @@ def _run_main_model_comparison():
     _run_models_for_prompt(
         models=MAIN_COMPARISON_MODELS,
         prompt_name=MAIN_COMPARISON_PROMPT,
-        sample_folder_name="txt_files_function_calling_evaluation",
+        sample_folder_name="txt_files_main_evaluation",
         result_group_name=MAIN_COMPARISON_RESULT_GROUP,
     )
 
@@ -558,7 +558,8 @@ def _openai_smoke_test():
                 model_config=model_config,
                 prompt_name=prompt_name,
                 sample_folder_name="txt_files_function_calling_evaluation",
-                max_files=2
+                max_files=2,
+                result_group_name=f"openai_smoke_{prompt_name}"
             )
 
 def _ollama_smoke_test():
