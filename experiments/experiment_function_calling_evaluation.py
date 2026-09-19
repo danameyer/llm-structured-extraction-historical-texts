@@ -11,15 +11,17 @@ from experiments.function_calling_no_principles_base_prompt import ExperimentFun
 from experiments.function_calling_optimised_no_function_calling import ExperimentOptimisedPromptNoFunctionCalling
 from experiments.function_calling_with_optimised_prompt import ExperimentFunctionCallingWithOptimisedPrompt
 from function_calling_setup.chat_file_writer import ChatFileWriter
-from function_calling_setup.model_config import ModelConfig
+from function_calling_setup.models.model_config import ModelConfig
 from dotenv import load_dotenv
-from function_calling_setup.models import (
+from function_calling_setup.models.models import (
     MAIN_COMPARISON_MODELS,
     OPENAI_MODELS,
     OPENAI_SMOKE_TEST,
     PROMPT_SELECTION_MODELS,
     REASONING_MODEL_PAIRS,
-    REPEATABILITY_MODELS,
+    REPEATABILITY_MODELS, QWEN_36_35B, QWEN_36_35B_REASONING_BASELINE, GPT_OSS_20B_REASONING_BASELINE,
+    GEMMA4_26B_REASONING_BASELINE, MISTRAL_SMALL_32_24B, QWEN_36_35B_REASONING_ENABLED, GPT_OSS_20B_REASONING_ENABLED,
+    GEMMA4_26B_REASONING_ENABLED
 )
 from function_calling_setup.providers.provider_factory import create_provider
 from experiments.experiment_config import (
@@ -542,17 +544,87 @@ def _run_repeatability():
         )
 
 
-def _smoke_test():
+def _openai_smoke_test():
+    prompt_names = [
+        "best_prompt_prompt_only_json",
+        "best_prompt_direct_structured_outputs",
+        "best_prompt_structured_outputs_disabled",
+        "best_prompt_structured_outputs_enabled",
+    ]
+
+    for model_config in OPENAI_MODELS:
+        for prompt_name in prompt_names:
+            _prepare_and_run_experiment(
+                model_config=model_config,
+                prompt_name=prompt_name,
+                sample_folder_name="txt_files_function_calling_evaluation",
+                max_files=2
+            )
+
+def _ollama_smoke_test():
+    baseline_models = [
+        QWEN_36_35B_REASONING_BASELINE,
+        GPT_OSS_20B_REASONING_BASELINE,
+        GEMMA4_26B_REASONING_BASELINE,
+        MISTRAL_SMALL_32_24B
+    ]
+
+    reasoning_models = [
+        QWEN_36_35B_REASONING_ENABLED,
+        GPT_OSS_20B_REASONING_ENABLED,
+        GEMMA4_26B_REASONING_ENABLED
+    ]
+
+    for model_config in baseline_models:
+        for prompt_name in COMMON_STRUCTURED_OUTPUT_PROMPTS:
+            _prepare_and_run_experiment(
+                model_config=model_config,
+                prompt_name=prompt_name,
+                sample_folder_name="txt_files_function_calling_evaluation",
+                max_files=1,
+                result_group_name=f"ollama_smoke_baseline_{prompt_name}"
+            )
+
+    for model_config in reasoning_models:
+        for prompt_name in COMMON_STRUCTURED_OUTPUT_PROMPTS:
+            _prepare_and_run_experiment(
+                model_config=model_config,
+                prompt_name=prompt_name,
+                sample_folder_name="txt_files_function_calling_evaluation",
+                max_files=1,
+                result_group_name=f"ollama_smoke_reasoning_{prompt_name}"
+            )
+
+def _mistral_tool_smoke_test():
     _prepare_and_run_experiment(
-        model_config=OPENAI_SMOKE_TEST,
-        prompt_name="best_prompt",
+        model_config=MISTRAL_SMALL_32_24B,
+        prompt_name="best_prompt_structured_outputs_disabled",
         sample_folder_name="txt_files_function_calling_evaluation",
-        max_files=2,
+        max_files=1,
+        result_group_name="ollama_smoke_mistral_tool_debug"
     )
+
+def _mistral_other_formats_smoke_test():
+    prompt_names = [
+        "best_prompt_prompt_only_json",
+        "best_prompt_direct_structured_outputs",
+    ]
+
+    for prompt_name in prompt_names:
+        _prepare_and_run_experiment(
+            model_config=MISTRAL_SMALL_32_24B,
+            prompt_name=prompt_name,
+            sample_folder_name="txt_files_function_calling_evaluation",
+            max_files=1,
+            result_group_name=f"ollama_smoke_mistral_{prompt_name}"
+        )
 
 
 if __name__ == "__main__":
-    _smoke_test()
+    # _openai_smoke_test()
+    # _ollama_smoke_test()
+    # _mistral_tool_smoke_test()
+    _mistral_other_formats_smoke_test()
 
     # _run_prompt_selection()
     # _run_structured_output_comparison()

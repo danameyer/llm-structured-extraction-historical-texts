@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from function_calling_setup.model_config import ModelConfig
+from function_calling_setup.models.model_config import ModelConfig
 
 PROMPT_SELECTION_PROMPTS = [
     "chain_of_thought",
