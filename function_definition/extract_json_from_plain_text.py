@@ -119,9 +119,9 @@ class ExtractJsonFromPlainText(BaseFunction):
                     property_type="integer",
                     description="Unique identifier for the person",
                 ),
-                "name": Property(
+                "person_name": Property(
                     property_type="string",
-                    description="Name of the person",
+                    description="First name of the person",
                 ),
                 "cognomen": Property(
                     property_type="string",
@@ -164,7 +164,7 @@ class ExtractJsonFromPlainText(BaseFunction):
             },
             required=[
                 "id",
-                "name",
+                "person_name",
                 "cognomen",
                 "profession",
                 "family_relations",
@@ -201,6 +201,18 @@ class ExtractJsonFromPlainText(BaseFunction):
             ),
         )
 
+    def get_internal_schema(self) -> dict:
+        schema = self.get_definition().function.parameters.to_schema()
+        person_schema = schema["properties"]["person_list"]["items"]
+        person_properties = person_schema["properties"]
+        person_properties["name"] = person_properties.pop("person_name")
+        person_schema["required"] = [
+            "name" if field == "person_name" else field
+            for field in person_schema["required"]
+        ]
+
+        return schema
+
     def run(self, **kwargs):
         properties = (
             self.get_definition()
@@ -215,6 +227,7 @@ class ExtractJsonFromPlainText(BaseFunction):
 
         for person in person_list:
             self.apply_default_values(properties, person)
+            person["name"] = person.pop("person_name")
 
         kwargs["person_list"] = person_list
 

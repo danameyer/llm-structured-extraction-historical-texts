@@ -5,13 +5,7 @@ from function_definition.extract_json_from_plain_text import ExtractJsonFromPlai
 class JsonValidator:
 
     def __init__(self):
-        self.json_schema = (
-            ExtractJsonFromPlainText()
-            .get_definition()
-            .function
-            .parameters
-            .to_schema()
-        )
+        self.json_schema = ExtractJsonFromPlainText().get_internal_schema()
 
     def validate_json(self, json_data):
         validator = Draft202012Validator(self.json_schema)
