@@ -8,7 +8,7 @@ from function_calling_setup.function_calling import Message
 from function_calling_setup.providers.base_provider import LLMProvider
 from function_calling_setup.providers.provider_response import ProviderResponse, ToolCall
 from function_definition.base_function import BaseFunction
-from function_calling_setup.model_config import ModelConfig
+from function_calling_setup.models.model_config import ModelConfig
 
 
 class OpenAIProvider(LLMProvider):
@@ -83,8 +83,8 @@ class OpenAIProvider(LLMProvider):
         }
 
         if tools:
-            request["tools"] = [self._get_tool_definition(function) for function in tools]
-            request["tool_choice"] = "auto"
+            request["tools"] = [ self._get_tool_definition(function) for function in tools]
+            request["tool_choice"] = "required"
             request["parallel_tool_calls"] = False
 
         if schema is not None:

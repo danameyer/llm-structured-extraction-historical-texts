@@ -13,6 +13,7 @@ class ToolCall:
 @dataclass
 class ProviderResponse:
     text: str = ""
+    reasoning: str = ""
     tool_calls: list[ToolCall] = field(default_factory=list)
     input_tokens: int = 0
     output_tokens: int = 0
