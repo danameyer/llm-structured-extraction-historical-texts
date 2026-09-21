@@ -3,7 +3,6 @@ from pathlib import Path
 from function_calling_setup.models.model_config import ModelConfig
 
 PROMPT_SELECTION_PROMPTS = [
-    "chain_of_thought",
     "all_principles_zero_shot",
     "all_principles_few_shot",
     "no_principles_base_prompt"

@@ -62,16 +62,7 @@ class ExperimentFunctionCallingEvaluation:
         strict = (self.prompt_experiment_name == "best_prompt_structured_outputs_enabled")
         provider = create_provider(config=self.model_config, strict=strict)
 
-        if self.prompt_experiment_name == "chain_of_thought":
-            return ExperimentFunctionCallingWithOptimisedPrompt(
-                test_files,
-                demonstrations_files,
-                provider,
-                self.experiment_dir,
-                pred_file_name,
-            )
-
-        elif self.prompt_experiment_name == "all_principles_zero_shot":
+        if self.prompt_experiment_name == "all_principles_zero_shot":
             return ExperimentAllPrinciplesZeroShotPrompt(
                 test_files,
                 demonstrations_files,
