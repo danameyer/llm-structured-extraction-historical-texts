@@ -54,6 +54,18 @@ class PromptBuilder:
         self.prompting_strategies.append(prompt)
         return self
 
+    def add_base_prompt_without_tool_calling(self, file_paths):
+        prompt = (
+                "Extract the persons and their relationships from the court "
+                "document and transfer the result to a JSON object matching the "
+                "provided output structure. Return only the JSON object, without "
+                "Markdown or additional text.\n"
+                "The court document is enclosed in <court_document> tags:\n"
+                + self.concatenate_files(file_paths, 'court_document')
+        )
+        self.prompting_strategies.append(prompt)
+        return self
+
     def add_input_text(self, file_paths):
         prompt = (
                 "Process the following court document, enclosed in <court_document> tags:\n" +

@@ -36,7 +36,7 @@ class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
 
     def add_input(self):
         prompt_builder = PromptBuilder()
-        prompt = (prompt_builder.add_input_text(self.test_files)
+        prompt = (prompt_builder.add_base_prompt_without_tool_calling(self.test_files)
                   .add_demonstrations(self.demonstrations)
                   .add_schema_information()
                   .add_constraints()
@@ -44,16 +44,10 @@ class ExperimentOptimisedPromptNoFunctionCalling(BaseExperimentFunctionCalling):
                   .build_prompt())
         return prompt
 
-    @staticmethod
-    def add_task():
-        prompt_builder = PromptBuilder()
-        prompt = prompt_builder.add_task_without_tool_calling().build_prompt()
-        return prompt
-
     def run(self):
         prompt = self.generate_system_message()
         self.dialogue.add_system_prompt(prompt, self.pred_file_name, print_conversation=False)
-        prompt = self.add_input() + "\n\n" + self.add_task()
+        prompt = self.add_input()
 
         self.dialogue.prompt_assistant_response(
             prompt,

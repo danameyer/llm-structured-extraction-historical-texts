@@ -616,10 +616,10 @@ if __name__ == "__main__":
     # _openai_smoke_test()
     # _ollama_smoke_test()
     # _mistral_tool_smoke_test()
-    _mistral_other_formats_smoke_test()
+    # _mistral_other_formats_smoke_test()
 
     # _run_prompt_selection()
-    # _run_structured_output_comparison()
+    _run_structured_output_comparison()
     # _run_main_model_comparison()
     # _run_reasoning_comparison()
     # _run_repeatability()
