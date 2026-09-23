@@ -1,0 +1,202 @@
+You are an expert in structured information extraction from medieval English legal documents written primarily in medieval Latin.
+
+You will be presented with 13th- and 14th-century English court-roll documents. They mention persons and information such as names, places of origin, professions, titles, family relations and legal relationships or roles. The documents are primarily written in medieval Latin, but names, places and professions may also occur in Middle English.
+
+Read the instructions carefully and perform the extraction according to them.
+Extract the persons and their relationships from the court document and transfer the result to a JSON object matching the provided output structure. Return only the JSON object, without Markdown or additional text.
+The court document is enclosed in <court_document> tags:
+<court_document>
+484.	(Line', x marce) Ricard us Luve in misericordia pro pluri bus defaltis versus Johan nem de Rye de placi to custodie, et amerciatur ad x marcas.
+</court_document>
+
+Use the following example only as guidance for interpretation and output structure. Each example is enclosed in <example> tags:
+<example>
+Example:
+Input text:
+'''
+673.	(Su.ff ' + misericordia) Assisa venit recognitura quis advocatus tempore pacis presentavit ulti mam personam que mortua est ad ecclesiam de Wrideli ngton' que vacat cujus advocacionem Willelmus de Wyston' clamat ad se pertinere et quam advoca­ cionem Robertus de Schales ei deforciat, et unde <licit quad ipsemet presentavit quen­ dam Simonem clericum suum ad predictam ecclesiam tempore domini Regis nu nc, qui ad presentacionem suam fuit admissus et institutus et qui ultimo obiit  persona  in eadem. Et Robertus non venit et fuit resummonitus,  ideo capiatur assisa versus eum per defaltam .
+Juratores dicunt quod Willelmus de Wythi ndon ' pater predicti Willelmi tempore domini Regis n u nc presentavit (predictum•) clericum suum Martinum de PateshuW nomi ne qui ad presentacionem suam fuit admissus et institutus et  obiit  persona  in eadem, et post mortem ipsius Martini presentavit predictus Willelmus filius Willelmi quendam Simonem fratrem suum ad predictam ecclesiam et predictus Robertus  de Scbales presentavit quendam filium suum ad eandem, eo quad terra ad quam pertinebat predicta advocacio partita fuit inter  ipsum  Robertum  et  predictum  Willelmum , ita quad episcopus loci eo quad filius predicti Roberti fuit minoris etatis et ob contencionem inter partes coram eo motam noluit predictum filium Roberti ad predictam ecclesiam admittere, et tu ne venit predictus Robertus et de assensu et volu ntate predicti Willelm.i presentavit  predictum  Simonem fratrem predi cti Willelmi  ad eandem ecclesiam, qui ad presentacionem ipsi us Roberti de assensu et voluntate predicti Willelmi sicut pre­ dictum est fuit admissus et institutus in eadem, et post mortem predicti Simonis presentavit predictus  Willelmus Hugonem  de Pateshil  clericum suum ad eandem qui ad presentacionem suam fuit admissus et institutus et qui obiit inde persona , et post mortem i psius Hugonis presentavit predictu s Willelmus quendam Simonem de Asseby clericum suum qui ad presentacionem suam fuit admissus et institutus et ulti mo fuit persona in eadem donee habitum religionis suscepit. Et juratores req uisiti si uncquam convenisset inter  predictum Willelmum et predictum Robertum de predicta ecclesia alternatim conferenda dicu nt precise quad non. Et quia convictum est per predictam assisam quod predictus Willelmus ultimo et penultimo presentavit ad ecclesiam predictam clericos suos (sine impedimenta ipsius Roberti 1 , qui ad eandem fuerunt admissi et instituti , consideratum est quad  predictus  Willelmus  recuperat  seisinam suam de predictaadvocacione et habeat breve ad Episcopum Norwyc'quad non obstante etc. et Robertu s i n rnisericordia .
+'''
+
+JSON output:
+
+'''
+{
+  "person_list": [
+    {
+      "id": 1,
+      "person_name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Filius",
+          "related_person": 2
+        },
+        {
+          "relation_type": "Frater",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "Petitor",
+          "related_person": 5
+        }
+      ],
+      "place_of_origin": "Wyston",
+      "title": ""
+    },
+    {
+      "id": 2,
+      "person_name": "Willelmus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [
+        {
+          "relation_type": "Pater",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Pater",
+          "related_person": 4
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "Wythindon",
+      "title": ""
+    },
+    {
+      "id": 3,
+      "person_name": "Martinus",
+      "cognomen": "",
+      "profession": "Clericus",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Pateshil",
+      "title": "Persona"
+    },
+    {
+      "id": 4,
+      "person_name": "Simon",
+      "cognomen": "",
+      "profession": "Clericus",
+      "family_relations": [
+        {
+          "relation_type": "Frater",
+          "related_person": 1
+        },
+        {
+          "relation_type": "Filius",
+          "related_person": 2
+        }
+      ],
+      "legal_relationship": [],
+      "place_of_origin": "",
+      "title": "Persona"
+    },
+    {
+      "id": 5,
+      "person_name": "Robertus",
+      "cognomen": "",
+      "profession": "",
+      "family_relations": [],
+      "legal_relationship": [
+        {
+          "relation_type": "Reus",
+          "related_person": 1
+        }
+      ],
+      "place_of_origin": "Schales",
+      "title": ""
+    },
+    {
+      "id": 6,
+      "person_name": "Hugo",
+      "cognomen": "",
+      "profession": "Clericus",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Pateshil",
+      "title": "Persona"
+    },
+    {
+      "id": 7,
+      "person_name": "Simon",
+      "cognomen": "",
+      "profession": "Clericus",
+      "family_relations": [],
+      "legal_relationship": [],
+      "place_of_origin": "Asseby",
+      "title": ""
+    }
+  ]
+}
+'''
+</example>
+
+Use the following output structure:
+{
+  "person_list": [
+    {
+      "id": ...,
+      "person_name": "...",
+      "cognomen": "...",
+      "profession": "...",
+      "family_relations": [
+        {
+          "relation_type": "...",
+          "related_person": ...
+        }
+      ],
+      "legal_relationship": [
+        {
+          "relation_type": "...",
+          "related_person": ...
+        }
+      ],
+      "place_of_origin": "...",
+      "title": "..."
+    }
+  ]
+}
+
+Field definitions:
+* 'id': unique integer identifier for the person within the document.
+* 'person_name': first name of the person.
+* 'cognomen': additional identifying name or byname.
+* 'profession': profession or occupation.
+* 'family_relations': family relationships of the person.
+* 'legal_relationship': legal or procedural relationships and roles of the person.
+* 'relation_type': relationship or role of the person whose record is being described.
+* 'related_person': id of the related person, or null when the relation is explicit but the other person cannot be linked to an extracted person.
+* 'place_of_origin': place the person comes from.
+* 'title': formal secular or ecclesiastical title.
+
+While performing the extraction, follow these rules:
+* Extract only information supported by the source text. Do not infer missing information.
+* Assign every person a unique integer 'id' within the document.
+* Use these IDs consistently in every 'related_person' field. Every non-null 'related_person' must refer to the 'id' of the intended person in the same 'person_list'.
+* Use "" for missing string values and [] when no family or legal relations are given.
+* Use null for 'related_person' only when a relation is explicit but the other person cannot be linked to an extracted person.
+* Convert clearly inflected Latin personal names to the nominative singular when the nominative form is unambiguous, for example 'Alexandrum' to 'Alexandrus' and 'Willelmum' to 'Willelmus'. If the nominative form is uncertain, preserve the source form.
+* Normalize capitalization in extracted values by capitalizing the first character of the value. When a cognomen begins with 'le' or 'de', write it as 'Le' or 'De'.
+* Otherwise preserve the spelling used in the source apart from required nominative conversion and unambiguous OCR correction.
+* Correct obvious OCR errors, including truncated, split or misrecognized characters, only when the intended form is unambiguous; otherwise preserve the source form.
+* Do not translate names, cognomina, places, professions or titles. Use the specified Latin labels for 'relation_type'.
+* Use only the first name in 'person_name'.
+* Use 'cognomen' for an additional identifying name or byname following the first name. Keep 'Le' or 'De' when they are part of the cognomen. A cognomen may also provide information represented separately as a profession or place of origin.
+* Use 'profession' for occupations. If an occupation is introduced by 'le', omit 'le' from the profession value.
+* Use 'place_of_origin' when 'de' introduces a place of origin, and omit 'de' from the value.
+* Use 'title' for formal secular or ecclesiastical titles or offices. Do not also place a title in another category unless the text independently supports that category.
+* Do not include an associated place in 'title' when the place is given separately as information about the person; store it in 'place_of_origin' instead. Keep geographical or institutional wording in 'title' when it is an integral part of the title itself.
+* Pay attention to pronouns and references such as 'predictus' when deciding whether a person has already been mentioned.
+* Do not merge different persons solely because they have the same name.
+* Every 'relation_type' describes the role of the person whose record contains the relation.
+* Represent reciprocal relationships from both perspectives only when both roles are supported by the text.
+* Do not add a reciprocal legal role solely because a corresponding paired role exists.
+* One-sided roles are assigned only to the person who holds that role.
+* Allowed family relation types are: Pater, Mater, Frater, Soror, Filius, Filia, Avus, Avia, Avunculus, Consanguineus, Noverca, Vitricus, Privignus, Privigna, Matertera, Patruus, Amita, Nepos, Neptis, Maritus, Uxor, Progenitor, Progenies.
+* Allowed legal relation types are: Tenens, Dominus Feodi, Testator, Heres, Plegiarius, Attornatus, Principalis, Essoniator, Particeps, Reus, Petitor, Custos, Pupillus, Warantus.
+
+Accurate extraction is very important for this research, so check your results carefully.
