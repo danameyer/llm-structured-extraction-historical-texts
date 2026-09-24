@@ -11,7 +11,7 @@ from visualisation.scores_error_types import ErrorTypePlot
 from visualisation.scores_for_exclude_paths import ExcludePathsPlot
 from visualisation.scores_overall_accuracy import OverallAccuracy
 from visualisation.plot_reasoning import ReasoningPlot
-from function_calling_setup.models import (
+from function_calling_setup.models.models import (
     MAIN_COMPARISON_MODELS,
     OPENAI_MODELS,
     PROMPT_SELECTION_MODELS,
@@ -226,6 +226,21 @@ def plot_repeated_run_accuracy(results_directory):
 
 def plot_exclusion_scores(results_directory):
     ExcludePathsPlot.extract_and_plot_all(results_directory)
+    model_dirs = get_available_model_dirs(
+        results_directory,
+        MAIN_COMPARISON_RESULT_GROUP,
+        MAIN_COMPARISON_MODELS
+    )
+
+    if not model_dirs:
+        return
+
+    models_directory = results_directory / MAIN_COMPARISON_RESULT_GROUP
+    ExcludePathsPlot.extract_and_plot_aggregate(
+        models_directory=models_directory,
+        model_dirs=model_dirs,
+        experiment_name=MAIN_COMPARISON_RESULT_GROUP
+    )
 
 
 def plot_fuzzy_score_distributions(results_directory):
