@@ -13,8 +13,7 @@ COMMON_STRUCTURED_OUTPUT_PROMPTS = [
     "best_prompt_structured_outputs_disabled"
 ]
 OPENAI_ONLY_STRUCTURED_OUTPUT_PROMPTS = ["best_prompt_structured_outputs_enabled"]
-MAIN_COMPARISON_PROMPT = "best_prompt_structured_outputs_disabled" # TODO: change if necessary
-
+MAIN_COMPARISON_PROMPT = "best_prompt_direct_structured_outputs"
 REASONING_BASELINE_RESULT_GROUP = "reasoning_baseline"
 REASONING_ENABLED_RESULT_GROUP = "reasoning_enabled"
 REASONING_SAMPLE_FOLDER = "txt_files_reasoning_evaluation"
